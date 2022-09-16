@@ -1,6 +1,7 @@
 (module config.plugin.lspconfiglsp
   {autoload {nvim aniseed.nvim
              lsp lspconfig
+             tb telescope.builtin
              util lspconfig.util
              cmplsp cmp_nvim_lsp
              wk which-key
@@ -76,16 +77,15 @@
                   vim.lsp.handlers.signature_help
                   {:border "single"})}
       capabilities (cmplsp.update_capabilities (vim.lsp.protocol.make_client_capabilities))
-      bindings {:g {:d [fzf.lsp_definitions "Go to definition"]
-                    :r [fzf.lsp_references "LSP rerefences"]
-                    :t [fzf.typedefs "Type definition"]}
+      bindings {:g {:d [tb.lsp_definitions "Go to definition"]
+                    :r [tb.lsp_references "LSP rerefences"]
+                    :t [tb.lsp_type_definitions "Type definition"]}
                 :<leader> { :l {:r [vim.lsp.buf.rename "Rename"]
-                                :a [fzf.lsp_code_actions "Code actions"]
-                                :s [fzf.lsp_document_symbols "Document symbols"]
-                                :S [fzf.lsp_live_workspace_symbols "Workspace symbols"]
+                                :a [vim.lsp.buf.code_action "Code actions"]
+                                :s [tb.lsp_document_symbols "Document symbols"]
+                                :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
                                 :f [vim.lsp.buf.formatting "Format buffer"]
-                                :d [fzf.diagnostics_document "Document diagnostics"]
-                                :D [fzf.diagnostics_workspace "Workspace diagnostics"]
+                                :d [tb.diagnostics "Document diagnostics"]
                                 :R [":LspRestart<cr>" "Restart LSP"]}}
                 :<localleader> {:E [":ConjureEvalMotion<cr>" "Eval motion"]}
                 :K [vim.lsp.buf.hover "Hover doc"]}

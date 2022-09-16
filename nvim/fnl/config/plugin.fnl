@@ -49,9 +49,11 @@
   ;; :Xuyuanp/nerdtree-git-plugin {}
 
   ; file searching
+  :nvim-telescope/telescope-fzf-native.nvim {:run :make}
   :nvim-telescope/telescope.nvim {:requires [:nvim-telescope/telescope-ui-select.nvim
                                              :nvim-lua/popup.nvim
-                                             :nvim-lua/plenary.nvim]
+                                             :nvim-lua/plenary.nvim
+                                             :nvim-telescope/telescope-fzf-native.nvim]
                                   :mod :telescope}
 
   ; commeting code
