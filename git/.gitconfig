@@ -1,0 +1,32 @@
+[user]
+  name = Artem Medeu
+  email = artem.medeusheyev@gmail.com
+
+[color]
+  diff   = auto
+  status = auto
+  branch = auto
+
+[alias]
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  di = diff
+  plog = log --pretty=format:'%h %Cblue%cn %Creset%cr %Cgreen%s'
+
+[core]
+  whitespace = trailing-space, space-before-tab, cr-at-eol
+
+[filter "lfs"]
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+
+[pull]
+  rebase = false
+
+[diff]
+  external = difft
+

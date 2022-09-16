@@ -1,0 +1,14 @@
+{:mvn/repos
+ {"central" {:url "https://repo1.maven.org/maven2/"}
+  "ICM" {:url "http://maven.icm.edu.pl/artifactory/repo/"}
+  "clojars" {:url "https://repo.clojars.org/"}
+  "sonatype" {:url "https://repository.sonatype.org/content/groups/forge/"}}
+
+ :aliases
+ {:portal {:extra-deps {djblue/portal {:mvn/version  "0.30.0"}}}
+
+  :cider {:extra-deps {nrepl/nrepl {:mvn/version "1.0.0"}
+                       cider/cider-nrepl {:mvn/version "0.28.5"}}
+          :main-opts ["-m" "nrepl.cmdline" 
+                      "--middleware" "[cider.nrepl/cider-middleware]"]}}}
+
