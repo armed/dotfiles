@@ -58,20 +58,31 @@
   :numToStr/Comment.nvim {:mod :comment}
 
   ; multicursor selector
-  :mg979/vim-visual-multi {}
+  ;; :mg979/vim-visual-multi {}
   ; text alignment
-  :junegunn/vim-easy-align {:mod :easy-align}
+  ;; :junegunn/vim-easy-align {:mod :easy-align}
   ; sexp
   :guns/vim-sexp {:mod :sexp}
+  :radenling/vim-dispatch-neovim {}
   :tpope/vim-sexp-mappings-for-regular-people {}
   :kylechui/nvim-surround {:mod :surround}
+  :tpope/vim-abolish {}
+  :tpope/vim-commentary {}
+  :tpope/vim-dispatch {}
+  :tpope/vim-eunuch {}
   :tpope/vim-repeat {}
+  :tpope/vim-sleuth {}
+  :tpope/vim-surround {}
+  :tpope/vim-unimpaired {}
+  :tpope/vim-vinegar {} 
+  
   ; repl tools
   :Olical/conjure {:branch :develop
                    :mod :conjure
                    :requires [:guns/vim-sexp
                               :tpope/vim-sexp-mappings-for-regular-people
-                              :kylechui/nvim-surround]}
+                              ;; :kylechui/nvim-surround
+                              ]}
 
   ; git helper
   :lewis6991/gitsigns.nvim {:mod :gitsigns}
@@ -85,7 +96,7 @@
                                     :mod :treesitter}
 
   ; snippets
-  :L3MON4D3/LuaSnip {:requires [:saadparwaiz1/cmp_luasnip]}
+  ;; :L3MON4D3/LuaSnip {:requires [:saadparwaiz1/cmp_luasnip]}
 
   ; lsp
   :neovim/nvim-lspconfig {:mod :lspconfig 

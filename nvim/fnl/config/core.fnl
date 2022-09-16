@@ -5,7 +5,8 @@
 
 ;refresh changed content
 (nvim.ex.autocmd "FocusGained,BufEnter" "*" ":checktime")
-
+(set nvim.o.cursorline true)
+(set nvim.o.cursorcolumn true)
 ;don't wrap lines
 (nvim.ex.set :nowrap)
 
