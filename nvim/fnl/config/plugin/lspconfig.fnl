@@ -83,7 +83,10 @@
                                 :a [fzf.lsp_code_actions "Code actions"]
                                 :s [fzf.lsp_document_symbols "Document symbols"]
                                 :S [fzf.lsp_live_workspace_symbols "Workspace symbols"]
-                                :f [vim.lsp.buf.formatting "Format buffer"]}}
+                                :f [vim.lsp.buf.formatting "Format buffer"]
+                                :d [fzf.diagnostics_document "Document diagnostics"]
+                                :D [fzf.diagnostics_workspace "Workspace diagnostics"]
+                                :R [":LspRestart<cr>" "Restart LSP"]}}
                 :<localleader> {:E [":ConjureEvalMotion<cr>" "Eval motion"]}
                 :K [vim.lsp.buf.hover "Hover doc"]}
       on_attach (fn [client bufnr]
