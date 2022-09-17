@@ -31,7 +31,7 @@
 
 (local keys {:f [tb.find_files "Find files"]
              :s {:name "Search for"
-                 :p [telescope.extensions.zoxide.list "Recent dirs"]
+                 :z [telescope.extensions.zoxide.list "Recent dirs"]
                  :g [tb.live_grep "Live grep"]
                  :b [tb.buffers "Buffers"]
                  :r [tb.oldfiles "Recent files"]}})
