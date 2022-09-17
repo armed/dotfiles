@@ -38,7 +38,7 @@
   :folke/tokyonight.nvim {}
   :navarasu/onedark.nvim {:mod :onedark}
   :rebelot/kanagawa.nvim {}
-  
+
   ; icons
   :ryanoasis/vim-devicons {}
   :kyazdani42/nvim-web-devicons {}
@@ -51,9 +51,6 @@
   :nvim-lualine/lualine.nvim {:mod :lualine
                               :require [:kyazdani42/nvim-web-devicons]}
 
-  ; file exploration
-  ;; :preservim/nerdtree {:mod :nerdtree}
-  ;; :Xuyuanp/nerdtree-git-plugin {}
 
   ; file searching
   :nvim-telescope/telescope-fzf-native.nvim {:run :make}
@@ -105,9 +102,6 @@
   :nvim-treesitter/nvim-treesitter {:run ":TSUpdate"
                                     :mod :treesitter}
 
-  ; snippets
-  ;; :L3MON4D3/LuaSnip {:requires [:saadparwaiz1/cmp_luasnip]}
-
   ; lsp
   :neovim/nvim-lspconfig {:mod :lspconfig 
                           :requires [:ibhagwan/fzf-lua]}
@@ -127,7 +121,7 @@
 
   ; hop
   :phaazon/hop.nvim {:mod :hop :branch "v2"}
- 
+
   ; nvim-tree
   :kyazdani42/nvim-tree.lua {:mod :nvim-tree
                              :requires [:kyazdani42/nvim-web-devicons]})
