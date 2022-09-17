@@ -41,7 +41,8 @@
                     (conjure-eval (.. "(tap> " form ")")))})	
 (local llopts {:prefix :<localleader>})
 (local portal-mappings
-  {:p {:name :Portal
+  {:E [":ConjureEvalMotion<cr>" "Eval motion"]
+   :p {:name :Portal
        :p [portal-cmds.open "Portal open"]
        :c [portal-cmds.clear "Portal clear"]
        :e [portal-cmds.last_exception "Tap last exception"]

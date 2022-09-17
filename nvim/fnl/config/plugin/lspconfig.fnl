@@ -87,7 +87,6 @@
                                 :f [vim.lsp.buf.formatting "Format buffer"]
                                 :d [tb.diagnostics "Document diagnostics"]
                                 :R [":LspRestart<cr>" "Restart LSP"]}}
-                :<localleader> {:E [":ConjureEvalMotion<cr>" "Eval motion"]}
                 :K [vim.lsp.buf.hover "Hover doc"]}
       on_attach (fn [client bufnr]
                   (setup-document-highlight client bufnr)
