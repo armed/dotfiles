@@ -30,6 +30,9 @@
   ; nvim config and plugins in Fennel
   :Olical/aniseed {:branch :develop}
 
+  ;; git
+  :TimUntersberger/neogit {:mod :neogit
+                           :requires [:nvim-lua/plenary.nvim]}
   ; theme
   ;; :Shatur/neovim-ayu {:mod :ayu}
   :navarasu/onedark.nvim {:mod :onedark}
@@ -52,6 +55,7 @@
   :nvim-telescope/telescope-fzf-native.nvim {:run :make}
   :nvim-telescope/telescope.nvim {:requires [:nvim-telescope/telescope-ui-select.nvim
                                              :nvim-lua/popup.nvim
+                                             :jvgrootveld/telescope-zoxide
                                              :nvim-lua/plenary.nvim
                                              :nvim-telescope/telescope-fzf-native.nvim]
                                   :mod :telescope}
@@ -77,7 +81,7 @@
   :tpope/vim-surround {}
   :tpope/vim-unimpaired {}
   :tpope/vim-vinegar {} 
-  
+
   ; repl tools
   :Olical/conjure {:branch :develop
                    :mod :conjure
@@ -119,8 +123,7 @@
 
   ; hop
   :phaazon/hop.nvim {:mod :hop :branch "v2"}
-
+ 
   ; nvim-tree
   :kyazdani42/nvim-tree.lua {:mod :nvim-tree
-                             :requires [:kyazdani42/nvim-web-devicons]}
-  )
+                             :requires [:kyazdani42/nvim-web-devicons]})
