@@ -5,4 +5,3 @@
 (onedark.setup
   {:style :darker})
 
-(nvim.ex.colorscheme "onedark")

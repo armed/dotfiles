@@ -8,9 +8,10 @@
 (set nvim.o.cursorline true)
 (set nvim.o.cursorcolumn false)
 
+;; (nvim.ex.colorscheme "")
 ;don't wrap lines
 (nvim.ex.set :nowrap)
-
+;; (set nvim.o.termguicolors true)
 (let [options
       {:encoding "utf-8"
        :scrolloff 5

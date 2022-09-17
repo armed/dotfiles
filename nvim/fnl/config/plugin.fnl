@@ -33,9 +33,13 @@
   ;; git
   :TimUntersberger/neogit {:mod :neogit
                            :requires [:nvim-lua/plenary.nvim]}
-  ; theme
+  ; themes
   ;; :Shatur/neovim-ayu {:mod :ayu}
+  :folke/tokyonight.nvim {}
   :navarasu/onedark.nvim {:mod :onedark}
+  :rebelot/kanagawa.nvim {}
+  
+  ; icons
   :ryanoasis/vim-devicons {}
   :kyazdani42/nvim-web-devicons {}
   ;; fzf
