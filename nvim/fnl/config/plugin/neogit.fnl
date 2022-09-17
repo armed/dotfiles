@@ -5,4 +5,4 @@
 
 (neogit.setup {})
 
-(wk.register {:g [neogit.open "Neogit"]} {:prefir :<leader>})
+(wk.register {:g [neogit.open "Neogit"]} {:prefix :<leader>})
