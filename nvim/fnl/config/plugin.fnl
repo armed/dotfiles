@@ -51,6 +51,11 @@
   :nvim-lualine/lualine.nvim {:mod :lualine
                               :require [:kyazdani42/nvim-web-devicons]}
 
+  ; clip
+  :AckslD/nvim-neoclip.lua 
+  {:mod :neoclip
+   :requires [:nvim-telescope/telescope.nvim
+              {1 :kkharji/sqlite.lua :module :sqlite}]}
 
   ; file searching
   :nvim-telescope/telescope-fzf-native.nvim {:run :make}
