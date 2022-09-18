@@ -31,7 +31,7 @@
     (pcall nvim.get_autocmds
            {:group group :buffer bufnr :event hl-events}))
 
-  (when (not (and ok (> (length hl-autocmds) 0)))
+  (when (and ok (= (length hl-autocmds) 0))
     (nvim.create_augroup group {:clear false})
     (nvim.create_autocmd :CursorHold
                          {:group group
@@ -48,7 +48,7 @@
 
 (defn setup-document-highlight [client bufnr]
   (let [(status-ok highlight-supported) 
-        (pcall (fn [] (client.supports_method :textDocument/documentHighlight)))]
+        (pcall #(client.supports_method :textDocument/documentHighlight))]
     (when (and status-ok highlight-supported)
       (create-hl-group bufnr))))	
 
@@ -80,13 +80,13 @@
       bindings {:g {:d [tb.lsp_definitions "Go to definition"]
                     :r [tb.lsp_references "LSP rerefences"]
                     :t [tb.lsp_type_definitions "Type definition"]}
-                :<leader> { :l {:r [vim.lsp.buf.rename "Rename"]
-                                :a [vim.lsp.buf.code_action "Code actions"]
-                                :s [tb.lsp_document_symbols "Document symbols"]
-                                :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
-                                :f [vim.lsp.buf.formatting "Format buffer"]
-                                :d [tb.diagnostics "Document diagnostics"]
-                                :R [":LspRestart<cr>" "Restart LSP"]}}
+                :<leader> {:l {:r [vim.lsp.buf.rename "Rename"]
+                               :a [vim.lsp.buf.code_action "Code actions"]
+                               :s [tb.lsp_document_symbols "Document symbols"]
+                               :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
+                               :f [vim.lsp.buf.formatting "Format buffer"]
+                               :d [tb.diagnostics "Document diagnostics"]
+                               :R [":LspRestart<cr>" "Restart LSP"]}}
                 :K [vim.lsp.buf.hover "Hover doc"]}
       on_attach (fn [client bufnr]
                   (setup-document-highlight client bufnr)
