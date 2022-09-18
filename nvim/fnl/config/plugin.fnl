@@ -32,7 +32,8 @@
 
   ;; git
   :TimUntersberger/neogit {:mod :neogit
-                           :requires [:nvim-lua/plenary.nvim]}
+                           :requires [:nvim-lua/plenary.nvim
+                                      :sindrets/diffview.nvim]}
   ; toggleterm
   :akinsho/toggleterm.nvim {:mod :toggleterm}
   ; themes

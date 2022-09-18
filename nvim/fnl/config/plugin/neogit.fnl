@@ -3,6 +3,8 @@
              wk which-key
              neogit neogit}})
 
-(neogit.setup {})
+(neogit.setup {:integrations {:diffview true}
+               :signs {:section ["" ""]
+                       :item ["" ""]}})
 
 (wk.register {:g [neogit.open "Neogit"]} {:prefix :<leader>})
