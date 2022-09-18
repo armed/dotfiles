@@ -24,8 +24,11 @@
 (nvim.set_keymap :n :<C-j> :<C-w>j {:noremap true})
 (nvim.set_keymap :n :<C-k> :<C-w>k {:noremap true})
 (nvim.set_keymap :n :<C-l> :<C-w>l {:noremap true})
+
 (nvim.set_keymap :n :<A-Up> "<cmd>resize -2<CR>" {:noremap true})
 (nvim.set_keymap :n :<A-Down> "<cmd>resize +2<CR>" {:noremap true})
 (nvim.set_keymap :n :<A-Right> "<cmd>vertical resize -2<CR>" {:noremap true})
 (nvim.set_keymap :n :<A-Left> "<cmd>vertical resize +2<CR>" {:noremap true})
 
+(wk.register {:q [":bd<cr>" "Close buffer"]}
+             {:prefix :<leader>})
