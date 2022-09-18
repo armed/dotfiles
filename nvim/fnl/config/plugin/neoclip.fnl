@@ -2,7 +2,6 @@
   {autoload {nvim aniseed.nvim
              a aniseed.core
              neoclip neoclip
-             nz neoclip.fzf
              wk which-key}})
 
 (fn whitespace? [line]
@@ -14,7 +13,9 @@
                      (whitespace? t)))
                tbl.event.regcontents)))
 
-(neoclip.setup {:filter omit-onwanted 
+(neoclip.setup {:filter omit-onwanted
+                :continuous_sync true
+                :enable_persistent_history true
                 :keys {:telescope {:i {:paste_behind :<C-S-p>}}}})
 
 (local keys {:c [":Telescope neoclip initial_mode=nomal<cr>" "Neoclip"]})
