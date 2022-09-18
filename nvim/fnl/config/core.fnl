@@ -8,6 +8,14 @@
 (set nvim.o.cursorline true)
 (set nvim.o.cursorcolumn false)
 
+(local hl-yank (nvim.create_augroup :hl-yank {}))
+(nvim.create_autocmd 
+  "TextYankPost"
+  {:pattern "*"
+   :callback #(vim.highlight.on_yank {:higroup :IncSearch
+                                      :timeout 150})
+   :group hl-yank})
+
 ;; (nvim.ex.colorscheme "")
 ;don't wrap lines
 (nvim.ex.set :nowrap)
