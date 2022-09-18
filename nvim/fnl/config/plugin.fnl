@@ -33,6 +33,8 @@
   ;; git
   :TimUntersberger/neogit {:mod :neogit
                            :requires [:nvim-lua/plenary.nvim]}
+  ; toggleterm
+  :akinsho/toggleterm.nvim {:mod :toggleterm}
   ; themes
   ;; :Shatur/neovim-ayu {:mod :ayu}
   :folke/tokyonight.nvim {}
