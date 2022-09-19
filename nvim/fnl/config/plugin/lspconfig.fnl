@@ -1,4 +1,4 @@
-(module config.plugin.lspconfiglsp
+(module config.plugin.lspconfig
   {autoload {nvim aniseed.nvim
              lsp lspconfig
              tb telescope.builtin
@@ -25,26 +25,25 @@
   (define-signs "LspDiagnostics"))
 
 (defn create-hl-group [bufnr]
-  (local group :lsp_document_highlight)
-  (local hl-events [:CursorHold :CursorHoldI])
-  (local (ok hl-autocmds)
-    (pcall nvim.get_autocmds
-           {:group group :buffer bufnr :event hl-events}))
-
-  (when (and ok (= (length hl-autocmds) 0))
-    (nvim.create_augroup group {:clear false})
-    (nvim.create_autocmd :CursorHold
-                         {:group group
-                          :buffer bufnr
-                          :callback vim.lsp.buf.document_highlight})
-    (nvim.create_autocmd :CursorHoldI
-                         {:group group
-                          :buffer bufnr
-                          :callback vim.lsp.buf.document_highlight})
-    (nvim.create_autocmd :CursorMoved
-                         {:group group
-                          :buffer bufnr
-                          :callback vim.lsp.buf.clear_references})))
+  (let [group :lsp_document_highlight
+        hl-events [:CursorHold :CursorHoldI]
+        (ok _) (pcall nvim.get_autocmds {:group group 
+                                         :buffer bufnr
+                                         :event hl-events})]
+    (when (not ok)
+      (nvim.create_augroup group {:clear false})
+      (nvim.create_autocmd :CursorHold
+                           {:group group
+                            :buffer bufnr
+                            :callback vim.lsp.buf.document_highlight})
+      (nvim.create_autocmd :CursorHoldI
+                           {:group group
+                            :buffer bufnr
+                            :callback vim.lsp.buf.document_highlight})
+      (nvim.create_autocmd :CursorMoved
+                           {:group group
+                            :buffer bufnr
+                            :callback vim.lsp.buf.clear_references}))))
 
 (defn setup-document-highlight [client bufnr]
   (let [(status-ok highlight-supported) 
@@ -58,7 +57,29 @@
                       :buffer 1 
                       :event [:CursorHold :CursorHoldI]})
   
-  (create-hl-group 12))
+  (create-hl-group 1)
+  
+  (let [group :lsp_document_highlight1
+        hl-events [:CursorHold :CursorHoldI]
+        bufnr 1]
+    (let [(ok hl-autocmds) (pcall nvim.get_autocmds {:group group 
+                                                     :buffer bufnr
+                                                     :event hl-events})]
+      [ok hl-autocmds])
+    ;; (nvim.create_augroup group {:clear false})
+    ;; (nvim.create_autocmd :CursorHold
+    ;;                      {:group group
+    ;;                       :buffer bufnr
+    ;;                       :callback vim.lsp.buf.document_highlight})
+    ;; (nvim.create_autocmd :CursorHoldI
+    ;;                      {:group group
+    ;;                       :buffer bufnr
+    ;;                       :callback vim.lsp.buf.document_highlight})
+    ;; (nvim.create_autocmd :CursorMoved
+    ;;                      {:group group
+    ;;                       :buffer bufnr
+    ;;                       :callback vim.lsp.buf.clear_references})
+    ))
 
 (let [handlers {"textDocument/publishDiagnostics"
                 (vim.lsp.with
