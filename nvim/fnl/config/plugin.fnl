@@ -4,10 +4,11 @@
              util config.util
              packer packer}})
 
+(packer.init {:snapshot_path (.. (os.getenv "HOME") "/.config/nvim/packer.nvim")})
 ;plugins managed by packer
 (def plugins
   {; plugin Manager
-   :wbthomason/packer.nvim {:mod :packer}
+   :wbthomason/packer.nvim {}
    ; nvim config and plugins in Fennel
    :Olical/aniseed {:branch :develop}
 
