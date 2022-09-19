@@ -49,7 +49,7 @@
   (let [(status-ok highlight-supported) 
         (pcall #(client.supports_method :textDocument/documentHighlight))]
     (when (and status-ok highlight-supported)
-      (create-hl-group bufnr))))	
+      (create-hl-group bufnr))))
 
 (comment 
   vim.lsp
@@ -81,34 +81,20 @@
     ;;                       :callback vim.lsp.buf.clear_references})
     ))
 
-(let [handlers {"textDocument/publishDiagnostics"
-                (vim.lsp.with
-                  vim.lsp.diagnostic.on_publish_diagnostics
-                  {:virtual_text false
-                   :signs true
-                   :underline true
-                   :update_in_insert false
-                   :severity_sort false})
-                "textDocument/hover"
-                (vim.lsp.with
-                  vim.lsp.handlers.hover
-                  {:border "single"})
-                "textDocument/signatureHelp"
-                (vim.lsp.with
-                  vim.lsp.handlers.signature_help
-                  {:border "single"})}
-      capabilities (cmplsp.update_capabilities (vim.lsp.protocol.make_client_capabilities))
-      bindings {:g {:d [tb.lsp_definitions "Go to definition"]
-                    :r [tb.lsp_references "LSP rerefences"]
-                    :t [tb.lsp_type_definitions "Type definition"]}
-                :<leader> {:l {:r [vim.lsp.buf.rename "Rename"]
-                               :a [vim.lsp.buf.code_action "Code actions"]
-                               :s [tb.lsp_document_symbols "Document symbols"]
-                               :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
-                               :f [vim.lsp.buf.formatting "Format buffer"]
-                               :d [tb.diagnostics "Document diagnostics"]
-                               :R [":LspRestart<cr>" "Restart LSP"]}}
-                :K [vim.lsp.buf.hover "Hover doc"]}
+(let [capabilities (cmplsp.update_capabilities
+                     (vim.lsp.protocol.make_client_capabilities))
+      bindings 
+      {:g {:d [tb.lsp_definitions "Go to definition"]
+           :r [tb.lsp_references "LSP rerefences"]
+           :t [tb.lsp_type_definitions "Type definition"]}
+       :<leader> {:l {:r [vim.lsp.buf.rename "Rename"]
+                      :a [vim.lsp.buf.code_action "Code actions"]
+                      :s [tb.lsp_document_symbols "Document symbols"]
+                      :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
+                      :f [vim.lsp.buf.formatting "Format buffer"]
+                      :d [tb.diagnostics "Document diagnostics"]
+                      :R [":LspRestart<cr>" "Restart LSP"]}}
+       :K [vim.lsp.buf.hover "Hover doc"]}
       on_attach (fn [client bufnr]
                   (setup-document-highlight client bufnr)
                   (wk.register bindings {:noremap true
@@ -117,7 +103,6 @@
   ;; Clojure
   (lsp.clojure_lsp.setup {:on_attach on_attach
                           :cmd ["/usr/local/bin/clojure-lsp"]
-                          ;; :handlers handlers
                           :capabilities capabilities})
 
   ;; JavaScript and TypeScript
@@ -139,10 +124,4 @@
   (lsp.jsonls.setup {:on_attach on_attach
                      ;; :handlers handlers
                      :capabilities capabilities
-                     :cmd ["vscode-json-languageserver" "--stdio"]})
-
-  ;; Rust
-  (lsp.rust_analyzer.setup {:on_attach on_attach
-                            ;; :handlers handlers
-                            :capabilities capabilities
-                            :cmd ["rustup" "run" "nightly" "rust-analyzer"]}))
+                     :cmd ["vscode-json-languageserver" "--stdio"]}))
