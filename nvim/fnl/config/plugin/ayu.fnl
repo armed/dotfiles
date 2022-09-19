@@ -42,5 +42,3 @@
    :overrides 
    {:NvimTreeIndentMarker {:fg (. colors :comment)}}})
 
-
-(ayu.colorscheme false)	

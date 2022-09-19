@@ -45,7 +45,8 @@
 
 (defn packer-snapshot [?label]
   (let [name (.. (or ?label (os.time)) :.json)]
-    (packer.snapshot name)))
+    (packer.snapshot name)
+    name))
 
 (defn custom-packer-snapshot []
   (let [sn (nvim.fn.input "Snapshot label: ")]

@@ -1,25 +1,20 @@
 (module config.plugin.cmp
   {autoload {nvim aniseed.nvim
-             cmp cmp
-             luasnip luasnip}})
+             cmp cmp}})
 
 (def- cmp-src-menu-items
   {:buffer "buff"
    :calc "calc"
    :conjure "conj"
    :nvim_lsp "lsp"
-   :path "path"
-   :vsnip "vsnp"
-   :luasnip "lsnp"})
+   :path "path"})
 
 (def- cmp-srcs
   [{:name :nvim_lsp}
    {:name :conjure}
-   {:name :luasnip}
    {:name :buffer}
    {:name :path}
    {:name :nvim_lua}
-   {:name :vsnip}
    {:name :calc}])
 
 ;; Setup cmp with desired settings

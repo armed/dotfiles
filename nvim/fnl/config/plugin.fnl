@@ -19,7 +19,7 @@
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
-   ;; :Shatur/neovim-ayu {:mod :ayu}
+   :Shatur/neovim-ayu {:mod :ayu}
    :folke/tokyonight.nvim {}
    :navarasu/onedark.nvim {:mod :onedark}
    :rebelot/kanagawa.nvim {}
@@ -63,15 +63,15 @@
    :radenling/vim-dispatch-neovim {}
    :tpope/vim-sexp-mappings-for-regular-people {}
    :kylechui/nvim-surround {:mod :surround}
-   :tpope/vim-abolish {}
-   :tpope/vim-commentary {}
+   ;; :tpope/vim-abolish {}
+   ;; :tpope/vim-commentary {}
    :tpope/vim-dispatch {}
-   :tpope/vim-eunuch {}
-   :tpope/vim-repeat {}
-   :tpope/vim-sleuth {}
-   :tpope/vim-surround {}
-   :tpope/vim-unimpaired {}
-   :tpope/vim-vinegar {} 
+   ;; :tpope/vim-eunuch {}
+   ;; :tpope/vim-repeat {}
+   ;; :tpope/vim-sleuth {}
+   ;; :tpope/vim-surround {}
+   ;; :tpope/vim-unimpaired {}
+   ;; :tpope/vim-vinegar {} 
 
    ; repl tools
    :Olical/conjure {:branch :develop
