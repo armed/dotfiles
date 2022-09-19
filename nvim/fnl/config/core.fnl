@@ -7,7 +7,7 @@
 (nvim.ex.autocmd "FocusGained,BufEnter" "*" ":checktime")
 (set nvim.o.cursorline true)
 (set nvim.o.cursorcolumn false)
-
+(set nvim.g.winfixheight true) 
 (local hl-yank (nvim.create_augroup :hl-yank {}))
 (nvim.create_autocmd 
   "TextYankPost"
