@@ -1,5 +1,7 @@
 (module config.mapping
   {autoload {nvim aniseed.nvim
+             packer packer
+             util config.util
              wk which-key}})
 
 ;generic mapping leaders configuration
@@ -30,5 +32,10 @@
 (nvim.set_keymap :n :<A-Right> "<cmd>vertical resize -2<CR>" {:noremap true})
 (nvim.set_keymap :n :<A-Left> "<cmd>vertical resize +2<CR>" {:noremap true})
 
-(wk.register {:q [":bd<cr>" "Close buffer"]}
+(wk.register {:p {:name "Packer"
+                  :l [util.packer-snapshot "Make time labeled snapshot"]
+                  :t [#(util.packer-snapshot :stable) "Make a snapshot"]
+                  :T [util.custom-packer-snapshot "Make custom snapsot"]
+                  :s [packer.sync "Sync"]}
+              :q [":bd<cr>" "Close buffer"]}
              {:prefix :<leader>})
