@@ -27,10 +27,10 @@
 (defn create-hl-group [bufnr]
   (let [group :lsp_document_highlight
         hl-events [:CursorHold :CursorHoldI]
-        (ok _) (pcall nvim.get_autocmds {:group group 
-                                         :buffer bufnr
-                                         :event hl-events})]
-    (when (not ok)
+        (ok hl-autocmds) (pcall nvim.get_autocmds {:group group 
+                                                   :buffer bufnr
+                                                   :event hl-events})]
+    (when (or (not ok) (= (length hl-autocmds) 0))
       (nvim.create_augroup group {:clear false})
       (nvim.create_autocmd :CursorHold
                            {:group group
@@ -54,7 +54,7 @@
 (comment 
   vim.lsp
   (nvim.get_autocmds {:group :lsp_document_highlight 
-                      :buffer 1 
+                      :buffer 9 
                       :event [:CursorHold :CursorHoldI]})
   
   (create-hl-group 1)
