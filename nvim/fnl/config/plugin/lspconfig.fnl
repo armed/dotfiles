@@ -91,7 +91,7 @@
                       :a [vim.lsp.buf.code_action "Code actions"]
                       :s [tb.lsp_document_symbols "Document symbols"]
                       :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
-                      :f [vim.lsp.buf.formatting "Format buffer"]
+                      :f [vim.lsp.buf.format "Format buffer"]
                       :d [tb.diagnostics "Document diagnostics"]
                       :R [":LspRestart<cr>" "Restart LSP"]}}
        :K [vim.lsp.buf.hover "Hover doc"]}
