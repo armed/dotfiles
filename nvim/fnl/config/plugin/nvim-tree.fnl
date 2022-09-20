@@ -6,10 +6,13 @@
 
 (nvim-tree.setup 
   {:sync_root_with_cwd true
-   :respect_buf_cwd true
+   :respect_buf_cwd false
    :update_focused_file {:enable true 
-                         :update_root true}
+                         :update_root false}
+   :view {:signcolumn "yes"
+          :preserve_window_proportions true}
    :renderer {:indent_markers {:enable true}
+              :highlight_git true
               :icons {:git_placement :signcolumn
                       :glyphs {:git {:unstaged "✗"
                                      :staged "✓"
