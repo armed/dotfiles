@@ -3,7 +3,7 @@
              lualine lualine
              lsp config.plugin.lspconfig}})
 
-(local colors {:bg "#202328"
+(local colors {:bg "#030015"
                :fg "#bbc2cf"
                :yellow "#ECBE7B"
                :cyan "#008080"
@@ -26,6 +26,7 @@
 (local config
   {:options {:component_separators ""
              :section_separators ""
+             :globalstatus true
              :theme {:normal {:c {:fg colors.fg :bg colors.bg}}
                      :inactive {:c {:fg colors.fg :bg colors.bg}}}}
    :sections {:lualine_a {}
