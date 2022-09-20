@@ -18,6 +18,6 @@
                 :enable_persistent_history true
                 :keys {:telescope {:i {:paste_behind :<C-S-p>}}}})
 
-(local keys {:c [":Telescope neoclip initial_mode=nomal<cr>" "Neoclip"]})
+(local keys {:c [":Telescope neoclip initial_mode=normal<cr>" "Neoclip"]})
 (wk.register keys {:prefix :<leader>})
 
