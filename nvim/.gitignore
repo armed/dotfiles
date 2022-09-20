@@ -1,3 +1,5 @@
 /lua/
 /plugin/
 fnl/config/local.fnl
+packer.nvim/*.json
+!packer.nvim/stable.json
