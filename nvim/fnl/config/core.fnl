@@ -8,6 +8,9 @@
 (set nvim.o.cursorline true)
 (set nvim.o.cursorcolumn false)
 (set nvim.g.winfixheight true) 
+(set nvim.g.winfixwidth true) 
+(set nvim.g.equalalways false) 
+
 (local hl-yank (nvim.create_augroup :hl-yank {}))
 (nvim.create_autocmd 
   "TextYankPost"
