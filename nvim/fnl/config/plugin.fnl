@@ -108,8 +108,9 @@
                                  :PaterJason/cmp-conjure]
                       :mod :cmp}
 
-   ; colorizer
-   :norcalli/nvim-colorizer.lua {:mod :colorizer}
+   ; color
+   :uga-rosa/ccc.nvim {:mod :ccc}
+   ;; :norcalli/nvim-colorizer.lua {:mod :colorizer}
 
    ; hop
    :phaazon/hop.nvim {:mod :hop :branch "v2"}
