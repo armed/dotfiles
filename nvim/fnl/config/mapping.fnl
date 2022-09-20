@@ -37,5 +37,6 @@
                   :t [#(util.packer-snapshot :stable) "Make a snapshot"]
                   :T [util.custom-packer-snapshot "Make custom snapsot"]
                   :s [packer.sync "Sync"]}
-              :q [":bd<cr>" "Close buffer"]}
+              :x [:<cmd>xa<cr> "Save and exit"]
+              :q [:<c-w>q "Close window"]}
              {:prefix :<leader>})
