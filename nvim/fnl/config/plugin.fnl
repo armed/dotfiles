@@ -18,11 +18,14 @@
                                        :sindrets/diffview.nvim]}
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
+
+   ; session
+   :olimorris/persisted.nvim {:mod :session}
    ; themes
-   :Shatur/neovim-ayu {:mod :ayu}
+   :levouh/tint.nvim {:mod :theme}
+   :EdenEast/nightfox.nvim {:mod :theme}
    :folke/tokyonight.nvim {}
-   :navarasu/onedark.nvim {:mod :onedark}
-   :rebelot/kanagawa.nvim {}
+   :rebelot/kanagawa.nvim {:mod :theme}
 
    ; icons
    :ryanoasis/vim-devicons {}
@@ -31,10 +34,11 @@
    :ibhagwan/fzf-lua {:mod :fzf
                       :requires [:kyazdani42/nvim-web-devicons]}
    ;; autosave
-   :pocco81/auto-save.nvim {:mod :autosave}
+   :pocco81/auto-save.nvim {:mod :autosave :branch :dev}
    ; status line
-   :nvim-lualine/lualine.nvim {:mod :lualine
-                               :require [:kyazdani42/nvim-web-devicons]}
+   :beauwilliams/statusline.lua {:mod :statusline}
+   ;; :nvim-lualine/lualine.nvim {:mod :lualine
+   ;;                             :require [:kyazdani42/nvim-web-devicons]}
 
    ; clip
    :AckslD/nvim-neoclip.lua 

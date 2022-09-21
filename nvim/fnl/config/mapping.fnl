@@ -22,10 +22,13 @@
 ;escape from terminal normal mode
 (nvim.set_keymap :t :<esc><esc> "<c-\\><c-n>" {:noremap true})
 
-(nvim.set_keymap :n :<C-h> :<C-w>h {:noremap true})
+(nvim.set_keymap :n :<C-h> :<C-w>W {:noremap true})
 (nvim.set_keymap :n :<C-j> :<C-w>j {:noremap true})
 (nvim.set_keymap :n :<C-k> :<C-w>k {:noremap true})
-(nvim.set_keymap :n :<C-l> :<C-w>l {:noremap true})
+(nvim.set_keymap :n :<C-l> :<C-w>w {:noremap true})
+
+(nvim.set_keymap :n :H :<cmd>tabprev<cr> {:noremap true})
+(nvim.set_keymap :n :L :<cmd>tabnext<cr> {:noremap true})
 
 (nvim.set_keymap :n :<A-Up> "<cmd>resize -2<CR>" {:noremap true})
 (nvim.set_keymap :n :<A-Down> "<cmd>resize +2<CR>" {:noremap true})
