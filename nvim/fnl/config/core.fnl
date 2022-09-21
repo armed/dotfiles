@@ -5,12 +5,6 @@
 
 ;refresh changed content
 (nvim.ex.autocmd "FocusGained,BufEnter" "*" ":checktime")
-;; (set nvim.o.cursorline true)
-;; (set nvim.o.cursorcolumn false)
-;; (set nvim.o.winfixheight true) 
-;; (set nvim.o.winfixwidth true) 
-;; (set nvim.o.equalalways false) 
-;; (set nvim.o.cmdheight 0) 
 
 (local hl-yank (nvim.create_augroup :hl-yank {}))
 (nvim.create_autocmd 
@@ -20,14 +14,15 @@
                                       :timeout 150})
    :group hl-yank})
 
-;; (nvim.ex.colorscheme "")
 ;don't wrap lines
 (nvim.ex.set :nowrap)
 
 (let [options
-      {:cmdheight 0
+      {:cmdheight 1
+       :laststatus 3
        :cursorline true
-       :equalalways false
+       :equalalways true
+       :winfixheight true
        :encoding "utf-8"
        :scrolloff 5
        ;; :spelllang "en_us"
