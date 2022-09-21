@@ -3,7 +3,7 @@
              utils auto-save.utils.data}})
 
 (as.setup
-  {:execution_message {:message nil}
+  {:execution_message {:message (fn [] "")}
    :condition (fn [buf]
                 (let [vfn vim.fn]
                   (and (= (vfn.getbufvar buf :&modifiable) 1)
