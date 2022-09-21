@@ -22,7 +22,7 @@
    ; session
    :olimorris/persisted.nvim {:mod :session}
    ; themes
-   :levouh/tint.nvim {:mod :theme}
+   ;; :levouh/tint.nvim {:mod :theme}
    :EdenEast/nightfox.nvim {:mod :theme}
    :folke/tokyonight.nvim {}
    :rebelot/kanagawa.nvim {:mod :theme}

@@ -16,7 +16,5 @@
 (telescope.load_extension "persisted")
 
 
-(local keys {:S {:name "Session"
-                 :s [session.save "Save"]
-                 :l ["<cmd>Telescope persisted<cr>" "Load"]}})
+(local keys {:S ["<cmd>Telescope persisted<cr>" "Session Load"]})
 (wk.register keys {:prefix :<leader>})
