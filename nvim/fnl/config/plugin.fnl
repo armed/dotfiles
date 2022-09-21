@@ -23,6 +23,7 @@
    :olimorris/persisted.nvim {:mod :session}
    ; themes
    ;; :levouh/tint.nvim {:mod :theme}
+   :navarasu/onedark.nvim {}
    :EdenEast/nightfox.nvim {:mod :theme}
    :folke/tokyonight.nvim {}
    :rebelot/kanagawa.nvim {:mod :theme}

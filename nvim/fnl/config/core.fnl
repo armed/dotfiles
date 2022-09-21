@@ -33,7 +33,7 @@
        :swapfile false
        :showmode false
        ;; hl autogroup
-       :updatetime 400
+       :updatetime 200
        :timeoutlen 200
        ;show line numbers
        :number true

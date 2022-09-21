@@ -1,8 +1,8 @@
 (module config.plugin.theme
   {autoload {core aniseed.core
              nvim aniseed.nvim
-             ;; tint tint
              kanagawa kanagawa
+             onedark onedark
              nightfox nightfox}})
 
 (kanagawa.setup
@@ -12,4 +12,5 @@
 (nightfox.setup
   {:options {:dim_inactive true}})
 
-;; (tint.setup {})
+(onedark.setup
+  {:style :darker})
