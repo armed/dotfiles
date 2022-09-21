@@ -2,7 +2,7 @@
   {autoload {nvim aniseed.nvim
              nvim-tree nvim-tree}})
 
-(nvim.set_keymap :n :<leader>e "<cmd>NvimTreeToggle<CR>" {:noremap true})
+(nvim.set_keymap :n :<leader>e ":NvimTreeToggle<CR>" {:noremap true})
 
 (nvim-tree.setup 
   {:sync_root_with_cwd true
