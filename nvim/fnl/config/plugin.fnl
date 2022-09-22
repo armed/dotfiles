@@ -13,7 +13,7 @@
    :Olical/aniseed {:branch :develop}
 
    ; toggleterm
-   ;; :akinsho/toggleterm.nvim {:mod :toggleterm}
+   :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
    :RRethy/nvim-base16 {}
    ;; :marko-cerovac/material.nvim {}
