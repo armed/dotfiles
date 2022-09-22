@@ -36,6 +36,8 @@
                   :l [util.packer-snapshot "Make time labeled snapshot"]
                   :t [#(util.packer-snapshot :stable) "Make a snapshot"]
                   :T [util.custom-packer-snapshot "Make custom snapsot"]
+                  :i [packer.install "Install"]
+                  :c [packer.clean "Clean"]
                   :s [packer.sync "Sync"]}
               :x [:<cmd>xa<cr> "Save and exit"]
               :q [:<c-w>q "Close window"]}
