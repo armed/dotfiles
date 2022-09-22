@@ -15,9 +15,12 @@
    ; toggleterm
    ;; :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
-   ;; :Shatur/neovim-ayu {:mod :ayu}
+   :RRethy/nvim-base16 {}
+   ;; :marko-cerovac/material.nvim {}
+   ;; :martinsione/darkplus.nvim {}
    ;; :folke/tokyonight.nvim {}
-   :navarasu/onedark.nvim {:mod :onedark}
+   ;; :levouh/tint.nvim {:mod :tint}
+   ;; :navarasu/onedark.nvim {:mod :onedark}
    ;; :rebelot/kanagawa.nvim {}
 
    ; icons
