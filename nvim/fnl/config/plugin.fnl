@@ -12,10 +12,6 @@
    ; nvim config and plugins in Fennel
    :Olical/aniseed {:branch :develop}
 
-   ;; git
-   :TimUntersberger/neogit {:mod :neogit
-                            :requires [:nvim-lua/plenary.nvim
-                                       :sindrets/diffview.nvim]}
    ; toggleterm
    ;; :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
