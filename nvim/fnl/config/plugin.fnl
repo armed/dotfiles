@@ -12,6 +12,8 @@
    ; nvim config and plugins in Fennel
    :Olical/aniseed {:branch :develop}
 
+   ;; session
+   :rmagatti/auto-session {:mod :session}
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
