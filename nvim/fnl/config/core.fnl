@@ -5,11 +5,6 @@
 
 ;refresh changed content
 (nvim.ex.autocmd "FocusGained,BufEnter" "*" ":checktime")
-(set nvim.o.cursorline true)
-(set nvim.o.cursorcolumn false)
-(set nvim.o.winfixheight true) 
-(set nvim.o.winfixwidth true) 
-(set nvim.o.equalalways false) 
 ;; (set nvim.o.cmdheight 0) 
 
 (local hl-yank (nvim.create_augroup :hl-yank {}))
@@ -20,12 +15,16 @@
                                       :timeout 150})
    :group hl-yank})
 
-;; (nvim.ex.colorscheme "")
 ;don't wrap lines
-(nvim.ex.set :nowrap)
+;; (nvim.ex.set :nowrap)
 
 (let [options
-      {:encoding "utf-8"
+      {:termguicolors true
+       :cursorline true
+       :winfixheight true
+       :winfixwidth false
+       :equalalways true
+       :encoding "utf-8"
        :scrolloff 5
        ;; :spelllang "en_us"
        :backspace "2"
@@ -55,7 +54,7 @@
        :clipboard "unnamedplus"
        ;show invisible characters
        :list true
-       :listchars (str.join "," ["tab:▶-" "trail:•" "extends:»" "precedes:«" "eol:¬"])
+       :listchars (str.join "," ["tab:▶-" "trail:•" "extends:»" "precedes:«"])
        ;tabs is space
        :expandtab true
        ;tab/indent size
