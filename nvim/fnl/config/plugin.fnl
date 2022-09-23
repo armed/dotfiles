@@ -34,6 +34,7 @@
    ;; autosave
    :pocco81/auto-save.nvim {:mod :autosave}
    ; status line
+   ;; :fgheng/winbar.nvim {:mod :winbar}
    :nvim-lualine/lualine.nvim {:mod :lualine
                                :require [:kyazdani42/nvim-web-devicons]}
 
