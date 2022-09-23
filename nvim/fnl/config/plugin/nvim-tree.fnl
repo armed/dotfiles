@@ -4,6 +4,12 @@
 
 (nvim.set_keymap :n :<leader>e ":NvimTreeToggle<CR>" {:noremap true})
 
+(nvim.set_hl 0 "NvimTreeGitDirty" {:fg "#e28743"})
+(nvim.set_hl 0 "NvimTreeGitStaged" {:fg "#388ecb"})
+(nvim.set_hl 0 "NvimTreeGitNew" {:fg "#1eb079"})
+(nvim.set_hl 0 "NvimTreeGitDeleted" {:fg "#e37474"})
+(nvim.set_hl 0 "NvimTreeRootFolder" {:fg "#d078cf"})
+
 (nvim-tree.setup 
   {:sync_root_with_cwd true
    :respect_buf_cwd false
@@ -13,12 +19,11 @@
           :preserve_window_proportions true}
    :renderer {:indent_markers {:enable true}
               :highlight_git true
-              :icons {:git_placement :signcolumn
-                      :glyphs {:git {:unstaged "✗"
-                                     :staged "✓"
+              :icons {:glyphs {:git {:unstaged ""
+                                     :staged ""
                                      :unmerged ""
                                      :renamed "➜"
-                                     :untracked ""
+                                     :untracked ""
                                      :deleted ""
                                      :ignored "◌"}}}}})
 
