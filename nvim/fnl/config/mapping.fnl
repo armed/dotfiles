@@ -22,6 +22,9 @@
 ;escape from terminal normal mode
 (nvim.set_keymap :t :<esc><esc> "<c-\\><c-n>" {:noremap true})
 
+(nvim.set_keymap :n :<S-h> ":BufferLineCyclePrev<cr>" {:noremap true})
+(nvim.set_keymap :n :<S-l> ":BufferLineCycleNext<cr>" {:noremap true})
+
 (nvim.set_keymap :n :<C-h> :<C-w>h {:noremap true})
 (nvim.set_keymap :n :<C-j> :<C-w>j {:noremap true})
 (nvim.set_keymap :n :<C-k> :<C-w>k {:noremap true})

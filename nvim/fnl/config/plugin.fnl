@@ -5,6 +5,7 @@
              packer packer}})
 
 (packer.init {:snapshot_path (.. (os.getenv "HOME") "/.config/nvim/packer.nvim")})
+
 ;plugins managed by packer
 (def plugins
   {; plugin Manager
@@ -17,6 +18,8 @@
    :Shatur/neovim-session-manager {:mod :session}
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
+   ; bufferline
+   :akinsho/bufferline.nvim {:tag "v2.*"}
    ; themes
    :RRethy/nvim-base16 {}
    ;; :marko-cerovac/material.nvim {}
