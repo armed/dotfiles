@@ -16,12 +16,17 @@
      :callback (fn [] (auto-save.save) (auto-save.off))})
   (nvim.create_autocmd
     ["User"]
+    {:pattern [ "SessionSavePost" ]
+     :group session-group
+     :callback #(tree.open)})
+  (nvim.create_autocmd
+    ["User"]
     {:pattern [ "SessionLoadPost" ]
      :group session-group
      :callback (fn []
                  (auto-save.save)
                  (auto-save.on)
-                 (tree.toggle false true))}))
+                 (tree.open))}))
 
 (wk.register {:S {:name "Session"
                   :s [session.save_current_session "Save"]
