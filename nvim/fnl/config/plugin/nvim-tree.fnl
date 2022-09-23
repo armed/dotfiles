@@ -18,6 +18,7 @@
    :view {:signcolumn "yes"
           :preserve_window_proportions true}
    :renderer {:indent_markers {:enable true}
+              :root_folder_modifier ":t"
               :highlight_git true
               :icons {:glyphs {:git {:unstaged ""
                                      :staged ""
