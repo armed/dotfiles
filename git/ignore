@@ -1,2 +1,3 @@
 # location $XDG_CONGIF_HOME/git/ignore
 .DS_Store
+Session.vim
