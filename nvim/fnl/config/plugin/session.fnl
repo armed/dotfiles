@@ -14,17 +14,13 @@
     {:pattern [ "SessionLoadPre" "SessionSavePre" ]
      :group session-group
      :callback (fn [] (auto-save.save) (auto-save.off))})
-  ;; (nvim.create_autocmd
-  ;;   ["User"]
-  ;;   {:pattern [ "SessionSavePost" ]
-  ;;    :group session-group
-  ;;    :callback #(auto-save.on)})
   (nvim.create_autocmd
     ["User"]
     {:pattern [ "SessionLoadPost" ]
      :group session-group
      :callback (fn []
-                 (fn [] (auto-save.save) (auto-save.on))
+                 (auto-save.save)
+                 (auto-save.on)
                  (tree.toggle false true))}))
 
 (wk.register {:S {:name "Session"
@@ -32,3 +28,4 @@
                   :f [session.load_session "Load"]
                   :d [session.delete_session "Delete"]}}
              {:prefix :<leader>})
+
