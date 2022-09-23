@@ -13,7 +13,8 @@
    :Olical/aniseed {:branch :develop}
 
    ;; session
-   :rmagatti/auto-session {:mod :session}
+   ;; :rmagatti/auto-session {:mod :session}
+   :Shatur/neovim-session-manager {:mod :session}
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
