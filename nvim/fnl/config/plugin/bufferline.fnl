@@ -2,7 +2,7 @@
   {autoload {nvim aniseed.nvim
              bufferline bufferline}})
 
-(local opts {:mode :buffers
+(local opts {:mode :tabs
              :themable true
              :numbers :none
              :buffer_close_icon ""
@@ -14,12 +14,12 @@
              :middle_mouse_command nil
              :left_trunc_marker ""
              :right_trunc_marker ""
-             :separator_style :thick
+             :separator_style :thin
              :name_formatter nil
              :truncate_names true
              :tab_size 18
              :max_name_length 18
-             :color_icons true
+             :color_icons false
              :show_buffer_icons true
              :show_buffer_close_icons false
              :show_buffer_default_icon true
@@ -42,4 +42,6 @@
              :hover {:enabled false :reveal {} :delay 200}
              :debug {:logging false}})
 
-(bufferline.setup {:options opts})
+(bufferline.setup ;; {} 
+                  {:options opts}
+                  )

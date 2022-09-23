@@ -19,7 +19,7 @@
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; bufferline
-   :akinsho/bufferline.nvim {:tag "v2.*"}
+   ;; :akinsho/bufferline.nvim {:tag "v2.*" :mod :bufferline}
    ; themes
    :RRethy/nvim-base16 {}
    ;; :marko-cerovac/material.nvim {}
