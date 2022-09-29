@@ -1,7 +1,7 @@
 -- Entrypoint for my Neovim configuration!
 -- We simply bootstrap packer and Aniseed here.
 -- It's then up to Aniseed to compile and load fnl/config/init.fnl
-
+require('impatient')
 local execute = vim.api.nvim_command
 local fn = vim.fn
 

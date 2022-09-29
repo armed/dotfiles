@@ -2,11 +2,12 @@
   {autoload {nvim aniseed.nvim
              telescope telescope
              session session_manager
+             scfg session_manager.config
              tree nvim-tree
              auto-save auto-save
              wk which-key}})
 
-(session.setup {})
+(session.setup {:autoload_mode scfg.AutoloadMode.CurrentDir})
 
 (let [session-group (nvim.create_augroup "SessionGroup" {})]
   (nvim.create_autocmd

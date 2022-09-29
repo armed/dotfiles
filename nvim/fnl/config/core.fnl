@@ -16,7 +16,7 @@
    :group hl-yank})
 
 ;don't wrap lines
-;; (nvim.ex.set :nowrap)
+(nvim.ex.set :nowrap)
 
 (let [options
       {:termguicolors true

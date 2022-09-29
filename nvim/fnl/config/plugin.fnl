@@ -10,24 +10,20 @@
 (def plugins
   {; plugin Manager
    :wbthomason/packer.nvim {}
+   :lewis6991/impatient.nvim {}
+   :dstein64/vim-startuptime {}
    ; nvim config and plugins in Fennel
    :Olical/aniseed {:branch :develop}
-
    ;; session
-   ;; :rmagatti/auto-session {:mod :session}
    :Shatur/neovim-session-manager {:mod :session}
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
-   ; bufferline
-   ;; :akinsho/bufferline.nvim {:tag "v2.*" :mod :bufferline}
    ; themes
    :RRethy/nvim-base16 {}
-   ;; :marko-cerovac/material.nvim {}
-   ;; :martinsione/darkplus.nvim {}
-   ;; :folke/tokyonight.nvim {}
-   ;; :levouh/tint.nvim {:mod :tint}
-   ;; :navarasu/onedark.nvim {:mod :onedark}
-   ;; :rebelot/kanagawa.nvim {}
+   :bluz71/vim-nightfly-guicolors {:mod :nightfly}
+
+   ;; markdown
+   :iamcco/markdown-preview.nvim {:ft :markdown}
 
    ; icons
    :ryanoasis/vim-devicons {}
@@ -38,7 +34,6 @@
    ;; autosave
    :pocco81/auto-save.nvim {:mod :autosave}
    ; status line
-   ;; :fgheng/winbar.nvim {:mod :winbar}
    :nvim-lualine/lualine.nvim {:mod :lualine
                                :require [:kyazdani42/nvim-web-devicons]}
 
@@ -71,25 +66,20 @@
    :kylechui/nvim-surround {:mod :surround}
    ;; :tpope/vim-abolish {}
    ;; :tpope/vim-commentary {}
-   :tpope/vim-dispatch {}
-   ;; :tpope/vim-eunuch {}
-   ;; :tpope/vim-repeat {}
-   ;; :tpope/vim-sleuth {}
-   ;; :tpope/vim-surround {}
-   ;; :tpope/vim-unimpaired {}
-   ;; :tpope/vim-vinegar {} 
+   :tpope/vim-dispatch {:opt true 
+                        :cmd [:Dispatch :Make :Focus :Start]}
 
    ; repl tools
    :Olical/conjure {:branch :develop
                     :mod :conjure
-                    :requires [:guns/vim-sexp
-                               :tpope/vim-sexp-mappings-for-regular-people
+                    :requires [[:guns/vim-sexp]
+                               [:tpope/vim-sexp-mappings-for-regular-people]
+                               [:PaterJason/cmp-conjure]
                                ;; :kylechui/nvim-surround
                                ]}
 
    ; git helper
    :lewis6991/gitsigns.nvim {:mod :gitsigns}
-
    ; which-key
    :folke/which-key.nvim {:mod :which-key}
 
@@ -99,24 +89,23 @@
    {:run ":TSUpdate"
     :mod :treesitter
     :requires [:nvim-treesitter/nvim-treesitter-textobjects]}
+   :nvim-treesitter/playground {}
 
    ; lsp
    :neovim/nvim-lspconfig {:mod :lspconfig 
-                           :requires [:ibhagwan/fzf-lua]}
+                           :requires [[:ibhagwan/fzf-lua]]}
 
    ; autocomplete
-   :hrsh7th/nvim-cmp {:requires [:hrsh7th/cmp-buffer
-                                 :hrsh7th/cmp-path
-                                 :hrsh7th/cmp-calc
-                                 :hrsh7th/cmp-nvim-lsp
-                                 :hrsh7th/cmp-nvim-lua
-                                 :hrsh7th/cmp-vsnip
-                                 :PaterJason/cmp-conjure]
+   :hrsh7th/nvim-cmp {:requires [[:hrsh7th/cmp-buffer]
+                                 [:hrsh7th/cmp-path]
+                                 [:hrsh7th/cmp-calc]
+                                 [:hrsh7th/cmp-nvim-lsp]
+                                 [:hrsh7th/cmp-nvim-lua]
+                                 [:hrsh7th/cmp-vsnip]]
                       :mod :cmp}
 
    ; color
-   :uga-rosa/ccc.nvim {:mod :ccc}
-   ;; :norcalli/nvim-colorizer.lua {:mod :colorizer}
+   :uga-rosa/ccc.nvim {:mod :ccc :event :BufEnter :opt true}
 
    ; hop
    :phaazon/hop.nvim {:mod :hop :branch "v2"}
