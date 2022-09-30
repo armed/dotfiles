@@ -7,7 +7,7 @@
              auto-save auto-save
              wk which-key}})
 
-(session.setup {:autoload_mode scfg.AutoloadMode.CurrentDir
+(session.setup {;:autoload_mode scfg.AutoloadMode.CurrentDir
                 :autosave_only_in_session true})
 
 (let [session-group (nvim.create_augroup "SessionGroup" {})]
