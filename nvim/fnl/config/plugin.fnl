@@ -19,7 +19,7 @@
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
-   :RRethy/nvim-base16 {}
+   :themercorp/themer.lua {:mod :themer}
    :bluz71/vim-nightfly-guicolors {:mod :nightfly}
 
    ;; markdown
