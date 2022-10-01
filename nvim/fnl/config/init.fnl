@@ -1,4 +1,5 @@
-(module config.init)
+(module config.init
+  {autoload {nvim aniseed.nvim}})
 
 (require :config.core)
 (require :config.mapping)
