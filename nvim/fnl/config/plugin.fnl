@@ -98,7 +98,8 @@
 
    ; lsp
    :neovim/nvim-lspconfig {:mod :lspconfig 
-                           :requires [[:ibhagwan/fzf-lua]]}
+                           :requires [[:ibhagwan/fzf-lua]
+                                      ["https://git.sr.ht/~whynothugo/lsp_lines.nvim"]]}
 
    ; autocomplete
    :hrsh7th/nvim-cmp {:requires [[:hrsh7th/cmp-buffer]

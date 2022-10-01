@@ -4,6 +4,7 @@
              tb telescope.builtin
              util lspconfig.util
              cmplsp cmp_nvim_lsp
+             lsp-lines lsp_lines
              wk which-key
              fzf fzf-lua
              conjure conjure}})
@@ -51,37 +52,26 @@
     (when (and status-ok highlight-supported)
       (create-hl-group bufnr))))
 
-(comment 
-  vim.lsp
-  (nvim.get_autocmds {:group :lsp_document_highlight 
-                      :buffer 9 
-                      :event [:CursorHold :CursorHoldI]})
-  
-  (create-hl-group 1)
-  
-  (let [group :lsp_document_highlight1
-        hl-events [:CursorHold :CursorHoldI]
-        bufnr 1]
-    (let [(ok hl-autocmds) (pcall nvim.get_autocmds {:group group 
-                                                     :buffer bufnr
-                                                     :event hl-events})]
-      [ok hl-autocmds])
-    ;; (nvim.create_augroup group {:clear false})
-    ;; (nvim.create_autocmd :CursorHold
-    ;;                      {:group group
-    ;;                       :buffer bufnr
-    ;;                       :callback vim.lsp.buf.document_highlight})
-    ;; (nvim.create_autocmd :CursorHoldI
-    ;;                      {:group group
-    ;;                       :buffer bufnr
-    ;;                       :callback vim.lsp.buf.document_highlight})
-    ;; (nvim.create_autocmd :CursorMoved
-    ;;                      {:group group
-    ;;                       :buffer bufnr
-    ;;                       :callback vim.lsp.buf.clear_references})
-    ))
+(vim.diagnostic.config {:virtual_lines {:only_current_line true}})
 
-(let [capabilities (cmplsp.update_capabilities
+(let [handlers {"textDocument/publishDiagnostics"
+                (vim.lsp.with
+                  vim.lsp.diagnostic.on_publish_diagnostics
+                  {:virtual_text true
+                   :signs true
+                   :underline false
+                   :update_in_insert true
+                   :severity_sort true})
+                "textDocument/hover"
+                (vim.lsp.with
+                  vim.lsp.handlers.hover
+                  {:border "single"})
+                "textDocument/signatureHelp"
+                (vim.lsp.with
+                  vim.lsp.handlers.signature_help
+                  {:border "single"})}
+
+      capabilities (cmplsp.update_capabilities
                      (vim.lsp.protocol.make_client_capabilities))
       bindings 
       {:g {:d [tb.lsp_definitions "Go to definition"]
@@ -92,6 +82,7 @@
                       :s [tb.lsp_document_symbols "Document symbols"]
                       :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
                       :f [vim.lsp.buf.format "Format buffer"]
+                      :t [lsp-lines.toggle "Toggle lsp_lines"]
                       :d [tb.diagnostics "Document diagnostics"]
                       :R [":LspRestart<cr>" "Restart LSP"]}}
        :K [vim.lsp.buf.hover "Hover doc"]}
@@ -102,6 +93,7 @@
 
   ;; Clojure
   (lsp.clojure_lsp.setup {:on_attach on_attach
+                          :handlers handlers
                           :cmd ["/usr/local/bin/clojure-lsp"]
                           :capabilities capabilities})
 
@@ -126,3 +118,7 @@
   ;;                    :capabilities capabilities
   ;;                    :cmd ["vscode-json-languageserver" "--stdio"]})
   )
+
+;; (lsp-lines.setup)
+
+
