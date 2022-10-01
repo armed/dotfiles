@@ -19,8 +19,7 @@
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
-   :themercorp/themer.lua {:mod :themer}
-   :bluz71/vim-nightfly-guicolors {:mod :nightfly}
+   :EdenEast/nightfox.nvim {:mod :nightfox}
 
    ;; markdown
    :iamcco/markdown-preview.nvim {:ft :markdown}
