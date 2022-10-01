@@ -32,7 +32,7 @@
    :ibhagwan/fzf-lua {:mod :fzf
                       :requires [:kyazdani42/nvim-web-devicons]}
    ;; autosave
-   :pocco81/auto-save.nvim {:mod :autosave}
+   :nvim-zh/auto-save.nvim {:mod :autosave}
    ; status line
    :nvim-lualine/lualine.nvim {:mod :lualine
                                :require [:kyazdani42/nvim-web-devicons]}
