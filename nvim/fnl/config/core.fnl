@@ -5,7 +5,7 @@
 
 ;refresh changed content
 (nvim.ex.autocmd "FocusGained,BufEnter" "*" ":checktime")
-;; (set nvim.o.cmdheight 0) 
+(set nvim.o.cmdheight 0) 
 
 (local hl-yank (nvim.create_augroup :hl-yank {}))
 (nvim.create_autocmd 
