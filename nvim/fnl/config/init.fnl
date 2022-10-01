@@ -4,6 +4,4 @@
 (require :config.mapping)
 (require :config.plugin)
 
-;; optional module with local overrides
-(pcall #(require :config.local))
-
+(nvim.ex.colorscheme "nightfox")
