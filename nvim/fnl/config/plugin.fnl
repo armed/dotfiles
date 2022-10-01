@@ -72,8 +72,7 @@
                         :cmd [:Dispatch :Make :Focus :Start]}
 
    ; repl tools
-   :Olical/conjure {:branch :develop
-                    :mod :conjure
+   :Olical/conjure {:mod :conjure
                     :requires [[:guns/vim-sexp]
                                [:tpope/vim-sexp-mappings-for-regular-people]
                                [:PaterJason/cmp-conjure]
