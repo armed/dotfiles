@@ -21,6 +21,9 @@
    ; themes
    :EdenEast/nightfox.nvim {:mod :nightfox}
 
+   ; dressing
+   :stevearc/dressing.nvim {}
+
    ;; markdown
    :iamcco/markdown-preview.nvim {:ft :markdown}
 
