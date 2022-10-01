@@ -12,6 +12,8 @@
 
 (nvim-tree.setup 
   {:sync_root_with_cwd true
+   :diagnostics {:enable true
+                 :show_on_dirs true}
    :respect_buf_cwd false
    :hijack_unnamed_buffer_when_opening true
    :update_focused_file {:enable true 
