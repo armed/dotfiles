@@ -80,8 +80,12 @@
                                ;; :kylechui/nvim-surround
                                ]}
 
-   ; git helper
+   ; git
+   :TimUntersberger/neogit {:requires [[:nvim-lua/plenary.nvim]
+                                       [:sindrets/diffview.nvim]]
+                            :mod :neogit}
    :lewis6991/gitsigns.nvim {:mod :gitsigns}
+   ;
    ; which-key
    :folke/which-key.nvim {:mod :which-key}
 

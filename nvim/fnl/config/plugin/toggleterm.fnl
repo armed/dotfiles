@@ -5,14 +5,14 @@
              wk which-key
              nvim aniseed.nvim}})
 
-(tt.setup)
-
-(let [T terminal.Terminal
-      lazygit (T:new {:cmd "lazygit"
-                      :direction "float"
-                      :size 80
-                      :hidden true})
-      lazygit_toggle (fn [] (lazygit:toggle))]
-    (wk.register {:g [lazygit_toggle "Git"]}
-                 {:prefix :<leader>}))
-
+;; (tt.setup)
+;;
+;; (let [T terminal.Terminal
+;;       lazygit (T:new {:cmd "lazygit"
+;;                       :direction "float"
+;;                       :size 80
+;;                       :hidden true})
+;;       lazygit_toggle (fn [] (lazygit:toggle))]
+;;     (wk.register {:g [lazygit_toggle "Git"]}
+;;                  {:prefix :<leader>}))
+;;
