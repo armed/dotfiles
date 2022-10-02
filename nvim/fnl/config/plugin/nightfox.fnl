@@ -10,7 +10,9 @@
   []
   (if (= "light" nvim.o.bg)
     (nvim.ex.colorscheme "nightfox")
-    (nvim.ex.colorscheme "dawnfox")))
+    (nvim.ex.colorscheme "dawnfox"))
+  (nvim-tree.toggle)
+  (nvim-tree.toggle))
 
 
 (wk.register {:s {:c [toggle-bg "Toggle theme"]}}
