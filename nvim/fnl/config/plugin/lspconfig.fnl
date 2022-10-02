@@ -57,11 +57,11 @@
 (let [handlers {"textDocument/publishDiagnostics"
                 (vim.lsp.with
                   vim.lsp.diagnostic.on_publish_diagnostics
-                  {:virtual_text true
+                  {:virtual_text false
                    :signs true
-                   :underline false
-                   :update_in_insert true
-                   :severity_sort true})
+                   :underline true
+                   :update_in_insert false
+                   :severity_sort false})
                 "textDocument/hover"
                 (vim.lsp.with
                   vim.lsp.handlers.hover
@@ -119,6 +119,6 @@
   ;;                    :cmd ["vscode-json-languageserver" "--stdio"]})
   )
 
-;; (lsp-lines.setup)
+(lsp-lines.setup)
 
 
