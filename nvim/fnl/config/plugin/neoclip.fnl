@@ -7,13 +7,13 @@
 (fn whitespace? [line]
   (not= (vim.fn.match line "^\\s*$") -1))
 
-(fn omit-onwanted [tbl]
+(fn omit-unwanted [tbl]
   (not (a.some (fn [t]
                  (or (= (length t) 1)
                      (whitespace? t)))
                tbl.event.regcontents)))
 
-(neoclip.setup {:filter omit-onwanted
+(neoclip.setup {:filter omit-unwanted
                 :continuous_sync true
                 :enable_persistent_history true
                 :keys {:telescope {:i {:paste_behind :<C-S-p>}}}})
