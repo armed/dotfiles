@@ -1,5 +1,6 @@
 (module config.plugin.cmp
   {autoload {nvim aniseed.nvim
+             luasnip luasnip
              cmp cmp}})
 
 (def- cmp-src-menu-items

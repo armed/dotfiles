@@ -100,6 +100,8 @@
    :neovim/nvim-lspconfig {:mod :lspconfig 
                            :requires [[:ibhagwan/fzf-lua]
                                       ["https://git.sr.ht/~whynothugo/lsp_lines.nvim"]]}
+   ; luasnip
+   :L3MON4D3/LuaSnip {:requires [:saadparwaiz1/cmp_luasnip]}
 
    ; autocomplete
    :hrsh7th/nvim-cmp {:requires [[:hrsh7th/cmp-buffer]
@@ -111,7 +113,7 @@
                       :mod :cmp}
 
    ; color
-   :uga-rosa/ccc.nvim {:mod :ccc :event :BufEnter :opt true}
+   ;; :uga-rosa/ccc.nvim {:mod :ccc :event :BufEnter :opt true}
 
    ; hop
    :phaazon/hop.nvim {:mod :hop :branch "v2"}
