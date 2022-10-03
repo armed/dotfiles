@@ -88,7 +88,6 @@
    ; which-key
    :folke/which-key.nvim {:mod :which-key}
 
-
    ; parsing system
    :nvim-treesitter/nvim-treesitter 
    {:run ":TSUpdate"
@@ -98,8 +97,7 @@
 
    ; lsp
    :neovim/nvim-lspconfig {:mod :lspconfig 
-                           :requires [[:ibhagwan/fzf-lua]
-                                      ["https://git.sr.ht/~whynothugo/lsp_lines.nvim"]]}
+                           :requires [[:ibhagwan/fzf-lua]]}
    ; luasnip
    :L3MON4D3/LuaSnip {:requires [:saadparwaiz1/cmp_luasnip]}
 
