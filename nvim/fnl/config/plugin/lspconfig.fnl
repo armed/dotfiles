@@ -4,7 +4,6 @@
              tb telescope.builtin
              util lspconfig.util
              cmplsp cmp_nvim_lsp
-             lsp-lines lsp_lines
              wk which-key
              fzf fzf-lua
              conjure conjure}})
@@ -57,7 +56,7 @@
 (let [handlers {"textDocument/publishDiagnostics"
                 (vim.lsp.with
                   vim.lsp.diagnostic.on_publish_diagnostics
-                  {:virtual_text false
+                  {:virtual_text true
                    :signs true
                    :underline true
                    :update_in_insert false
@@ -82,7 +81,6 @@
                       :s [tb.lsp_document_symbols "Document symbols"]
                       :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
                       :f [vim.lsp.buf.format "Format buffer"]
-                      :t [lsp-lines.toggle "Toggle lsp_lines"]
                       :d [tb.diagnostics "Document diagnostics"]
                       :R [":LspRestart<cr>" "Restart LSP"]}}
        :K [vim.lsp.buf.hover "Hover doc"]}
@@ -118,7 +116,4 @@
   ;;                    :capabilities capabilities
   ;;                    :cmd ["vscode-json-languageserver" "--stdio"]})
   )
-
-(lsp-lines.setup)
-
 
