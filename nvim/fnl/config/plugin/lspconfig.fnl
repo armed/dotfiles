@@ -55,6 +55,23 @@
 
 (vim.diagnostic.config {:virtual_lines {:only_current_line true}})
 
+(defn float-diagnostic [bufnr]
+  (nvim.create_autocmd
+    :CursorHold
+    {:buffer bufnr
+     :callback (fn []
+                 (local opts
+                   {:focusable false
+                    :close_events [:BufLeave
+                                   :CursorMoved
+                                   :InsertEnter
+                                   :FocusLost]
+                    :border :rounded
+                    :source :always
+                    :prefix " "
+                    :scope :line})
+                 (vim.diagnostic.open_float nil opts))}))	
+
 (let [handlers {"textDocument/publishDiagnostics"
                 (vim.lsp.with
                   vim.lsp.diagnostic.on_publish_diagnostics
@@ -66,7 +83,7 @@
                 "textDocument/hover"
                 (vim.lsp.with
                   vim.lsp.handlers.hover
-                  {:border "single"})
+                  {:border "double"})
                 "textDocument/signatureHelp"
                 (vim.lsp.with
                   vim.lsp.handlers.signature_help
@@ -87,12 +104,14 @@
                       :R [":LspRestart<cr>" "Restart LSP"]}}
        :K [vim.lsp.buf.hover "Hover doc"]}
       on_attach (fn [client bufnr]
+                  ;; (float-diagnostic bufnr)
                   (setup-document-highlight client bufnr)
                   (wk.register bindings {:noremap true
                                          :buffer bufnr}))]
 
   ;; Clojure
   (lsp.clojure_lsp.setup {:on_attach on_attach
+                          :init_options {:signatureHelp true}
                           :handlers handlers
                           :cmd ["/usr/local/bin/clojure-lsp"]
                           :capabilities capabilities})
