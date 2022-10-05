@@ -97,7 +97,9 @@
 
    ; lsp
    :neovim/nvim-lspconfig {:mod :lspconfig 
-                           :requires [[:ibhagwan/fzf-lua]]}
+                           :requires [:ibhagwan/fzf-lua
+                                      :williamboman/mason-lspconfig.nvim
+                                      :williamboman/mason.nvim]}
    ; luasnip
    :L3MON4D3/LuaSnip {:requires [:saadparwaiz1/cmp_luasnip]}
 

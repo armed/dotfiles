@@ -5,6 +5,8 @@
              util lspconfig.util
              cmplsp cmp_nvim_lsp
              wk which-key
+             mason mason
+             mason-lspconfig mason-lspconfig
              fzf fzf-lua
              conjure conjure}})
 
@@ -117,3 +119,5 @@
   ;;                    :cmd ["vscode-json-languageserver" "--stdio"]})
   )
 
+(mason.setup)
+(mason-lspconfig.setup)
