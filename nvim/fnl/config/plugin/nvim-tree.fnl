@@ -1,8 +1,7 @@
 (module config.plugin.nvim-tree
   {autoload {nvim aniseed.nvim
+             wk which-key
              nvim-tree nvim-tree}})
-
-(nvim.set_keymap :n :<leader>e ":NvimTreeToggle<CR>" {:noremap true})
 
 (nvim.set_hl 0 "NvimTreeGitDirty" {:fg "#e28743"})
 (nvim.set_hl 0 "NvimTreeGitStaged" {:fg "#388ecb"})
@@ -31,4 +30,5 @@
                                      :deleted ""
                                      :ignored "◌"}}}}})
 
-
+(wk.register {:e [::NvimTreeToggle<cr> "Toggle Nvim Tree"]}
+             {:prefix :<leader>})
