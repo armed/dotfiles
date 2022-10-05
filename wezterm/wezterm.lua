@@ -6,17 +6,19 @@ return {
   tab_bar_at_bottom = true,
   hide_tab_bar_if_only_one_tab = true,
   color_scheme = 'nightfox',
+  force_reverse_video_cursor = true,
+  cursor_thickness = '0.2cell',
   window_frame = {
-    border_left_width = '0.5cell',
-    border_right_width = '0.5cell',
-    border_bottom_height = '0.25cell',
-    border_top_height = '0.25cell',
+    border_left_width = '0cell',
+    border_right_width = '0cell',
+    border_bottom_height = '0cell',
+    border_top_height = '0cell',
   },
   -- window_decorations = 'NONE',
   window_padding = {
-    left = 15,
-    right = 15,
-    top = 15,
+    left = 10,
+    right = 10,
+    top = 3,
     bottom = 0,
   }
 }
