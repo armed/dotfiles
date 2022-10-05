@@ -14,7 +14,7 @@
                                       :clear_on_cursor_move true}
               :navigation {:enable true}}
    :textobjects {:select {:enable true}
-                 :lsp_interop {:enable false}
+                 :lsp_interop {:enable true}
                  :lookahead true
                  :keymaps {:af "@function.outer"
                            :if "@function.inner"
