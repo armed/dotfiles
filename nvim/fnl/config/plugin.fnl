@@ -25,11 +25,12 @@
    ; dressing
    :stevearc/dressing.nvim {}
 
+   ;; yaml
+   :cuducos/yaml.nvim {}
    ;; markdown
    :iamcco/markdown-preview.nvim {:ft :markdown}
 
    ; icons
-   :ryanoasis/vim-devicons {}
    :kyazdani42/nvim-web-devicons {}
    ;; fzf
    :ibhagwan/fzf-lua {:mod :fzf
@@ -65,7 +66,7 @@
    ; sexp
    :guns/vim-sexp {:mod :sexp}
    :radenling/vim-dispatch-neovim {}
-   :tpope/vim-sexp-mappings-for-regular-people {}
+   ;; :tpope/vim-sexp-mappings-for-regular-people {}
    :kylechui/nvim-surround {:mod :surround}
    ;; :tpope/vim-abolish {}
    ;; :tpope/vim-commentary {}
@@ -74,6 +75,7 @@
 
    ; repl tools
    :Olical/conjure {:mod :conjure
+                    :branch :develop
                     :requires [[:guns/vim-sexp]
                                [:tpope/vim-sexp-mappings-for-regular-people]
                                [:PaterJason/cmp-conjure]

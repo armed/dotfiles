@@ -2,7 +2,6 @@
   {autoload {nvim aniseed.nvim}})
 
 (require :config.core)
-(require :config.mapping)
 (require :config.plugin)
+(require :config.mapping)
 
-(nvim.ex.colorscheme "nightfox")
