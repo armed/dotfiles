@@ -19,7 +19,8 @@
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
-   :EdenEast/nightfox.nvim {:mod :nightfox}
+   :folke/tokyonight.nvim {}
+   :EdenEast/nightfox.nvim {:mod :theme}
 
    ; dressing
    :stevearc/dressing.nvim {}
