@@ -12,19 +12,17 @@
 
 ;symbols to show for lsp diagnostics
 (defn define-signs
-  [prefix]
-  (let [error (.. prefix "SignError")
-        warn  (.. prefix "SignWarn")
-        info  (.. prefix "SignInfo")
-        hint  (.. prefix "SignHint")]
+  []
+  (let [error "DiagnosticSignError"
+        warn  "DiagnosticSignWarn"
+        info  "DiagnosticSignInfo"
+        hint  "DiagnosticSignHint"]
   (vim.fn.sign_define error {:text "" :texthl error})
   (vim.fn.sign_define warn  {:text "" :texthl warn})
   (vim.fn.sign_define info  {:text "" :texthl info})
-  (vim.fn.sign_define hint  {:text "" :texthl hint})))
+  (vim.fn.sign_define hint  {:text "" :texthl hint})))
 
-(if (= (nvim.fn.has "nvim-0.6") 1)
-  (define-signs "Diagnostic")
-  (define-signs "LspDiagnostics"))
+(define-signs "Diagnostic")
 
 (defn create-hl-group [bufnr]
   (let [group :lsp_document_highlight
@@ -79,7 +77,11 @@
                    :signs true
                    :underline true
                    :update_in_insert false
-                   :severity_sort false})
+                   :severity_sort true})
+                "textDocument/codeLens"
+                (vim.lsp.with
+                  vim.lsp.diagnostic.on_publish_diagnostics
+                  {:virtual_text true})
                 "textDocument/hover"
                 (vim.lsp.with
                   vim.lsp.handlers.hover
@@ -111,7 +113,8 @@
 
   ;; Clojure
   (lsp.clojure_lsp.setup {:on_attach on_attach
-                          :init_options {:signatureHelp true}
+                          :init_options {:signatureHelp true
+                                         :codeLens true}
                           :handlers handlers
                           :cmd ["/usr/local/bin/clojure-lsp"]
                           :capabilities capabilities})
