@@ -80,7 +80,7 @@
    :Olical/conjure {:mod :conjure
                     :branch :develop
                     :requires [[:guns/vim-sexp]
-                               [:tpope/vim-sexp-mappings-for-regular-people]
+                               ;; [:tpope/vim-sexp-mappings-for-regular-people]
                                [:PaterJason/cmp-conjure]
                                ;; :kylechui/nvim-surround
                                ]}
