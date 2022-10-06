@@ -23,7 +23,9 @@
    :EdenEast/nightfox.nvim {:mod :theme}
 
    ; dressing
-   :stevearc/dressing.nvim {}
+   ;; :stevearc/dressing.nvim {}
+   ; visual helpers
+   :lukas-reineke/indent-blankline.nvim {:mod :indent-blankline}
 
    ;; yaml
    :cuducos/yaml.nvim {}
