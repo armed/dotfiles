@@ -41,7 +41,9 @@
                   :T [util.custom-packer-snapshot "Make custom snapsot"]
                   :i [packer.install "Install"]
                   :c [packer.clean "Clean"]
-                  :s [packer.sync "Sync"]}
+                  :s [packer.sync "Sync"]
+                  :C [packer.compile "Compile"]
+                  :S [packer.status "Status"]}
               :x [:<cmd>xa<cr> "Save and exit"]
               :q [:<c-w>q "Close window"]}
              {:prefix :<leader>})
