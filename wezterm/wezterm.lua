@@ -2,6 +2,8 @@ local wezterm = require 'wezterm'
 
 return {
   font = wezterm.font 'JetBrainsMono Nerd Font Mono',
+  -- window_decorations = 'RESIZE',
+  enable_tab_bar = false,
   font_size = 16.0,
   tab_bar_at_bottom = true,
   hide_tab_bar_if_only_one_tab = true,
@@ -16,9 +18,9 @@ return {
   },
   -- window_decorations = 'NONE',
   window_padding = {
-    left = 10,
-    right = 10,
-    top = 3,
-    bottom = 0,
+    left = '0cell',
+    right = '0cell',
+    top = '0cell',
+    bottom = '0cell',
   }
 }
