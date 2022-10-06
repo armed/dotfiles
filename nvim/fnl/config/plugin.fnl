@@ -25,6 +25,7 @@
    ; dressing
    ;; :stevearc/dressing.nvim {}
    ; visual helpers
+   :folke/todo-comments.nvim {:mod :todo}
    :lukas-reineke/indent-blankline.nvim {:mod :indent-blankline}
 
    ;; yaml
