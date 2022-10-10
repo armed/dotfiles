@@ -1,6 +1,5 @@
 (module config.plugin.session
-  {autoload {nvim aniseed.nvim
-             telescope telescope
+  {autoload {telescope telescope
              session session_manager
              scfg session_manager.config
              tree nvim-tree
@@ -10,23 +9,22 @@
 (session.setup {;:autoload_mode scfg.AutoloadMode.CurrentDir
                 :autosave_only_in_session true})
 
-(let [session-group (nvim.create_augroup "SessionGroup" {})]
-  (nvim.create_autocmd
+(let [session-group (vim.api.nvim_create_augroup "SessionGroup" {})]
+  (vim.api.nvim_create_autocmd
     ["User"]
     {:pattern [ "SessionLoadPre" "SessionSavePre" ]
      :group session-group
      :callback (fn [] (auto-save.save) (auto-save.off))})
-  (nvim.create_autocmd
+  (vim.api.nvim_create_autocmd
     ["User"]
     {:pattern [ "SessionSavePost" ]
      :group session-group
      :callback #(tree.open)})
-  (nvim.create_autocmd
+  (vim.api.nvim_create_autocmd
     ["User"]
     {:pattern [ "SessionLoadPost" ]
      :group session-group
      :callback (fn []
-                 (auto-save.save)
                  (auto-save.on)
                  (tree.open))}))
 

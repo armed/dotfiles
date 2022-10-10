@@ -1,12 +1,29 @@
 (module config.plugin.conjure
-  {autoload {nvim aniseed.nvim
-             eval conjure.eval
+  {autoload {eval conjure.eval
              extract conjure.extract
              wk which-key}})
 
 ;; (set nvim.g.conjure#mapping#doc_word "K")
-(set nvim.g.conjure#client#clojure#nrepl#eval#auto_require false)
-(set nvim.g.conjure#client#clojure#nrepl#connection#auto_repl#enabled false)
+;; (set nvim.g.conjure#client#clojure#nrepl#eval#auto_require false)
+(set vim.g.conjure#client#clojure#nrepl#connection#auto_repl#enabled false)
+(set vim.g.conjure#highlight#enabled true)
+(set vim.g.conjure#highlight#timeout 150)
+(set vim.g.conjure#log#wrap true)
+(set vim.g.conjure#log#jump_to_latest#enabled true)
+(set vim.g.conjure#client#clojure#nrepl#eval#raw_out true)
+(set vim.g.conjure#client#clojure#nrepl#test#raw_out true)
+(set vim.g.conjure#client#clojure#nrepl#test#runner "kaocha")
+(set vim.g.conjure#log#jump_to_latest#cursor_scroll_position "bottom")
+
+
+(local log-window (vim.api.nvim_create_augroup :log-window-handler {}))
+(vim.api.nvim_create_autocmd 
+  "BufWinEnter"
+  {:pattern "conjure-log*"
+   :callback (fn [event]
+               (when-let [bufnr (. event :buf)]
+                 (vim.diagnostic.disable bufrn)))
+   :group log-window})
 
 (fn conjure-eval [form]
   (eval.eval-str {:code form :origin :custom_command}))

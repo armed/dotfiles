@@ -1,6 +1,5 @@
 (module config.plugin.telescope
-  {autoload {nvim aniseed.nvim
-             telescope telescope
+  {autoload {telescope telescope
              themes telescope.themes
              actions telescope.actions
              tb telescope.builtin

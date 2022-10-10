@@ -1,5 +1,4 @@
 (module config.plugin.comment
-  {autoload {nvim aniseed.nvim
-             comm Comment}})
+  {autoload {comm Comment}})
 
 (comm.setup {})

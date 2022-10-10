@@ -1,13 +1,14 @@
 (module config.plugin.nvim-tree
-  {autoload {nvim aniseed.nvim
-             wk which-key
+  {autoload {wk which-key
              nvim-tree nvim-tree}})
 
-(nvim.set_hl 0 "NvimTreeGitDirty" {:fg "#e28743"})
-(nvim.set_hl 0 "NvimTreeGitStaged" {:fg "#388ecb"})
-(nvim.set_hl 0 "NvimTreeGitNew" {:fg "#1eb079"})
-(nvim.set_hl 0 "NvimTreeGitDeleted" {:fg "#e37474"})
-(nvim.set_hl 0 "NvimTreeRootFolder" {:fg "#d078cf"})
+(local shl vim.api.nvim_set_hl)
+
+(shl 0 "NvimTreeGitDirty" {:fg "#e28743"})
+(shl 0 "NvimTreeGitStaged" {:fg "#388ecb"})
+(shl 0 "NvimTreeGitNew" {:fg "#1eb079"})
+(shl 0 "NvimTreeGitDeleted" {:fg "#e37474"})
+(shl 0 "NvimTreeRootFolder" {:fg "#d078cf"})
 
 (nvim-tree.setup 
   {:sync_root_with_cwd true

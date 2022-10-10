@@ -1,7 +1,5 @@
 (module config.plugin.ccc
-  {autoload {core aniseed.core
-             nvim aniseed.nvim
-             wk which-key
+  {autoload {wk which-key
              ccc ccc}})
 
 (ccc.setup {:highlighter {:auto_enable true

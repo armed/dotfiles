@@ -1,6 +1,5 @@
 (module config.plugin.fzf
-  {autoload {nvim aniseed.nvim
-             fzf fzf-lua
+  {autoload {fzf fzf-lua
              wk which-key}})
 
 ;; (local keys {:f [fzf.files "Find files"]

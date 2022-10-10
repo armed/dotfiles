@@ -1,5 +1,4 @@
 (module config.plugin.todo
-  {autoload {nvim aniseed.nvim
-             todo todo-comments}})
+  {autoload {todo todo-comments}})
 
 (todo.setup {})

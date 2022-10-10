@@ -1,6 +1,5 @@
 (module config.plugin.lspconfig
-  {autoload {nvim aniseed.nvim
-             lsp lspconfig
+  {autoload {lsp lspconfig
              tb telescope.builtin
              util lspconfig.util
              cmplsp cmp_nvim_lsp

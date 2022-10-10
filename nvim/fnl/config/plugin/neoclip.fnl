@@ -1,7 +1,5 @@
 (module config.plugin.neoclip
-  {autoload {nvim aniseed.nvim
-             a aniseed.core
-             neoclip neoclip
+  {autoload {neoclip neoclip
              wk which-key}})
 
 (fn whitespace? [line]
@@ -20,4 +18,3 @@
 
 (local keys {:c [":Telescope neoclip initial_mode=normal<cr>" "Neoclip"]})
 (wk.register keys {:prefix :<leader>})
-

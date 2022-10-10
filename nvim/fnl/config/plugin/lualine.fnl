@@ -1,6 +1,5 @@
 (module config.plugin.lualine
-  {autoload {core aniseed.core
-             lualine lualine
+  {autoload {lualine lualine
              lsp config.plugin.lspconfig}})
 
 (lualine.setup {:options {:globalstatus true
