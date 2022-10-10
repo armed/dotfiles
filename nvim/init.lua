@@ -1,7 +1,6 @@
 -- Entrypoint for my Neovim configuration!
 -- We simply bootstrap packer and Aniseed here.
 -- It's then up to Aniseed to compile and load fnl/config/init.fnl
-require('impatient')
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
@@ -20,9 +19,12 @@ end
 -- Bootstrap essential plugins required for installing and loading the rest.
 ensure("wbthomason", "packer.nvim")
 ensure("Olical", "aniseed")
+ensure("lewis6991", "impatient.nvim")
 
 -- Enable Aniseed's automatic compilation and loading of Fennel source code.
+require("impatient")
 vim.g["aniseed#env"] = {
   module = "config.init",
   compile = true
 }
+
