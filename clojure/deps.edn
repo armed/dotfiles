@@ -1,6 +1,6 @@
 {:mvn/repos
  {"central" {:url "https://repo1.maven.org/maven2/"}
-  "ICM" {:url "http://maven.icm.edu.pl/artifactory/repo/"}
+  "enonic" {:url "https://repo.enonic.com/public/"}
   "clojars" {:url "https://repo.clojars.org/"}
   "sonatype" {:url "https://repository.sonatype.org/content/groups/forge/"}}
 
