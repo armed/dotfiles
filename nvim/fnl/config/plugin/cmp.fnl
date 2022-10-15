@@ -27,7 +27,10 @@
 (cmp.setup {:formatting
             {:format (fn [entry item]
                        (set item.menu (or (. cmp-src-menu-items entry.source.name) ""))
-                       item)}
+                       item)
+             :formatting {:fields [:menu :abbr :kind]}}
+            :window {:documentation (cmp.config.window.bordered)
+                     :completion (cmp.config.window.bordered)}
             :mapping {:<C-k> (cmp.mapping.select_prev_item)
                       :<C-j> (cmp.mapping.select_next_item)
                       :<C-b> (cmp.mapping.scroll_docs (- 4))
@@ -53,4 +56,4 @@
                                 (luasnip.lsp_expand args.body))}
             :sources cmp-srcs})
 
-(nvim.ex.hi "CmpItemMenu ctermfg=7 guifg=#b1b1b1")
+;; (nvim.ex.hi "CmpItemMenu ctermfg=7 guifg=#b1b1b1")
