@@ -20,15 +20,12 @@
     (wk.register {:g [pen-cmd "Git"]}
                  {:prefix :<leader>}))
 
-;; Example with cd:
-;;
-;; local lazygit = Terminal:new({
-;;     cmd = 'cd $NVIM_CWD && lazygit',
-;;     hidden = true,
-;;     direction = 'float',
-;;     on_open = float_handler,
-;; })
-;; api.nvim_create_user_command("UsToggleTermLazygit", function() lazygit:toggle() end, {})
-;; Cmd:
-;;
-;; <cmd>lua vim.env.NVIM_CWD=vim.fn.getcwd(); vim.cmd("UsToggleTermLazygit")<cr>
+(let [T terminal.Terminal
+      gt (T:new {:cmd "gotop"
+                  :direction "float"
+                  :size 90
+                  :hidden true})
+      gt-toggle (fn [] (gt:toggle))]
+    (wk.register {:t [gt-toggle "Gotop"]}
+                 {:prefix :<leader>}))
+
