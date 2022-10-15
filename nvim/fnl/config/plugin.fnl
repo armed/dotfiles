@@ -24,6 +24,11 @@
 
    ; dressing
    ;; :stevearc/dressing.nvim {}
+   ; windows
+   :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
+                             :mod :windows}
+   ; commands
+   :kazhala/close-buffers.nvim {:mod :close-buffers}
    ; visual helpers
    :folke/todo-comments.nvim {:mod :todo}
    :lukas-reineke/indent-blankline.nvim {:mod :indent-blankline}
@@ -41,8 +46,10 @@
    ;; autosave
    :nvim-zh/auto-save.nvim {:mod :autosave}
    ; status line
+   :arkav/lualine-lsp-progress {}
    :nvim-lualine/lualine.nvim {:mod :lualine
-                               :require [:kyazdani42/nvim-web-devicons]}
+                               :require [:arkav/lualine-lsp-progress
+                                         :kyazdani42/nvim-web-devicons]}
 
    ; clip
    :AckslD/nvim-neoclip.lua 
@@ -129,4 +136,3 @@
                               :requires [:kyazdani42/nvim-web-devicons]}})
 
 (util.use plugins)
-
