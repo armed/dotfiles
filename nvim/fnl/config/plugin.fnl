@@ -129,8 +129,6 @@
    ; color
    ;; :uga-rosa/ccc.nvim {:mod :ccc :event :BufEnter :opt true}
 
-   ; hop
-   :phaazon/hop.nvim {:mod :hop :branch "v2"}
 
    ; nvim-tree
    :kyazdani42/nvim-tree.lua {:mod :nvim-tree
