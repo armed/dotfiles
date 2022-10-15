@@ -10,6 +10,7 @@
 (def plugins
   {; plugin Manager
    :wbthomason/packer.nvim {}
+   :wbthomason/packer.nvim {:mod :packer}
    :lewis6991/impatient.nvim {}
    :dstein64/vim-startuptime {}
    ; nvim config and plugins in Fennel
