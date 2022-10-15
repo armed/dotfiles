@@ -16,14 +16,10 @@
 (set vim.g.conjure#log#jump_to_latest#cursor_scroll_position "bottom")
 
 
-(local log-window (vim.api.nvim_create_augroup :log-window-handler {}))
 (vim.api.nvim_create_autocmd 
-  "BufWinEnter"
-  {:pattern "conjure-log*"
-   :callback (fn [event]
-               (when-let [bufnr (. event :buf)]
-                 (vim.diagnostic.disable bufrn)))
-   :group log-window})
+  "BufNewFile"
+  {:pattern "conjure-log-*"
+   :callback (fn [event] (vim.diagnostic.disable 0))})
 
 (fn conjure-eval [form]
   (eval.eval-str {:code form :origin :custom_command}))
