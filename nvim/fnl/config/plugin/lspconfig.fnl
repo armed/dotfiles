@@ -21,28 +21,28 @@
   (vim.fn.sign_define info  {:text "" :texthl info})
   (vim.fn.sign_define hint  {:text "" :texthl hint})))
 
-(define-signs "Diagnostic")
+(define-signs)
 
 (defn create-hl-group [bufnr]
   (let [group :lsp_document_highlight
         hl-events [:CursorHold :CursorHoldI]
-        (ok hl-autocmds) (pcall nvim.get_autocmds {:group group 
-                                                   :buffer bufnr
-                                                   :event hl-events})]
+        (ok hl-autocmds) (pcall vim.api.nvim_get_autocmds {:group group 
+                                                           :buffer bufnr
+                                                           :event hl-events})]
     (when (or (not ok) (= (length hl-autocmds) 0))
-      (nvim.create_augroup group {:clear false})
-      (nvim.create_autocmd :CursorHold
-                           {:group group
-                            :buffer bufnr
-                            :callback vim.lsp.buf.document_highlight})
-      (nvim.create_autocmd :CursorHoldI
-                           {:group group
-                            :buffer bufnr
-                            :callback vim.lsp.buf.document_highlight})
-      (nvim.create_autocmd :CursorMoved
-                           {:group group
-                            :buffer bufnr
-                            :callback vim.lsp.buf.clear_references}))))
+      (vim.api.nvim_create_augroup group {:clear false})
+      (vim.api.nvim_create_autocmd :CursorHold
+                                   {:group group
+                                    :buffer bufnr
+                                    :callback vim.lsp.buf.document_highlight})
+      (vim.api.nvim_create_autocmd :CursorHoldI
+                                   {:group group
+                                    :buffer bufnr
+                                    :callback vim.lsp.buf.document_highlight})
+      (vim.api.nvim_create_autocmd :CursorMoved
+                                   {:group group
+                                    :buffer bufnr
+                                    :callback vim.lsp.buf.clear_references}))))
 
 (defn setup-document-highlight [client bufnr]
   (let [(status-ok highlight-supported) 
@@ -53,7 +53,7 @@
 (vim.diagnostic.config {:virtual_lines {:only_current_line true}})
 
 (defn float-diagnostic [bufnr]
-  (nvim.create_autocmd
+  (vim.api.nvim_create_autocmd
     :CursorHold
     {:buffer bufnr
      :callback (fn []
@@ -101,8 +101,9 @@
                       :s [tb.lsp_document_symbols "Document symbols"]
                       :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
                       :f [vim.lsp.buf.format "Format buffer"]
-                      :d [tb.diagnostics "Document diagnostics"]
-                      :R [":LspRestart<cr>" "Restart LSP"]}}
+                      :d [#(tb.diagnostics {:bufnr 0}) "Document diagnostics"]
+                      :D [tb.diagnostics "Workspace diagnostics"]
+                      :R ["<cmd>LspRestart<cr>" "Restart LSP"]}}
        :K [vim.lsp.buf.hover "Hover doc"]}
       on_attach (fn [client bufnr]
                   ;; (float-diagnostic bufnr)
@@ -114,6 +115,7 @@
   (lsp.clojure_lsp.setup {:on_attach on_attach
                           :init_options {:signatureHelp true
                                          :codeLens true}
+                          :flags {:debounce_text_changes 150}
                           :handlers handlers
                           :cmd ["/usr/local/bin/clojure-lsp"]
                           :capabilities capabilities})
