@@ -26,14 +26,14 @@
 
 (telescope.load_extension "ui-select")
 (telescope.load_extension "fzf")
-(telescope.load_extension "zoxide")
 (telescope.load_extension "neoclip")
+;; (telescope.load_extension "projects")
 
-(local keys {:f [tb.find_files "Find files"]
-             :r [tb.resume "Resume last search"]
-             :s {:name "Search for"
-                 :z [telescope.extensions.zoxide.list "Recent dirs"]
+(local keys {:r [tb.resume "Resume last search"]
+             :f {:name "Find"
+                 :f [tb.find_files "Find files"]
                  :g [tb.live_grep "Live grep"]
                  :b [tb.buffers "Buffers"]
+                 ;; :p [":Telescope projects<cr>" "Projects"]
                  :r [tb.oldfiles "Recent files"]}})
 (wk.register keys {:prefix :<leader>})
