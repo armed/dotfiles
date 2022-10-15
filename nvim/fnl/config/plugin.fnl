@@ -9,27 +9,24 @@
 ;plugins managed by packer
 (def plugins
   {; plugin Manager
-   :wbthomason/packer.nvim {}
    :wbthomason/packer.nvim {:mod :packer}
-   :lewis6991/impatient.nvim {}
-   :dstein64/vim-startuptime {}
-   ; nvim config and plugins in Fennel
    :Olical/aniseed {:branch :develop}
-   ;; session
-   :Shatur/neovim-session-manager {:mod :session}
+   :lewis6991/impatient.nvim {}
+
+   :dstein64/vim-startuptime {}
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
    :folke/tokyonight.nvim {}
    :EdenEast/nightfox.nvim {:mod :theme}
 
-   ; dressing
-   ;; :stevearc/dressing.nvim {}
    ; windows
    :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
                              :mod :windows}
    ; commands
    :kazhala/close-buffers.nvim {:mod :close-buffers}
+
+   ; ui
    ; visual helpers
    :folke/todo-comments.nvim {:mod :todo}
    :lukas-reineke/indent-blankline.nvim {:mod :indent-blankline}
@@ -62,7 +59,6 @@
    :nvim-telescope/telescope-fzf-native.nvim {:run :make}
    :nvim-telescope/telescope.nvim {:requires [:nvim-telescope/telescope-ui-select.nvim
                                               :nvim-lua/popup.nvim
-                                              :jvgrootveld/telescope-zoxide
                                               :nvim-lua/plenary.nvim
                                               :nvim-telescope/telescope-fzf-native.nvim]
                                    :mod :telescope}
@@ -70,44 +66,39 @@
    ; commeting code
    :numToStr/Comment.nvim {:mod :comment}
 
-   ; multicursor selector
-   ;; :mg979/vim-visual-multi {}
-   ; text alignment
-   ;; :junegunn/vim-easy-align {:mod :easy-align}
    ; sexp
    :guns/vim-sexp {:mod :sexp}
    :radenling/vim-dispatch-neovim {}
-   ;; :tpope/vim-sexp-mappings-for-regular-people {}
+   :tpope/vim-sexp-mappings-for-regular-people {}
+   :tpope/vim-repeat {}
+
    :kylechui/nvim-surround {:mod :surround}
-   ;; :tpope/vim-abolish {}
-   ;; :tpope/vim-commentary {}
-   :tpope/vim-dispatch {:opt true 
-                        :cmd [:Dispatch :Make :Focus :Start]}
+   :tpope/vim-dispatch {}
 
    ; repl tools
+   :PaterJason/cmp-conjure {}
    :Olical/conjure {:mod :conjure
                     :branch :develop
-                    :requires [[:guns/vim-sexp]
-                               ;; [:tpope/vim-sexp-mappings-for-regular-people]
-                               [:PaterJason/cmp-conjure]
-                               ;; :kylechui/nvim-surround
-                               ]}
+                    :requires [:guns/vim-sexp
+                               :radenling/vim-dispatch-neovim
+                               :tpope/vim-sexp-mappings-for-regular-people
+                               :tpope/vim-repeat
+                               :PaterJason/cmp-conjure]}
 
    ; git
-   :TimUntersberger/neogit {:requires [[:nvim-lua/plenary.nvim]
-                                       [:sindrets/diffview.nvim]]
-                            :mod :neogit}
    :lewis6991/gitsigns.nvim {:mod :gitsigns}
    ;
    ; which-key
    :folke/which-key.nvim {:mod :which-key}
 
    ; parsing system
+   :nvim-treesitter/nvim-treesitter-textobjects {}
    :nvim-treesitter/nvim-treesitter 
    {:run ":TSUpdate"
+    ;; :event :BufReadPre
     :mod :treesitter
     :requires [:nvim-treesitter/nvim-treesitter-textobjects]}
-   :nvim-treesitter/playground {}
+   :nvim-treesitter/playground {:cmd :TSPlaygroundToggle}
 
    ; lsp
    :neovim/nvim-lspconfig {:mod :lspconfig 
@@ -118,20 +109,21 @@
    :L3MON4D3/LuaSnip {:requires [:saadparwaiz1/cmp_luasnip]}
 
    ; autocomplete
-   :hrsh7th/nvim-cmp {:requires [[:hrsh7th/cmp-buffer]
-                                 [:hrsh7th/cmp-path]
-                                 [:hrsh7th/cmp-calc]
-                                 [:hrsh7th/cmp-nvim-lsp]
-                                 [:hrsh7th/cmp-nvim-lua]
-                                 [:hrsh7th/cmp-vsnip]]
+   :hrsh7th/nvim-cmp {:requires [:hrsh7th/cmp-buffer
+                                 :hrsh7th/cmp-path
+                                 :saadparwaiz1/cmp_luasnip
+                                 :hrsh7th/cmp-calc
+                                 :hrsh7th/cmp-nvim-lsp
+                                 :hrsh7th/cmp-nvim-lua
+                                 :hrsh7th/cmp-vsnip]
                       :mod :cmp}
 
    ; color
-   ;; :uga-rosa/ccc.nvim {:mod :ccc :event :BufEnter :opt true}
-
+   :uga-rosa/ccc.nvim {:mod :ccc :event :BufEnter}
 
    ; nvim-tree
    :kyazdani42/nvim-tree.lua {:mod :nvim-tree
                               :requires [:kyazdani42/nvim-web-devicons]}})
 
 (util.use plugins)
+

@@ -35,12 +35,13 @@
   each of them. Works around Fennel not liking mixed associative and sequential
   tables as well."
   (packer.startup
-      (fn [use]
-        (core.run! 
-          (fn [[name opts]]
-            (-?> (. opts :mod) (safe-require-plugin-config))
-            (use (core.assoc opts 1 name)))
-          (core.kv-pairs pkgs))))
+    (fn [use]
+      (core.run!
+        (fn [[name opts]]
+          (-?> (. opts :mod) (safe-require-plugin-config))
+          (use (core.assoc opts 1 name)))
+        (core.kv-pairs pkgs)))
+    )
   nil)
 
 (defn packer-snapshot [?label]
