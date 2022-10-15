@@ -7,13 +7,18 @@
 (nvim.ex.autocmd "FocusGained,BufEnter" "*" ":checktime")
 (set nvim.o.cmdheight 0) 
 
-(local hl-yank (nvim.create_augroup :hl-yank {}))
+(local my-group (nvim.create_augroup :my-group {}))
 (nvim.create_autocmd 
   "TextYankPost"
   {:pattern "*"
    :callback #(vim.highlight.on_yank {:higroup :IncSearch
                                       :timeout 150})
-   :group hl-yank})
+   :group my-group})
+(nvim.create_autocmd
+  "FileType"
+  {:pattern [:help :man]
+   :command "noremap <buffer> q <cmd>quit<cr>"
+   :group my-group})
 
 ;don't wrap lines
 (nvim.ex.set :nowrap)
@@ -70,7 +75,7 @@
        ;enable highlighting search
        :hlsearch true
        ;makes signcolumn always one column with signs and linenumber
-       :signcolumn "auto"}]
+       :signcolumn "yes:1"}]
   (each [option value (pairs options)]
     (util.set-global-option option value)))
 
