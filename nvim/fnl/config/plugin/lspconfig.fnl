@@ -97,6 +97,7 @@
            :r [tb.lsp_references "LSP rerefences"]
            :t [tb.lsp_type_definitions "Type definition"]}
        :<leader> {:l {:r [vim.lsp.buf.rename "Rename"]
+                      :l [vim.lsp.buf.signature_help "LSP Signature"]
                       :a [vim.lsp.buf.code_action "Code actions"]
                       :s [tb.lsp_document_symbols "Document symbols"]
                       :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
