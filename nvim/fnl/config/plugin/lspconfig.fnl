@@ -90,7 +90,7 @@
                   vim.lsp.handlers.signature_help
                   {:border "single"})}
 
-      capabilities (cmplsp.update_capabilities
+      capabilities (cmplsp.default_capabilities
                      (vim.lsp.protocol.make_client_capabilities))
       bindings 
       {:g {:d [tb.lsp_definitions "Go to definition"]
