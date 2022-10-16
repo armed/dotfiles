@@ -23,9 +23,13 @@
    ; dashboard
    :goolord/alpha-nvim {:require [:kyazdani42/nvim-web-devicons]
                         :mod :alpha}
+
    ; windows
    :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
                              :mod :windows}
+   ; workspaces
+   :natecraddock/workspaces.nvim {:requires [:natecraddock/sessions.nvim]
+                                  :mod :workspace}
    ; commands
    :kazhala/close-buffers.nvim {:mod :close-buffers}
 
@@ -129,3 +133,4 @@
                               :requires [:kyazdani42/nvim-web-devicons]}})
 
 (util.use plugins)
+
