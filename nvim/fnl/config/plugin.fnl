@@ -20,6 +20,9 @@
    :folke/tokyonight.nvim {}
    :EdenEast/nightfox.nvim {:mod :theme}
 
+   ; dashboard
+   :goolord/alpha-nvim {:require [:kyazdani42/nvim-web-devicons]
+                        :mod :alpha}
    ; windows
    :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
                              :mod :windows}
@@ -126,4 +129,3 @@
                               :requires [:kyazdani42/nvim-web-devicons]}})
 
 (util.use plugins)
-
