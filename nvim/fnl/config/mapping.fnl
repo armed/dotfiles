@@ -10,7 +10,7 @@
 (set nvim.g.maplocalleader ",")
 
 ;clear highlighting on enter in normal mode
-(nvim.set_keymap :n :<esc> ":noh<CR><CR>" {:noremap true})
+(nvim.set_keymap :n :<esc> ":noh<CR>" {:noremap true :silent true})
 (nvim.set_keymap :i :jj "<esc>" {:noremap true})
 (nvim.set_keymap :i :kj "<esc>" {:noremap true})
 (nvim.set_keymap :i :jk "<esc>" {:noremap true})
