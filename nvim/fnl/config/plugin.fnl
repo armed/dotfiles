@@ -110,6 +110,7 @@
    :nvim-treesitter/playground {:cmd :TSPlaygroundToggle}
 
    ; lsp
+   :onsails/lspkind.nvim {}
    :neovim/nvim-lspconfig {:mod :lspconfig 
                            :requires [:ibhagwan/fzf-lua
                                       :williamboman/mason-lspconfig.nvim
