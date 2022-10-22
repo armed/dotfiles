@@ -43,7 +43,7 @@
        :timeoutlen 200
        ;show line numbers
        :number true
-       :relativenumber true
+       :relativenumber false
        ;show line and column number
        :ruler true
        ;settings needed for compe autocompletion
@@ -78,4 +78,3 @@
        :signcolumn "yes:1"}]
   (each [option value (pairs options)]
     (util.set-global-option option value)))
-
