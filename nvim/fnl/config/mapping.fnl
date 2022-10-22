@@ -44,6 +44,7 @@
                   :s [packer.sync "Sync"]
                   :C [packer.compile "Compile"]
                   :S [packer.status "Status"]}
+              :s [::write<cr> "Save buffer"]
               :x [:<cmd>xa<cr> "Save and exit"]
               :q [:<c-w>q "Close window"]}
              {:prefix :<leader>})

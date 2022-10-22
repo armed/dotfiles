@@ -30,5 +30,4 @@
   (nvim-tree.toggle)
   (nvim-tree.toggle))
 
-(wk.register {:s {:c [toggle-bg "Toggle theme"]}}
-             {:prefix :<leader>})
+
