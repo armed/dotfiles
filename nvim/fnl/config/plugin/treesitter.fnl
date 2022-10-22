@@ -2,24 +2,24 @@
   {autoload {treesitter nvim-treesitter.configs}})
 
 (treesitter.setup 
-  {:ensure_installed ["c" "lua" "rust" "clojure" "fennel" "norg"]
+  {:ensure_installed ["lua" "clojure" "fennel" "norg"]
    :highlight {:enable true
                :additional_vim_regex_highlighting false}
    :indent {:enable true}
    :rainbow {:enable true
              :extended_mode true
              :max_file_lines nil}
-   :refactor {:enable true
-              :highlight_definitions {:enable true
-                                      :clear_on_cursor_move true}
-              :navigation {:enable true}}
-   :textobjects {:select {:enable true}
-                 :lsp_interop {:enable true}
-                 :lookahead true
-                 :keymaps {:af "@function.outer"
-                           :if "@function.inner"
-                           :ac "@class.outer"
-                           :ic "@class.inner"}}
+   ;; :refactor {:enable true
+   ;;            :highlight_definitions {:enable true
+   ;;                                    :clear_on_cursor_move true}
+   ;;            :navigation {:enable true}}
+   ;; :textobjects {:select {:enable true}
+   ;;               :lsp_interop {:enable true}
+   ;;               :lookahead true
+   ;;               :keymaps {:af "@function.outer"
+   ;;                         :if "@function.inner"
+   ;;                         :ac "@class.outer"
+   ;;                         :ic "@class.inner"}}
    :playground {:enable true
                 :disable {}
                 :updatetime 25
