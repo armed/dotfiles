@@ -35,6 +35,7 @@
 
    ; ui
    ; visual helpers
+   :ggandor/leap.nvim {:mod :leap}
    :folke/todo-comments.nvim {:mod :todo}
    :lukas-reineke/indent-blankline.nvim {:mod :indent-blankline}
 
