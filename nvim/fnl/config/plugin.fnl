@@ -43,6 +43,8 @@
    ;; markdown
    :iamcco/markdown-preview.nvim {:ft :markdown}
 
+   ;autopairs
+   "windwp/nvim-autopairs" {:mod :autopairs}
    ; icons
    :kyazdani42/nvim-web-devicons {}
    ;; fzf
@@ -133,4 +135,3 @@
                               :requires [:kyazdani42/nvim-web-devicons]}})
 
 (util.use plugins)
-

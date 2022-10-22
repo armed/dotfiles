@@ -1,4 +1,4 @@
-(module autosave
+(module config.plugin.alpha
   {autoload {alpha alpha
              dashboard alpha.themes.dashboard}})
 
