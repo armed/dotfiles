@@ -132,8 +132,14 @@
    ; color
    :uga-rosa/ccc.nvim {:mod :ccc :event :BufEnter}
 
-   ; nvim-tree
-   :kyazdani42/nvim-tree.lua {:mod :nvim-tree
-                              :requires [:kyazdani42/nvim-web-devicons]}})
+   ; file-tree
+   :nvim-neo-tree/neo-tree.nvim {:mod :neo-tree
+                                 :branch "v2.x"
+                                 :requires [:kyazdani42/nvim-web-devicons
+                                            :nvim-lua/plenary.nvim
+                                            :MunifTanjim/nui.nvim]}
+   ;; :kyazdani42/nvim-tree.lua {:mod :nvim-tree
+   ;;                            :requires [:kyazdani42/nvim-web-devicons]}
+})
 
 (util.use plugins)
