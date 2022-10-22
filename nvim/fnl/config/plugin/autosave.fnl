@@ -1,9 +1,10 @@
-(module autosave
+(module config.plugin.autosave
   {autoload {as auto-save
              utils auto-save.utils.data}})
 
 (as.setup
-  {:external_message (fn [] "")
+  {:execution_message {:message (fn [] "")}
+   :trigger_events [:BufLeave]
    :condition
    (fn [buf]
      (let [vfn vim.fn]
