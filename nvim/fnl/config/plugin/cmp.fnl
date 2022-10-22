@@ -1,14 +1,8 @@
 (module config.plugin.cmp
   {autoload {nvim aniseed.nvim
              luasnip luasnip
+             lspkind lspkind
              cmp cmp}})
-
-(def- cmp-src-menu-items
-  {:buffer "buff"
-   :calc "calc"
-   :conjure "conj"
-   :nvim_lsp "lsp"
-   :path "path"})
 
 (def- cmp-srcs
   [{:name :nvim_lsp}
@@ -22,12 +16,17 @@
 (fn has-words-before []
   (let [(line col) (unpack (vim.api.nvim_win_get_cursor 0))]
     (and (not= col 0)
-         (= (: (: (. (vim.api.nvim_buf_get_lines 0 (- line 1) line true) 1) :sub col col) :match "%s") nil))))
+         (= (: (: (. (vim.api.nvim_buf_get_lines 0 (- line 1) line true) 1) 
+                  :sub col col) 
+               :match "%s") 
+            nil))))
 
 (cmp.setup {:formatting
-            {:format (fn [entry item]
-                       (set item.menu (or (. cmp-src-menu-items entry.source.name) ""))
-                       item)
+            {:format (lspkind.cmp_format {:mode :symbol
+                                          :maxwidth 50
+                                          :ellipsis_char "..."
+                                          :before (fn [entry vim-item]
+                                                    vim-item)})
              :formatting {:fields [:menu :abbr :kind]}}
             :window {:documentation (cmp.config.window.bordered)
                      :completion (cmp.config.window.bordered)}
@@ -56,4 +55,4 @@
                                 (luasnip.lsp_expand args.body))}
             :sources cmp-srcs})
 
-;; (nvim.ex.hi "CmpItemMenu ctermfg=7 guifg=#b1b1b1")
+(nvim.ex.hi "CmpItemMenu ctermfg=7 guifg=#b1b1b1")

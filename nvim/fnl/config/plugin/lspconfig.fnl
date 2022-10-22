@@ -30,7 +30,7 @@
                                                            :buffer bufnr
                                                            :event hl-events})]
     (when (or (not ok) (= (length hl-autocmds) 0))
-      (vim.api.nvim_create_augroup group {:clear false})
+      (vim.api.nvim_create_augroup group {:clear true})
       (vim.api.nvim_create_autocmd :CursorHold
                                    {:group group
                                     :buffer bufnr
@@ -110,38 +110,29 @@
                   ;; (float-diagnostic bufnr)
                   (setup-document-highlight client bufnr)
                   (wk.register bindings {:noremap true
-                                         :buffer bufnr}))]
-
+                                         :buffer bufnr}))
+      defaults {:on_attach on_attach
+                :handlers handlers
+                :capabilities capabilities}]
   ;; Clojure
   (lsp.clojure_lsp.setup {:on_attach on_attach
+                          :root_dir #(vim.fn.getcwd)
                           :init_options {:signatureHelp true
                                          :codeLens true}
                           :flags {:debounce_text_changes 150}
                           :handlers handlers
                           :cmd ["/usr/local/bin/clojure-lsp"]
                           :capabilities capabilities})
-
+  (lsp.yamlls.setup defaults)
   ;; JavaScript and TypeScript
-  ;; (lsp.tsserver.setup {:on_attach on_attach
-  ;;                      ;; :handlers handlers
-  ;;                      :capabilities capabilities})
+  (lsp.tsserver.setup defaults)
+  ;; html / css / json
+  (lsp.cssls.setup defaults)
   ;;
-  ;; ;; html / css / json
-  ;; (lsp.cssls.setup {:on_attach on_attach
-  ;;                   ;; :handlers handlers
-  ;;                   :capabilities capabilities
-  ;;                   :cmd ["vscode-css-languageserver" "--stdio"]})
+  (lsp.html.setup defaults)
   ;;
-  ;; (lsp.html.setup {:on_attach on_attach
-  ;;                  ;; :handlers handlers
-  ;;                  :capabilities capabilities
-  ;;                  :cmd ["vscode-html-languageserver" "--stdio"]})
-  ;;
-  ;; (lsp.jsonls.setup {:on_attach on_attach
-  ;;                    ;; :handlers handlers
-  ;;                    :capabilities capabilities
-  ;;                    :cmd ["vscode-json-languageserver" "--stdio"]})
+  (lsp.jsonls.setup defaults)
   )
 
-(mason.setup)
+(mason.setup {:ui {:border :rounded}})
 (mason-lspconfig.setup)
