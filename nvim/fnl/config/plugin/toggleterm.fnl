@@ -21,11 +21,11 @@
                  {:prefix :<leader>}))
 
 (let [T terminal.Terminal
-      gt (T:new {:cmd "gotop"
-                  :direction "float"
-                  :size 90
-                  :hidden true})
+      gt (T:new {:cmd "btm"
+                 :direction "float"
+                 :size 90
+                 :hidden true})
       gt-toggle (fn [] (gt:toggle))]
-    (wk.register {:t [gt-toggle "Gotop"]}
+    (wk.register {:t [gt-toggle "Bottom"]}
                  {:prefix :<leader>}))
 
