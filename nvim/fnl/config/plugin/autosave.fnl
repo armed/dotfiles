@@ -4,7 +4,7 @@
 
 (as.setup
   {:execution_message {:message (fn [] "")}
-   :trigger_events [:BufLeave]
+   :trigger_events [:BufLeave :FocusLost]
    :condition
    (fn [buf]
      (let [vfn vim.fn]
