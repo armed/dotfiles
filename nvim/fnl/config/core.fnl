@@ -7,13 +7,14 @@
 (nvim.ex.autocmd "FocusGained,BufEnter" "*" ":checktime")
 (set nvim.o.cmdheight 0) 
 
-(local my-group (nvim.create_augroup :my-group {}))
+(set vim.opt.winbar "%{%v:lua.require'config.plugin.winbar'.get_winbar()%}")
+
 (nvim.create_autocmd 
   "TextYankPost"
   {:pattern "*"
    :callback #(vim.highlight.on_yank {:higroup :IncSearch
-                                      :timeout 150})
-   :group my-group})
+                                      :timeout 150})})
+
 (nvim.create_autocmd
   "FileType"
   {:pattern [:help :man]

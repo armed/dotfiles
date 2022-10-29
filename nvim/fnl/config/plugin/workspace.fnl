@@ -7,11 +7,12 @@
 (w.setup {:hooks {:open (fn []
                           (when (not (s.load nil {:silent true}))
                             (s.save nil {:silent true}))
-                          (vim.cmd :NvimTreeClose)
-                          (vim.cmd :NvimTreeOpen))}})
+                          ;; (vim.cmd :NeoTreeShow)
+                          )}})
 
 (wk.register {:S {:name "Workspaces"
                   :a [w.add "Add"]
                   :r [w.remove "Remove"]
                   :f [":Telescope workspaces<cr>" "List"]}}
              {:prefix :<leader>})
+
