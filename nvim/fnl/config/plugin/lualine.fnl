@@ -1,5 +1,6 @@
 (module config.plugin.lualine
-  {autoload {lualine lualine}})
+  {autoload {lualine lualine
+             navic nvim-navic}})
 
 (local colors {:yellow "#ECBE7B"
                :cyan "#18aba6"
@@ -11,36 +12,6 @@
                :blue "#51afef"
                :red "#ec5f67"})	
 
-(local lsp-progress {1 :lsp_progress
-                     :display_components [:lsp_client_name
-                                          :spinner
-                                          [:title :percentage :message]]
-                     :colors {:percentage colors.cyan
-                              :title colors.cyan
-                              :message colors.cyan
-                              :spinner colors.cyan
-                              :lsp_client_name colors.magenta
-                              :use true}
-                     :separators {:component " "
-                                  :progress " | "
-                                  :message {:commenced "In Progress"
-                                            :completed :Completed}
-                                  :percentage {:pre "" :post "%% "}
-                                  :title {:pre "" :post ": "}
-                                  :lsp_client_name {:pre "[" :post "]"}
-                                  :spinner {:pre "" :post ""}}
-                     :timer {:progress_enddelay 500
-                             :spinner 1000
-                             :lsp_client_name_enddelay 1000}
-                     :spinner_symbols ["🌑 "
-                                       "🌒 "
-                                       "🌓 "
-                                       "🌔 "
-                                       "🌕 "
-                                       "🌖 "
-                                       "🌗 "
-                                       "🌘 "]})
-
 (local config {:options {:icons_enabled true
                          :globalstatus true
                          :theme "auto"
@@ -48,7 +19,7 @@
                          :section_separators {:left "" :right ""}
                          :disabled_filetypes {}}
                :sections {:lualine_a [:mode]
-                          :lualine_b [:filename :diagnostics :diff]
+                          :lualine_b [:diagnostics :diff]
                           :lualine_c {}
                           :lualine_x {}
                           :lualine_y [:filetype]
@@ -67,7 +38,7 @@
 (fn ins-right [component]
   (table.insert config.sections.lualine_x component))	
 
-(ins-left lsp-progress)
+(ins-left {1 navic.get_location :cond navic.is_available})
 
 (lualine.setup config)
 

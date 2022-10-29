@@ -2,72 +2,44 @@
   {autoload {lsp lspconfig
              tb telescope.builtin
              util lspconfig.util
+             u config.util
              cmplsp cmp_nvim_lsp
              wk which-key
+             fidget fidget
+             navic nvim-navic
              mason mason
              mason-lspconfig mason-lspconfig
              fzf fzf-lua
              conjure conjure}})
 
 ;symbols to show for lsp diagnostics
-(defn define-signs
-  []
-  (let [error "DiagnosticSignError"
-        warn  "DiagnosticSignWarn"
-        info  "DiagnosticSignInfo"
-        hint  "DiagnosticSignHint"]
+(let [error "DiagnosticSignError"
+      warn  "DiagnosticSignWarn"
+      info  "DiagnosticSignInfo"
+      hint  "DiagnosticSignHint"]
   (vim.fn.sign_define error {:text "" :texthl error})
   (vim.fn.sign_define warn  {:text "" :texthl warn})
   (vim.fn.sign_define info  {:text "" :texthl info})
-  (vim.fn.sign_define hint  {:text "" :texthl hint})))
-
-(define-signs)
+  (vim.fn.sign_define hint  {:text "" :texthl hint}))
 
 (defn create-hl-group [bufnr]
   (let [group :lsp_document_highlight
-        hl-events [:CursorHold :CursorHoldI]
-        (ok hl-autocmds) (pcall vim.api.nvim_get_autocmds {:group group 
-                                                           :buffer bufnr
-                                                           :event hl-events})]
-    (when (or (not ok) (= (length hl-autocmds) 0))
-      (vim.api.nvim_create_augroup group {:clear true})
-      (vim.api.nvim_create_autocmd :CursorHold
-                                   {:group group
-                                    :buffer bufnr
-                                    :callback vim.lsp.buf.document_highlight})
-      (vim.api.nvim_create_autocmd :CursorHoldI
-                                   {:group group
-                                    :buffer bufnr
-                                    :callback vim.lsp.buf.document_highlight})
-      (vim.api.nvim_create_autocmd :CursorMoved
-                                   {:group group
-                                    :buffer bufnr
-                                    :callback vim.lsp.buf.clear_references}))))
+        hl-events [:CursorHold :CursorMoved]]
+    (vim.api.nvim_create_augroup group {:clear true})
+    (vim.api.nvim_create_autocmd :CursorHold
+                                 {:group group
+                                  :buffer bufnr
+                                  :callback vim.lsp.buf.document_highlight})
+    (vim.api.nvim_create_autocmd :CursorMoved
+                                 {:group group
+                                  :buffer bufnr
+                                  :callback vim.lsp.buf.clear_references})))
 
 (defn setup-document-highlight [client bufnr]
   (let [(status-ok highlight-supported) 
         (pcall #(client.supports_method :textDocument/documentHighlight))]
     (when (and status-ok highlight-supported)
       (create-hl-group bufnr))))
-
-(vim.diagnostic.config {:virtual_lines {:only_current_line true}})
-
-(defn float-diagnostic [bufnr]
-  (vim.api.nvim_create_autocmd
-    :CursorHold
-    {:buffer bufnr
-     :callback (fn []
-                 (local opts
-                   {:focusable false
-                    :close_events [:BufLeave
-                                   :CursorMoved
-                                   :InsertEnter
-                                   :FocusLost]
-                    :border :rounded
-                    :source :always
-                    :prefix " "
-                    :scope :line})
-                 (vim.diagnostic.open_float nil opts))}))	
 
 (let [handlers {"textDocument/publishDiagnostics"
                 (vim.lsp.with
@@ -109,21 +81,29 @@
       on_attach (fn [client bufnr]
                   ;; (float-diagnostic bufnr)
                   (setup-document-highlight client bufnr)
+                  (when client.server_capabilities.documentSymbolProvider
+                    (navic.attach client bufnr))
                   (wk.register bindings {:noremap true
                                          :buffer bufnr}))
       defaults {:on_attach on_attach
                 :handlers handlers
                 :capabilities capabilities}]
   ;; Clojure
-  (lsp.clojure_lsp.setup {:on_attach on_attach
-                          :root_dir #(vim.fn.getcwd)
-                          :init_options {:signatureHelp true
-                                         :codeLens true}
-                          :flags {:debounce_text_changes 150}
-                          :handlers handlers
-                          :cmd ["/usr/local/bin/clojure-lsp"]
-                          :capabilities capabilities})
-  (lsp.yamlls.setup defaults)
+  (lsp.clojure_lsp.setup (u.merge 
+                           defaults
+                           {:root_dir #(vim.fn.getcwd)
+                            :init_options {:signatureHelp true
+                                           :codeLens true}
+                            :flags {:debounce_text_changes 150}
+                            :cmd ["/usr/local/bin/clojure-lsp"] }))
+  (lsp.yamlls.setup 
+    (u.merge
+      defaults
+      {:settings
+       {:yaml {:schemas
+               {"https://json.schemastore.org/github-workflow.json"
+                ".github/workflows/*"}}}}))
+
   ;; JavaScript and TypeScript
   (lsp.tsserver.setup defaults)
   ;; html / css / json
@@ -136,3 +116,30 @@
 
 (mason.setup {:ui {:border :rounded}})
 (mason-lspconfig.setup)
+(fidget.setup {})
+(navic.setup {:icons {:File " "
+                      :Module " "
+                      :Namespace " "
+                      :Package " "
+                      :Class " "
+                      :Method " "
+                      :Property " "
+                      :Field " "
+                      :Constructor " "
+                      :Enum " "
+                      :Interface " "
+                      :Function " "
+                      :Variable " "
+                      :Constant " "
+                      :String " "
+                      :Number " "
+                      :Boolean " "
+                      :Array " "
+                      :Object " "
+                      :Key " "
+                      :Null " "
+                      :EnumMember " "
+                      :Struct " "
+                      :Event " "
+                      :Operator " "
+                      :TypeParameter " "}})

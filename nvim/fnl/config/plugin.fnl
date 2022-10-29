@@ -111,6 +111,8 @@
    :nvim-treesitter/playground {:cmd :TSPlaygroundToggle}
 
    ; lsp
+   :SmiteshP/nvim-navic {}
+   :j-hui/fidget.nvim {}
    :onsails/lspkind.nvim {}
    :neovim/nvim-lspconfig {:mod :lspconfig 
                            :requires [:ibhagwan/fzf-lua
