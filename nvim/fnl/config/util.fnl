@@ -54,3 +54,25 @@
     (when (> (length sn) 0)
       (print "Snapshot created: " (packer-snapshot sn)))))
 
+(defn merge [...]
+  (let [temp {}]
+    (var index 1)
+    (local result {})
+    (math.randomseed (os.time))
+    (each [i tbl (ipairs [...])]
+      (each [k v (pairs tbl)]
+        (when (= (type k) :number)
+          (set-forcibly! k (* (* (math.random) i) k)))
+        (tset temp k v)))
+    (each [k v (pairs temp)]
+      (when (= (type k) :number)
+        (when (. result index)
+          (set index (+ index 1)))
+        (set-forcibly! k index))
+      (tset result k v))
+    result))
+
+(defn get-buf-option [opt]
+  (let [(status-ok buf-option) (pcall vim.api.nvim_buf_get_option 0 opt)]
+    (if (not status-ok) nil buf-option)))
+
