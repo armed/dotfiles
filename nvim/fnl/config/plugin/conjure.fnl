@@ -13,13 +13,14 @@
 (set vim.g.conjure#client#clojure#nrepl#eval#raw_out true)
 (set vim.g.conjure#client#clojure#nrepl#test#raw_out true)
 (set vim.g.conjure#client#clojure#nrepl#test#runner "kaocha")
-(set vim.g.conjure#log#jump_to_latest#cursor_scroll_position "bottom")
-
+(set vim.g.conjure#log#jump_to_latest#cursor_scroll_position "center")
+(set vim.g.conjure#log#hud#enabled false)
 
 (vim.api.nvim_create_autocmd 
   "BufNewFile"
   {:pattern "conjure-log-*"
-   :callback (fn [event] (vim.diagnostic.disable 0))})
+   :callback (fn [event]
+               (vim.diagnostic.disable 0))})
 
 (fn conjure-eval [form]
   (eval.eval-str {:code form :origin :custom_command}))
