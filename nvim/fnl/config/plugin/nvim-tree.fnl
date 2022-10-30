@@ -31,5 +31,5 @@
                                      :deleted ""
                                      :ignored "◌"}}}}})
 
-(wk.register {:e [::NvimTreeToggle<cr> "Toggle Nvim Tree"]}
-             {:prefix :<leader>})
+;; (wk.register {:e [::NvimTreeToggle<cr> "Toggle Nvim Tree"]}
+;;              {:prefix :<leader>})

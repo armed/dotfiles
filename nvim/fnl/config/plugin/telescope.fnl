@@ -32,7 +32,6 @@
              :f {:name "Find"
                  :f [tb.find_files "Find files"]
                  :g [tb.live_grep "Live grep"]
-                 :b [tb.buffers "Buffers"]
-                 ;; :p [":Telescope projects<cr>" "Projects"]
-                 :r [tb.oldfiles "Recent files"]}})
+                 :b [":Neotree buffers position=float<cr>" "Buffers"]
+                 :r [#(tb.oldfiles {:cwd_only true}) "Recent files"]}})
 (wk.register keys {:prefix :<leader>})
