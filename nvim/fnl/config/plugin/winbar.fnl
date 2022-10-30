@@ -2,17 +2,18 @@
   {autoload {winbar winbar
              util config.util
              navic nvim-navic
+             cp catppuccin.palettes
              icons config.icons
              nvim aniseed.nvim}})
 
-(local colors {:darker_black "#272f35"
-               :black "#2b3339"
-               :black2 "#323a40"
-               :folder_bg "#538AD2"})
+(local mocha-colors (cp.get_palette :mocha))
 
-(nvim.set_hl 0 :WinBarSeparator {:fg colors.folder_bg})
-(nvim.set_hl 0 :WinBarFilename {:fg colors.black :bg colors.folder_bg})
-(nvim.set_hl 0 :WinBarContext {:fg colors.black :bold true :bg colors.folder_bg})
+(nvim.set_hl 0 :WinBarSeparator {:fg mocha-colors.blue})
+(nvim.set_hl 0 :WinBarFilename {:fg mocha-colors.base 
+                                :bg mocha-colors.blue})
+(nvim.set_hl 0 :WinBarContext {:fg mocha-colors.base 
+                               :bold true 
+                               :bg mocha-colors.blue})
 
 (local winbar_filetype_exclude [:help
                                 :startify
@@ -28,8 +29,6 @@
                                 :spectre_panel
                                 :toggleterm])
 
-
-
 (fn conjure-log? []
   (let [fname (vim.fn.expand "%:t")
         pattern "^conjure%-log"]
@@ -38,7 +37,7 @@
 (fn excludes? []
   (if (or (vim.tbl_contains winbar_filetype_exclude vim.bo.filetype)
           (conjure-log?))
-    (do 
+    (do
       (set vim.opt_local.winbar nil)
       true)
     false))
