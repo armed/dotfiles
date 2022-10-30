@@ -54,10 +54,8 @@
    ;; autosave
    :nvim-zh/auto-save.nvim {:mod :autosave}
    ; status line
-   :arkav/lualine-lsp-progress {}
    :nvim-lualine/lualine.nvim {:mod :lualine
-                               :require [:arkav/lualine-lsp-progress
-                                         :kyazdani42/nvim-web-devicons]}
+                               :require [:kyazdani42/nvim-web-devicons]}
 
    ; clip
    :AckslD/nvim-neoclip.lua 
