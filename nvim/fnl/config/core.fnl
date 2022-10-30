@@ -6,7 +6,6 @@
 ;refresh changed content
 (nvim.ex.autocmd "FocusGained,BufEnter" "*" ":checktime")
 (set nvim.o.cmdheight 0) 
-
 (set vim.opt.winbar "%{%v:lua.require'config.plugin.winbar'.get_winbar()%}")
 
 (nvim.create_autocmd 
@@ -32,6 +31,7 @@
        :equalalways true
        :encoding "utf-8"
        :scrolloff 5
+       :conceallevel 2
        ;; :spelllang "en_us"
        :backspace "2"
        :colorcolumn "80"
