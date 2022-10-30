@@ -25,9 +25,11 @@
   (vim.cmd (.. "so " session-file))
   (open-neo-tree))
 
-(w.setup {:hooks {:open_pre (fn [] (when (session-exists)
-                                     (save-session)
-                                     (vim.cmd "sil %bwipeout!")))
+(w.setup {:hooks {:open_pre (fn []
+                              (vim.lsp.stop_client (vim.lsp.get_active_clients))
+                              (when (session-exists)
+                                (save-session)
+                                (vim.cmd "sil %bwipeout!")))
                   :open (fn [] (when (session-exists) 
                                  (load-session)))}})
 
