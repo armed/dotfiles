@@ -54,7 +54,7 @@
 
 (fn restart-lsp [client bufnr]
   (vim.notify "LSP Restarting")
-  (vim.api.nvim_del_augroup_by_name hl_grp)
+  (pcall vim.api.nvim_del_augroup_by_name hl_grp)
   (client.stop)
   (try-until-succeed 
     300
@@ -77,6 +77,7 @@
                   :R [#(restart-lsp client bufnr) "Restart LSP"]}}
    :K [vim.lsp.buf.hover "Hover doc"]})
 
+
 (let [handlers {"textDocument/publishDiagnostics"
                 (vim.lsp.with
                   vim.lsp.diagnostic.on_publish_diagnostics
@@ -92,7 +93,7 @@
                 "textDocument/hover"
                 (vim.lsp.with
                   vim.lsp.handlers.hover
-                  {:border "double"})
+                  {:border "single"})
                 "textDocument/signatureHelp"
                 (vim.lsp.with
                   vim.lsp.handlers.signature_help
@@ -163,4 +164,3 @@
                       :Event " "
                       :Operator " "
                       :TypeParameter " "}})
-
