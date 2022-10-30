@@ -28,8 +28,7 @@
    :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
                              :mod :windows}
    ; workspaces
-   :natecraddock/workspaces.nvim {:requires [:natecraddock/sessions.nvim]
-                                  :mod :workspace}
+   :natecraddock/workspaces.nvim {:mod :workspace}
    ; commands
    :kazhala/close-buffers.nvim {:mod :close-buffers}
 

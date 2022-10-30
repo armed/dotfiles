@@ -27,8 +27,6 @@
 (telescope.load_extension "ui-select")
 (telescope.load_extension "fzf")
 (telescope.load_extension "neoclip")
-(telescope.load_extension "workspaces")
-;; (telescope.load_extension "projects")
 
 (local keys {:r [tb.resume "Resume last search"]
              :f {:name "Find"
