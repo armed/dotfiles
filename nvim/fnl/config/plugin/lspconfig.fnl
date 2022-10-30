@@ -1,5 +1,6 @@
 (module config.plugin.lspconfig
   {autoload {lsp lspconfig
+             core aniseed.core
              tb telescope.builtin
              util lspconfig.util
              u config.util
@@ -22,16 +23,17 @@
   (vim.fn.sign_define info  {:text "" :texthl info})
   (vim.fn.sign_define hint  {:text "" :texthl hint}))
 
-(defn create-hl-group [bufnr]
-  (let [group :lsp_document_highlight
-        hl-events [:CursorHold :CursorMoved]]
-    (vim.api.nvim_create_augroup group {:clear true})
+(local hl_grp :lsp_document_highlight)
+
+(defn create-hl-group [client bufnr]
+  (let [hl-events [:CursorHold :CursorMoved]]
+    (vim.api.nvim_create_augroup hl_grp {:clear true})
     (vim.api.nvim_create_autocmd :CursorHold
-                                 {:group group
+                                 {:group hl_grp
                                   :buffer bufnr
                                   :callback vim.lsp.buf.document_highlight})
     (vim.api.nvim_create_autocmd :CursorMoved
-                                 {:group group
+                                 {:group hl_grp
                                   :buffer bufnr
                                   :callback vim.lsp.buf.clear_references})))
 
@@ -39,7 +41,41 @@
   (let [(status-ok highlight-supported) 
         (pcall #(client.supports_method :textDocument/documentHighlight))]
     (when (and status-ok highlight-supported)
-      (create-hl-group bufnr))))
+      (create-hl-group client bufnr))))
+
+(fn try-until-succeed
+  [interval check-fn success-fn]
+  (let [timer (vim.loop.new_timer)]
+    (timer:start 
+      interval interval #(when (check-fn)
+                           (success-fn)
+                           (timer:stop)
+                           (timer:close)))))
+
+(fn restart-lsp [client bufnr]
+  (vim.notify "LSP Restarting")
+  (vim.api.nvim_del_augroup_by_name hl_grp)
+  (client.stop)
+  (try-until-succeed 
+    300
+    #(vim.lsp.client_is_stopped client.id) 
+    #(vim.schedule #(vim.cmd :LspStart))))
+
+(fn get-wk-bindings [client bufnr]
+  (core.pr client.pid)
+  {:g {:d [tb.lsp_definitions "Go to definition"]
+       :r [tb.lsp_references "LSP rerefences"]
+       :t [tb.lsp_type_definitions "Type definition"]}
+   :<leader> {:l {:r [vim.lsp.buf.rename "Rename"]
+                  :l [vim.lsp.buf.signature_help "LSP Signature"]
+                  :a [vim.lsp.buf.code_action "Code actions"]
+                  :s [tb.lsp_document_symbols "Document symbols"]
+                  :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
+                  :f [vim.lsp.buf.format "Format buffer"]
+                  :d [#(tb.diagnostics {:bufnr 0}) "Document diagnostics"]
+                  :D [tb.diagnostics "Workspace diagnostics"]
+                  :R [#(restart-lsp client bufnr) "Restart LSP"]}}
+   :K [vim.lsp.buf.hover "Hover doc"]})
 
 (let [handlers {"textDocument/publishDiagnostics"
                 (vim.lsp.with
@@ -61,30 +97,14 @@
                 (vim.lsp.with
                   vim.lsp.handlers.signature_help
                   {:border "single"})}
-
       capabilities (cmplsp.default_capabilities
                      (vim.lsp.protocol.make_client_capabilities))
-      bindings 
-      {:g {:d [tb.lsp_definitions "Go to definition"]
-           :r [tb.lsp_references "LSP rerefences"]
-           :t [tb.lsp_type_definitions "Type definition"]}
-       :<leader> {:l {:r [vim.lsp.buf.rename "Rename"]
-                      :l [vim.lsp.buf.signature_help "LSP Signature"]
-                      :a [vim.lsp.buf.code_action "Code actions"]
-                      :s [tb.lsp_document_symbols "Document symbols"]
-                      :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
-                      :f [vim.lsp.buf.format "Format buffer"]
-                      :d [#(tb.diagnostics {:bufnr 0}) "Document diagnostics"]
-                      :D [tb.diagnostics "Workspace diagnostics"]
-                      :R ["<cmd>LspRestart<cr>" "Restart LSP"]}}
-       :K [vim.lsp.buf.hover "Hover doc"]}
       on_attach (fn [client bufnr]
-                  ;; (float-diagnostic bufnr)
                   (setup-document-highlight client bufnr)
                   (when client.server_capabilities.documentSymbolProvider
                     (navic.attach client bufnr))
-                  (wk.register bindings {:noremap true
-                                         :buffer bufnr}))
+                  (wk.register (get-wk-bindings client bufnr) {:noremap true
+                                                               :buffer bufnr}))
       defaults {:on_attach on_attach
                 :handlers handlers
                 :capabilities capabilities}]
@@ -143,3 +163,4 @@
                       :Event " "
                       :Operator " "
                       :TypeParameter " "}})
+
