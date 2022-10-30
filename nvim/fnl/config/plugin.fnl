@@ -17,7 +17,8 @@
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
-   :folke/tokyonight.nvim {}
+   :catppuccin/nvim {:mod :theme :as :catppuccin}
+   :folke/tokyonight.nvim {:mod :theme}
    :EdenEast/nightfox.nvim {:mod :theme}
 
    ; dashboard

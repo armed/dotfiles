@@ -3,6 +3,7 @@
              wk which-key
              nvim-tree nvim-tree
              fox nightfox
+             catppuccin catppuccin
              tokyo tokyonight}})
 
 (fox.setup {:options {:dim_inactive true}
@@ -14,13 +15,23 @@
               :day_brightness 0.1
               :styles {:sidebars :transparent}})
 
+(catppuccin.setup {:flavour :mocha
+                   :background {:light :latte
+                                :dark :mocha}
+                   :dim_inactive {:enabled true}
+                   :custom_highlights 
+                   (fn [colors]
+                     {:VertSplit {:fg colors.peach}})})
+
 
 (local tokyo {:light "tokyonight-day"
               :dark "tokyonight-night"})
 (local fox {:light "dawnfox"
             :dark "nightfox"})
+(local cat {:light :catppuccin
+            :dark :catppuccin})
 
-(local current-theme fox)
+(local current-theme cat)
 (nvim.ex.colorscheme (. current-theme nvim.o.bg))
 
 (defn toggle-bg []
