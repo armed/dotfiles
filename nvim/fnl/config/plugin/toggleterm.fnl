@@ -5,19 +5,21 @@
              wk which-key
              nvim aniseed.nvim}})
 
-(tt.setup {:autochdir true})
+(tt.setup {})
 
 (let [T terminal.Terminal
-      git (T:new {:cmd "cd $NVIM_CWD && gitui"
+      git (T:new {:cmd "gitui"
                   :direction "float"
                   :size 80
                   :hidden true})
-      git-toggle (fn [] (git:toggle))
-      cmd (vim.api.nvim_create_user_command :CwdToggleGit git-toggle {})
-      pen-cmd (fn []
-                (set vim.env.NVIM_CWD (vim.fn.getcwd))
-                (vim.cmd :CwdToggleGit))]
-    (wk.register {:g [pen-cmd "Git"]}
+      git-toggle (fn []
+                   (let [file-path (vim.fn.expand "%:p:h")]
+                     (set vim.env.GIT_DIR (if (not= "" file-path)
+                                            file-path
+                                            (vim.fn.getcwd)))
+                     (print file-path)
+                     (git:toggle)))]
+    (wk.register {:g [git-toggle "Git"]}
                  {:prefix :<leader>}))
 
 (let [T terminal.Terminal
