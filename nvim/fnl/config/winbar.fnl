@@ -1,7 +1,6 @@
 (module config.plugin.winbar
   {autoload {winbar winbar
              util config.util
-             navic nvim-navic
              cp catppuccin.palettes
              icons config.icons
              nvim aniseed.nvim}})
@@ -43,7 +42,7 @@
       (conjure-log?)
       (floating?)))
 
-(fn get-modified []
+(defn get_modified []
   (if (util.get-buf-option :mod)
     (.. "%#WinBarContext#" 
         icons.config.ui.Circle)
@@ -58,7 +57,7 @@
       "%="
       ""
       "%*"
-      (get-modified)
+      "%{%v:lua.require'config.winbar'.get_modified()%}"
       (get-location)
       "%#WinBarSeparator#"
       ""
