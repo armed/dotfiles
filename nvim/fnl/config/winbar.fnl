@@ -34,9 +34,14 @@
         pattern "^conjure%-log"]
     (not= nil (fname:find pattern))))
 
+(fn relative? []
+  (let [cfg (vim.api.nvim_win_get_config 0)]
+    (not= "" cfg.relative)))
+
 (fn excludes? []
   (if (or (vim.tbl_contains winbar_filetype_exclude vim.bo.filetype)
-          (conjure-log?))
+          (conjure-log?)
+          (relative?))
     (do
       (set vim.opt_local.winbar nil)
       true)
@@ -71,5 +76,3 @@
   "BufEnter,WinEnter"
   {:pattern "*"
    :callback set-local-winbar})
-
-(set-local-winbar)
