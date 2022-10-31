@@ -52,16 +52,24 @@
   (.. "%#WinBarContext#"
       (vim.fn.expand "%:~:.") "%*"))	
 
-(defn get_winbar []
-  (if (not (excludes?))
-    (.. "%#WinBarSeparator#"
-        "%="
-        ""
-        "%*"
-        (get-modified)
-        (get-location)
-        "%#WinBarSeparator#"
-        ""
-        "%*")
-    ""))
+(fn get-winbar []
+  (.. "%#WinBarSeparator#"
+      "%="
+      ""
+      "%*"
+      (get-modified)
+      (get-location)
+      "%#WinBarSeparator#"
+      ""
+      "%*"))
 
+(fn set-local-winbar []
+  (when (not (excludes?))
+    (set vim.opt_local.winbar (get-winbar))))
+
+(nvim.create_autocmd
+  "BufEnter,WinEnter"
+  {:pattern "*"
+   :callback set-local-winbar})
+
+(set-local-winbar)
