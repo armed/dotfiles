@@ -8,16 +8,15 @@
 (tt.setup {})
 
 (let [T terminal.Terminal
-      git (T:new {:cmd "gitui"
+      git (T:new {:cmd "cd $GITUI_CWD && gitui"
                   :direction "float"
                   :size 80
                   :hidden true})
       git-toggle (fn []
                    (let [file-path (vim.fn.expand "%:p:h")]
-                     (set vim.env.GIT_DIR (if (not= "" file-path)
-                                            file-path
-                                            (vim.fn.getcwd)))
-                     (print file-path)
+                     (set vim.env.GITUI_CWD (if (not= "" file-path)
+                                              file-path
+                                              (vim.fn.getcwd)))
                      (git:toggle)))]
     (wk.register {:g [git-toggle "Git"]}
                  {:prefix :<leader>}))
