@@ -9,10 +9,13 @@
    :rainbow {:enable true
              :extended_mode true
              :max_file_lines nil}
-   ;; :refactor {:enable true
-   ;;            :highlight_definitions {:enable true
-   ;;                                    :clear_on_cursor_move true}
-   ;;            :navigation {:enable true}}
+   :query_linter {:enable true
+                  :use_virtual_text true
+                  :lint_events [:BufWrite :CursorHold]}
+   :refactor {:enable true
+              :highlight_definitions {:enable true
+                                      :clear_on_cursor_move true}
+              :navigation {:enable true}}
    ;; :textobjects {:select {:enable true}
    ;;               :lsp_interop {:enable true}
    ;;               :lookahead true
