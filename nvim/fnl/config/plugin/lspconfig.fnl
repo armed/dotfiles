@@ -26,16 +26,17 @@
 (local hl_grp :lsp_document_highlight)
 
 (defn create-hl-group [client bufnr]
-  (let [hl-events [:CursorHold :CursorMoved]]
-    (vim.api.nvim_create_augroup hl_grp {:clear true})
-    (vim.api.nvim_create_autocmd :CursorHold
-                                 {:group hl_grp
-                                  :buffer bufnr
-                                  :callback vim.lsp.buf.document_highlight})
-    (vim.api.nvim_create_autocmd :CursorMoved
-                                 {:group hl_grp
-                                  :buffer bufnr
-                                  :callback vim.lsp.buf.clear_references})))
+  (vim.api.nvim_create_augroup hl_grp {:clear true})
+  (vim.api.nvim_create_autocmd 
+    :CursorHold
+    {:group hl_grp
+     :buffer bufnr
+     :callback vim.lsp.buf.document_highlight})
+  (vim.api.nvim_create_autocmd
+    :CursorMoved
+    {:group hl_grp
+     :buffer bufnr
+     :callback vim.lsp.buf.clear_references}))
 
 (defn setup-document-highlight [client bufnr]
   (let [(status-ok highlight-supported) 
@@ -61,13 +62,19 @@
     #(vim.lsp.client_is_stopped client.id) 
     #(vim.schedule #(vim.cmd :LspStart))))
 
+(local float-opts {:border :rounded})
+
 (fn get-wk-bindings [client bufnr]
-  (core.pr client.pid)
   {:g {:d [tb.lsp_definitions "Go to definition"]
        :r [tb.lsp_references "LSP rerefences"]
        :t [tb.lsp_type_definitions "Type definition"]}
    :<leader> {:l {:r [vim.lsp.buf.rename "Rename"]
-                  :l [vim.lsp.buf.signature_help "LSP Signature"]
+                  :n [#(vim.diagnostic.goto_next {:float float-opts})
+                      "Next diagnostics"]
+                  :N [#(vim.diagnostic.goto_prev {:float float-opts})
+                      "Prev diagnostics"]
+                  :l [#(vim.diagnostic.open_float float-opts) 
+                      "Line diagnostic"]
                   :a [vim.lsp.buf.code_action "Code actions"]
                   :s [tb.lsp_document_symbols "Document symbols"]
                   :S [tb.lsp_dynamic_workspace_symbols "Workspace symbols"]
@@ -81,23 +88,21 @@
 (let [handlers {"textDocument/publishDiagnostics"
                 (vim.lsp.with
                   vim.lsp.diagnostic.on_publish_diagnostics
-                  {:virtual_text true
+                  {:virtual_text false
                    :signs true
                    :underline true
                    :update_in_insert false
                    :severity_sort true})
+
                 "textDocument/codeLens"
                 (vim.lsp.with
                   vim.lsp.diagnostic.on_publish_diagnostics
-                  {:virtual_text true})
-                "textDocument/hover"
-                (vim.lsp.with
-                  vim.lsp.handlers.hover
-                  {:border "single"})
+                  {:virtual_text false})
+
+                "textDocument/hover" (vim.lsp.with vim.lsp.handlers.hover float-opts)
+
                 "textDocument/signatureHelp"
-                (vim.lsp.with
-                  vim.lsp.handlers.signature_help
-                  {:border "single"})}
+                (vim.lsp.with vim.lsp.handlers.signature_help float-opts)}
       capabilities (cmplsp.default_capabilities
                      (vim.lsp.protocol.make_client_capabilities))
       on_attach (fn [client bufnr]
