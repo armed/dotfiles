@@ -16,19 +16,22 @@
               :styles {:sidebars :transparent}})
 
 (catppuccin.setup {:flavour :mocha
+                   :integrations {:fidget true
+                                  :navic {:enabled true}}
                    :background {:light :latte
                                 :dark :mocha}
                    :dim_inactive {:enabled true}
+                   :color_overrides
+                   {:mocha {:surface2 "#737487"}}
                    :custom_highlights 
                    (fn [colors]
                      {:VertSplit {:fg colors.peach}})})
-
 
 (local tokyo {:light "tokyonight-day"
               :dark "tokyonight-night"})
 (local fox {:light "dawnfox"
             :dark "nightfox"})
-(local cat {:light :catppuccin
+(local cat {:light :latte
             :dark :catppuccin})
 
 (local current-theme cat)
