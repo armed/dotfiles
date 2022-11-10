@@ -1,5 +1,6 @@
 (module config.plugin.conjure
   {autoload {eval conjure.eval
+             core aniseed.core
              extract conjure.extract
              wk which-key}})
 
@@ -15,12 +16,6 @@
 (set vim.g.conjure#client#clojure#nrepl#test#runner "kaocha")
 (set vim.g.conjure#log#jump_to_latest#cursor_scroll_position "center")
 (set vim.g.conjure#log#hud#enabled false)
-
-(vim.api.nvim_create_autocmd 
-  "BufNewFile"
-  {:pattern "conjure-log-*"
-   :callback (fn [event]
-               (vim.diagnostic.disable 0))})
 
 (fn conjure-eval [form]
   (eval.eval-str {:code form :origin :custom_command}))
@@ -53,13 +48,23 @@
    :tap_root_form (fn []
                     (local form (conjure-form true))
                     (conjure-eval (.. "(tap> " form ")")))})	
-(local llopts {:prefix :<localleader>})
-(local portal-mappings
-  {:p {:name :Portal
+
+(local mappings
+  {:s {:o [::ConjureOutSubscribe<cr> "Subscribe to output"]
+       :O [::ConjureOutUnsubscribe<cr> "Unsubscribe from output"]}
+   :p {:name :Portal
        :p [portal-cmds.open "Portal open"]
        :c [portal-cmds.clear "Portal clear"]
        :e [portal-cmds.last_exception "Tap last exception"]
        :w [portal-cmds.tap_word "Tap word"]
        :f [portal-cmds.tap_form "Tap current form"]
-       :r [portal-cmds.tap_root_form "Tap root form"]}})	
-(wk.register portal-mappings llopts)
+       :r [portal-cmds.tap_root_form "Tap root form"]}})
+
+(wk.register mappings {:prefix :<localleader>})
+
+(let [grp (vim.api.nvim_create_augroup :conjure_hooks {:clear true})]
+  (vim.api.nvim_create_autocmd 
+    "BufNewFile"
+    {:group grp
+     :pattern "conjure-log-*"
+    :callback (fn [event] (vim.diagnostic.disable 0))}))
