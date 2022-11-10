@@ -22,11 +22,15 @@
                  {:prefix :<leader>}))
 
 (let [T terminal.Terminal
-      gt (T:new {:cmd "btm"
-                 :direction "float"
-                 :size 90
-                 :hidden true})
-      gt-toggle (fn [] (gt:toggle))]
-    (wk.register {:t [gt-toggle "Bottom"]}
-                 {:prefix :<leader>}))
+      repl (T:new {:direction "float"
+                   :size 80
+                   :close_on_exit false
+                   :hidden true})
+      repl-toggle (fn [] 
+                    (repl:toggle)
+                    (vim.cmd :stopinsert!)
+                    (nvim.buf_set_keymap 0 :t :jj :<esc><esc> {:silent true})
+                    (nvim.buf_set_keymap 0 :n :q :<cmd>close<cr> {:silent true}))]
 
+  (wk.register {:t [repl-toggle "Open terminal tab"]}
+               {:prefix :<leader>}))
