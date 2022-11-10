@@ -34,6 +34,7 @@
    :kazhala/close-buffers.nvim {:mod :close-buffers}
 
    ; ui
+   :b0o/incline.nvim {:mod :incline}
    ;; :folke/noice.nvim {:mod :noice :requires [:MunifTanjim/nui.nvim]}
    ;; :fgheng/winbar.nvim {:mod :winbar}
    ; visual helpers
