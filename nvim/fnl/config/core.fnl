@@ -3,6 +3,7 @@
              util config.util
              str aniseed.string}})
 
+
 ;refresh changed content
 (nvim.ex.autocmd "FocusGained,BufEnter" "*" ":checktime")
 (set nvim.o.cmdheight 0) 
@@ -43,7 +44,7 @@
        :timeoutlen 200
        ;show line numbers
        :number true
-       :relativenumber false
+       :relativenumber true
        ;show line and column number
        :ruler true
        ;settings needed for compe autocompletion
