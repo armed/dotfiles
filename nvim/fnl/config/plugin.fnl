@@ -136,6 +136,7 @@
    :nvim-neo-tree/neo-tree.nvim {:mod :neo-tree
                                  :branch "v2.x"
                                  :requires [:kyazdani42/nvim-web-devicons
+                                            :s1n7ax/nvim-window-picker
                                             :nvim-lua/plenary.nvim
                                             :MunifTanjim/nui.nvim]}
    :kyazdani42/nvim-tree.lua {:mod :nvim-tree
