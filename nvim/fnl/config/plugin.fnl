@@ -48,7 +48,7 @@
    :iamcco/markdown-preview.nvim {:ft :markdown}
 
    ;autopairs
-   "windwp/nvim-autopairs" {:mod :autopairs}
+   :windwp/nvim-autopairs {:mod :autopairs}
    ; icons
    :kyazdani42/nvim-web-devicons {}
    ;; fzf
@@ -107,6 +107,7 @@
     :mod :treesitter
     :requires [:nvim-treesitter/nvim-treesitter-textobjects]}
    :nvim-treesitter/playground {:cmd :TSPlaygroundToggle}
+
 
    ; lsp
    :SmiteshP/nvim-navic {}
