@@ -4,14 +4,15 @@
              tb telescope.builtin
              util lspconfig.util
              u config.util
+             navic nvim-navic
              cmplsp cmp_nvim_lsp
              wk which-key
              fidget fidget
-             navic nvim-navic
              mason mason
              mason-lspconfig mason-lspconfig
-             fzf fzf-lua
-             conjure conjure}})
+             fzf fzf-lua}})
+
+(vim.api.nvim_create_augroup :LspGroup {:clear true})
 
 ;symbols to show for lsp diagnostics
 (let [error "DiagnosticSignError"
@@ -23,26 +24,17 @@
   (vim.fn.sign_define info  {:text "" :texthl info})
   (vim.fn.sign_define hint  {:text "" :texthl hint}))
 
-(local hl_grp :lsp_document_highlight)
-
-(defn create-hl-group [client bufnr]
-  (vim.api.nvim_create_augroup hl_grp {:clear true})
-  (vim.api.nvim_create_autocmd 
+(defn setup-document-highlight [client bufnr]
+  (vim.api.nvim_create_autocmd
     :CursorHold
-    {:group hl_grp
+    {:group :LspGroup
      :buffer bufnr
      :callback vim.lsp.buf.document_highlight})
   (vim.api.nvim_create_autocmd
     :CursorMoved
-    {:group hl_grp
+    {:group :LspGroup
      :buffer bufnr
      :callback vim.lsp.buf.clear_references}))
-
-(defn setup-document-highlight [client bufnr]
-  (let [(status-ok highlight-supported) 
-        (pcall #(client.supports_method :textDocument/documentHighlight))]
-    (when (and status-ok highlight-supported)
-      (create-hl-group client bufnr))))
 
 (fn try-until-succeed
   [interval check-fn success-fn]
@@ -55,9 +47,9 @@
 
 (fn restart-lsp [client bufnr]
   (vim.notify "LSP Restarting")
-  (pcall vim.api.nvim_del_augroup_by_name hl_grp)
+  (vim.api.nvim_clear_autocmds {:group :LspGroup :buffer bufnr})
   (client.stop)
-  (try-until-succeed 
+  (try-until-succeed
     300
     #(vim.lsp.client_is_stopped client.id) 
     #(vim.schedule #(vim.cmd :LspStart))))
@@ -84,7 +76,6 @@
                   :R [#(restart-lsp client bufnr) "Restart LSP"]}}
    :K [vim.lsp.buf.hover "Hover doc"]})
 
-
 (let [handlers {"textDocument/publishDiagnostics"
                 (vim.lsp.with
                   vim.lsp.diagnostic.on_publish_diagnostics
@@ -106,11 +97,12 @@
       capabilities (cmplsp.default_capabilities
                      (vim.lsp.protocol.make_client_capabilities))
       on_attach (fn [client bufnr]
-                  (setup-document-highlight client bufnr)
-                  (when client.server_capabilities.documentSymbolProvider
-                    (navic.attach client bufnr))
-                  (wk.register (get-wk-bindings client bufnr) {:noremap true
-                                                               :buffer bufnr}))
+                  (when client.server_capabilities.documentHighlightProvider
+                   (setup-document-highlight client bufnr))
+                 (when client.server_capabilities.documentSymbolProvider
+                   (navic.attach client bufnr))
+                 (wk.register (get-wk-bindings client bufnr)
+                              {:noremap true :buffer bufnr}))
       defaults {:on_attach on_attach
                 :handlers handlers
                 :capabilities capabilities}]
@@ -141,8 +133,8 @@
   )
 
 (mason.setup {:ui {:border :rounded}})
-(mason-lspconfig.setup)
-(fidget.setup {})
+(mason-lspconfig.setup {})
+(fidget.setup {:window {:blend 0}})
 (navic.setup {:icons {:File " "
                       :Module " "
                       :Namespace " "
