@@ -1,10 +1,11 @@
 (module config.plugin.treesitter
-  {autoload {treesitter nvim-treesitter.configs}})
+  {autoload {treesitter nvim-treesitter.configs
+             parsers nvim-treesitter.parsers}})
 
 (treesitter.setup 
   {:ensure_installed ["lua" "clojure" "fennel" "norg"]
    :highlight {:enable true
-               :additional_vim_regex_highlighting false}
+               :additional_vim_regex_highlighting true}
    :indent {:enable true}
    :rainbow {:enable true
              :extended_mode true
