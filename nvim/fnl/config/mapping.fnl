@@ -35,6 +35,9 @@
 (nvim.set_keymap :n :<A-Right> "<cmd>vertical resize -2<CR>" {:noremap true})
 (nvim.set_keymap :n :<A-Left> "<cmd>vertical resize +2<CR>" {:noremap true})
 
+(fn save-all-quit []
+  (vim.cmd :wa)
+  (vim.cmd :quitall!))
 (wk.register {:p {:name "Packer"
                   :l [util.packer-snapshot "Make time labeled snapshot"]
                   :t [#(util.packer-snapshot :stable) "Make a snapshot"]
@@ -45,6 +48,6 @@
                   :C [packer.compile "Compile"]
                   :S [packer.status "Status"]}
               :s [::write<cr> "Save buffer"]
-              :x [:<cmd>xa<cr> "Save and exit"]
+              :x [save-all-quit "Save and exit"]
               :q [:<c-w>q "Close window"]}
              {:prefix :<leader>})
