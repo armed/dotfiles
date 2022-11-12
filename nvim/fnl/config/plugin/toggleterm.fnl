@@ -28,9 +28,9 @@
                    :hidden true})
       repl-toggle (fn [] 
                     (repl:toggle)
-                    (vim.cmd :stopinsert!)
                     (nvim.buf_set_keymap 0 :t :jj :<esc><esc> {:silent true})
-                    (nvim.buf_set_keymap 0 :n :q :<cmd>close<cr> {:silent true}))]
+                    (nvim.buf_set_keymap 0 :n :q :<cmd>close<cr> {:silent true})
+                    (nvim.buf_set_keymap 0 :t :qq :<cmd>close<cr> {:silent true}))]
 
   (wk.register {:t [repl-toggle "Open terminal tab"]}
                {:prefix :<leader>}))
