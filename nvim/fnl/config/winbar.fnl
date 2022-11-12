@@ -2,17 +2,18 @@
   {autoload {winbar winbar
              util config.util
              cp catppuccin.palettes
+             wdi nvim-web-devicons
+             navic nvim-navic
              icons config.icons
              nvim aniseed.nvim}})
 
 (local mocha-colors (cp.get_palette :mocha))
 
-(nvim.set_hl 0 :WinBarSeparator {:fg mocha-colors.blue})
-(nvim.set_hl 0 :WinBarFilename {:fg mocha-colors.base 
-                                :bg mocha-colors.blue})
-(nvim.set_hl 0 :WinBarContext {:fg mocha-colors.base 
-                               :bold true 
-                               :bg mocha-colors.blue})
+(nvim.set_hl 0 :WinBarSeparator {:fg mocha-colors.surface0})
+(nvim.set_hl 0 :WinBarFilename {:fg mocha-colors.text 
+                                :bg mocha-colors.surface0})
+(nvim.set_hl 0 :WinBarContext {:fg mocha-colors.text 
+                               :bg mocha-colors.surface0})
 
 (local winbar_filetype_exclude [:help
                                 :startify
@@ -48,17 +49,23 @@
         icons.config.ui.Circle)
     ""))
 
-(fn get-location []
+(defn get_location []
   (.. "%#WinBarContext#"
-      (vim.fn.expand "%:~:.") "%*"))	
+      (let [ft vim.bo.filetype
+            icon (or (wdi.get_icon_by_filetype ft) "")]
+        (.. icon " " 
+            (if (and navic (navic.is_available))
+              (.. (vim.fn.expand "%:t")
+                  " : "
+                  (navic.get_location))
+              (vim.fn.expand "%:~:.")))) 
+      "%*"))
 
 (fn get-winbar []
   (.. "%#WinBarSeparator#"
-      "%="
-      ""
-      "%*"
+      "%#WinBarContext# "
       "%{%v:lua.require'config.winbar'.get_modified()%}"
-      (get-location)
+      "%{%v:lua.require'config.winbar'.get_location()%}"
       "%#WinBarSeparator#"
       ""
       "%*"))
