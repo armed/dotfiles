@@ -18,8 +18,6 @@
    :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
    :catppuccin/nvim {:mod :theme :as :catppuccin}
-   :folke/tokyonight.nvim {:mod :theme}
-   :EdenEast/nightfox.nvim {:mod :theme}
 
    ; dashboard
    :goolord/alpha-nvim {:require [:kyazdani42/nvim-web-devicons]
@@ -43,7 +41,7 @@
    :lukas-reineke/indent-blankline.nvim {:mod :indent-blankline}
 
    ;; yaml
-   :cuducos/yaml.nvim {}
+   :cuducos/yaml.nvim {:ft :yaml}
    ;; markdown
    :iamcco/markdown-preview.nvim {:ft :markdown}
 
@@ -52,8 +50,7 @@
    ; icons
    :kyazdani42/nvim-web-devicons {}
    ;; fzf
-   :ibhagwan/fzf-lua {:mod :fzf
-                      :requires [:kyazdani42/nvim-web-devicons]}
+   :ibhagwan/fzf-lua {}
    ;; autosave
    :nvim-zh/auto-save.nvim {:mod :autosave}
    ; status line
@@ -88,12 +85,14 @@
    :tpope/vim-dispatch {}
 
    ; repl tools
-   :PaterJason/cmp-conjure {}
+   ;; :PaterJason/cmp-conjure {}
    :Olical/conjure {:mod :conjure
                     :branch :develop
-                    :requires [:PaterJason/cmp-conjure]}
+                    ;; :requires [:PaterJason/cmp-conjure]
+                    }
 
    ; git
+   :sindrets/diffview.nvim {:mod :diffview}
    :lewis6991/gitsigns.nvim {:mod :gitsigns}
    ;
    ; which-key
@@ -118,7 +117,8 @@
                                       :williamboman/mason-lspconfig.nvim
                                       :williamboman/mason.nvim]}
    ; luasnip
-   :L3MON4D3/LuaSnip {:requires [:saadparwaiz1/cmp_luasnip]}
+   :L3MON4D3/LuaSnip {:requires [:saadparwaiz1/cmp_luasnip
+                                 :honza/vim-snippets]}
 
    ; autocomplete
    :hrsh7th/nvim-cmp {:requires [:hrsh7th/cmp-buffer
