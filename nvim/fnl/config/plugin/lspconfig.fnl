@@ -122,6 +122,8 @@
                {"https://json.schemastore.org/github-workflow.json"
                 ".github/workflows/*"}}}}))
 
+  (lsp.vuels.setup (u.merge defaults {:root_dir #(vim.fn.getcwd)}))
+
   ;; JavaScript and TypeScript
   (lsp.tsserver.setup defaults)
   ;; html / css / json
