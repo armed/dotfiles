@@ -2,11 +2,15 @@
   {autoload {nvim aniseed.nvim
              luasnip luasnip
              lspkind lspkind
+             snipmate luasnip.loaders.from_snipmate
              cmp cmp}})
+
+(snipmate.lazy_load)
 
 (def- cmp-srcs
   [{:name :nvim_lsp}
-   {:name :conjure}
+   {:name :luasnip}
+   ;; {:name :conjure}
    {:name :buffer}
    {:name :path}
    {:name :nvim_lua}
