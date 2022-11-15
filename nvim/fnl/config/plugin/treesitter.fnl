@@ -5,7 +5,7 @@
 (treesitter.setup 
   {:ensure_installed ["lua" "clojure" "fennel" "norg"]
    :highlight {:enable true
-               :additional_vim_regex_highlighting true}
+               :additional_vim_regex_highlighting [:clojure :fennel]}
    :indent {:enable true}
    :rainbow {:enable true
              :extended_mode true
@@ -17,6 +17,11 @@
               :highlight_definitions {:enable true
                                       :clear_on_cursor_move true}
               :navigation {:enable true}}
+   :incremental_selection {:enable true
+                           :keymaps {:init_selection :gnn
+                                     :node_incremental :grn
+                                     :scope_incremental :grc
+                                     :node_decremental :grm}}
    ;; :textobjects {:select {:enable true}
    ;;               :lsp_interop {:enable true}
    ;;               :lookahead true
