@@ -1,5 +1,6 @@
 (module config.plugin.incline
   {autoload {: incline
+             core aniseed.core
              icons config.icons
              navic nvim-navic
              nwd nvim-web-devicons}})
@@ -20,7 +21,7 @@
                    modified (if (vim.api.nvim_buf_get_option props.buf :modified)
                               icons.config.ui.BigCircle
                               "")
-                   location (if (navic.is_available)
+                   location (if (and props.focused (navic.is_available))
                               (.. (navic.get_location) " @ ")
                               "")
                    (filetype-icon color) (nwd.get_icon_color filename)
