@@ -8,6 +8,12 @@
 (local theme (require :lualine.themes.catppuccin))
 (set theme.normal.c.bg palette.surface0)
 
+(fn get-lsp-client-names 
+  []
+  (let [clients (icollect [_ client (ipairs (vim.lsp.buf_get_clients))]
+                  client.name)]
+    (.. "[" (table.concat clients ",") "]")))
+
 (local config {:options {:icons_enabled true
                          :globalstatus true
                          :theme theme
@@ -18,16 +24,10 @@
                          :disabled_filetypes {}}
                :sections {:lualine_a [:mode]
                           :lualine_b [:diagnostics :diff]
-                          :lualine_c []
-                          :lualine_x []
+                          :lualine_c [[#(vim.fn.expand "%:.")]]
+                          :lualine_x [[get-lsp-client-names] :progress]
                           :lualine_y [:filetype]
                           :lualine_z [:branch]}
-               :inactive_sections {:lualine_a {}
-                                   :lualine_b {}
-                                   :lualine_c [:filename]
-                                   :lualine_x [:location]
-                                   :lualine_y {}
-                                   :lualine_z {}}
                :tabline {}
                :extensions {}})
 
