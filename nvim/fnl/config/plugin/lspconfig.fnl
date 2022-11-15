@@ -1,5 +1,6 @@
 (module config.plugin.lspconfig
   {autoload {lsp lspconfig
+             nvim aniseed.nvim
              core aniseed.core
              tb telescope.builtin
              util lspconfig.util
@@ -7,12 +8,12 @@
              navic nvim-navic
              cmplsp cmp_nvim_lsp
              wk which-key
-             fidget fidget
-             mason mason
+             : fidget
+             : mason
              mason-lspconfig mason-lspconfig
              fzf fzf-lua}})
 
-(vim.api.nvim_create_augroup :LspGroup {:clear true})
+(nvim.create_augroup :LspGroup {:clear true})
 
 ;symbols to show for lsp diagnostics
 (let [error "DiagnosticSignError"
@@ -24,17 +25,26 @@
   (vim.fn.sign_define info  {:text "" :texthl info})
   (vim.fn.sign_define hint  {:text "" :texthl hint}))
 
+
 (defn setup-document-highlight [client bufnr]
-  (vim.api.nvim_create_autocmd
+  (nvim.create_autocmd
     :CursorHold
     {:group :LspGroup
      :buffer bufnr
      :callback vim.lsp.buf.document_highlight})
-  (vim.api.nvim_create_autocmd
+  (nvim.create_autocmd
     :CursorMoved
     {:group :LspGroup
      :buffer bufnr
      :callback vim.lsp.buf.clear_references}))
+
+(defn setup-codelens [client bufnr]
+  (vim.lsp.codelens.refresh)
+  (nvim.create_autocmd
+    [:BufWritePost]
+    {:group :LspGroup
+     :buffer bufnr
+     :callback vim.lsp.codelens.refresh}))
 
 (fn try-until-succeed
   [interval check-fn success-fn]
@@ -47,7 +57,7 @@
 
 (fn restart-lsp [client bufnr]
   (vim.notify "LSP Restarting")
-  (vim.api.nvim_clear_autocmds {:group :LspGroup :buffer bufnr})
+  (nvim.clear_autocmds {:group :LspGroup :buffer bufnr})
   (client.stop)
   (try-until-succeed
     300
@@ -76,6 +86,22 @@
                   :R [#(restart-lsp client bufnr) "Restart LSP"]}}
    :K [vim.lsp.buf.hover "Hover doc"]})
 
+;; (nvim.create_autocmd
+;;   :LspAttach
+;;   {:group :LspGroup
+;;    :buffer bufnr
+;;    :callback (fn [args]
+;;                (let [bufnr args.buf
+;;                      client (vim.lsp.get_client_by_id args.data.client_id)]
+;;                  (when client.server_capabilities.documentHighlightProvider
+;;                    (setup-document-highlight client bufnr))
+;;                  (when client.server_capabilities.documentSymbolProvider
+;;                    (navic.attach client bufnr))
+;;                  (when client.server_capabilities.codeLensProvider
+;;                    (setup-codelens client bufnr))
+;;                  (wk.register (get-wk-bindings client bufnr)
+;;                               {:noremap true :buffer bufnr})))})
+
 (let [handlers {"textDocument/publishDiagnostics"
                 (vim.lsp.with
                   vim.lsp.diagnostic.on_publish_diagnostics
@@ -88,7 +114,7 @@
                 "textDocument/codeLens"
                 (vim.lsp.with
                   vim.lsp.diagnostic.on_publish_diagnostics
-                  {:virtual_text false})
+                  {:virtual_text true})
 
                 "textDocument/hover" (vim.lsp.with vim.lsp.handlers.hover float-opts)
 
@@ -96,15 +122,16 @@
                 (vim.lsp.with vim.lsp.handlers.signature_help float-opts)}
       capabilities (cmplsp.default_capabilities
                      (vim.lsp.protocol.make_client_capabilities))
-      on_attach (fn [client bufnr]
-                  (when client.server_capabilities.documentHighlightProvider
-                   (setup-document-highlight client bufnr))
-                 (when client.server_capabilities.documentSymbolProvider
-                   (navic.attach client bufnr))
-                 (wk.register (get-wk-bindings client bufnr)
-                              {:noremap true :buffer bufnr}))
-      defaults {:on_attach on_attach
-                :handlers handlers
+      defaults {:handlers handlers
+                :on_attach (fn [client bufnr]
+                             (when client.server_capabilities.documentHighlightProvider
+                               (setup-document-highlight client bufnr))
+                             (when client.server_capabilities.documentSymbolProvider
+                               (navic.attach client bufnr))
+                             (when client.server_capabilities.codeLensProvider
+                               (setup-codelens client bufnr))
+                             (wk.register (get-wk-bindings client bufnr)
+                                          {:noremap true :buffer bufnr}))
                 :capabilities capabilities}]
   ;; Clojure
   (lsp.clojure_lsp.setup (u.merge 
