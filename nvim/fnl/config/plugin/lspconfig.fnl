@@ -102,6 +102,9 @@
 ;;                  (wk.register (get-wk-bindings client bufnr)
 ;;                               {:noremap true :buffer bufnr})))})
 
+(mason.setup {:ui {:border :rounded}})
+(mason-lspconfig.setup {})
+
 (let [handlers {"textDocument/publishDiagnostics"
                 (vim.lsp.with
                   vim.lsp.diagnostic.on_publish_diagnostics
@@ -159,10 +162,11 @@
   (lsp.html.setup defaults)
   ;;
   (lsp.jsonls.setup defaults)
+
+  (lsp.java_language_server.setup 
+    (u.merge defaults {:cmd ["/Users/armed/.local/share/nvim/mason/bin/jdtls"]}))
   )
 
-(mason.setup {:ui {:border :rounded}})
-(mason-lspconfig.setup {})
 (fidget.setup {:window {:blend 0}})
 (navic.setup {:icons {:File " "
                       :Module " "
