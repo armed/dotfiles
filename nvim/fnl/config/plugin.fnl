@@ -99,6 +99,7 @@
    :folke/which-key.nvim {:mod :which-key}
 
    ; parsing system
+   :p00f/nvim-ts-rainbow {}
    :nvim-treesitter/nvim-treesitter-textobjects {}
    :nvim-treesitter/nvim-treesitter 
    {:run ":TSUpdate"
