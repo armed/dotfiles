@@ -5,10 +5,10 @@
   "sonatype" {:url "https://repository.sonatype.org/content/groups/forge/"}}
 
  :aliases
- {:portal {:extra-deps {djblue/portal {:mvn/version  "0.30.0"}}}
+ {:portal {:extra-deps {djblue/portal {:mvn/version "RELEASE"}}}
 
-  :cider {:extra-deps {nrepl/nrepl {:mvn/version "1.0.0"}
-                       cider/cider-nrepl {:mvn/version "0.28.5"}}
+  :cider {:extra-deps {nrepl/nrepl {:mvn/version "RELEASE"}
+                       cider/cider-nrepl {:mvn/version "RELEASE"}}
           :main-opts ["-m" "nrepl.cmdline" 
                       "--middleware" "[cider.nrepl/cider-middleware]"]}}}
 
