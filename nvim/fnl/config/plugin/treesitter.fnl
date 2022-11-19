@@ -7,9 +7,9 @@
    :highlight {:enable true
                :additional_vim_regex_highlighting [:clojure :fennel]}
    :indent {:enable true}
-   :rainbow {:enable true
-             :extended_mode true
-             :max_file_lines nil}
+   ;; :rainbow {:enable true
+   ;;           :extended_mode true
+   ;;           :max_file_lines nil}
    :query_linter {:enable true
                   :use_virtual_text true
                   :lint_events [:BufWrite :CursorHold]}

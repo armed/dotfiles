@@ -99,7 +99,7 @@
    :folke/which-key.nvim {:mod :which-key}
 
    ; parsing system
-   :p00f/nvim-ts-rainbow {}
+   ;; :p00f/nvim-ts-rainbow {}
    :nvim-treesitter/nvim-treesitter-textobjects {}
    :nvim-treesitter/nvim-treesitter 
    {:run ":TSUpdate"
@@ -113,23 +113,21 @@
    :SmiteshP/nvim-navic {}
    :j-hui/fidget.nvim {}
    :onsails/lspkind.nvim {}
-   :neovim/nvim-lspconfig {:mod :lspconfig 
-                           :requires [:ibhagwan/fzf-lua
-                                      :williamboman/mason-lspconfig.nvim
-                                      :williamboman/mason.nvim]}
-   ; luasnip
-   :L3MON4D3/LuaSnip {:requires [:saadparwaiz1/cmp_luasnip
-                                 :honza/vim-snippets]}
-
-   ; autocomplete
-   :hrsh7th/nvim-cmp {:requires [:hrsh7th/cmp-buffer
-                                 :hrsh7th/cmp-path
-                                 :saadparwaiz1/cmp_luasnip
-                                 :hrsh7th/cmp-calc
-                                 :hrsh7th/cmp-nvim-lsp
-                                 :hrsh7th/cmp-nvim-lua
-                                 :hrsh7th/cmp-vsnip]
-                      :mod :cmp}
+   :williamboman/mason-lspconfig.nvim {}
+   :williamboman/mason.nvim {}
+   :neovim/nvim-lspconfig {}
+   :honza/vim-snippets {}
+   :hrsh7th/cmp-buffer {}
+   :rafamadriz/friendly-snippets  {}
+   :hrsh7th/cmp-path  {}
+   :saadparwaiz1/cmp_luasnip  {}
+   :hrsh7th/cmp-calc  {}
+   :hrsh7th/cmp-nvim-lsp  {}
+   :hrsh7th/cmp-nvim-lua  {}
+   :hrsh7th/cmp-vsnip  {}
+   :L3MON4D3/LuaSnip {}
+   :hrsh7th/nvim-cmp {}
+   :VonHeikemen/lsp-zero.nvim {:mod :lsp}
 
    ; color
    :uga-rosa/ccc.nvim {:mod :ccc :event :BufEnter}
