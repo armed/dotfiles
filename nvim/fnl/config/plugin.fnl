@@ -24,8 +24,10 @@
                         :mod :alpha}
 
    ; windows
-   :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
-                             :mod :windows}
+   ;; :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
+   ;;                           :mod :windows}
+   :kevinhwang91/nvim-bqf {:mod :bqf
+                           :requires [{1 :junegunn/fzf :run #(vim.fn.fzf#install)}]}
    ; workspaces
    :natecraddock/workspaces.nvim {:mod :workspace}
    ; commands
