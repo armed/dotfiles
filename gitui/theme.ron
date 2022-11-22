@@ -1,10 +1,12 @@
 (
-    selected_tab: Blue,
-    command_fg: White,
-    command_bg: DarkGray,
-    selection_bg: DarkGray,
+    selected_tab: Reset,
+    command_fg: Black,
+    selection_bg: Blue,
+    selection_fg: Black,
+    cmdbar_bg: Blue,
+    cmdbar_fg: Black,
     cmdbar_extra_lines_bg: Blue,
-    disabled_fg: Gray,
+    disabled_fg: DarkGray,
     diff_line_add: Green,
     diff_line_delete: Red,
     diff_file_added: LightGreen,
@@ -17,4 +19,6 @@
     danger_fg: Red,
     push_gauge_bg: Blue,
     push_gauge_fg: Reset,
+    tag_fg: LightMagenta,
+    branch_fg: LightYellow
 )
