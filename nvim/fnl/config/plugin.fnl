@@ -71,6 +71,7 @@
                                               :nvim-lua/popup.nvim
                                               :nvim-telescope/telescope-file-browser.nvim
                                               :nvim-lua/plenary.nvim
+                                              :LukasPietzschmann/telescope-tabs
                                               :nvim-telescope/telescope-fzf-native.nvim]
                                    :mod :telescope}
 
@@ -93,6 +94,8 @@
                     ;; :requires [:PaterJason/cmp-conjure]
                     }
 
+   ; undo
+   :mbbill/undotree {:mod :undotree}
    ; git
    :sindrets/diffview.nvim {:mod :diffview}
    :lewis6991/gitsigns.nvim {:mod :gitsigns}

@@ -2,6 +2,7 @@
   {autoload {telescope telescope
              themes telescope.themes
              actions telescope.actions
+             tabs telescope-tabs
              tb telescope.builtin
              wk which-key}})
 
@@ -33,6 +34,7 @@
              :f {:name "Find"
                  :f [tb.find_files "Find files"]
                  :g [tb.live_grep "Live grep"]
-                 :b [":Neotree buffers position=float<cr>" "Buffers"]
+                 :t [tabs.list_tabs "Tabs"]
+                 :b [tb.buffers "Buffers"]
                  :r [#(tb.oldfiles {:cwd_only true}) "Recent files"]}})
 (wk.register keys {:prefix :<leader>})
