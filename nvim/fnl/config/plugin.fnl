@@ -35,8 +35,6 @@
 
    ; ui
    :b0o/incline.nvim {:mod :incline}
-   ;; :folke/noice.nvim {:mod :noice :requires [:MunifTanjim/nui.nvim]}
-   ;; :fgheng/winbar.nvim {:mod :winbar}
    ; visual helpers
    :ggandor/leap.nvim {:mod :leap}
    :folke/todo-comments.nvim {:mod :todo}
@@ -79,7 +77,6 @@
    :numToStr/Comment.nvim {:mod :comment}
 
    ; sexp
-   ;; :gpanders/nvim-parinfer {}
    :guns/vim-sexp {:mod :sexp}
    :radenling/vim-dispatch-neovim {}
    :tpope/vim-sexp-mappings-for-regular-people {}
@@ -88,11 +85,8 @@
    :tpope/vim-dispatch {}
 
    ; repl tools
-   ;; :PaterJason/cmp-conjure {}
    :Olical/conjure {:mod :conjure
-                    :branch :develop
-                    ;; :requires [:PaterJason/cmp-conjure]
-                    }
+                    :branch :develop}
 
    ; undo
    :mbbill/undotree {:mod :undotree}
@@ -104,13 +98,9 @@
    :folke/which-key.nvim {:mod :which-key}
 
    ; parsing system
-   ;; :p00f/nvim-ts-rainbow {}
    :nvim-treesitter/nvim-treesitter-textobjects {}
-   :nvim-treesitter/nvim-treesitter 
-   {:run ":TSUpdate"
-    ;; :event :BufReadPre
-    :mod :treesitter
-    :requires [:nvim-treesitter/nvim-treesitter-textobjects]}
+   :nvim-treesitter/nvim-treesitter {:run ":TSUpdate"
+                                     :mod :treesitter}
    :nvim-treesitter/playground {:cmd :TSPlaygroundToggle}
 
 
@@ -146,6 +136,5 @@
                                             :MunifTanjim/nui.nvim]}
    :kyazdani42/nvim-tree.lua {:mod :nvim-tree
                               :requires [:kyazdani42/nvim-web-devicons]}})
-
 
 (util.use plugins)
