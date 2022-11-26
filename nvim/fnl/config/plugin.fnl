@@ -103,6 +103,7 @@
 
 
    ; lsp
+   :dnlhc/glance.nvim {}
    :SmiteshP/nvim-navic {}
    :j-hui/fidget.nvim {}
    :onsails/lspkind.nvim {}

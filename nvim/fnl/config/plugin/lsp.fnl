@@ -4,15 +4,19 @@
              tb telescope.builtin
              nvim aniseed.nvim
              wk which-key
+             : glance
              : fidget
              : mason}})
 
+(glance.setup {:border {:enable true
+                        :top_char "―"
+                        :bottom_char "―"}})
 (lsp.preset :recommended)
 (lsp.set_preferences {:set_lsp_keymaps false
-                      :sign_icons {:error :E
-                                   :warn :W
-                                   :info :I
-                                   :hint :H}})
+                      :sign_icons {:error :
+                                   :warn :
+                                   :info :
+                                   :hint :}})
 (lsp.ensure_installed [:clojure_lsp])
 
 (nvim.create_augroup :LspGroup {:clear true})
@@ -32,9 +36,13 @@
 (local float-opts {:border :rounded})
 
 (fn get-wk-bindings [client bufnr]
-  {:g {:d [tb.lsp_definitions "Go to definition"]
-       :r [tb.lsp_references "LSP rerefences"]
-       :t [tb.lsp_type_definitions "Type definition"]}
+  {;:g {:d [tb.lsp_definitions "Go to definition"]
+   ;    :r [tb.lsp_references "LSP rerefences"]
+   ;    :t [tb.lsp_type_definitions "Type definition"]}
+   :g {:d ["<cmd>Glance definitions<cr>" "Go to definition"]
+       :r ["<cmd>Glance references<cr>" "LSP references"]
+       :t ["<cmd>glance type_definitions<cr>" "LSP type definitions"]
+       :i ["<cmd>glance implementations<cr>" "LSP implementations"]}
    :<leader> {:l {:r [vim.lsp.buf.rename "Rename"]
                   :n [#(vim.diagnostic.goto_next {:float float-opts})
                       "Next diagnostics"]
@@ -61,6 +69,7 @@
                {:noremap true :buffer bufnr}))
 
 (lsp.on_attach on-attach)
+(lsp.configure :clojure_lsp {:root_dir #(vim.fn.getcwd)})
 (lsp.setup)
 
 (fidget.setup {:window {:blend 0}})
