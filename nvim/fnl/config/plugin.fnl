@@ -30,8 +30,6 @@
                            :requires [{1 :junegunn/fzf :run #(vim.fn.fzf#install)}]}
    ; workspaces
    :natecraddock/workspaces.nvim {:mod :workspace}
-   ; commands
-   :kazhala/close-buffers.nvim {:mod :close-buffers}
 
    ; ui
    :b0o/incline.nvim {:mod :incline}
