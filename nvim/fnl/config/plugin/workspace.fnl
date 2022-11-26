@@ -22,24 +22,23 @@
   (vim.cmd (.. "mksession! " session-file)))
 
 (fn load-session []
-  (vim.cmd (.. "so " session-file))
-  (open-neo-tree))
+  (when (session-exists)
+    (vim.cmd (.. "so " session-file))
+    (open-neo-tree)))
 
 (w.setup {:hooks {:open_pre (fn []
                               (vim.lsp.stop_client (vim.lsp.get_active_clients))
                               (when (session-exists)
                                 (save-session)
-                                (vim.cmd "sil %bwipeout!")))
-                  :open (fn [] (when (session-exists) 
-                                 (load-session)))}})
+                                (vim.cmd "sil %bwipeout!")))}})
 
 (vim.api.nvim_create_autocmd
   :VimLeave {:callback #(when (session-exists)
                           (save-session))})
 
-(vim.api.nvim_create_autocmd
-  :VimEnter {:callback #(when (session-exists)
-                          (vim.schedule load-session))})
+;; (vim.api.nvim_create_autocmd
+;;   :VimEnter {:callback #(when (session-exists)
+;;                           (vim.schedule load-session))})
 
 (fn add-workspace []
   (save-session)
@@ -49,6 +48,7 @@
   (w.remove))
 
 (wk.register {:S {:name "Sessions"
+                  :l [load-session "Load existing session"]
                   :a [add-workspace "Add"]
                   :r [delete-workspace "Remove"]
                   :f [w.open "List"]}}
