@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-NVHOME=/Users/armed/Developer/myself/dotfiles/nvim-lua
-export NVHOME
-
-XDG_DATA_HOME=$NVHOME/share XDG_CACHE_HOME=$NVHOME/cache XDG_CONFIG_HOME=$NVHOME nvim
-
