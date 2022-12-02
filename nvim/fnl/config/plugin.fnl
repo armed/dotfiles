@@ -120,11 +120,11 @@
    :hrsh7th/cmp-nvim-lua  {}
    :hrsh7th/cmp-vsnip  {}
    :L3MON4D3/LuaSnip {}
-   :hrsh7th/nvim-cmp {}
+   :hrsh7th/nvim-cmp {:mod :cmp}
    :VonHeikemen/lsp-zero.nvim {:mod :lsp}
 
    ; color
-   :uga-rosa/ccc.nvim {:mod :ccc :event :BufEnter}
+   :uga-rosa/ccc.nvim {:mod :ccc}
 
    ; file-tree
    :nvim-neo-tree/neo-tree.nvim {:mod :neo-tree

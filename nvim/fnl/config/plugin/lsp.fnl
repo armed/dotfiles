@@ -13,6 +13,7 @@
                         :bottom_char "―"}})
 (lsp.preset :recommended)
 (lsp.set_preferences {:set_lsp_keymaps false
+                      :manage_nvim_cmp false
                       :sign_icons {:error :
                                    :warn :
                                    :info :
@@ -99,4 +100,3 @@
                       :Event " "
                       :Operator " "
                       :TypeParameter " "}})
-
