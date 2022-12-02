@@ -2,3 +2,10 @@
 .clj-kondo/
 **/.cpcache/
 *.bak
+cache/
+share/
+packer.nvim/
+packer_compiled.lua
+nvim-lua/*
+nvim-hotpot/
+
