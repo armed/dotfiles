@@ -90,7 +90,6 @@
    ; undo
    :mbbill/undotree {:mod :undotree}
    ; git
-   :sindrets/diffview.nvim {:mod :diffview}
    :lewis6991/gitsigns.nvim {:mod :gitsigns}
    ;
    ; which-key
@@ -134,8 +133,6 @@
                                  :requires [:kyazdani42/nvim-web-devicons
                                             :s1n7ax/nvim-window-picker
                                             :nvim-lua/plenary.nvim
-                                            :MunifTanjim/nui.nvim]}
-   :kyazdani42/nvim-tree.lua {:mod :nvim-tree
-                              :requires [:kyazdani42/nvim-web-devicons]}})
+                                            :MunifTanjim/nui.nvim]}})
 
 (util.use plugins)
