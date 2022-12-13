@@ -111,15 +111,17 @@
    :williamboman/mason.nvim {}
    :neovim/nvim-lspconfig {}
    :honza/vim-snippets {}
+   ;; :honza/vim-snippets {}
    :hrsh7th/cmp-buffer {}
-   :rafamadriz/friendly-snippets  {}
+   ;; :rafamadriz/friendly-snippets  {}
    :hrsh7th/cmp-path  {}
-   :saadparwaiz1/cmp_luasnip  {}
+   ;; :saadparwaiz1/cmp_luasnip  {:ft [:fennel :lua]}
+   :hrsh7th/cmp-cmdline {}
    :hrsh7th/cmp-calc  {}
    :hrsh7th/cmp-nvim-lsp  {}
-   :hrsh7th/cmp-nvim-lua  {}
-   :hrsh7th/cmp-vsnip  {}
-   :L3MON4D3/LuaSnip {}
+   ;; :hrsh7th/cmp-nvim-lua  {}
+   ;; :hrsh7th/cmp-vsnip  {}
+   ;; :L3MON4D3/LuaSnip {:ft [:fennel :lua]}
    :hrsh7th/nvim-cmp {:mod :cmp}
    :VonHeikemen/lsp-zero.nvim {:mod :lsp}
 

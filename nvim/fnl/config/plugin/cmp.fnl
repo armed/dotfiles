@@ -1,19 +1,20 @@
 (module config.plugin.cmp
   {autoload {nvim aniseed.nvim
-             luasnip luasnip
+             ;; luasnip luasnip
              lspkind lspkind
-             snipmate luasnip.loaders.from_snipmate
+             ;; snipmate luasnip.loaders.from_snipmate
              cmp cmp}})
 
-(snipmate.lazy_load)
+;; (snipmate.lazy_load)
 
 (def- cmp-srcs
   [{:name :nvim_lsp}
-   {:name :luasnip}
+   ;; {:name :luasnip}
    ;; {:name :conjure}
+   {:name :cmdline}
    {:name :buffer}
    {:name :path}
-   {:name :nvim_lua}
+   ;; {:name :nvim_lua}
    {:name :calc}])
 
 ;; Setup cmp with desired settings
@@ -45,18 +46,29 @@
                       :<Tab> (cmp.mapping (fn [fallback]
                                             (if
                                               (cmp.visible) (cmp.select_next_item)
-                                              (luasnip.expand_or_jumpable) (luasnip.expand_or_jump)
+                                              ;; (luasnip.expand_or_jumpable) (luasnip.expand_or_jump)
                                               (has-words-before) (cmp.complete)
                                               :else (fallback)))
                                           {1 :i 2 :s})
                       :<S-Tab> (cmp.mapping (fn [fallback]
                                               (if
                                                 (cmp.visible) (cmp.select_prev_item)
-                                                (luasnip.jumpable -1) (luasnip.jump -1)
+                                                ;; (luasnip.jumpable -1) (luasnip.jump -1)
                                                 :else (fallback)))
                                             {1 :i 2 :s})}
-            :snippet {:expand (fn [args]
-                                (luasnip.lsp_expand args.body))}
+            ;; :snippet {:expand (fn [args]
+            ;;                     (luasnip.lsp_expand args.body))}
             :sources cmp-srcs})
+
+(cmp.setup.cmdline 
+  ":"
+  {:mapping (cmp.mapping.preset.cmdline)
+   :sources (cmp.config.sources [{:name :path}]
+                                [{:name :cmdline
+                                  :option {:ignore_cmds [:Man
+                                                         "!"]}}])})
+
+(cmp.setup.cmdline "/" {:mapping (cmp.mapping.preset.cmdline)
+                        :sources [{:name :buffer}]})
 
 (nvim.ex.hi "CmpItemMenu ctermfg=7 guifg=#b1b1b1")
