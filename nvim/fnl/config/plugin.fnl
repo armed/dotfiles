@@ -104,14 +104,13 @@
 
 
    ; lsp
-   :dnlhc/glance.nvim {}
+   ;; :dnlhc/glance.nvim {}
    :SmiteshP/nvim-navic {}
    :j-hui/fidget.nvim {}
    :onsails/lspkind.nvim {}
    :williamboman/mason-lspconfig.nvim {}
    :williamboman/mason.nvim {}
-   :neovim/nvim-lspconfig {}
-   :honza/vim-snippets {}
+   :neovim/nvim-lspconfig {:mod :lspconfig}
    ;; :honza/vim-snippets {}
    :hrsh7th/cmp-buffer {}
    ;; :rafamadriz/friendly-snippets  {}
@@ -124,7 +123,7 @@
    ;; :hrsh7th/cmp-vsnip  {}
    ;; :L3MON4D3/LuaSnip {:ft [:fennel :lua]}
    :hrsh7th/nvim-cmp {:mod :cmp}
-   :VonHeikemen/lsp-zero.nvim {:mod :lsp}
+   ;; :VonHeikemen/lsp-zero.nvim {:mod :lsp}
 
    ; color
    :uga-rosa/ccc.nvim {:mod :ccc}
