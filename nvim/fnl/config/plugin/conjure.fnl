@@ -67,4 +67,13 @@
     "BufNewFile"
     {:group grp
      :pattern "conjure-log-*"
-    :callback (fn [event] (vim.diagnostic.disable 0))}))
+     :callback (fn [event]
+                 (vim.defer_fn 
+                   (fn []
+                     (vim.lsp.for_each_buffer_client 
+                       event.buf
+                       (fn [_ client-id bufnr]
+                         (print "detaching lsp client" client-id bufnr)
+                         (vim.lsp.buf_detach_client bufnr client-id))))
+                   1000)
+                 (vim.diagnostic.disable 0))}))
