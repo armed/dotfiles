@@ -32,6 +32,7 @@
    :natecraddock/workspaces.nvim {:mod :workspace}
 
    ; ui
+   :j-morano/buffer_manager.nvim {:mod :buffer-manager}
    :b0o/incline.nvim {:mod :incline}
    ; visual helpers
    :ggandor/leap.nvim {:mod :leap}
