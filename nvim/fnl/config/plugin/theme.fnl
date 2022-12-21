@@ -1,7 +1,6 @@
 (module config.plugin.nightfox
   {autoload {nvim aniseed.nvim
              wk which-key
-             nvim-tree nvim-tree
              catppuccin catppuccin}})
 
 (catppuccin.setup {:flavour :mocha
