@@ -47,6 +47,7 @@
                   :s [packer.sync "Sync"]
                   :C [packer.compile "Compile"]
                   :S [packer.status "Status"]}
+              :g [::Git<cr> "Git status"]
               :f {:c [":Telescope current_buffer_fuzzy_find<cr>" "Find in buffer"]}
               :s [::write<cr> "Save buffer"]
               :x [save-all-quit "Save and exit"]
