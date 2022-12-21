@@ -10,12 +10,13 @@
 (def- cmp-srcs
   [{:name :nvim_lsp}
    ;; {:name :luasnip}
-   ;; {:name :conjure}
-   {:name :cmdline}
+   {:name :conjure}
+   ;; {:name :cmdline}
    {:name :buffer}
    {:name :path}
    ;; {:name :nvim_lua}
-   {:name :calc}])
+   ;; {:name :calc}
+   ])
 
 ;; Setup cmp with desired settings
 (fn has-words-before []
