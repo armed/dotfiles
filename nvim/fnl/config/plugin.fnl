@@ -15,7 +15,7 @@
 
    :dstein64/vim-startuptime {:cmd :StartupTime}
    ; toggleterm
-   :akinsho/toggleterm.nvim {:mod :toggleterm}
+   ;; :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
    :catppuccin/nvim {:mod :theme :as :catppuccin}
 
