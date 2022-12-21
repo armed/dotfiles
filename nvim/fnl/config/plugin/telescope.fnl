@@ -35,6 +35,6 @@
                  :f [tb.find_files "Find files"]
                  :g [tb.live_grep "Live grep"]
                  :t [tabs.list_tabs "Tabs"]
-                 ;; :b [tb.buffers "Buffers"]
+                 :b [tb.buffers "Buffers"]
                  :r [#(tb.oldfiles {:cwd_only true}) "Recent files"]}})
 (wk.register keys {:prefix :<leader>})
