@@ -48,7 +48,7 @@
        ;show line and column number
        :ruler true
        ;settings needed for compe autocompletion
-       :completeopt "menuone,noselect"
+       :completeopt "noinsert,menuone,noselect"
        ;turn on the wild menu, auto complete for commands in command line
        :wildmenu true
        :wildignore "*/tmp/*,*.so,*.swp,*.zip"
