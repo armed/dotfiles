@@ -90,6 +90,7 @@
    ; undo
    :mbbill/undotree {:mod :undotree}
    ; git
+   :tpope/vim-fugitive {}
    :lewis6991/gitsigns.nvim {:mod :gitsigns}
    ;
    ; which-key
