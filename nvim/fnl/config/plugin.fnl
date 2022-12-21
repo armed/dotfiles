@@ -13,7 +13,7 @@
    :Olical/aniseed {:branch :develop}
    :lewis6991/impatient.nvim {}
 
-   :dstein64/vim-startuptime {}
+   :dstein64/vim-startuptime {:cmd :StartupTime}
    ; toggleterm
    :akinsho/toggleterm.nvim {:mod :toggleterm}
    ; themes
@@ -36,7 +36,9 @@
    :b0o/incline.nvim {:mod :incline}
    ; visual helpers
    :ggandor/leap.nvim {:mod :leap}
-   :folke/todo-comments.nvim {:mod :todo}
+   :folke/todo-comments.nvim {:cmd :TodoTelescope
+                              :config #(let [todo (require "todo-comments")]
+                                         (todo.setup {}))}
    :lukas-reineke/indent-blankline.nvim {:mod :indent-blankline}
 
    ;; yaml
