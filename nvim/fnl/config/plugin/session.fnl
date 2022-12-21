@@ -2,7 +2,6 @@
   {autoload {telescope telescope
              session session_manager
              scfg session_manager.config
-             tree nvim-tree
              auto-save auto-save
              wk which-key}})
 

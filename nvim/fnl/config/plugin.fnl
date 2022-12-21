@@ -127,6 +127,9 @@
    :hrsh7th/nvim-cmp {:mod :cmp}
    ;; :VonHeikemen/lsp-zero.nvim {:mod :lsp}
 
+   ;; rust
+   :simrat39/rust-tools.nvim {:ft :rust
+                              :requres [:mfussenegger/nvim-dap]}
    ; color
    :uga-rosa/ccc.nvim {:mod :ccc}
 
