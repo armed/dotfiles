@@ -4,7 +4,7 @@
              extract conjure.extract
              wk which-key}})
 
-;; (set nvim.g.conjure#mapping#doc_word "K")
+(set vim.g.conjure#mapping#doc_word false)
 ;; (set nvim.g.conjure#client#clojure#nrepl#eval#auto_require false)
 (set vim.g.conjure#client#clojure#nrepl#connection#auto_repl#enabled false)
 (set vim.g.conjure#highlight#enabled true)
@@ -73,7 +73,6 @@
                      (vim.lsp.for_each_buffer_client 
                        event.buf
                        (fn [_ client-id bufnr]
-                         (print "detaching lsp client" client-id bufnr)
                          (vim.lsp.buf_detach_client bufnr client-id))))
                    1000)
                  (vim.diagnostic.disable 0))}))
