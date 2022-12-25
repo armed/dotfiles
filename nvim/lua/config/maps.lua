@@ -37,7 +37,17 @@ local function save_all_quit()
   vim.cmd('quitall!')
 end
 
+local hm = require 'harpoon.mark'
+local hui = require 'harpoon.ui'
+
 require('which-key').register({
+  b = {
+    name = 'Harpoon',
+    a = { hm.add_file, 'Mark File' },
+    b = { hui.toggle_quick_menu, 'Menu' },
+    l = { hui.nav_next, 'Next File' },
+    h = { hui.nav_prev, 'Prev File' }
+  },
   h = {
     name = "Gitsigns",
     b = { ':Gitsigns blame_line<cr>', "Blame line" },

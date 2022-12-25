@@ -1,14 +1,12 @@
-local handlers = require 'config.plugins.lsp.handlers'
-
 local servers = {
   clojure_lsp = {
-    root_dir = vim.fn.getcwd,
+    root_dir = function()
+      return vim.fn.getcwd()
+    end,
     init_options = {
       signatureHelp = true,
       codeLens = true
-    },
-    flags = { debounce_text_changes = 150 },
-    -- cmd = {'/usr/local/bin/clojure-lsp'}
+    }
   },
   yamlls = {
     settings = {
@@ -33,6 +31,7 @@ local servers = {
 
 local M = {
   'neovim/nvim-lspconfig',
+  commit = '3e2cc7061957292850cc386d9146f55458ae9fe3',
   event = 'BufReadPre',
   dependencies = {
     {
@@ -43,36 +42,45 @@ local M = {
     },
     'onsails/lspkind.nvim',
     'hrsh7th/cmp-nvim-lsp',
-    'williamboman/mason-lspconfig.nvim',
+    'nvim-telescope/telescope.nvim',
     {
-      'j-hui/fidget.nvim',
-      config = { window = { blend = 0 } }
+      'williamboman/mason-lspconfig.nvim',
+      config = {
+        ensure_installed = vim.tbl_keys(servers),
+      }
     },
+    { 'j-hui/fidget.nvim', config = true },
   },
 }
 
 function M.config()
+  require('lspconfig.ui.windows').default_options.border = 'rounded'
   local mason_lspconfig = require 'mason-lspconfig'
+  local settings = require 'config.plugins.lsp.settings'
+  require 'config.plugins.lsp.diagnostics'.setup()
 
-  mason_lspconfig.setup {
-    ensure_installed = vim.tbl_keys(servers),
+  local options = {
+    handlers = settings.handlers,
+    on_attach = settings.on_attach,
+    capabilities = settings.capabilities,
+    flags = {
+      debounce_text_changes = 150,
+    },
   }
-
-  local cmplsp = require('cmp_nvim_lsp')
-  local capabilities = cmplsp.default_capabilities(
-    vim.lsp.protocol.make_client_capabilities())
 
   mason_lspconfig.setup_handlers {
     function(server_name)
-      require('lspconfig')[server_name].setup {
-        handlers = handlers.handlers,
-        capabilities = capabilities,
-        on_attach = handlers.on_attach,
-        settings = servers[server_name],
-      }
-    end,
+      print(server_name)
+      local server_opts = servers[server_name] or {}
+      local opts = vim.tbl_deep_extend('force', {}, options, server_opts)
+      require("lspconfig")[server_name].setup(opts)
+    end
   }
+
+  -- for server, opts in pairs(servers) do
+  --   opts = vim.tbl_deep_extend('force', {}, options, opts or {})
+  --   lspconfig[server].setup(opts)
+  -- end
 end
 
 return M
-

@@ -12,6 +12,10 @@ return {
     }
   },
   {
+    'ThePrimeagen/harpoon',
+    config = true
+  },
+  {
     'mbbill/undotree',
     cmd = 'UndotreeToggle'
   },

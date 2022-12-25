@@ -1,4 +1,5 @@
 vim.o.hlsearch = true
+vim.o.wrap = false
 vim.o.cursorline = true
 vim.o.number = true
 vim.o.mouse = 'a'
