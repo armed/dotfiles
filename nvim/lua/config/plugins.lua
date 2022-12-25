@@ -1,4 +1,4 @@
--- list of plugins which does not require long configuration
+-- list of plugins which does not require with lightweight configuration
 return {
   {
     'dstein64/vim-startuptime',
