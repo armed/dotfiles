@@ -27,10 +27,11 @@ vim.o.softtabstop = 2
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.signcolumn = 'yes:1'
-vim.o.colorcolumn = 80
+vim.o.colorcolumn = '80'
 vim.o.swapfile = false
 vim.o.showmode = false
 vim.o.cmdheight = 0
+vim.o.hidden = false
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','

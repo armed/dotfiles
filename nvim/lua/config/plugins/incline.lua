@@ -13,6 +13,11 @@ function M.config()
   local function render_fn(props)
     local bufname = vim.api.nvim_buf_get_name(props.buf)
     local filename = vim.fn.fnamemodify(bufname, ':t')
+
+    if filename == '' then
+      return false
+    end
+
     local render_spec = {}
     local modified
     if vim.api.nvim_buf_get_option(props.buf, 'modified') then

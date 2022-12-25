@@ -16,6 +16,14 @@ return {
     config = true
   },
   {
+    'kevinhwang91/nvim-bqf',
+    event = 'VeryLazy',
+    dependencies = {
+      { 'junegunn/fzf', build = vim.fn['fzf#install'] }
+    }
+  },
+  { 'folke/todo-comments.nvim', config = true },
+  {
     'mbbill/undotree',
     cmd = 'UndotreeToggle'
   },

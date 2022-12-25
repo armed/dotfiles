@@ -70,17 +70,11 @@ function M.config()
 
   mason_lspconfig.setup_handlers {
     function(server_name)
-      print(server_name)
       local server_opts = servers[server_name] or {}
       local opts = vim.tbl_deep_extend('force', {}, options, server_opts)
       require("lspconfig")[server_name].setup(opts)
     end
   }
-
-  -- for server, opts in pairs(servers) do
-  --   opts = vim.tbl_deep_extend('force', {}, options, opts or {})
-  --   lspconfig[server].setup(opts)
-  -- end
 end
 
 return M
