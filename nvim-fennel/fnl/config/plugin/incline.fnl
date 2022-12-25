@@ -8,7 +8,8 @@
 (incline.setup
   {:debounce_threshold {:falling 250 :rising 250}
    :window {:margin {:vertical 1 :horizontal 0}
-            :options {:signcolumn true}}
+            ;; :options {:signcolumn true}
+            }
    :hide {:cursorline true}
    :highlight {:groups {:InclineNormal {:default true
                                         :group "@text.note"}

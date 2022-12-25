@@ -168,7 +168,8 @@
   (lsp.java_language_server.setup 
     (u.merge defaults {:cmd ["/Users/armed/.local/share/nvim/mason/bin/jdtls"]}))
 
-  (lsp.marksman.setup defaults)
+  (lsp.markdown.setup defaults)
+
   )
 
 (fidget.setup {:window {:blend 0}})

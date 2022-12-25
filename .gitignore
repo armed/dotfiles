@@ -6,6 +6,6 @@ cache/
 share/
 packer.nvim/
 packer_compiled.lua
-nvim-lua/
+# nvim-lua/
 nvim-hotpot/
 
