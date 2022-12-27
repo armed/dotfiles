@@ -14,6 +14,13 @@ function M.config()
     '                                                     ',
     '                                                     ',
     '                                                     ',
+    '                                                     ',
+    '                                                     ',
+    '                                                     ',
+    '                                                     ',
+    '                                                     ',
+    '                                                     ',
+    '                                                     ',
     '  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ',
     '  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ',
     '  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ',
@@ -33,7 +40,6 @@ function M.config()
   alpha.setup(dashboard.opts)
 
   vim.cmd('autocmd FileType alpha setlocal nofoldenable')
-  -- vim.cmd('Alpha')
 end
 
 return M

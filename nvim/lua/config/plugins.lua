@@ -84,5 +84,25 @@ return {
     config = function()
       require("leap").add_default_mappings()
     end
+  },
+  {
+    "simrat39/symbols-outline.nvim",
+    cmd = "SymbolsOutline",
+    init = function()
+      vim.keymap.set("n", "<leader>ls", ":SymbolsOutline<cr>", { desc = "Symbols Outline" })
+    end,
+    config = {
+      keymaps = {
+        focus_location = "<tab>"
+      },
+    }
+  },
+  {
+    'iamcco/markdown-preview.nvim',
+    ft = 'markdown',
+    build = 'cd app && pnpm i',
+    init = function ()
+      vim.g.mkdp_filetypes = { 'markdown' }
+    end
   }
 }

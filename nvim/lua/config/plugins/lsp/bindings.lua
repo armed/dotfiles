@@ -29,7 +29,7 @@ function M.setup(bufnr)
         N = { diag_prev, 'Prev diagnostics' },
         l = { diag_float, 'Line diagnostic' },
         a = { vim.lsp.buf.code_action, 'Code actions' },
-        s = { tb.lsp_document_symbols, 'Document symbols' },
+        -- s = { tb.lsp_document_symbols, 'Document symbols' },
         S = { tb.lsp_dynamic_workspace_symbols, 'Workspace symbols' },
         f = { vim.lsp.buf.format, 'Format buffer' },
         d = { function() tb.diagnostics { bufnr = bufnr } end, 'Document diagnostics' },

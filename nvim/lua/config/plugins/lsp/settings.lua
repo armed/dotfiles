@@ -20,10 +20,10 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 M.capabilities = cmplsp.default_capabilities(capabilities)
-M.capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true,
-}
+-- M.capabilities.textDocument.foldingRange = {
+--   dynamicRegistration = false,
+--   lineFoldingOnly = true,
+-- }
 
 function M.on_attach(client, bufnr)
   if client.server_capabilities.codeLensProvider then

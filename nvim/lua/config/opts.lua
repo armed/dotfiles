@@ -31,7 +31,7 @@ vim.o.colorcolumn = '80'
 vim.o.swapfile = false
 vim.o.showmode = false
 vim.o.cmdheight = 0
-vim.o.hidden = false
+vim.o.hidden = true
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
@@ -65,4 +65,23 @@ vim.api.nvim_create_autocmd('TermOpen', {
   pattern = 'term://*',
   callback = set_terminal_keymaps
 })
+
+local builtins = {
+  "getscript",
+  "getscriptPlugin",
+  "vimball",
+  "vimballPlugin",
+  "2html_plugin",
+  "matchit",
+  "logiPat",
+  "rrhelper",
+  "netrw",
+  "netrwPlugin",
+  "netrwSettings",
+  "netrwFileHandlers",
+}
+
+for _, plugin in ipairs(builtins) do
+  vim.g["loaded_" .. plugin] = 1
+end
 

@@ -29,7 +29,7 @@ function M.config()
       hide_gitignored = true,
       cwd_target = { sidebar = "tab", current = "tab" },
       follow_current_file = true,
-      group_empty_dirs = true
+      group_empty_dirs = fals
     }
   }
 
