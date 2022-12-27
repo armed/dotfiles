@@ -20,16 +20,16 @@ function M.config()
   nt.setup {
     window = {
       mappings = {
-        ["<tab>"] = "toggle_node",
-        ["<space>"] = false
+        ['<tab>'] = 'toggle_node',
+        ['<space>'] = false
       }
     },
     filesystem = {
       use_libuv_file_watcher = true,
       hide_gitignored = true,
-      cwd_target = { sidebar = "tab", current = "tab" },
+      cwd_target = { sidebar = 'tab', current = 'tab' },
       follow_current_file = true,
-      group_empty_dirs = fals
+      group_empty_dirs = false
     }
   }
 
@@ -39,10 +39,10 @@ function M.config()
     fg_color = palette.crust,
     filter_rules = {
       bo = {
-        filetype = { "neo-tree", "neo-tree-popup", "notify" },
-        buftype = { "terminal", "quickfix" }
+        filetype = { 'neo-tree', 'neo-tree-popup', 'notify' },
+        buftype = { 'terminal', 'quickfix' }
       },
-      file_name_contains = { "conjure-log-*" }
+      file_name_contains = { 'conjure-log-*' }
     },
     include_current = false
   }
