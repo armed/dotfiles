@@ -101,8 +101,18 @@ return {
     'iamcco/markdown-preview.nvim',
     ft = 'markdown',
     build = 'cd app && pnpm i',
-    init = function ()
+    init = function()
       vim.g.mkdp_filetypes = { 'markdown' }
     end
+  },
+  {
+    'uga-rosa/ccc.nvim',
+    event = 'VeryLazy',
+    config = {
+      highlighter = {
+        auto_enable = true,
+        events = { 'BufReadPost', 'TextChanged', 'TextChangedI' },
+      }
+    }
   }
 }
