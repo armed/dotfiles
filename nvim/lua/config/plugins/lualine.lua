@@ -4,13 +4,23 @@ local M = {
   dependencies = { 'kyazdani42/nvim-web-devicons' },
 }
 
-function M.config()
-  local cp = require('catppuccin.palettes')
-  local palette = cp.get_palette('mocha')
-  local theme = require('lualine.themes.catppuccin')
-  local lualine = require('lualine')
+local function set_theme(config)
+  local theme = vim.g.colors_name
 
-  theme.normal.c.bg = palette.surface0
+  print('current theme', theme)
+  if theme == 'kanagawa' then
+    local kw = require 'lualine.themes.kanagawa'
+    config.options.theme = kw
+  elseif theme == 'catppuccin' then
+    local cp = require 'lualine.themes.catppuccin'
+    local palette = cp.get_palette('mocha')
+    cp.normal.c.bg = palette.surface0
+    config.optiona.tjeme = cp
+  end
+end
+
+function M.config()
+  local lualine = require('lualine')
 
   local function get_lsp_client_names()
     local clients = ''
@@ -33,7 +43,6 @@ function M.config()
     options = {
       icons_enabled = true,
       globalstatus = true,
-      theme = theme,
       component_separators = { left = '', right = '' },
       section_separators = { left = '', right = '' },
       disabled_filetypes = {}
@@ -57,11 +66,14 @@ function M.config()
     extensions = {}
   }
 
+  set_theme(config)
+
   lualine.setup(config)
 
   local function refresh()
     return lualine.refresh({ place = { 'statusline' } })
   end
+
   vim.api.nvim_create_autocmd('RecordingEnter', { callback = refresh })
 
   local function on_recording_leave()
@@ -74,4 +86,3 @@ function M.config()
 end
 
 return M
-

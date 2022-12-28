@@ -1,6 +1,6 @@
 local M = {
   'nvim-neo-tree/neo-tree.nvim',
-  cmd = 'Neotree',
+  cmd          = 'Neotree',
   branch       = 'v2.x',
   dependencies = {
     'kyazdani42/nvim-web-devicons',
@@ -10,12 +10,35 @@ local M = {
   }
 }
 
+local function get_palette()
+  local theme = vim.g.colors_name
+
+  if theme == 'kanagawa' then
+    local kw = require 'kanagawa.colors'
+    local kw_colors = kw.setup()
+    return {
+      win_hl = kw_colors.crystalBlue,
+      fg = kw_colors.bg_dark
+    }
+  elseif theme == 'catppuccin' then
+    local cp = require 'catppuccin.palettes'
+    local cp_colors = cp.get_palette 'mocha'
+    return {
+      win_hl = cp_colors.blue,
+      fg = cp_colors.crust
+    }
+  end
+  -- fallback
+  return {
+    win_hl = '#000',
+    fg = '#999'
+  }
+end
+
 function M.config()
   local wp = require('window-picker')
-  local cp = require('catppuccin.palettes')
+  local palette = get_palette()
   local nt = require('neo-tree')
-
-  local palette = cp.get_palette 'mocha'
 
   nt.setup {
     window = {
@@ -35,8 +58,8 @@ function M.config()
 
   wp.setup {
     autoselect_one = true,
-    other_win_hl_color = palette.blue,
-    fg_color = palette.crust,
+    other_win_hl_color = palette.win_hl,
+    fg_color = palette.fg,
     filter_rules = {
       bo = {
         filetype = { 'neo-tree', 'neo-tree-popup', 'notify' },

@@ -3,7 +3,7 @@ local M = {
   event = 'VeryLazy',
   dependencies = {
     'kyazdani42/nvim-web-devicons'
-  }
+  },
 }
 
 function M.config()
@@ -33,10 +33,10 @@ function M.config()
     -- end
     local filetype_icon, _ = nwd.get_icon_color(filename)
     local buffer = {
-      {guifg = 'black', filetype_icon},
-      {' '},
-      {gui = 'bold', location},
-      {(modified .. filename), guifg = 'black', gui = 'bold'}
+      { guifg = 'black', filetype_icon },
+      { ' ' },
+      { gui = 'bold', location },
+      { (modified .. filename), guifg = 'black', gui = 'bold' }
     }
     for _, buffer_ in ipairs(buffer) do
       table.insert(render_spec, buffer_)
@@ -55,7 +55,7 @@ function M.config()
         horizontal = 0
       }
     },
-    hide = {cursorline = true},
+    hide = { cursorline = true },
     highlight = {
       groups = {
         InclineNormal = {default = true, group = '@text.note'},
