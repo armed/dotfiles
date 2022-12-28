@@ -20,12 +20,12 @@ return {
           fg = tostring(c(colors.roninYellow):lighten(0.6)),
           bg = colors.bg_dim or "NONE",
         },
-        IndentBlanklineChar = { fg = colors.bg_light0 },
-        IndentBlanklineSpaceChar = { fg = colors.bg_light0 },
-        IndentBlanklineSpaceCharBlankline = { fg = colors.bg_light0 },
-        IndentBlanklineContextChar = { fg = colors.bg_light1 },
+        IndentBlanklineChar = { fg = colors.bg_light2 },
+        IndentBlanklineSpaceChar = { fg = colors.bg_light2 },
+        IndentBlanklineSpaceCharBlankline = { fg = colors.bg_light2 },
+        IndentBlanklineContextChar = { fg = colors.bg_light3 },
         IndentBlanklineContextStart = {
-          sp = colors.bg_light1,
+          sp = colors.bg_light3,
           underline = true
         }
       }

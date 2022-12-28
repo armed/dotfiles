@@ -50,7 +50,9 @@ return {
   {
     'lukas-reineke/indent-blankline.nvim',
     event = 'BufReadPost',
-    config = true
+    config = {
+      char = '┊'
+    }
   },
   {
     'uga-rosa/ccc.nvim',
