@@ -49,7 +49,7 @@ local M = {
         ensure_installed = vim.tbl_keys(servers),
       }
     },
-    { 'j-hui/fidget.nvim', config = true },
+    { 'j-hui/fidget.nvim', config = true, enabled = true },
   },
 }
 
