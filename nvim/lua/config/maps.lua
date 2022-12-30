@@ -78,6 +78,7 @@ require('which-key').register({
     p = { ':Git push<cr>', 'Push' },
     P = { ':Git push --force<cr>', 'Force Push' },
     f = { ':Git pull<cr>', 'Pull' },
+    b = { ':Telescope git_branches<cr>', 'Branches' }
   },
   e = { ":Neotree toggle<cr>", "Toggle Neo Tree" },
   E = { ":Neotree focus<cr>", "Focus Neo Tree" },

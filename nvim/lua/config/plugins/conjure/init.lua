@@ -36,9 +36,18 @@ M.config = function()
     }
   )
 
+  local function connect_cmd()
+    vim.api.nvim_feedkeys(':ConjureConnect localhost:', 'n', false)
+  end
+
   local mappings = require 'config.plugins.conjure.portal-mappings'
   local wk = require 'which-key'
   wk.register(mappings, { prefix = '<localleader>' })
+  wk.register({
+    c = {
+      c = { connect_cmd, 'Connect to specific port' }
+    }
+  }, { prefix = '<localleader>' })
 end
 
 return M
