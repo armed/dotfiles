@@ -34,7 +34,7 @@ return {
     vim.cmd [[ colo kanagawa ]]
 
     -- hl-group for incline
-    vim.api.nvim_set_hl(0, '@text.note', {
+    vim.api.nvim_set_hl(0, 'user.win.title', {
       bg = colors.crystalBlue,
       fg = colors.bg_dark
     })

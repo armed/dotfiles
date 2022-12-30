@@ -58,8 +58,8 @@ function M.config()
     hide = { cursorline = true },
     highlight = {
       groups = {
-        InclineNormal = { default = true, group = '@text.note' },
-        InclineNormalNC = { default = true, group = '@text.note' }
+        InclineNormal = { default = true, group = 'user.win.title' },
+        InclineNormalNC = { default = true, group = 'user.win.title' }
       }
     },
     render = render_fn
