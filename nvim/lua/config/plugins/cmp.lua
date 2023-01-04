@@ -1,8 +1,9 @@
 local M = {
   'hrsh7th/nvim-cmp',
-  event = 'CmdlineEnter',
+  event = 'InsertEnter',
   dependencies = {
     'hrsh7th/cmp-cmdline',
+    'hrsh7th/cmp-path',
     'L3MON4D3/LuaSnip',
     'onsails/lspkind.nvim',
     'saadparwaiz1/cmp_luasnip'
