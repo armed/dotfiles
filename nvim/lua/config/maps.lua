@@ -39,6 +39,7 @@ end
 
 local hm = require 'harpoon.mark'
 local hui = require 'harpoon.ui'
+local repl = require 'config.tools.nrepl-finder'
 
 require('which-key').register({
   b = {
@@ -88,6 +89,7 @@ require('which-key').register({
   r = { ':Telescope resume<cr>', 'Resume last search' },
   f = {
     name = 'Find',
+    s = { repl.find_repls, 'Find REPLs' },
     f = { ':Telescope find_files<cr>', 'Files' },
     c = { ':Telescope current_buffer_fuzzy_find<cr>', 'In buffer' },
     g = { ':Telescope live_grep<cr>', 'Live grep' },
