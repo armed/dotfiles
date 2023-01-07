@@ -7,7 +7,6 @@ local M = {
 local function set_theme(config)
   local theme = vim.g.colors_name
 
-  print('current theme', theme)
   if theme == 'kanagawa' then
     local kw = require 'lualine.themes.kanagawa'
     config.options.theme = kw
@@ -39,6 +38,15 @@ function M.config()
     end
   end
 
+  local function get_nrepl_status()
+    if vim.bo.filetype == 'clojure' then
+      local repl_finder = require 'config.tools.nrepl-finder'
+      local repl_status = repl_finder.get_repl_status('no REPL')
+      return repl_status
+    end
+    return ''
+  end
+
   local config = {
     options = {
       icons_enabled = true,
@@ -57,6 +65,11 @@ function M.config()
       },
       lualine_x = {
         { fmt = get_lsp_client_names, 'lsp_clients' },
+        {
+          color = 'user.repl.statusline',
+          fmt = get_nrepl_status,
+          'repl_status'
+        },
         'progress'
       },
       lualine_y = { 'filetype' },

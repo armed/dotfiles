@@ -1,8 +1,20 @@
 local M = {
   'Olical/conjure',
+  lazy = true,
   branch = 'develop',
   ft = { 'clojure', 'lua' }
 }
+
+local function set_repl_winbar()
+  if vim.bo.filetype == 'clojure' then
+    vim.opt_local.winbar = ("%#winbarseparator#" ..
+        "%=" ..
+        "%#user.repl.winbar# " ..
+        "%{%v:lua.require'config.tools.nrepl-finder'.get_repl_status('no REPL')%}" ..
+        "%#user.repl.winbar# " ..
+        "%#winbarseparator#")
+  end
+end
 
 M.config = function()
   vim.g['conjure#mapping#doc_word'] = false
@@ -36,6 +48,17 @@ M.config = function()
     }
   )
 
+  vim.api.nvim_create_autocmd(
+    'BufEnter,WinEnter',
+    {
+      group = grp,
+      pattern = 'conjure-log-*',
+      callback = function()
+        set_repl_winbar()
+      end
+    }
+  )
+
   local function connect_cmd()
     vim.api.nvim_feedkeys(':ConjureConnect localhost:', 'n', false)
   end
@@ -47,11 +70,15 @@ M.config = function()
   wk.register(mappings, { prefix = '<localleader>' })
   wk.register({
     f = {
-      cond = vim.o.filetype == 'clojure',
+      cond = function()
+        return vim.bo.filetype == 'clojure'
+      end,
       s = { repl.find_repls, 'Find REPLs' },
     },
     c = {
-      cond = vim.o.filetype == 'clojure',
+      cond = function()
+        return vim.bo.filetype == 'clojure'
+      end,
       c = { connect_cmd, 'Connect to specific port' }
     }
   }, { prefix = '<localleader>' })
