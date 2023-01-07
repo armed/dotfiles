@@ -39,7 +39,6 @@ end
 
 local hm = require 'harpoon.mark'
 local hui = require 'harpoon.ui'
-local repl = require 'config.tools.nrepl-finder'
 
 require('which-key').register({
   b = {
@@ -50,21 +49,23 @@ require('which-key').register({
     h = { hui.nav_prev, 'Prev File' }
   },
   h = {
-    name = "Gitsigns",
-    b = { ':Gitsigns blame_line<cr>', "Blame line" },
-    p = { ':Gitsigns preview_hunk<cr>', "Preview hunk" },
-    s = { ":Gitsigns stage_hunk<cr>", "Stage hunk" },
-    u = { ':Gitsigns undo_stage_hunk<cr>', "Undo stage hunk" },
-    r = { ":Gitsigns reset_hunk<CR>", "Reset hunk" },
-    S = { ':Gitsigns stage_buffer<cr>', "Stage buffer" },
-    R = { ':Gitsigns reset_buffer<cr>', "Reset buffer" },
+    name = 'Gitsigns',
+    b = { ':Gitsigns blame_line<cr>', 'Blame line' },
+    p = { ':Gitsigns preview_hunk<cr>', 'Preview hunk' },
+    s = { ':Gitsigns stage_hunk<cr>', 'Stage hunk' },
+    u = { ':Gitsigns undo_stage_hunk<cr>', 'Undo stage hunk' },
+    r = { ':Gitsigns reset_hunk<CR>', 'Reset hunk' },
+    S = { ':Gitsigns stage_buffer<cr>', 'Stage buffer' },
+    R = { ':Gitsigns reset_buffer<cr>', 'Reset buffer' },
+    n = { ':Gitsigns next_hunk<cr>', 'Next hunk'},
+    N = { ':Gitsigns prev_hunk<cr>', 'Prev hunk'},
     t = {
-      name = "Toggle",
-      b = { ':Gitsigns toggle_current_line_blame<cr>', "Curent line blame" },
-      d = { ':Gitsigns toggle_deleted<cr>', "Deleted" }
+      name = 'Toggle',
+      b = { ':Gitsigns toggle_current_line_blame<cr>', 'Curent line blame' },
+      d = { ':Gitsigns toggle_deleted<cr>', 'Deleted' }
     },
-    d = { ':Gitsigns diffthist<cr>', "Diff history" },
-    D = { ':Gitsigns diffhis ~<cr>', "Diff ~history" }
+    d = { ':Gitsigns diffthist<cr>', 'Diff history' },
+    D = { ':Gitsigns diffhis ~<cr>', 'Diff ~history' }
   },
   u = { ':UndotreeToggle<cr>', 'Undo Tree' },
   t = {
@@ -81,15 +82,14 @@ require('which-key').register({
     f = { ':Git pull<cr>', 'Pull' },
     b = { ':Telescope git_branches<cr>', 'Branches' }
   },
-  e = { ":Neotree toggle<cr>", "Toggle Neo Tree" },
-  E = { ":Neotree focus<cr>", "Focus Neo Tree" },
+  e = { ':Neotree toggle<cr>', 'Toggle Neo Tree' },
+  E = { ':Neotree focus<cr>', 'Focus Neo Tree' },
   s = { ':write<cr>', 'Save buffer' },
   x = { save_all_quit, 'Save and quit' },
   q = { '<c-w>q', 'Close window' },
   r = { ':Telescope resume<cr>', 'Resume last search' },
   f = {
     name = 'Find',
-    s = { repl.find_repls, 'Find REPLs' },
     f = { ':Telescope find_files<cr>', 'Files' },
     c = { ':Telescope current_buffer_fuzzy_find<cr>', 'In buffer' },
     g = { ':Telescope live_grep<cr>', 'Live grep' },

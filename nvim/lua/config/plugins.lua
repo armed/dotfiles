@@ -19,7 +19,7 @@ return {
     'kevinhwang91/nvim-bqf',
     event = 'VeryLazy',
     dependencies = {
-      { 'junegunn/fzf', build = vim.fn['fzf#install'] }
+      { 'junegunn/fzf', build = 'make' }
     }
   },
   { 'folke/todo-comments.nvim', config = true },
@@ -91,7 +91,7 @@ return {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
     init = function()
-      vim.keymap.set("n", "<leader>ls", ":SymbolsOutline<cr>", { desc = "Symbols Outline" })
+      vim.keymap.set("n", "<leader>lo", ":SymbolsOutline<cr>", { desc = "Symbols Outline" })
     end,
     config = {
       keymaps = {

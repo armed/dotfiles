@@ -19,6 +19,9 @@ require('lazy').setup('config.plugins', {
   ui = { border = 'rounded' },
   -- install = { colorscheme = { 'kanagawa' } },
   checker = { enabled = false },
+  change_detection = {
+    notify = false
+  },
   performance = {
     rtp = {
       disabled_plugins = {
