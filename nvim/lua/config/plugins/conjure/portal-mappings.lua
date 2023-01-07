@@ -51,6 +51,7 @@ portal_cmds = {
 }
 
 return {
+  cond = vim.o.filetype == 'clojure',
   s = {
     o = { ":ConjureOutSubscribe<cr>", "Subscribe to output" },
     O = { ":ConjureOutUnsubscribe<cr>", "Unsubscribe from output" }

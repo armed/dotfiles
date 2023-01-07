@@ -42,9 +42,16 @@ M.config = function()
 
   local mappings = require 'config.plugins.conjure.portal-mappings'
   local wk = require 'which-key'
+  local repl = require 'config.tools.nrepl-finder'
+
   wk.register(mappings, { prefix = '<localleader>' })
   wk.register({
+    f = {
+      cond = vim.o.filetype == 'clojure',
+      s = { repl.find_repls, 'Find REPLs' },
+    },
     c = {
+      cond = vim.o.filetype == 'clojure',
       c = { connect_cmd, 'Connect to specific port' }
     }
   }, { prefix = '<localleader>' })
