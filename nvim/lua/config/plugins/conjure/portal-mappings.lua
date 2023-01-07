@@ -51,12 +51,13 @@ portal_cmds = {
 }
 
 return {
-  cond = vim.o.filetype == 'clojure',
   s = {
+    cond = function() return vim.bo.filetype == 'clojure' end,
     o = { ":ConjureOutSubscribe<cr>", "Subscribe to output" },
     O = { ":ConjureOutUnsubscribe<cr>", "Unsubscribe from output" }
   },
   p = {
+    cond = function() return vim.bo.filetype == 'clojure' end,
     name = "Portal",
     p = { portal_cmds.open, "Portal open" },
     c = { portal_cmds.clear, "Portal clear" },
