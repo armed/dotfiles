@@ -5,13 +5,6 @@ return {
     cmd = 'StartupTime'
   },
   {
-    'folke/which-key.nvim',
-    config = {
-      window = { border = 'double' },
-      layout = { align = 'center' }
-    }
-  },
-  {
     'ThePrimeagen/harpoon',
     config = true
   },
@@ -116,5 +109,19 @@ return {
         events = { 'BufReadPost', 'TextChanged', 'TextChangedI' },
       }
     }
+  },
+  {
+    'smjonas/live-command.nvim',
+    event = 'VeryLazy',
+    config = {
+      commands = {
+        Norm = { cmd = "norm" }
+      }
+    }
+  },
+  {
+    'nacro90/numb.nvim',
+    event = 'VeryLazy',
+    config = true
   }
 }

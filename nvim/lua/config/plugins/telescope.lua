@@ -5,6 +5,7 @@ local M = {
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope-ui-select.nvim',
+    'natecraddock/workspaces.nvim',
     {
       'nvim-telescope/telescope-fzf-native.nvim',
       build = 'make'
@@ -50,6 +51,7 @@ function M.config()
   }
   telescope.load_extension('ui-select')
   telescope.load_extension('fzf')
+  telescope.load_extension('workspaces')
 end
 
 return M

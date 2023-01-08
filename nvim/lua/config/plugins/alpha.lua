@@ -5,6 +5,7 @@ local M = {
 
 function M.config()
   local alpha = require('alpha')
+  local wps = require('config.plugins.workspaces')
   local dashboard = require('alpha.themes.dashboard')
 
   dashboard.section.header.val = {
@@ -31,9 +32,12 @@ function M.config()
   }
 
   dashboard.section.buttons.val = {
-    dashboard.button('SPC f f', '  > Find file', ':Telescope find_files<CR>'),
-    dashboard.button('SPC f r', '  > Recent', ':Telescope oldfiles<CR>'),
-    dashboard.button('SPC S f', '  > Workspaces', ':Telescope workspaces<CR>'),
+    dashboard.button('f', '  > Find file', ':Telescope find_files<CR>'),
+    dashboard.button('r', '  > Recent', ':Telescope oldfiles<CR>'),
+    dashboard.button('w', '  > Workspaces', ':Telescope workspaces<CR>'),
+    dashboard.button('l', '  > Load workspace', ':so ' ..
+      wps.session_file ..
+      '<CR>:Neotree<CR>'),
     dashboard.button('q', '  > Quit NVIM', ':qa<CR>')
   }
 
