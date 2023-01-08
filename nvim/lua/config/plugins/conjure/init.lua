@@ -26,7 +26,7 @@ M.config = function()
   vim.g['conjure#client#clojure#nrepl#eval#raw_out'] = true
   vim.g['conjure#client#clojure#nrepl#test#raw_out'] = true
   vim.g['conjure#client#clojure#nrepl#test#runner'] = 'kaocha'
-  vim.g['conjure#log#jump_to_latest#cursor_scroll_position'] = 'center'
+  vim.g['conjure#log#jump_to_latest#cursor_scroll_position'] = 'bottom'
   vim.g['conjure#log#hud#enabled'] = false
 
 
