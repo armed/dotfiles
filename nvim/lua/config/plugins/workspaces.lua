@@ -7,6 +7,19 @@ local M = {
   }
 }
 
+-- Close conjure log buffers
+local function close_repls()
+  local bufnrs = vim.api.nvim_list_bufs()
+
+  local mask = 'conjure%-log*'
+  for _, bufnr in pairs(bufnrs) do
+    local name = vim.api.nvim_buf_get_name(bufnr)
+    if string.match(name, mask) then
+      vim.api.nvim_command('bdelete ' .. bufnr)
+    end
+  end
+end
+
 M.session_file = '.nvim_session'
 
 function M.config()
@@ -14,14 +27,13 @@ function M.config()
   local w = require('workspaces')
   local wk = require('which-key')
 
-  vim.g.ssop = 'sesdir,winsize,buffers,tabpages'
-
   local function session_exists()
     return vim.fn.filewritable(M.session_file) == 1
   end
 
   local function save_session()
     ntsm.close_all()
+    close_repls()
     vim.cmd('mksession! ' .. M.session_file)
   end
 
@@ -50,7 +62,7 @@ function M.config()
 
   w.setup {
     hooks = {
-      open_pre = function ()
+      open_pre = function()
         vim.lsp.stop_client(vim.lsp.get_active_clients())
         if session_exists then
           save_session()

@@ -32,6 +32,7 @@ vim.o.swapfile = false
 vim.o.showmode = false
 vim.o.cmdheight = 0
 vim.o.hidden = true
+vim.o.ssop = 'sesdir,winsize,buffers,tabpages'
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
@@ -54,4 +55,3 @@ local builtins = {
 for _, plugin in ipairs(builtins) do
   vim.g["loaded_" .. plugin] = 1
 end
-
