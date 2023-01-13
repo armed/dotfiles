@@ -13,7 +13,11 @@ function M.config()
 
   wk.setup {
     window = { border = 'double' },
-    layout = { align = 'center' }
+    layout = { align = 'center' },
+    hidden = {
+      "<silent>", "<cmd>", "<Cmd>", "<CR>", "call",
+      "lua", "^:", "^ ", "<Plug>", '^%(', '%)$'
+    }
   }
 
   local function save_all_quit()

@@ -70,17 +70,28 @@ M.config = function()
   wk.register(mappings, { prefix = '<localleader>' })
   wk.register({
     f = {
+      name = 'nREPL files',
       cond = function()
         return vim.bo.filetype == 'clojure'
       end,
       s = { repl.find_repls, 'Find REPLs' },
     },
     c = {
+      name = 'Connect',
       cond = function()
         return vim.bo.filetype == 'clojure'
       end,
       c = { connect_cmd, 'Connect to specific port' }
-    }
+    },
+    g = { name = 'Go to' },
+    e = {
+      name = 'Evaluate',
+      c = { name = 'To comment' }
+    },
+    r = { name = 'Refresh' },
+    s = { name = 'Session' },
+    t = { name = 'Tests' },
+    v = { name = 'Display' }
   }, { prefix = '<localleader>' })
 end
 
