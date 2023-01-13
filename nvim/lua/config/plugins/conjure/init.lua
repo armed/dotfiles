@@ -7,12 +7,11 @@ local M = {
 
 local function set_repl_winbar()
   if vim.bo.filetype == 'clojure' then
-    vim.opt_local.winbar = ("%#winbarseparator#" ..
-        "%=" ..
-        "%#user.repl.winbar# " ..
+    vim.opt_local.winbar = ('%#winbarseparator#' ..
+        '%=' ..
+        '%#user.repl.winbar# ' ..
         "%{%v:lua.require'config.tools.nrepl-finder'.get_repl_status('no REPL')%}" ..
-        "%#user.repl.winbar# " ..
-        "%#winbarseparator#")
+        '%#user.repl.winbar# ' .. '%#winbarseparator#')
   end
 end
 
@@ -26,7 +25,7 @@ M.config = function()
   vim.g['conjure#client#clojure#nrepl#eval#raw_out'] = true
   vim.g['conjure#client#clojure#nrepl#test#raw_out'] = true
   vim.g['conjure#client#clojure#nrepl#test#runner'] = 'kaocha'
-  vim.g['conjure#log#jump_to_latest#cursor_scroll_position'] = 'bottom'
+  vim.g['conjure#log#jump_to_latest#cursor_scroll_position'] = 'top'
   vim.g['conjure#log#hud#enabled'] = false
 
 
