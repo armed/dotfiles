@@ -26,6 +26,13 @@ function M.config()
   end
 
   wk.register({
+    o = {
+      name = "Oil",
+      o = {
+        ':Oil .<cr>',
+        'Oil Dir Editor'
+      }
+    },
     b = {
       name = 'Harpoon',
       a = { hm.add_file, 'Mark File' },
