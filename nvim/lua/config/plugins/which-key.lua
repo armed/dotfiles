@@ -27,11 +27,8 @@ function M.config()
 
   wk.register({
     o = {
-      name = "Oil",
-      o = {
-        ':Oil .<cr>',
-        'Oil Dir Editor'
-      }
+      ':Oil .<cr>',
+      'Oil Dir Editor'
     },
     b = {
       name = 'Harpoon',

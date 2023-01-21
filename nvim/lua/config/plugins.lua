@@ -1,76 +1,76 @@
 -- list of plugins which does not require with lightweight configuration
 return {
   {
-    'dstein64/vim-startuptime',
-    cmd = 'StartupTime'
+    "dstein64/vim-startuptime",
+    cmd = "StartupTime"
   },
   {
-    'ThePrimeagen/harpoon',
+    "ThePrimeagen/harpoon",
     config = true
   },
   {
-    'kevinhwang91/nvim-bqf',
-    event = 'VeryLazy',
+    "kevinhwang91/nvim-bqf",
+    event = "VeryLazy",
     dependencies = {
-      { 'junegunn/fzf', build = 'make' }
+      { "junegunn/fzf", build = "make" }
     }
   },
-  { 'folke/todo-comments.nvim', config = true },
+  { "folke/todo-comments.nvim", config = true },
   {
-    'mbbill/undotree',
-    cmd = 'UndotreeToggle'
+    "mbbill/undotree",
+    cmd = "UndotreeToggle"
   },
   {
-    'numToStr/Comment.nvim',
-    event = 'VeryLazy',
+    "numToStr/Comment.nvim",
+    event = "VeryLazy",
     config = true
   },
-  'kyazdani42/nvim-web-devicons',
-  'nvim-treesitter/nvim-treesitter-textobjects',
+  "kyazdani42/nvim-web-devicons",
+  "nvim-treesitter/nvim-treesitter-textobjects",
   {
-    'nvim-treesitter/playground',
-    cmd = 'TSPlaygroundToggle'
+    "nvim-treesitter/playground",
+    cmd = "TSPlaygroundToggle"
   },
   {
-    'tpope/vim-fugitive',
-    cmd = 'Git'
+    "tpope/vim-fugitive",
+    cmd = "Git"
   },
   {
-    'kylechui/nvim-surround',
-    event = 'BufReadPost',
+    "kylechui/nvim-surround",
+    event = "BufReadPost",
     config = true
   },
   {
-    'lukas-reineke/indent-blankline.nvim',
-    event = 'BufReadPost',
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufReadPost",
     config = {
-      char = '┊'
+      char = "┊"
     }
   },
   {
-    'uga-rosa/ccc.nvim',
-    event = 'VeryLazy'
+    "uga-rosa/ccc.nvim",
+    event = "VeryLazy"
   },
   {
-    'guns/vim-sexp',
+    "guns/vim-sexp",
 
-    ft = { 'clojure', 'lisp', 'fennel', 'scheme', 'janet' },
+    ft = { "clojure", "lisp", "fennel", "scheme", "janet" },
 
     init = function()
-      vim.g.sexp_filetypes = 'clojure,scheme,lisp,fennel,janet'
+      vim.g.sexp_filetypes = "clojure,scheme,lisp,fennel,janet"
     end,
 
     dependencies = {
-      'radenling/vim-dispatch-neovim',
-      'tpope/vim-sexp-mappings-for-regular-people',
-      'tpope/vim-repeat'
+      "radenling/vim-dispatch-neovim",
+      "tpope/vim-sexp-mappings-for-regular-people",
+      "tpope/vim-repeat"
     }
   },
   {
-    'windwp/nvim-autopairs',
-    event = 'VeryLazy',
+    "windwp/nvim-autopairs",
+    event = "VeryLazy",
     config = {
-      disable_filetype = { 'clojure', 'TelescopePrompt', 'fennel' }
+      disable_filetype = { "clojure", "TelescopePrompt", "fennel" }
     }
   },
   {
@@ -93,26 +93,26 @@ return {
     }
   },
   {
-    'iamcco/markdown-preview.nvim',
-    ft = 'markdown',
-    build = 'cd app && pnpm i',
+    "iamcco/markdown-preview.nvim",
+    ft = "markdown",
+    build = "cd app && pnpm i",
     init = function()
-      vim.g.mkdp_filetypes = { 'markdown' }
+      vim.g.mkdp_filetypes = { "markdown" }
     end
   },
   {
-    'uga-rosa/ccc.nvim',
-    event = 'VeryLazy',
+    "uga-rosa/ccc.nvim",
+    event = "VeryLazy",
     config = {
       highlighter = {
         auto_enable = true,
-        events = { 'BufReadPost', 'TextChanged', 'TextChangedI' },
+        events = { "BufReadPost", "TextChanged", "TextChangedI" },
       }
     }
   },
   {
-    'smjonas/live-command.nvim',
-    event = 'VeryLazy',
+    "smjonas/live-command.nvim",
+    event = "VeryLazy",
     config = {
       commands = {
         Norm = { cmd = "norm" }
@@ -120,8 +120,7 @@ return {
     }
   },
   {
-    'nacro90/numb.nvim',
-    event = 'VeryLazy',
-    config = true
-  },
+    "NoahTheDuke/vim-just",
+    ft = "just"
+  }
 }
