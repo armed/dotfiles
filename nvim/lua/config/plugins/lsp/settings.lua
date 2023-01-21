@@ -48,8 +48,7 @@ M.handlers = {
       severity_sort = true
     }
   ),
-  ['textDocument/codeLens'] = vlw(vld.on_publish_diagnostics, { virtual_text = true }
-  ),
+  ['textDocument/codeLens'] = vlw( vld.on_publish_diagnostics, { virtual_text = true }),
   ['textDocument/hover'] = vlw(vlh.hover, win_opts.float_opts),
   ['textDocument/signatureHelp'] = vlw(vlh.signature_help, win_opts.float_opts),
   ["workspace/diagnostic/refresh"] = function(_, _, ctx)

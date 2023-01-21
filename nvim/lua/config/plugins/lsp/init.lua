@@ -34,6 +34,7 @@ local M = {
   commit = '3e2cc7061957292850cc386d9146f55458ae9fe3',
   event = 'BufReadPre',
   dependencies = {
+    "jose-elias-alvarez/null-ls.nvim",
     {
       'williamboman/mason.nvim',
       config = {
@@ -55,6 +56,7 @@ local M = {
 
 function M.config()
   require('lspconfig.ui.windows').default_options.border = 'rounded'
+  local nls = require('null-ls')
   local mason_lspconfig = require 'mason-lspconfig'
   local settings = require 'config.plugins.lsp.settings'
   require 'config.plugins.lsp.diagnostics'.setup()
@@ -65,6 +67,16 @@ function M.config()
     capabilities = settings.capabilities,
     flags = {
       debounce_text_changes = 150,
+    },
+  }
+
+  nls.setup {
+    on_attach = settings.on_attach,
+    sources = {
+      nls.builtins.formatting.prettierd,
+      nls.builtins.formatting.stylua,
+      nls.builtins.diagnostics.flake8,
+      nls.builtins.formatting.just,
     },
   }
 
