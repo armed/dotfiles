@@ -26,7 +26,10 @@ function M.config()
     for _, client in pairs(vim.lsp.buf_get_clients()) do
       clients = clients .. '•' .. client.name
     end
-    return '[' .. clients .. ']'
+    if clients ~= '' then
+      return '[' .. clients .. ']'
+    end
+    return ''
   end
 
   local function show_macro_recording()
