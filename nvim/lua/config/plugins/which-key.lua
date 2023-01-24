@@ -64,8 +64,7 @@ function M.config()
     },
     g = {
       name = 'Git',
-      l = { ':Git log<cr>', 'Log' },
-      s = { ':Git<cr><C-w>L', 'Status' },
+      g = { ':Neogit<cr>', 'Status' },
       p = { ':Git push<cr>', 'Push' },
       P = { ':Git push --force<cr>', 'Force Push' },
       f = { ':Git pull<cr>', 'Pull' },
