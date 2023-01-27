@@ -1,21 +1,29 @@
-local wk = require('which-key')
-local cmplsp = require('cmp_nvim_lsp')
-local bindings = require('config.plugins.lsp.bindings')
-local win_opts = require('config.plugins.lsp.win_opts')
+local wk = require("which-key")
+local cmplsp = require("cmp_nvim_lsp")
+local bindings = require("config.plugins.lsp.bindings")
+local win_opts = require("config.plugins.lsp.win_opts")
 
 local M = {}
 
-local lsp_group = vim.api.nvim_create_augroup('LspGroup', { clear = true })
+local lsp_group = vim.api.nvim_create_augroup("LspGroup", { clear = true })
 local function setup_codelens(_, bufnr)
   vim.lsp.codelens.refresh()
-  vim.api.nvim_create_autocmd(
-    { 'BufWritePost' },
-    {
-      group = lsp_group,
-      buffer = bufnr,
-      callback = vim.lsp.codelens.refresh
-    })
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = lsp_group,
+    buffer = bufnr,
+    callback = vim.lsp.codelens.refresh
+  })
 end
+
+vim.api.nvim_create_autocmd("LspDetach", {
+  callback = function(args)
+    local bufnr = args.buf
+    local client_id = args.data.client_id
+    if vim.lsp.codelens.get(bufnr) ~= {} then
+      vim.lsp.codelens.clear(client_id, bufnr)
+    end
+  end
+})
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -38,7 +46,7 @@ local vlw = vim.lsp.with
 local vlh = vim.lsp.handlers
 
 M.handlers = {
-  ['textDocument/publishDiagnostics'] = vlw(
+  ["textDocument/publishDiagnostics"] = vlw(
     vld.on_publish_diagnostics,
     {
       virtual_text = false,
@@ -48,9 +56,9 @@ M.handlers = {
       severity_sort = true
     }
   ),
-  ['textDocument/codeLens'] = vlw( vld.on_publish_diagnostics, { virtual_text = true }),
-  ['textDocument/hover'] = vlw(vlh.hover, win_opts.float_opts),
-  ['textDocument/signatureHelp'] = vlw(vlh.signature_help, win_opts.float_opts),
+  ["textDocument/codeLens"] = vlw(vld.on_publish_diagnostics, { virtual_text = true }),
+  ["textDocument/hover"] = vlw(vlh.hover, win_opts.float_opts),
+  ["textDocument/signatureHelp"] = vlw(vlh.signature_help, win_opts.float_opts),
   ["workspace/diagnostic/refresh"] = function(_, _, ctx)
     local ns = vld.get_namespace(ctx.client_id)
     pcall(vim.diagnostic.reset, ns)

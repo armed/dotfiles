@@ -12,8 +12,8 @@ local servers = {
     settings = {
       yaml = {
         schemas = {
-          'https://json.schemastore.org/github-workflow.json',
-          '.github/workflows/*'
+          "https://json.schemastore.org/github-workflow.json",
+          ".github/workflows/*"
         }
       }
     }
@@ -30,36 +30,40 @@ local servers = {
 }
 
 local M = {
-  'neovim/nvim-lspconfig',
-  commit = '3e2cc7061957292850cc386d9146f55458ae9fe3',
-  event = 'BufReadPre',
+  "neovim/nvim-lspconfig",
+  commit = "3e2cc7061957292850cc386d9146f55458ae9fe3",
+  event = "BufReadPre",
   dependencies = {
     "jose-elias-alvarez/null-ls.nvim",
     {
-      'williamboman/mason.nvim',
+      "williamboman/mason.nvim",
       config = {
-        ui = { border = 'rounded' }
+        ui = { border = "rounded" }
       }
     },
-    'onsails/lspkind.nvim',
-    'hrsh7th/cmp-nvim-lsp',
-    'nvim-telescope/telescope.nvim',
     {
-      'williamboman/mason-lspconfig.nvim',
+      "folke/neodev.nvim",
+      config = true
+    },
+    "onsails/lspkind.nvim",
+    "hrsh7th/cmp-nvim-lsp",
+    "nvim-telescope/telescope.nvim",
+    {
+      "williamboman/mason-lspconfig.nvim",
       config = {
         ensure_installed = vim.tbl_keys(servers),
       }
     },
-    { 'j-hui/fidget.nvim', config = true, enabled = true },
+    { "j-hui/fidget.nvim", config = true, enabled = true },
   },
 }
 
 function M.config()
-  require('lspconfig.ui.windows').default_options.border = 'rounded'
-  local nls = require('null-ls')
-  local mason_lspconfig = require 'mason-lspconfig'
-  local settings = require 'config.plugins.lsp.settings'
-  require 'config.plugins.lsp.diagnostics'.setup()
+  require("lspconfig.ui.windows").default_options.border = "rounded"
+  local nls = require("null-ls")
+  local mason_lspconfig = require "mason-lspconfig"
+  local settings = require "config.plugins.lsp.settings"
+  require "config.plugins.lsp.diagnostics".setup()
 
   local options = {
     handlers = settings.handlers,
@@ -83,7 +87,7 @@ function M.config()
   mason_lspconfig.setup_handlers {
     function(server_name)
       local server_opts = servers[server_name] or {}
-      local opts = vim.tbl_deep_extend('force', {}, options, server_opts)
+      local opts = vim.tbl_deep_extend("force", {}, options, server_opts)
       require("lspconfig")[server_name].setup(opts)
     end
   }
