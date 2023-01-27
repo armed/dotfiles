@@ -1,0 +1,62 @@
+#!/usr/bin/env bb
+
+(ns repl
+  (:require
+   [babashka.fs :as fs]
+   [babashka.process :as bp]
+   [clojure.edn :as edn]
+   [clojure.string :as string]))
+
+(def aliases-file ".repl_aliases")
+
+(def default-aliases #{"cider" "dev" "portal"})
+
+(def project-aliases (some->> "deps.edn"
+                              (slurp)
+                              (edn/read-string)
+                              :aliases
+                              (keys)
+                              (mapv name)
+                              (into default-aliases)))
+
+(defn load-aliases!
+  []
+  (when (fs/exists? aliases-file)
+    (some-> aliases-file (slurp) (string/split-lines) (set))))
+
+(defn save-aliases!
+  [aliases]
+  (if (seq aliases)
+    (spit aliases-file (string/join "\n" (map name aliases)))
+    (when (fs/exists? aliases-file)
+      (fs/delete aliases-file))))
+
+(if (seq project-aliases)
+  (try
+    (let [_ (println "Select aliases to run...")
+          saved-aliases (load-aliases!)
+
+          selected-flag (str "--selected="
+                             (string/join
+                              ","
+                              (or saved-aliases default-aliases))
+                             " ")
+
+          selected-aliases (->> (bp/shell
+                                 {:out :string}
+                                 (str "gum choose --no-limit "
+                                      selected-flag
+                                      (string/join " " project-aliases)))
+                                :out
+                                (string/split-lines)
+                                (mapv keyword))
+          cmd (str "clojure -M" (string/join selected-aliases))]
+      (save-aliases! selected-aliases)
+      (println cmd)
+      (bp/shell cmd))
+    (catch Exception e
+      (let [data (ex-data e)]
+        (when-not (= 130 (:exit data))
+          e))))
+  (println "No local deps.edn found, bye"))
+
