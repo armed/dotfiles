@@ -20,10 +20,13 @@ function M.config()
 
   telescope.setup {
     defaults = {
-      file_ignore_patterns = { 'node_modules', 'target' },
+      file_ignore_patterns = { 'node_modules', 'target', ".cpcache", ".cache" },
       mappings = {
+        n = {
+          ["q"] = actions.close
+        },
         i = {
-          ["<ESC>"] = actions.close,
+          -- ["<esc><esc>"] = actions.close,
           ["<C-j>"] = actions.move_selection_next,
           ["<C-k>"] = actions.move_selection_previous
         }
