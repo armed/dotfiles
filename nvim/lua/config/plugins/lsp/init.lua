@@ -31,13 +31,12 @@ local servers = {
 
 local M = {
   "neovim/nvim-lspconfig",
-  commit = "3e2cc7061957292850cc386d9146f55458ae9fe3",
   event = "BufReadPre",
   dependencies = {
     "jose-elias-alvarez/null-ls.nvim",
     {
       "williamboman/mason.nvim",
-      config = {
+      opts = {
         ui = { border = "rounded" }
       }
     },
@@ -50,7 +49,7 @@ local M = {
     "nvim-telescope/telescope.nvim",
     {
       "williamboman/mason-lspconfig.nvim",
-      config = {
+      opts = {
         ensure_installed = vim.tbl_keys(servers),
       }
     },
@@ -94,3 +93,4 @@ function M.config()
 end
 
 return M
+

@@ -2,7 +2,7 @@ return {
   'folke/noice.nvim',
   enabled = false,
   event = 'VeryLazy',
-  config = function()
+  opts = function()
     require('noice').setup({
       lsp = {
         progress = {

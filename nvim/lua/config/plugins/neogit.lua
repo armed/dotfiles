@@ -1,7 +1,7 @@
 return {
   cmd = "Neogit",
   "TimUntersberger/neogit",
-  config = {
+  opts = {
     disable_commit_confirmation = true,
     kind = "vsplit",
     signs = {
