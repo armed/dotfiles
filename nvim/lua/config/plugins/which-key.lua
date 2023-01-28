@@ -22,7 +22,7 @@ function M.config()
 
   local function save_all_quit()
     vim.cmd('wa')
-    vim.cmd('quitall!')
+    vim.cmd('qa!')
   end
 
   wk.register({
@@ -56,7 +56,7 @@ function M.config()
       d = { ':Gitsigns diffthist<cr>', 'Diff history' },
       D = { ':Gitsigns diffhis ~<cr>', 'Diff ~history' }
     },
-    u = { ':UndotreeToggle<cr>', 'Undo Tree' },
+    U = { ':UndotreeToggle<cr>', 'Undo Tree' },
     t = {
       name = 'Terminal',
       v = { ':vsplit | term<cr>', 'Vert Split Termial' },
@@ -73,6 +73,7 @@ function M.config()
     e = { ':Neotree toggle<cr>', 'Toggle Neo Tree' },
     E = { ':Neotree focus<cr>', 'Focus Neo Tree' },
     s = { ':write<cr>', 'Save buffer' },
+    S = { 'wa<ce>', 'Save all'},
     x = { save_all_quit, 'Save and quit' },
     q = { '<c-w>q', 'Close window' },
     r = { ':Telescope resume<cr>', 'Resume last search' },
