@@ -43,7 +43,7 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPost",
-    config = {
+    opts = {
       char = "┊"
     }
   },
@@ -69,7 +69,7 @@ return {
   {
     "windwp/nvim-autopairs",
     event = "VeryLazy",
-    config = {
+    opts = {
       disable_filetype = { "clojure", "TelescopePrompt", "fennel" }
     }
   },
@@ -86,7 +86,7 @@ return {
     init = function()
       vim.keymap.set("n", "<leader>lo", ":SymbolsOutline<cr>", { desc = "Symbols Outline" })
     end,
-    config = {
+    opts = {
       keymaps = {
         focus_location = "<tab>"
       },
@@ -103,7 +103,7 @@ return {
   {
     "uga-rosa/ccc.nvim",
     event = "VeryLazy",
-    config = {
+    opts = {
       highlighter = {
         auto_enable = true,
         events = { "BufReadPost", "TextChanged", "TextChangedI" },
@@ -113,7 +113,7 @@ return {
   {
     "smjonas/live-command.nvim",
     event = "VeryLazy",
-    config = {
+    opts = {
       commands = {
         Norm = { cmd = "norm" }
       }
