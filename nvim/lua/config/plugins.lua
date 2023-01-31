@@ -44,7 +44,8 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPost",
     opts = {
-      char = "┊"
+      char = "┊",
+      buftype_exclude = { "gf" }
     }
   },
   {
