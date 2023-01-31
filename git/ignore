@@ -2,3 +2,5 @@
 .DS_Store
 Session.vim
 .nvim_session
+.repl_aliases
+
