@@ -1,7 +1,7 @@
 return {
   'rebelot/kanagawa.nvim',
   lazy = false,
-  opts = function()
+  config = function()
     local theme = require 'kanagawa'
     local colors = require("kanagawa.colors").setup()
     local c = require 'kanagawa.color'
