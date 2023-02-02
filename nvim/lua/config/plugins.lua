@@ -2,55 +2,55 @@
 return {
   {
     "dstein64/vim-startuptime",
-    cmd = "StartupTime"
+    cmd = "StartupTime",
   },
   {
     "ThePrimeagen/harpoon",
-    config = true
+    config = true,
   },
   {
     "kevinhwang91/nvim-bqf",
     event = "VeryLazy",
     dependencies = {
-      { "junegunn/fzf", build = "make" }
-    }
+      { "junegunn/fzf", build = "make" },
+    },
   },
   { "folke/todo-comments.nvim", config = true },
   {
     "mbbill/undotree",
-    cmd = "UndotreeToggle"
+    cmd = "UndotreeToggle",
   },
   {
     "numToStr/Comment.nvim",
     event = "VeryLazy",
-    config = true
+    config = true,
   },
   "kyazdani42/nvim-web-devicons",
   "nvim-treesitter/nvim-treesitter-textobjects",
   {
     "nvim-treesitter/playground",
-    cmd = "TSPlaygroundToggle"
+    cmd = "TSPlaygroundToggle",
   },
   {
     "tpope/vim-fugitive",
-    cmd = "Git"
+    cmd = "Git",
   },
   {
     "kylechui/nvim-surround",
     event = "BufReadPost",
-    config = true
+    config = true,
   },
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPost",
     opts = {
       char = "┊",
-      buftype_exclude = { "gf" }
-    }
+      buftype_exclude = { "gf" },
+    },
   },
   {
     "uga-rosa/ccc.nvim",
-    event = "VeryLazy"
+    event = "VeryLazy",
   },
   {
     "guns/vim-sexp",
@@ -64,22 +64,22 @@ return {
     dependencies = {
       "radenling/vim-dispatch-neovim",
       "tpope/vim-sexp-mappings-for-regular-people",
-      "tpope/vim-repeat"
-    }
+      "tpope/vim-repeat",
+    },
   },
   {
     "windwp/nvim-autopairs",
     event = "VeryLazy",
     opts = {
-      disable_filetype = { "clojure", "TelescopePrompt", "fennel" }
-    }
+      disable_filetype = { "clojure", "TelescopePrompt", "fennel" },
+    },
   },
   {
     "ggandor/leap.nvim",
     event = "VeryLazy",
     config = function()
       require("leap").add_default_mappings()
-    end
+    end,
   },
   {
     "simrat39/symbols-outline.nvim",
@@ -89,9 +89,9 @@ return {
     end,
     opts = {
       keymaps = {
-        focus_location = "<tab>"
+        focus_location = "<tab>",
       },
-    }
+    },
   },
   {
     "iamcco/markdown-preview.nvim",
@@ -99,7 +99,7 @@ return {
     build = "cd app && pnpm i",
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
-    end
+    end,
   },
   {
     "uga-rosa/ccc.nvim",
@@ -108,20 +108,20 @@ return {
       highlighter = {
         auto_enable = true,
         events = { "BufReadPost", "TextChanged", "TextChangedI" },
-      }
-    }
+      },
+    },
   },
   {
     "smjonas/live-command.nvim",
     event = "VeryLazy",
     opts = {
       commands = {
-        Norm = { cmd = "norm" }
-      }
-    }
+        Norm = { cmd = "norm" },
+      },
+    },
   },
   {
     "NoahTheDuke/vim-just",
-    ft = "just"
-  }
+    ft = "just",
+  },
 }

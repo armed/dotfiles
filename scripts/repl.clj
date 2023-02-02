@@ -5,8 +5,10 @@
    [babashka.fs :as fs]
    [babashka.process :as bp]
    [clojure.edn :as edn]
+   [clojure.java.io :as io]
    [clojure.string :as string]))
 
+(def lsp-config-path ".lsp/config.edn")
 (def aliases-file ".repl_aliases")
 
 (def default-aliases #{"cider" "dev" "portal"})
@@ -30,6 +32,28 @@
     (spit aliases-file (string/join "\n" (map name aliases)))
     (when (fs/exists? aliases-file)
       (fs/delete aliases-file))))
+
+(defn ensure-source-aliases
+  [config]
+  (if-not (seq (:source-aliases config))
+    (assoc config :source-aliases #{:dev :test})
+    config))
+
+(defn resolve-lsp-config
+  [f]
+  (ensure-source-aliases
+   (some-> (fs/exists? f)
+           (slurp)
+           (edn/read-string))))
+
+(defn reconfigure-lsp!
+  [aliases]
+  (if (seq aliases)
+    (let [f (fs/file lsp-config-path)
+          config (-> (resolve-lsp-config f)
+                     (update :source-aliases conj aliases))]
+      (io/make-parents f)
+      (spit f (str config)))))
 
 (if (seq project-aliases)
   (try

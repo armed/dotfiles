@@ -5,18 +5,18 @@ local servers = {
     end,
     init_options = {
       signatureHelp = true,
-      codeLens = true
-    }
+      codeLens = true,
+    },
   },
   yamlls = {
     settings = {
       yaml = {
         schemas = {
           "https://json.schemastore.org/github-workflow.json",
-          ".github/workflows/*"
-        }
-      }
-    }
+          ".github/workflows/*",
+        },
+      },
+    },
   },
   tsserver = {},
   jdtls = {},
@@ -26,7 +26,7 @@ local servers = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
-  }
+  },
 }
 
 local M = {
@@ -37,12 +37,12 @@ local M = {
     {
       "williamboman/mason.nvim",
       opts = {
-        ui = { border = "rounded" }
-      }
+        ui = { border = "rounded" },
+      },
     },
     {
       "folke/neodev.nvim",
-      config = true
+      config = true,
     },
     "onsails/lspkind.nvim",
     "hrsh7th/cmp-nvim-lsp",
@@ -51,7 +51,7 @@ local M = {
       "williamboman/mason-lspconfig.nvim",
       opts = {
         ensure_installed = vim.tbl_keys(servers),
-      }
+      },
     },
     { "j-hui/fidget.nvim", config = true, enabled = true },
   },
@@ -60,9 +60,9 @@ local M = {
 function M.config()
   require("lspconfig.ui.windows").default_options.border = "rounded"
   local nls = require("null-ls")
-  local mason_lspconfig = require "mason-lspconfig"
-  local settings = require "config.plugins.lsp.settings"
-  require "config.plugins.lsp.diagnostics".setup()
+  local mason_lspconfig = require("mason-lspconfig")
+  local settings = require("config.plugins.lsp.settings")
+  require("config.plugins.lsp.diagnostics").setup()
 
   local options = {
     handlers = settings.handlers,
@@ -73,7 +73,7 @@ function M.config()
     },
   }
 
-  nls.setup {
+  nls.setup({
     on_attach = settings.on_attach,
     sources = {
       nls.builtins.formatting.prettierd,
@@ -81,16 +81,15 @@ function M.config()
       nls.builtins.diagnostics.flake8,
       nls.builtins.formatting.just,
     },
-  }
+  })
 
-  mason_lspconfig.setup_handlers {
+  mason_lspconfig.setup_handlers({
     function(server_name)
       local server_opts = servers[server_name] or {}
       local opts = vim.tbl_deep_extend("force", {}, options, server_opts)
       require("lspconfig")[server_name].setup(opts)
-    end
-  }
+    end,
+  })
 end
 
 return M
-

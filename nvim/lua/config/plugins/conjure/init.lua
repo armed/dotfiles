@@ -2,16 +2,19 @@ local M = {
   "Olical/conjure",
   lazy = true,
   branch = "develop",
-  ft = { "clojure", "lua" }
+  ft = { "clojure", "lua" },
 }
 
 local function set_repl_winbar()
   if vim.bo.filetype == "clojure" then
-    vim.opt_local.winbar = ("%#winbarseparator#" ..
-        "%=" ..
-        "%#user.repl.winbar# " ..
-        "%{%v:lua.require'config.tools.nrepl-finder'.get_repl_status('no REPL')%}" ..
-        "%#user.repl.winbar# " .. "%#winbarseparator#")
+    vim.opt_local.winbar = (
+        "%#winbarseparator#"
+            .. "%="
+            .. "%#user.repl.winbar# "
+            .. "%{%v:lua.require'config.tools.nrepl-finder'.get_repl_status('no REPL')%}"
+            .. "%#user.repl.winbar# "
+            .. "%#winbarseparator#"
+        )
   end
 end
 
@@ -28,43 +31,44 @@ M.config = function()
   vim.g["conjure#log#jump_to_latest#cursor_scroll_position"] = "top"
   vim.g["conjure#log#hud#enabled"] = false
 
-
   local grp = vim.api.nvim_create_augroup("conjure_hooks", { clear = true })
-  vim.api.nvim_create_autocmd(
-    "BufNewFile",
-    {
-      group = grp,
-      pattern = "conjure-log-*",
-      callback = function(event)
-        vim.defer_fn(function()
-          vim.lsp.for_each_buffer_client(
-            event.buf, function(_, client_id)
-            vim.lsp.buf_detach_client(event.buf, client_id)
-          end)
-        end, 1000)
-        vim.diagnostic.disable(event.buf)
-      end
-    }
-  )
+  vim.api.nvim_create_autocmd("BufNewFile", {
+    group = grp,
+    pattern = "conjure-log-*",
+    callback = function(event)
+      vim.defer_fn(function()
+        vim.lsp.for_each_buffer_client(event.buf, function(_, client_id)
+          vim.lsp.buf_detach_client(event.buf, client_id)
+        end)
+      end, 1000)
+      vim.diagnostic.disable(event.buf)
+    end,
+  })
 
-  vim.api.nvim_create_autocmd(
-    "BufEnter,WinEnter",
-    {
-      group = grp,
-      pattern = "conjure-log-*",
-      callback = function()
-        set_repl_winbar()
-      end
-    }
-  )
+  vim.api.nvim_create_autocmd("BufEnter,WinEnter", {
+    group = grp,
+    pattern = "conjure-log-*",
+    callback = function()
+      set_repl_winbar()
+    end,
+  })
 
   local function connect_cmd()
     vim.api.nvim_feedkeys(":ConjureConnect localhost:", "n", false)
   end
 
-  local mappings = require "config.plugins.conjure.portal-mappings"
-  local wk = require "which-key"
-  local repl = require "config.tools.nrepl-finder"
+  local mappings = require("config.plugins.conjure.portal-mappings")
+  local wk = require("which-key")
+  local repl = require("config.tools.nrepl-finder")
+
+  local function conjure_log_open(is_vertical)
+    vim.cmd("ConjureLogCloseVisible")
+    if is_vertical then
+      vim.cmd("ConjureLogVSplit")
+    else
+      vim.cmd("ConjureLogSplit")
+    end
+  end
 
   wk.register(mappings, { prefix = "<localleader>" })
   wk.register({
@@ -72,9 +76,10 @@ M.config = function()
       name = "Connect",
       cond = vim.bo.filetype == "clojure",
       n = {
-        repl.find_repls, "Find REPLs"
+        repl.find_repls,
+        "Find REPLs",
       },
-      c = { connect_cmd, "Connect to specific port" }
+      c = { connect_cmd, "Connect to specific port" },
     },
     g = "Go to",
     e = {
@@ -84,7 +89,6 @@ M.config = function()
       ["]"] = "Square Tail Wrap List",
       ["{"] = "Curly Head Wrap List",
       ["}"] = "Curly Tail Wrap List",
-
     },
     r = "Refresh",
     s = "Session",
@@ -99,7 +103,23 @@ M.config = function()
     ["h"] = "Insert at List Head",
     ["I"] = "Round Tail Wrap List",
     ["i"] = "Round Head Wrap List",
-    ["l"] = "Insert at List Tail",
+    ["l"] = {
+      name = "Conjure Log",
+      v = {
+        function()
+          conjure_log_open(true)
+        end,
+        "Open VSplit",
+        noremap = false,
+      },
+      s = {
+        function()
+          conjure_log_open(false)
+        end,
+        "Open Split",
+        noremap = false,
+      },
+    },
     ["o"] = "Raise List",
     ["O"] = "Raise Element",
     ["W"] = "Round Tail Wrap Element",

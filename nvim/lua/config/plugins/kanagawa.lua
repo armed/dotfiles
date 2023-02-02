@@ -1,18 +1,18 @@
 return {
-  'rebelot/kanagawa.nvim',
+  "rebelot/kanagawa.nvim",
   lazy = false,
   config = function()
-    local theme = require 'kanagawa'
+    local theme = require("kanagawa")
     local colors = require("kanagawa.colors").setup()
-    local c = require 'kanagawa.color'
+    local c = require("kanagawa.color")
 
-    theme.setup {
+    theme.setup({
       dimInactive = true,
       commentStyle = {
-        italic = false
+        italic = false,
       },
       keywordStyle = {
-        italic = false
+        italic = false,
       },
       globalStatus = true,
       overrides = {
@@ -26,17 +26,17 @@ return {
         IndentBlanklineContextChar = { fg = colors.bg_light3 },
         IndentBlanklineContextStart = {
           sp = colors.bg_light3,
-          underline = true
-        }
-      }
-    }
+          underline = true,
+        },
+      },
+    })
 
-    vim.cmd [[ colo kanagawa ]]
+    vim.cmd([[ colo kanagawa ]])
 
     -- hl-group for incline
-    vim.api.nvim_set_hl(0, 'user.win.title', {
+    vim.api.nvim_set_hl(0, "user.win.title", {
       bg = colors.crystalBlue,
-      fg = colors.bg_dark
+      fg = colors.bg_dark,
     })
-  end
+  end,
 }

@@ -1,2 +1,1 @@
-return { float_opts = { border = 'rounded' } }
-
+return { float_opts = { border = "rounded" } }

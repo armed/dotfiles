@@ -1,10 +1,10 @@
 local M = {
-  'stevearc/oil.nvim',
-  cmd = 'Oil',
+  "stevearc/oil.nvim",
+  cmd = "Oil",
 }
 
 function M.config()
-  local oil = require('oil')
+  local oil = require("oil")
 
   oil.setup({
     use_default_keymaps = false,

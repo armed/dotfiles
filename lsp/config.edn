@@ -1,1 +1,1 @@
-{:log-path "/tmp/clojure-lsp.out"}
+{:keep-parens-when-threading? true}

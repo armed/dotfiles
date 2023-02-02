@@ -12,16 +12,13 @@ end
 
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "term://*",
-  callback = set_terminal_keymaps
+  callback = set_terminal_keymaps,
 })
 
 -- This file is automatically loaded by plugins.init
 
 -- Check if we need to reload the file when it changed
-vim.api.nvim_create_autocmd(
-  { "FocusGained", "TermClose", "TermLeave" },
-  { command = "checktime" }
-)
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, { command = "checktime" })
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {

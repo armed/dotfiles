@@ -1,16 +1,19 @@
 local M = {
-  'nvim-zh/auto-save.nvim',
+  "nvim-zh/auto-save.nvim",
   enabled = true,
-  event = 'BufReadPost',
+  event = "BufReadPost",
   opts = {
-    execution_message = { message = function () return '' end },
-    trigger_events = { 'BufLeave', 'FocusLost' },
-    condition = function (buf)
+    execution_message = {
+      message = function()
+        return ""
+      end,
+    },
+    trigger_events = { "BufLeave", "FocusLost" },
+    condition = function(buf)
       local vf = vim.fn
-      return vf.getbufvar(buf, '&modifiable') == 1
-    end
-  }
+      return vf.getbufvar(buf, "&modifiable") == 1
+    end,
+  },
 }
 
 return M
-

@@ -6,7 +6,7 @@ return {
     kind = "vsplit",
     signs = {
       section = { "", "" },
-      item    = { "", "" }
-    }
-  }
+      item = { "", "" },
+    },
+  },
 }

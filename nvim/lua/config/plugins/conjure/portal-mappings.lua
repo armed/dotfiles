@@ -1,5 +1,5 @@
-local eval = require 'conjure.eval'
-local extract = require 'conjure.extract'
+local eval = require("conjure.eval")
+local extract = require("conjure.extract")
 
 local function conjure_eval(form)
   return eval["eval-str"]({ code = form, origin = "custom_command" })
@@ -47,23 +47,27 @@ portal_cmds = {
   last_exception = conjure_eval_fn("(tap> (Throwable->map *e))"),
   tap_word = tap_word,
   tap_form = tap_form,
-  tap_root_form = tap_root_form
+  tap_root_form = tap_root_form,
 }
 
 return {
   s = {
-    cond = function() return vim.bo.filetype == 'clojure' end,
+    cond = function()
+      return vim.bo.filetype == "clojure"
+    end,
     o = { ":ConjureOutSubscribe<cr>", "Subscribe to output" },
-    O = { ":ConjureOutUnsubscribe<cr>", "Unsubscribe from output" }
+    O = { ":ConjureOutUnsubscribe<cr>", "Unsubscribe from output" },
   },
   p = {
-    cond = function() return vim.bo.filetype == 'clojure' end,
+    cond = function()
+      return vim.bo.filetype == "clojure"
+    end,
     name = "Portal",
     p = { portal_cmds.open, "Portal open" },
     c = { portal_cmds.clear, "Portal clear" },
     e = { portal_cmds.last_exception, "Tap last exception" },
     w = { portal_cmds.tap_word, "Tap word" },
     f = { portal_cmds.tap_form, "Tap current form" },
-    r = { portal_cmds.tap_root_form, "Tap root form" }
-  }
+    r = { portal_cmds.tap_root_form, "Tap root form" },
+  },
 }
