@@ -32,6 +32,7 @@ function M.setup(bufnr)
     ["<leader>"] = {
       l = {
         r = { vim.lsp.buf.rename, "Rename" },
+        R = { ":LspRestart<cr>", "Restart" },
         n = { diag_next, "Next Diagnostics" },
         N = { diag_prev, "Prev Diagnostics" },
         l = { diag_float, "Line Diagnostic" },
