@@ -14,6 +14,12 @@ function M.config()
   wk.setup({
     window = { border = "double" },
     layout = { align = "center" },
+    plugins = {
+      spelling = {
+        enabled = true,
+        suggestions = 20,
+      },
+    },
     hidden = {
       "<silent>",
       "<cmd>",
