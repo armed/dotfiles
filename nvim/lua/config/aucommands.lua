@@ -13,7 +13,7 @@ autocmd("VimEnter", {
     if directory then
       vim.cmd.cd(data.file)
       -- open the tree
-      require("nvim-tree.api").tree.open()
+      vim.cmd("Neotree")
     end
   end,
   group = general,
