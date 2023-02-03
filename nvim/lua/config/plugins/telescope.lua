@@ -26,6 +26,7 @@ function M.config()
         ".cpcache",
         ".cache",
         ".git",
+        "tmp"
       },
       mappings = {
         n = {
@@ -39,6 +40,19 @@ function M.config()
       },
       vimgrep_arguments = {
         "rg",
+        -- search all known types
+        "--type=all",
+        -- ignore this dirs
+        "--glob=!.git/*",
+        "--glob=!node_modules/*",
+        "--glob=!.cpcache/*",
+        "--glob=!.cache/*",
+        "--glob=!target/*",
+        "--glob=!tmp/*",
+        -- limit of sin, lines longer than 150 is not relevant
+        "--max-columns=150",
+        "--hidden",
+        "--no-ignore",
         "--color=never",
         "--no-heading",
         "--with-filename",
