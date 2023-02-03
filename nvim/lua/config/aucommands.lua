@@ -1,41 +1,75 @@
-local user_group = vim.api.nvim_create_augroup("UserGroup", { clear = true })
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
 
-local function set_terminal_keymaps()
-  local opts = { buffer = 0 }
-  local vks = vim.keymap.set
-  vks("t", "<esc><esc>", "<C-\\><C-n>", opts)
-  vks("t", "<C-h>", "<Cmd>wincmd h<CR>", opts)
-  vks("t", "<C-j>", "<Cmd>wincmd j<CR>", opts)
-  vks("t", "<C-k>", "<Cmd>wincmd k<CR>", opts)
-  return vks("t", "<C-l>", "<Cmd>wincmd l<CR>", opts)
-end
+-- General Settings
+local general = augroup("General Settings", { clear = true })
 
-vim.api.nvim_create_autocmd("TermOpen", {
-  pattern = "term://*",
-  callback = set_terminal_keymaps,
+autocmd("VimEnter", {
+  callback = function(data)
+    -- buffer is a directory
+    local directory = vim.fn.isdirectory(data.file) == 1
+
+    -- change to the directory
+    if directory then
+      vim.cmd.cd(data.file)
+      -- open the tree
+      require("nvim-tree.api").tree.open()
+    end
+  end,
+  group = general,
+  desc = "Open NvimTree when it's a Directory",
 })
 
--- This file is automatically loaded by plugins.init
+autocmd("BufModifiedSet", {
+  callback = function()
+    vim.cmd "silent! w"
+  end,
+  group = general,
+  desc = "Auto Save",
+})
+
+autocmd("TermOpen", {
+  callback = function()
+    vim.opt_local.relativenumber = false
+    vim.opt_local.number = false
+    local opts = { buffer = 0 }
+    local map = vim.keymap.set
+    map("t", "<esc><esc>", "<C-\\><C-n>", opts)
+    map("t", "<C-h>", "<Cmd>wincmd h<CR>", opts)
+    map("t", "<C-j>", "<Cmd>wincmd j<CR>", opts)
+    map("t", "<C-k>", "<Cmd>wincmd k<CR>", opts)
+    map("t", "<C-l>", "<Cmd>wincmd l<CR>", opts)
+    vim.cmd("startinsert!")
+  end,
+  pattern = "term://*",
+  group = general,
+  desc = "Terminal Options",
+})
 
 -- Check if we need to reload the file when it changed
-vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, { command = "checktime" })
+autocmd({ "FocusGained", "TermClose", "TermLeave" }, { command = "checktime" })
 
 -- Highlight on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
+autocmd("TextYankPost", {
+  group = general,
   callback = function()
     vim.highlight.on_yank()
   end,
+  desc = "Highlight on Yank"
 })
 
 -- resize splits if window got resized
-vim.api.nvim_create_autocmd({ "VimResized" }, {
+autocmd({ "VimResized" }, {
+  group = general,
   callback = function()
     vim.cmd("tabdo wincmd =")
   end,
+  desc = "Equalize windows on resize"
 })
 
 -- go to last loc when opening a buffer
-vim.api.nvim_create_autocmd("BufReadPost", {
+autocmd("BufReadPost", {
+  group = general,
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
@@ -46,7 +80,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- close some filetypes with <q>
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
+  group = general,
   pattern = {
     "qf",
     "help",
@@ -62,9 +97,11 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo[event.buf].buflisted = false
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
+  desc = "Close by q"
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
+  group = general,
   pattern = { "gitcommit", "markdown" },
   callback = function()
     vim.opt_local.wrap = true
