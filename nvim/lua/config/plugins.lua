@@ -45,7 +45,7 @@ return {
     event = "BufReadPost",
     opts = {
       char = "┊",
-      buftype_exclude = { "gf" },
+      buftype_exclude = { "qf", "lazy", "lspinfo", "mason" },
     },
   },
   {
@@ -53,25 +53,14 @@ return {
     event = "VeryLazy",
   },
   {
-    "guns/vim-sexp",
-
-    ft = { "clojure", "lisp", "fennel", "scheme", "janet" },
-
-    init = function()
-      vim.g.sexp_filetypes = "clojure,scheme,lisp,fennel,janet"
-    end,
-
-    dependencies = {
-      "radenling/vim-dispatch-neovim",
-      "tpope/vim-sexp-mappings-for-regular-people",
-      "tpope/vim-repeat",
-    },
-  },
-  {
     "windwp/nvim-autopairs",
     event = "VeryLazy",
     opts = {
-      disable_filetype = { "clojure", "TelescopePrompt", "fennel" },
+      disable_filetype = {
+        "clojure",
+        "TelescopePrompt",
+        "fennel",
+      },
     },
   },
   {
@@ -123,5 +112,14 @@ return {
   {
     "NoahTheDuke/vim-just",
     ft = "just",
+  },
+  {
+    "eraserhd/parinfer-rust",
+    build = "cargo build --release",
+    ft = { "clojure" },
+    config = function()
+      vim.g.parinfer_mode = "smart"
+      vim.g.parinfer_force_balance = 1
+    end,
   },
 }

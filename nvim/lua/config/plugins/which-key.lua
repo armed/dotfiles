@@ -72,6 +72,10 @@ function M.config()
       D = { ":Gitsigns diffhis ~<cr>", "Diff ~history" },
     },
     U = { ":UndotreeToggle<cr>", "Undo Tree" },
+    u = {
+      name = "Toggle",
+      t = { ":TSContextToggle<cr>", "Treesitter Context" },
+    },
     t = {
       name = "Terminal",
       v = { ":vsplit | term<cr>", "Vert Split Termial" },
@@ -98,9 +102,11 @@ function M.config()
       c = { ":Telescope current_buffer_fuzzy_find<cr>", "In buffer" },
       g = { ":Telescope live_grep<cr>", "Live grep" },
       b = { ":Telescope buffers<cr>", "Buffers" },
+      k = { ":Telescope keymaps<cr>", "Keymaps"},
       r = { ":Telescope oldfiles cwd_only=true<cr>", "Recent files" },
     },
     L = { ":Lazy<cr>", "Lazy" },
+    m = { ":Mason<cr>","Mason" }
   }, { prefix = "<leader>" })
 end
 

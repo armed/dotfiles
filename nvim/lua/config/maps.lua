@@ -80,23 +80,14 @@ local function toggle(option, silent, values)
 end
 
 -- toggle options
-map("n", "<leader>us", function()
-  toggle("spell")
-end, { desc = "Toggle Spelling" })
-map("n", "<leader>uw", function()
-  toggle("wrap")
-end, { desc = "Toggle Word Wrap" })
-map("n", "<leader>ur", function()
-  toggle("relativenumber")
-end, { desc = "Toggle Relative Line Numbers" })
-map("n", "<leader>ul", function()
-  toggle("relativenumber", true)
-  toggle("number")
+map("n", "<leader>us", function() toggle("spell") end, { desc = "Toggle Spelling" })
+map("n", "<leader>uw", function() toggle("wrap") end, { desc = "Toggle Word Wrap" })
+map("n", "<leader>ur", function() toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" })
+map("n", "<leader>ul", function() toggle("relativenumber", true) toggle("number")
 end, { desc = "Toggle Line Numbers" })
+
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-map("n", "<leader>uc", function()
-  toggle("conceallevel", false, { 0, conceallevel })
-end, { desc = "Toggle Conceal" })
+map("n", "<leader>uc", function() toggle("conceallevel", false, { 0, conceallevel }) end, { desc = "Toggle Conceal" })
 
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
@@ -105,3 +96,10 @@ map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
 map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
+local remap = vim.api.nvim_set_keymap
+remap("n", "<TAB>", ">>", { noremap = true })
+remap("n", "<S-TAB>", "<<", { noremap = true })
+remap("v", "<TAB>", ">gv", { noremap = true })
+remap("v", "<S-TAB>", "<gv", { noremap = true })
+

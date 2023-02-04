@@ -22,7 +22,7 @@ autocmd("VimEnter", {
 
 autocmd("BufModifiedSet", {
   callback = function()
-    vim.cmd "silent! w"
+    vim.cmd("silent! w")
   end,
   group = general,
   desc = "Auto Save",
@@ -55,7 +55,7 @@ autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
-  desc = "Highlight on Yank"
+  desc = "Highlight on Yank",
 })
 
 -- resize splits if window got resized
@@ -64,7 +64,7 @@ autocmd({ "VimResized" }, {
   callback = function()
     vim.cmd("tabdo wincmd =")
   end,
-  desc = "Equalize windows on resize"
+  desc = "Equalize windows on resize",
 })
 
 -- go to last loc when opening a buffer
@@ -97,7 +97,7 @@ autocmd("FileType", {
     vim.bo[event.buf].buflisted = false
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
-  desc = "Close by q"
+  desc = "Close by q",
 })
 
 autocmd("FileType", {
@@ -108,3 +108,15 @@ autocmd("FileType", {
     vim.opt_local.spell = true
   end,
 })
+
+-- autocmd("FileType", {
+--   group = general,
+--   pattern = { "clojure" },
+--   callback = function(event)
+--     vim.opt_local.tabstop = 1
+--     vim.opt_local.shiftwidth = 1
+--     vim.opt_local.softtabstop = 1
+--     vim.opt_local.expandtab = true
+--   end,
+-- })
+

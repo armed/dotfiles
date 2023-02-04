@@ -1,5 +1,6 @@
 local win_opts = require("config.plugins.lsp.win_opts")
 local tb = require("telescope.builtin")
+local ts = require("nvim-treesitter.ts_utils")
 
 local function diag_next()
   vim.diagnostic.goto_next(win_opts)
@@ -16,7 +17,7 @@ end
 local M = {}
 
 function M.setup(bufnr)
-  vim.keymap.set({ "n", "v" }, "<leader>lf", vim.lsp.buf.format, { desc = "Format Rage" })
+  vim.keymap.set({ "n", "v" }, "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
   return {
     g = {
       d = { tb.lsp_definitions, "Go to Definition" },
@@ -32,7 +33,8 @@ function M.setup(bufnr)
     ["<leader>"] = {
       l = {
         r = { vim.lsp.buf.rename, "Rename" },
-        R = { ":LspRestart<cr>", "Restart" },
+        R = { ":LspRestart<cr>", "Lsp Restart" },
+        I = { ":LspInfo<cr>", "Lsp Info" },
         n = { diag_next, "Next Diagnostics" },
         N = { diag_prev, "Prev Diagnostics" },
         l = { diag_float, "Line Diagnostic" },
@@ -50,7 +52,6 @@ function M.setup(bufnr)
         a = { vim.lsp.buf.code_action, "Code Actions" },
         s = { tb.lsp_document_symbols, "Document Symbols" },
         S = { tb.lsp_dynamic_workspace_symbols, "Workspace Symbols" },
-        -- f = { vim.lsp.buf.format, "Format Buffer" },
         d = {
           function()
             tb.diagnostics({ bufnr = bufnr })

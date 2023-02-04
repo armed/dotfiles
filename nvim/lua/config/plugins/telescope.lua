@@ -49,6 +49,7 @@ function M.config()
         "--glob=!.cache/*",
         "--glob=!target/*",
         "--glob=!tmp/*",
+        "--glob=!*.log",
         -- limit of sin, lines longer than 150 is not relevant
         "--max-columns=150",
         "--hidden",

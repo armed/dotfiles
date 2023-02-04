@@ -62,7 +62,7 @@ function M.config()
     fg_color = palette.fg,
     filter_rules = {
       bo = {
-        filetype = { "neo-tree", "neo-tree-popup", "notify" },
+        filetype = { "neo-tree", "neo-tree-popup", "notify", "alpha" },
         buftype = { "terminal", "quickfix" },
       },
       file_name_contains = { "conjure-log-*" },
