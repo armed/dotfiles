@@ -92,7 +92,7 @@ function M.config()
     e = { ":Neotree toggle<cr>", "Toggle Neo Tree" },
     E = { ":Neotree focus<cr>", "Focus Neo Tree" },
     s = { ":write<cr>", "Save buffer" },
-    S = { "wa<ce>", "Save all" },
+    S = { ":wa<cr>", "Save all" },
     x = { save_all_quit, "Save and quit" },
     q = { "<c-w>q", "Close window" },
     r = { ":Telescope resume<cr>", "Resume last search" },

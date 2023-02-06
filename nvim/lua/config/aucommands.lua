@@ -109,14 +109,17 @@ autocmd("FileType", {
   end,
 })
 
--- autocmd("FileType", {
---   group = general,
---   pattern = { "clojure" },
---   callback = function(event)
---     vim.opt_local.tabstop = 1
---     vim.opt_local.shiftwidth = 1
---     vim.opt_local.softtabstop = 1
---     vim.opt_local.expandtab = true
---   end,
--- })
+autocmd("WinEnter", {
+  group = general,
+  callback = function ()
+    vim.opt.cursorline = true
+  end
+})
+
+autocmd("WinLeave", {
+  group = general,
+  callback = function ()
+    vim.opt.cursorline = false
+  end
+})
 
