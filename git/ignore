@@ -1,6 +1,8 @@
 # location $XDG_CONGIF_HOME/git/ignore
+.http/
 .DS_Store
 Session.vim
 .nvim_session
 .repl_aliases
+.tool-versions
 
