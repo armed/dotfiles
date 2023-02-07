@@ -41,6 +41,7 @@ function M.config()
   end
 
   wk.register({
+    R = { name = "REST" },
     o = {
       ":Oil .<cr>",
       "Oil Dir Editor",
