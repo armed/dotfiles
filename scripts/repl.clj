@@ -13,13 +13,15 @@
 
 (def default-aliases #{"cider" "dev" "portal"})
 
-(def project-aliases (some->> "deps.edn"
-                              (slurp)
-                              (edn/read-string)
-                              :aliases
+(def project-aliases (when-let [deps (some-> "deps.edn"
+                                             (slurp)
+                                             (edn/read-string))]
+                       (if-let [aliases (:aliases deps)]
+                         (->> aliases
                               (keys)
                               (mapv name)
-                              (into default-aliases)))
+                              (into default-aliases))
+                         default-aliases)))
 
 (defn load-aliases!
   []
