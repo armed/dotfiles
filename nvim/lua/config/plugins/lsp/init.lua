@@ -53,7 +53,10 @@ local M = {
         ensure_installed = vim.tbl_keys(servers),
       },
     },
-    { "j-hui/fidget.nvim", config = true, enabled = true },
+    {
+      "j-hui/fidget.nvim",
+      config = true
+    },
   },
 }
 
@@ -90,6 +93,7 @@ function M.config()
       require("lspconfig")[server_name].setup(opts)
     end,
   })
+
 end
 
 return M
