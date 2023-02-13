@@ -26,12 +26,15 @@
   clean = git-lfs clean -- %f
 
 [pull]
-  rebase = false
+  rebase = true
 
 [diff]
   external = difft
 
 [push]
 	autoSetupRemote = true
+  followTags = true
+
 [rebase]
 	autoStash = true
+
