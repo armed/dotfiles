@@ -109,17 +109,11 @@ autocmd("FileType", {
   end,
 })
 
-autocmd("WinEnter", {
+autocmd("FileType", {
   group = general,
-  callback = function ()
-    vim.opt.cursorline = true
-  end
-})
-
-autocmd("WinLeave", {
-  group = general,
-  callback = function ()
-    vim.opt.cursorline = false
-  end
+  pattern = { "nvim-docs-view" },
+  callback = function()
+    vim.opt_local.conceallevel = 3
+  end,
 })
 

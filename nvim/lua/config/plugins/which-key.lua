@@ -41,6 +41,10 @@ function M.config()
   end
 
   wk.register({
+    k = {
+      name = "Docs View",
+      { ":DocsViewUpdate<cr>", "Show Docs View" },
+    },
     R = { name = "REST" },
     o = {
       ":Oil .<cr>",
@@ -103,11 +107,11 @@ function M.config()
       c = { ":Telescope current_buffer_fuzzy_find<cr>", "In buffer" },
       g = { ":Telescope live_grep<cr>", "Live grep" },
       b = { ":Telescope buffers<cr>", "Buffers" },
-      k = { ":Telescope keymaps<cr>", "Keymaps"},
+      k = { ":Telescope keymaps<cr>", "Keymaps" },
       r = { ":Telescope oldfiles cwd_only=true<cr>", "Recent files" },
     },
     L = { ":Lazy<cr>", "Lazy" },
-    m = { ":Mason<cr>","Mason" }
+    m = { ":Mason<cr>", "Mason" },
   }, { prefix = "<leader>" })
 end
 
