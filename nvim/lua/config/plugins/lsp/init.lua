@@ -21,7 +21,7 @@ local servers = {
   tsserver = {},
   jdtls = {},
   jsonls = {},
-  sumneko_lua = {
+  lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
