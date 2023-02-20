@@ -45,6 +45,14 @@ function M.config()
       name = "Docs View",
       { ":DocsViewUpdate<cr>", "Show Docs View" },
     },
+    l = {
+      name = "LSP",
+      w = {
+        name = "Workspace",
+        a = { vim.lsp.buf.add_workspace_folder, "Workspace Add Folder" },
+        r = { vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder" },
+      },
+    },
     R = { name = "REST" },
     o = {
       ":Oil .<cr>",
