@@ -42,6 +42,7 @@ return {
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    enabled = false,
     event = "BufReadPost",
     opts = {
       char = "┊",
@@ -102,6 +103,7 @@ return {
   },
   {
     "smjonas/live-command.nvim",
+    enabled = false,
     event = "VeryLazy",
     opts = {
       commands = {
@@ -116,6 +118,7 @@ return {
   {
     "eraserhd/parinfer-rust",
     build = "cargo build --release",
+    enabled = false,
     ft = { "clojure" },
     config = function()
       vim.g.parinfer_mode = "smart"
