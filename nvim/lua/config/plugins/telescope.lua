@@ -22,12 +22,17 @@ function M.config()
   telescope.setup({
     defaults = {
       file_ignore_patterns = {
-        "node_modules",
+        "node%_modules",
         "target",
+        "classes",
+        ".class",
         ".cpcache",
-        ".cache",
+        "cache",
         ".git",
+        ".clj-kondo",
         "tmp",
+        "shadow-cljs",
+        "-lock.*"
       },
       mappings = {
         n = {
@@ -44,17 +49,21 @@ function M.config()
         -- search all known types
         "--type=all",
         -- ignore this dirs
-        "--glob=!.git/*",
-        "--glob=!node_modules/*",
+        "--glob=!*/.git/*",
+        "--glob=!*/node_modules/*",
         "--glob=!.cpcache/*",
-        "--glob=!.cache/*",
-        "--glob=!target/*",
-        "--glob=!tmp/*",
+        "--glob=!*/.shadow-cljs/*",
+        "--glob=!*/.cache/*",
+        "--glob=!*/target/*",
+        "--glob=!*/tmp/*",
         "--glob=!*.log",
+        "--glob=!*-lock.json",
+        "--glob=!*-lock.yml",
+        "--glob=!*-lock.yaml",
         -- limit of sin, lines longer than 150 is not relevant
         "--max-columns=150",
         "--hidden",
-        "--no-ignore",
+        "--no-ignore-vcs",
         "--color=never",
         "--no-heading",
         "--with-filename",

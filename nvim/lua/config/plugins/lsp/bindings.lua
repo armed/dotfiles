@@ -20,15 +20,10 @@ function M.setup(bufnr)
   vim.keymap.set({ "n", "v" }, "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
   return {
     g = {
-      d = { tb.lsp_definitions, "Go to Definition" },
-      i = { tb.lsp_implementations, "Go to Impementations" },
-      r = {
-        function()
-          tb.lsp_references({ show_line = false })
-        end,
-        "LSP Rerefences",
-      },
-      t = { tb.lsp_type_definitions, "Type Definition" },
+      d = { ":FzfLua lsp_definitions jump_to_single_result=true<cr>", "Go to Definition" },
+      i = { ":FzfLua lsp_implementations jump_to_single_result=true<cr>", "Go to Implementations" },
+      r = { ":FzfLua lsp_references jump_to_single_result=true<cr>", "LSP Rerefences" },
+      t = { ":FzfLua lsp_type_definitiona jump_to_single_result=true<cr>", "Type Definition" },
     },
     ["<leader>"] = {
       l = {
@@ -50,20 +45,10 @@ function M.setup(bufnr)
           },
         },
         a = { vim.lsp.buf.code_action, "Code Actions" },
-        s = { tb.lsp_document_symbols, "Document Symbols" },
-        S = { tb.lsp_dynamic_workspace_symbols, "Workspace Symbols" },
-        d = {
-          function()
-            tb.diagnostics({ bufnr = bufnr })
-          end,
-          "Document Diagnostics",
-        },
-        D = { tb.diagnostics, "Workspace Diagnostics" },
-        w = {
-          name = "LSP Workspace",
-          a = { vim.lsp.buf.add_workspace_folder, "Workspace Add Folder" },
-          r = { vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder" },
-        },
+        s = { ":FzfLua lsp_document_symbols<cr>", "Document Symbols" },
+        S = { ":FzfLua lsp_workspace_symbols<cr>", "Workspace Symbols" },
+        d = { ":FzfLua lsp_document_diagnostics<cr>", "Document Diagnostics" },
+        D = { ":FzfLua lsp_workspace_diagnostics<cr>", "Workspace Diagnostics" },
       },
     },
     K = { vim.lsp.buf.hover, "Hover doc" },

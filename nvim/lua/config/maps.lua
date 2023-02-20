@@ -108,8 +108,8 @@ map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
-local remap = vim.api.nvim_set_keymap
-remap("n", "<TAB>", ">>", { noremap = true })
-remap("n", "<S-TAB>", "<<", { noremap = true })
-remap("v", "<TAB>", ">gv", { noremap = true })
-remap("v", "<S-TAB>", "<gv", { noremap = true })
+-- local remap = vim.api.nvim_set_keymap
+-- remap("n", "<TAB>", ">>", { noremap = true })
+-- remap("n", "<S-TAB>", "<<", { noremap = true })
+-- remap("v", "<TAB>", ">gv", { noremap = true })
+-- remap("v", "<S-TAB>", "<gv", { noremap = true })
