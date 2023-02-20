@@ -19,7 +19,11 @@ vim.api.nvim_create_autocmd("LspDetach", {
   callback = function(args)
     local bufnr = args.buf
     local client_id = args.data.client_id
-    if vim.lsp.codelens.get(bufnr) ~= {} then
+    if client_id == nil then
+      return
+    end
+    print(vim.inspect(vim.lsp.codelens.get(bufnr)))
+    if next(vim.lsp.codelens.get(bufnr)) ~= nil then
       vim.lsp.codelens.clear(client_id, bufnr)
     end
   end
