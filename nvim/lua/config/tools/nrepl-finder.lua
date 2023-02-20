@@ -14,7 +14,7 @@ function M.get_repl_status(not_connected_msg)
         local port_file_path = conn.port_file_path
         if port then
           if port_file_path then
-            if port_file_path == ".nrepl-port" then
+            if port_file_path == ".nrepl-port" or port_file_path == "nrepl.port" then
               port_file_path = vim.fn.getcwd() .. "/" .. port_file_path
             end
             local app, _ = string.match(port_file_path, "^.+/(.+)/(.+)$")
@@ -66,6 +66,8 @@ local find_opts = require("telescope.themes").get_dropdown({
     "!.joyride",
     "-g",
     ".nrepl-port",
+    "-g",
+    "nrepl.port"
   },
   attach_mappings = run_selection,
 })
