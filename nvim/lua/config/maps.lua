@@ -18,17 +18,17 @@ map("i", "kk", "<esc>", { silent = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- Move to window using the <ctrl> hjkl keys
-map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
-map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
-map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
-map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+-- Move using tmux.nvim
+map("n", "<C-h>", [[<cmd>lua require("tmux").move_left()<cr>]], { desc = "Go to left window" })
+map("n", "<C-j>", [[<cmd>lua require("tmux").move_bottom()<cr>]], { desc = "Go to lower window" })
+map("n", "<C-k>", [[<cmd>lua require("tmux").move_top()<cr>]], { desc = "go to upper window" })
+map("n", "<C-l>", [[<cmd>lua require("tmux").move_right()<cr>]], { desc = "Go to right window" })
 
--- Resize window using <alt> arrow keys
-map("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+-- Resize window using tmux.nvim
+map("n", "<A-Up>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
+map("n", "<A-Down>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
+map("n", "<A-Left>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
+map("n", "<A-Right>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
 
 -- Move Lines
 map("n", "<A-j>", ":m .+1<cr>==", { desc = "Move down" })
