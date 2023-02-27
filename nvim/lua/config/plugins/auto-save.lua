@@ -1,6 +1,6 @@
 local M = {
   "nvim-zh/auto-save.nvim",
-  enabled = false,
+  enabled = true,
   event = "BufReadPost",
   opts = {
     execution_message = {
