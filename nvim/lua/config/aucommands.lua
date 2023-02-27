@@ -20,13 +20,13 @@ autocmd("VimEnter", {
   desc = "Open NvimTree when it's a Directory",
 })
 
-autocmd("BufModifiedSet", {
-  callback = function()
-    vim.cmd("silent! w")
-  end,
-  group = general,
-  desc = "Auto Save",
-})
+-- autocmd("BufModifiedSet", {
+--   callback = function()
+--     vim.cmd("silent! w")
+--   end,
+--   group = general,
+--   desc = "Auto Save",
+-- })
 
 -- autocmd("TermOpen", {
 --   callback = function(evt)
