@@ -120,7 +120,7 @@ function M.config()
       g = { ":FzfLua grep_project<cr>", "Live grep" },
       b = { ":FzfLua buffers<cr>", "Buffers" },
       k = { ":FzfLua keymaps<cr>", "Keymaps" },
-      r = { ":FzfLua oldfiles<cr>", "Recent files" },
+      r = { ":FzfLua oldfiles cwd_only=true<cr>", "Recent files" },
 
       -- f = { ":Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-ignore-vcs<cr>", "Files" },
       -- c = { ":Telescope current_buffer_fuzzy_find<cr>", "In buffer" },
