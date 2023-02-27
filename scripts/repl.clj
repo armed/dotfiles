@@ -28,10 +28,18 @@
   (when (fs/exists? aliases-file)
     (some-> aliases-file (slurp) (string/split-lines) (set))))
 
+(defn update-lsp-config!
+  [aliases]
+  (let [lsp-config (fs/file ".lsp/config.edn")]
+    (io/make-parents lsp-config)
+    (spit lsp-config (str {:source-aliases (vec aliases)}))))
+
 (defn save-aliases!
   [aliases]
   (if (seq aliases)
-    (spit aliases-file (string/join "\n" (map name aliases)))
+    (do
+      (spit aliases-file (string/join "\n" (map name aliases)))
+      (update-lsp-config! aliases))
     (when (fs/exists? aliases-file)
       (fs/delete aliases-file))))
 
