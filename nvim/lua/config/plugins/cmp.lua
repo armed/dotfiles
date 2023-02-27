@@ -79,6 +79,7 @@ function M.config()
       { name = "nvim_lsp" },
       { name = "luasnip" },
       { name = "path" },
+      { name = "buffer" },
     },
   })
   cmp.setup.cmdline({ "/", "?" }, {
