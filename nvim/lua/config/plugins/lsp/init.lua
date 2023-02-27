@@ -81,7 +81,6 @@ function M.config()
     sources = {
       nls.builtins.formatting.prettierd,
       nls.builtins.formatting.stylua,
-      nls.builtins.diagnostics.flake8,
       nls.builtins.formatting.just,
     },
   })
@@ -93,7 +92,6 @@ function M.config()
       require("lspconfig")[server_name].setup(opts)
     end,
   })
-
 end
 
 return M
