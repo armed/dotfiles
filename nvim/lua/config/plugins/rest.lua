@@ -36,7 +36,6 @@ return {
     yank_dry_run = true,
   },
   config = function(conf)
-    print(vim.inspect(conf.opts))
     require("rest-nvim").setup(conf.opts)
     local map = vim.keymap.set
     local autocmd = vim.api.nvim_create_autocmd

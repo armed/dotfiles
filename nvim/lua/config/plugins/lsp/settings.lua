@@ -22,7 +22,6 @@ vim.api.nvim_create_autocmd("LspDetach", {
     if client_id == nil then
       return
     end
-    print(vim.inspect(vim.lsp.codelens.get(bufnr)))
     if next(vim.lsp.codelens.get(bufnr)) ~= nil then
       vim.lsp.codelens.clear(client_id, bufnr)
     end
