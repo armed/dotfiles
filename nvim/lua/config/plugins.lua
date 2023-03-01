@@ -12,7 +12,7 @@ return {
     "kevinhwang91/nvim-bqf",
     event = "VeryLazy",
   },
-  { "folke/todo-comments.nvim", config = true },
+  { "folke/todo-comments.nvim", event = "VeryLazy", config = true },
   {
     "mbbill/undotree",
     cmd = "UndotreeToggle",
