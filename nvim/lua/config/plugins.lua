@@ -122,4 +122,9 @@ return {
       vim.g.parinfer_force_balance = 1
     end,
   },
+  {
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    config = true
+  }
 }

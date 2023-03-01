@@ -41,6 +41,10 @@ function M.config()
   end
 
   wk.register({
+    ["<leader>"] = {
+      name = "Zen Mode",
+      { ":ZenMode<cr>", "Enter Zen Mode" },
+    },
     k = {
       name = "Docs View",
       { ":DocsViewUpdate<cr>", "Show Docs View" },
