@@ -1,42 +1,50 @@
 return {
   "rebelot/kanagawa.nvim",
-  lazy = false,
+  priority = 1000,
   config = function()
     local theme = require("kanagawa")
-    local colors = require("kanagawa.colors").setup()
-    local c = require("kanagawa.color")
 
     theme.setup({
       dimInactive = true,
       commentStyle = {
         italic = false,
       },
+      colors = {
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = "none",
+            },
+          },
+        },
+      },
       keywordStyle = {
         italic = false,
       },
       globalStatus = true,
-      overrides = {
-        WinSeparator = {
-          fg = tostring(c(colors.roninYellow):lighten(0.6)),
-          bg = colors.bg_dim or "NONE",
-        },
-        IndentBlanklineChar = { fg = colors.bg_light2 },
-        IndentBlanklineSpaceChar = { fg = colors.bg_light2 },
-        IndentBlanklineSpaceCharBlankline = { fg = colors.bg_light2 },
-        IndentBlanklineContextChar = { fg = colors.bg_light3 },
-        IndentBlanklineContextStart = {
-          sp = colors.bg_light3,
-          underline = true,
-        },
-      },
-    })
+      overrides = function(colors)
+        local palette = colors.palette
 
-    vim.cmd([[ colo kanagawa ]])
+        vim.api.nvim_set_hl(0, "user.win.title", {
+          bg = palette.crystalBlue,
+          fg = palette.dragonBlack1,
+        })
 
-    -- hl-group for incline
-    vim.api.nvim_set_hl(0, "user.win.title", {
-      bg = colors.crystalBlue,
-      fg = colors.bg_dark,
+        return {
+          WinSeparator = {
+            fg = palette.lotusOrange2,
+            bg = palette.bg_dim or "NONE",
+          },
+          IndentBlanklineChar = { fg = palette.bg_light2 },
+          IndentBlanklineSpaceChar = { fg = palette.bg_light2 },
+          IndentBlanklineSpaceCharBlankline = { fg = palette.bg_light2 },
+          IndentBlanklineContextChar = { fg = palette.bg_light3 },
+          IndentBlanklineContextStart = {
+            sp = palette.bg_light3,
+            underline = true,
+          },
+        }
+      end,
     })
   end,
 }
