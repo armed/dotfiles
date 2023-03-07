@@ -11,7 +11,7 @@ local function setup_codelens(_, bufnr)
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = lsp_group,
     buffer = bufnr,
-    callback = vim.lsp.codelens.refresh
+    callback = vim.lsp.codelens.refresh,
   })
 end
 
@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd("LspDetach", {
     if next(vim.lsp.codelens.get(bufnr)) ~= nil then
       vim.lsp.codelens.clear(client_id, bufnr)
     end
-  end
+  end,
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -40,7 +40,7 @@ function M.on_attach(client, bufnr)
   if client.server_capabilities.codeLensProvider then
     setup_codelens(client, bufnr)
   end
-  local wk_bindings = bindings.setup(bufnr)
+  local wk_bindings = bindings.setup()
   wk.register(wk_bindings, { noremap = true, buffer = bufnr })
 end
 
@@ -49,17 +49,17 @@ local vlw = vim.lsp.with
 local vlh = vim.lsp.handlers
 
 M.handlers = {
-  ["textDocument/publishDiagnostics"] = vlw(
+  ["textDocument/publishDiagnostics"] = vlw(vld.on_publish_diagnostics, {
+    virtual_text = false,
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
+  }),
+  ["textDocument/codeLens"] = vlw(
     vld.on_publish_diagnostics,
-    {
-      virtual_text = false,
-      signs = true,
-      underline = true,
-      update_in_insert = false,
-      severity_sort = true
-    }
+    { virtual_text = true }
   ),
-  ["textDocument/codeLens"] = vlw(vld.on_publish_diagnostics, { virtual_text = true }),
   ["textDocument/hover"] = vlw(vlh.hover, win_opts.float_opts),
   ["textDocument/signatureHelp"] = vlw(vlh.signature_help, win_opts.float_opts),
   ["workspace/diagnostic/refresh"] = function(_, _, ctx)

@@ -10,11 +10,11 @@ local M = {
             "list_lit",
             "vec_lit",
             "map_lit",
-            "set_lit"
+            "set_lit",
           },
         },
         -- max_lines = 2,
-        separator = "_"
+        separator = "_",
       },
     },
   },

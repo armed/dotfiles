@@ -72,7 +72,12 @@ return {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
     init = function()
-      vim.keymap.set("n", "<leader>lo", ":SymbolsOutline<cr>", { desc = "Symbols Outline" })
+      vim.keymap.set(
+        "n",
+        "<leader>lo",
+        ":SymbolsOutline<cr>",
+        { desc = "Symbols Outline" }
+      )
     end,
     opts = {
       keymaps = {
@@ -125,6 +130,6 @@ return {
   {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
-    config = true
-  }
+    config = true,
+  },
 }
