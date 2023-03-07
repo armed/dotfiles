@@ -22,9 +22,28 @@ local servers = {
   jdtls = {},
   jsonls = {},
   lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
+    settings = {
+      Lua = {
+        format = {
+          enable = false,
+          -- Put format options here
+          -- NOTE: the value should be STRING!!
+          defaultConfig = {
+            indent_style = "space",
+            indent_size = "2",
+          },
+        },
+        runtime = {
+          version = "LuaJIT",
+        },
+        diagnostics = {
+          globals = { "vim" },
+        },
+        workspace = {
+          checkThirdParty = false,
+        },
+        telemetry = { enable = false },
+      },
     },
   },
 }
@@ -46,16 +65,13 @@ local M = {
     },
     "onsails/lspkind.nvim",
     "hrsh7th/cmp-nvim-lsp",
-    "nvim-telescope/telescope.nvim",
-    {
-      "williamboman/mason-lspconfig.nvim",
-      opts = {
-        ensure_installed = vim.tbl_keys(servers),
-      },
+    "williamboman/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = vim.tbl_keys(servers),
     },
     {
       "j-hui/fidget.nvim",
-      config = true
+      config = true,
     },
   },
 }
@@ -78,10 +94,11 @@ function M.config()
 
   nls.setup({
     on_attach = settings.on_attach,
+    save_after_format = true,
     sources = {
-      nls.builtins.formatting.prettierd,
       nls.builtins.formatting.stylua,
       nls.builtins.formatting.just,
+      nls.builtins.formatting.prettierd,
     },
   })
 
