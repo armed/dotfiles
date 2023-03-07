@@ -1,0 +1,36 @@
+{:skip-comments false
+ :config-in-comment {:linters {:unresolved-symbol {:level :off}
+                               :unused-namespace {:level :off}
+															 :invalid-arity {:level :off}}}
+ :linters {:unused-binding {:level :info}
+           :unused-private-var {:level :info}
+           :unused-public-var {:level :info}
+           :unresolved-var {:exclude [com.rpl.specter/filterer
+                                      com.rpl.specter/multi-path
+                                      com.rpl.specter/ALL
+                                      com.rpl.specter/MAP-VALS
+                                      com.rpl.specter/MAP-KEYS
+                                      org.httpkit.client/get
+                                      org.httpkit.client/post
+                                      ring.util.http-response/header
+                                      honeysql.core/call
+                                      honeysql.core/raw
+                                      honeysql.core/format
+                                      honeysql.core/param]}}
+ :lint-as {failjure.core/when-failed clj-kondo.lint-as/def-catch-all
+           ghostwheel.core/>defn clojure.core/defn
+           clojure.java.jdbc/with-db-connection clojure.core/let
+           clojure.java.jdbc/with-db-transaction clojure.core/let
+           honeysql.helpers/defhelper clj-kondo.lint-as/def-catch-all
+           activator.db.core/with-vcip-transaction clojure.core/let
+           failjure.core/attempt-all clojure.core/let
+           cljss.core/defstyles cljs.core/defn
+           promesa.core/let clojure.core/let
+           activator.db.core/with-vcip-transaction-ctx clojure.core/let
+           malli.core/=> clojure.core/declare
+           miner.ftp/with-ftp clojure.core/let
+           clojurewerkz.quartzite.jobs/defjob clojure.core/defn
+           clojure.test/deftest clojure.core/def
+           promesa.core/plet clojure.core/let
+           lambdaisland.facai/defactory clojure.core/def
+           uix.core/defui clojure.core/defn}}
