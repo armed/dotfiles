@@ -23,6 +23,7 @@ opt.clipboard = "unnamedplus"
 opt.list = true
 -- opt.listchars = "tab:▶-,trail:•,extends:»,precedes:«"
 opt.expandtab = true
+opt.smartindent = true
 opt.tabstop = 2
 opt.shiftwidth = 2
 opt.softtabstop = 2

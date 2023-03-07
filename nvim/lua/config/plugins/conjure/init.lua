@@ -8,13 +8,13 @@ local M = {
 local function set_repl_winbar()
   if vim.bo.filetype == "clojure" then
     vim.opt_local.winbar = (
-        "%#winbarseparator#"
-            .. "%="
-            .. "%#user.repl.winbar# "
-            .. "%{%v:lua.require'config.tools.nrepl-finder'.get_repl_status('no REPL')%}"
-            .. "%#user.repl.winbar# "
-            .. "%#winbarseparator#"
-        )
+      "%#winbarseparator#"
+      .. "%="
+      .. "%#user.repl.winbar# "
+      .. "%{%v:lua.require'config.tools.nrepl-finder'.get_repl_status('no REPL')%}"
+      .. "%#user.repl.winbar# "
+      .. "%#winbarseparator#"
+    )
   end
 end
 

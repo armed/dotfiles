@@ -11,21 +11,22 @@ return {
       -- "telescope",
       files = {
         -- previewer = "bat",
-        path_shorten = true,
-        fd_opts = "--no-ignore "
-            .. "-E '.git' "
-            .. "-E 'gen' "
-            .. "-E '.shadow-cljs' "
-            .. "-E '.cache' "
-            .. "-E '.DS_Store' "
-            .. "-E 'node_modules' "
-            .. "-E '*.log' "
-            .. "-E '.classes' "
-            .. "-E '*.class' "
-            .. "-E '.cpcache' "
-            .. "-E 'target' "
-            .. "-E '*-lock.*' "
-            .. "-E '*/cache/*' ",
+        -- path_shorten = true,
+        fd_opts = "--type f "
+          .. "--no-ignore "
+          .. "-E '.git/*' "
+          .. "-E 'gen/*' "
+          .. "-E '.shadow-cljs/*' "
+          .. "-E '.cache/*' "
+          .. "-E '.DS_Store/*' "
+          .. "-E 'node_modules' "
+          .. "-E '*.log' "
+          .. "-E '.classes' "
+          .. "-E '*.class' "
+          .. "-E '.cpcache' "
+          .. "-E 'target' "
+          .. "-E '*-lock.*' "
+          .. "-E 'cache/*' ",
       },
       oldfiles = {
         cwd_only = true,
@@ -35,7 +36,7 @@ return {
           theme = "Coldark-Dark",
         },
       },
-      keykmap = {
+      keymap = {
         -- These override the default tables completely
         -- no need to set to `false` to disable a bind
         -- delete or modify is sufficient
@@ -100,6 +101,7 @@ return {
         },
       },
       grep = {
+        -- debug = true,
         prompt = "Rg❯ ",
         input_prompt = "Grep For❯ ",
         multiprocess = true, -- run command in a separate process
@@ -109,23 +111,12 @@ return {
         -- executed command priority is 'cmd' (if exists)
         -- otherwise auto-detect prioritizes `rg` over `grep`
         -- default options are controlled by 'rg|grep_opts'
-        -- cmd            = "rg --vimgrep",
-        grep_opts = "--binary-files=without-match --line-number --recursive --color=auto --perl-regexp",
-        rg_opts = 
-          -- search all known types
-          "--type=all "
-          -- ignore this dir s
-          .. "--glob=!*/.git/* "
-          .. "--glob=!*/node_modules/* "
-          .. "--glob=!.cpcache/* "
-          .. "--glob=!*/.shadow-cljs/* "
-          .. "--glob=!*/.cache/* "
-          .. "--glob=!*/target/* "
-          .. "--glob=!*/tmp/* "
-          .. "--glob=!*.log "
-          .. "--glob=!*-lock.json "
-          .. "--glob=!*-lock.yml "
-          .. "--glob=!*-lock.yaml "
+        -- grep_opts = "--binary-files=without-match --line-number --recursive --color=auto --perl-regexp",
+        -- cmd = "rg",
+        rg_opts =         -- search all known types
+        -- "--type=all "
+"-g='!{.git,**/node_modules,**/.cache,**/.cpcache,**/tmp,**/target,**/.shadow-cljs}/*' "
+          .. "-g='!{*.log,*-lock.*}' "
           -- limit of sin lines longer than 150 is not relevan t
           .. "--max-columns=150 "
           .. "--hidden "
