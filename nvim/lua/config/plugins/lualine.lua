@@ -69,6 +69,11 @@ function M.config()
         { path = 1, "filename" },
       },
       lualine_x = {
+        {
+          require("lazy.status").updates,
+          cond = require("lazy.status").has_updates,
+          color = { fg = "#ff9e64" },
+        },
         { fmt = get_lsp_client_names, "lsp_clients" },
         {
           color = "user.repl.statusline",
@@ -100,7 +105,10 @@ function M.config()
     return timer:start(30, 0, vim.schedule_wrap(refresh))
   end
 
-  vim.api.nvim_create_autocmd("RecordingLeave", { callback = on_recording_leave })
+  vim.api.nvim_create_autocmd(
+    "RecordingLeave",
+    { callback = on_recording_leave }
+  )
 end
 
 return M
