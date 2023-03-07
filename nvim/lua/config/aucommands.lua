@@ -118,3 +118,12 @@ autocmd("FileType", {
     vim.opt_local.conceallevel = 3
   end,
 })
+
+autocmd("ColorScheme", {
+  group = general,
+  pattern = "*",
+  callback = function()
+    -- some themes cleans hl groups, we are overriding them here
+    require("config.hl-groups").init()
+  end,
+})
