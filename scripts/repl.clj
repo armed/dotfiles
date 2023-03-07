@@ -65,6 +65,10 @@
       (io/make-parents f)
       (spit f (str config)))))
 
+(defn clean!
+  []
+  (bp/shell "rm -rf .cpcache classes"))
+
 (if (seq project-aliases)
   (try
     (let [_ (println "Select aliases to run...")
@@ -86,6 +90,7 @@
                                 (mapv keyword))
           cmd (str "clojure -M" (string/join selected-aliases))]
       (save-aliases! selected-aliases)
+      (clean!)
       (println cmd)
       (bp/shell cmd))
     (catch Exception e
