@@ -23,13 +23,29 @@ function M.config()
 
   local function get_lsp_client_names()
     local clients = ""
-    for _, client in pairs(vim.lsp.buf_get_clients()) do
-      clients = clients .. "•" .. client.name
+    for _, client in pairs(vim.lsp.get_active_clients()) do
+      clients = clients .. " •" .. client.name
     end
     if clients ~= "" then
-      return "[" .. clients .. "]"
+      return "[" .. clients .. " ]"
     end
     return ""
+  end
+
+  local function get_lsp_clients()
+    local clients = {} 
+    for _, client in pairs(vim.lsp.get_active_clients()) do
+      table.insert(clients, {
+        color = "red",
+        fmt = ""
+      })
+      table.insert(clients, {
+        color = "green",
+        fmt = client.name
+      })
+      clients = clients .. " •" .. client.name
+    end
+    return clients
   end
 
   local function show_macro_recording()
@@ -74,7 +90,13 @@ function M.config()
           cond = require("lazy.status").has_updates,
           color = { fg = "#ff9e64" },
         },
-        { fmt = get_lsp_client_names, "lsp_clients" },
+        {
+          fmt = get_lsp_client_names,
+          color = {
+            fg = "#9BB0A5",
+          },
+          "lsp_clients",
+        },
         {
           color = "user.repl.statusline",
           fmt = get_nrepl_status,
