@@ -19,7 +19,15 @@ local servers = {
     },
   },
   tsserver = {},
-  jdtls = {},
+  jdtls = {
+    settings = {
+      single_file_support = true,
+      java = {
+        signatureHelp = { enabled = true },
+        contentProvider = { preferred = "fernflower" },
+      },
+    },
+  },
   jsonls = {},
   lua_ls = {
     settings = {
