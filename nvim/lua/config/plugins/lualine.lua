@@ -1,7 +1,11 @@
 local M = {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
-  dependencies = { "kyazdani42/nvim-web-devicons" },
+  dependencies = {
+    {
+      "kyazdani42/nvim-web-devicons",
+    },
+  },
 }
 
 local function set_theme(config)
@@ -23,7 +27,7 @@ function M.config()
 
   local function get_lsp_client_names()
     local clients = ""
-    for _, client in pairs(vim.lsp.get_active_clients()) do
+    for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
       clients = clients .. " •" .. client.name
     end
     if clients ~= "" then
@@ -33,15 +37,15 @@ function M.config()
   end
 
   local function get_lsp_clients()
-    local clients = {} 
+    local clients = {}
     for _, client in pairs(vim.lsp.get_active_clients()) do
       table.insert(clients, {
         color = "red",
-        fmt = ""
+        fmt = "",
       })
       table.insert(clients, {
         color = "green",
-        fmt = client.name
+        fmt = client.name,
       })
       clients = clients .. " •" .. client.name
     end
