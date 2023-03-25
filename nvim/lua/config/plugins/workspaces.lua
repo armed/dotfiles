@@ -40,7 +40,6 @@ function M.config()
   local function load_workspace()
     if session_exists() then
       vim.cmd("so " .. M.session_file)
-      ntsm.show("filesystem")
     end
   end
 
