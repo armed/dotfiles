@@ -5,14 +5,14 @@ local M = {
       "nvim-treesitter/nvim-treesitter-context",
       opts = {
         enable = false,
-        patterns = {
-          clojure = {
-            "list_lit",
-            "vec_lit",
-            "map_lit",
-            "set_lit",
-          },
-        },
+        -- patterns = {
+        --   clojure = {
+        --     "list_lit",
+        --     "vec_lit",
+        --     "map_lit",
+        --     "set_lit",
+        --   },
+        -- },
         -- max_lines = 2,
         separator = "_",
       },
@@ -23,6 +23,8 @@ local M = {
 }
 
 function M.config()
+  -- vim.cmd("hi TreesitterContextBottom gui=underline guisp=DarkGray")
+
   require("nvim-treesitter.configs").setup({
     ensure_installed = { "lua", "help", "clojure" },
     highlight = {
