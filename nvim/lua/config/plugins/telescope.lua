@@ -23,19 +23,8 @@ function M.config()
 
   telescope.setup({
     defaults = {
-      -- file_ignore_patterns = {
-      --   "node%_modules",
-      --   "target",
-      --   "classes",
-      --   ".class",
-      --   ".cpcache",
-      --   "cache",
-      --   ".git",
-      --   ".clj-kondo",
-      --   "tmp",
-      --   "shadow-cljs",
-      --   "-lock.*",
-      -- },
+      dynamic_preview_title = true,
+      layout_strategy = "vertical",
       mappings = {
         n = {
           ["q"] = actions.close,
