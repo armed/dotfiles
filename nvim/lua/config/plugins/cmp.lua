@@ -21,6 +21,7 @@ function M.config()
   local cmp = require("cmp")
   local luasnip = require("luasnip")
   local lspkind = require("lspkind")
+  require("luasnip.loaders.from_snipmate").lazy_load()
 
   cmp.setup({
     snippet = {
