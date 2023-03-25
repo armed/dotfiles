@@ -1,7 +1,8 @@
 {:skip-comments false
  :config-in-comment {:linters {:unresolved-symbol {:level :off}
+                               :unresolved-namespace {:level :off}
                                :unused-namespace {:level :off}
-															 :invalid-arity {:level :off}}}
+                               :invalid-arity {:level :off}}}
  :linters {:unused-binding {:level :info}
            :unused-private-var {:level :info}
            :unused-public-var {:level :info}
@@ -33,4 +34,5 @@
            clojure.test/deftest clojure.core/def
            promesa.core/plet clojure.core/let
            lambdaisland.facai/defactory clojure.core/def
-           uix.core/defui clojure.core/defn}}
+           uix.core/defui clojure.core/defn
+           monger.query/with-collection clojure.core/->}}
