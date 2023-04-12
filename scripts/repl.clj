@@ -8,6 +8,11 @@
    [clojure.java.io :as io]
    [clojure.string :as string]))
 
+(defn dirname []
+  (let [current-path (fs/cwd)
+        parent-path  (fs/parent current-path)]
+    (str (fs/relativize parent-path current-path))))
+
 (def lsp-config-path ".lsp/config.edn")
 (def aliases-file ".repl_aliases")
 
@@ -92,6 +97,7 @@
       (save-aliases! selected-aliases)
       (clean!)
       (println cmd)
+      (bp/shell (str "echo \"\033]0;" (dirname) "-repl\007\""))
       (bp/shell cmd))
     (catch Exception e
       (let [data (ex-data e)]
