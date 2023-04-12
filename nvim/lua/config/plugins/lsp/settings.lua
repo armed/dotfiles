@@ -28,6 +28,18 @@ vim.api.nvim_create_autocmd("LspDetach", {
   end,
 })
 
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client.server_capabilities.codeLensProvider then
+      setup_codelens(client, bufnr)
+    end
+    local wk_bindings = bindings.setup()
+    wk.register(wk_bindings, { noremap = true, buffer = bufnr })
+  end,
+})
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 M.capabilities = cmplsp.default_capabilities(capabilities)
@@ -36,13 +48,13 @@ M.capabilities = cmplsp.default_capabilities(capabilities)
 --   lineFoldingOnly = true,
 -- }
 
-function M.on_attach(client, bufnr)
-  if client.server_capabilities.codeLensProvider then
-    setup_codelens(client, bufnr)
-  end
-  local wk_bindings = bindings.setup()
-  wk.register(wk_bindings, { noremap = true, buffer = bufnr })
-end
+-- function M.on_attach(client, bufnr)
+--   if client.server_capabilities.codeLensProvider then
+--     setup_codelens(client, bufnr)
+--   end
+--   local wk_bindings = bindings.setup()
+--   wk.register(wk_bindings, { noremap = true, buffer = bufnr })
+-- end
 
 local vld = vim.lsp.diagnostic
 local vlw = vim.lsp.with

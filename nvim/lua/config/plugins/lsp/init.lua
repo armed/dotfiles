@@ -93,7 +93,6 @@ function M.config()
 
   local options = {
     handlers = settings.handlers,
-    on_attach = settings.on_attach,
     capabilities = settings.capabilities,
     flags = {
       debounce_text_changes = 150,
@@ -101,7 +100,6 @@ function M.config()
   }
 
   nls.setup({
-    on_attach = settings.on_attach,
     save_after_format = true,
     sources = {
       nls.builtins.formatting.stylua,
