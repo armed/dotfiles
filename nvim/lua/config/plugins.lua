@@ -132,4 +132,9 @@ return {
     cmd = "ZenMode",
     config = true,
   },
+  {
+    "andweeb/presence.nvim",
+    event = "VeryLazy",
+    config = true,
+  },
 }
