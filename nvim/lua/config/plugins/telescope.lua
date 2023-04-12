@@ -23,6 +23,9 @@ function M.config()
 
   telescope.setup({
     defaults = {
+      layout_config = {
+        vertical = { width = 0.9 },
+      },
       dynamic_preview_title = true,
       layout_strategy = "vertical",
       mappings = {
@@ -90,6 +93,14 @@ function M.config()
       },
     },
     pickers = {
+      registers = {
+        layout_config = {
+          vertical = { width = 0.9 },
+        },
+        enable_preview = true,
+        dynamic_preview_title = true,
+        layout_strategy = "vertical",
+      },
       find_files = {
         find_command = {
           "rg",
