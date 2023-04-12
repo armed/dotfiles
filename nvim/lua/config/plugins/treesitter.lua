@@ -30,6 +30,9 @@ function M.config()
     highlight = {
       enable = true,
       additional_vim_regex_highlighting = { "clojure" },
+      disable = function(_, bufnr)
+        return vim.api.nvim_buf_line_count(bufnr) > 5000
+      end,
     },
     indent = { enable = true },
     query_linter = {
