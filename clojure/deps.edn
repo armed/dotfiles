@@ -5,9 +5,9 @@
   "sonatype" {:url "https://repository.sonatype.org/content/groups/forge/"}}
 
  :aliases
- {:portal {:extra-deps {djblue/portal {:mvn/version "RELEASE"}}}
-  :cider {:extra-deps {cider/cider-nrepl {:mvn/version "RELEASE"}
-                       io.aviso/pretty {:mvn/version "RELEASE"}}
+ {:portal {:extra-deps {djblue/portal {:mvn/version "0.37.1"}}}
+  :cider {:extra-deps {cider/cider-nrepl {:mvn/version "0.30.0"}
+                       io.aviso/pretty {:mvn/version "1.4"}}
           :main-opts ["-m" "nrepl.cmdline"
                       "--middleware" "[cider.nrepl/cider-middleware]"]}}}
 
