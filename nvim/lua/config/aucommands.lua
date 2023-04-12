@@ -15,6 +15,11 @@ autocmd("VimEnter", {
       -- open the tree
       vim.cmd("Neotree")
     end
+    local current_dir = vim.fn.getcwd()
+    local current_dir_name = current_dir:match("([^/]+)$")
+    vim.schedule(function()
+      vim.o.titlestring = current_dir_name
+    end)
   end,
   group = general,
   desc = "Open NvimTree when it's a Directory",
