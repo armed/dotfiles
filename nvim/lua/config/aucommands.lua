@@ -18,7 +18,7 @@ autocmd("VimEnter", {
     local current_dir = vim.fn.getcwd()
     local current_dir_name = current_dir:match("([^/]+)$")
     vim.schedule(function()
-      vim.o.titlestring = current_dir_name
+      vim.o.titlestring = current_dir_name .. "[nv]"
     end)
   end,
   group = general,
