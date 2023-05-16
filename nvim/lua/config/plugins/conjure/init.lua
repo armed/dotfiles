@@ -2,7 +2,7 @@ local M = {
   "Olical/conjure",
   lazy = true,
   branch = "develop",
-  ft = { "clojure", "lua" },
+  ft = { "clojure", "lua", "fennel" },
 }
 
 local function set_repl_winbar()
@@ -19,17 +19,21 @@ local function set_repl_winbar()
 end
 
 M.config = function()
+  vim.g["conjure#filetype#fennel"] = "conjure.client.fennel.stdio"
   vim.g["conjure#mapping#doc_word"] = false
   vim.g["conjure#client#clojure#nrepl#connection#auto_repl#enabled"] = false
   vim.g["conjure#highlight#enabled"] = true
   vim.g["conjure#highlight#timeout"] = 150
   vim.g["conjure#log#wrap"] = true
-  vim.g["conjure#log#jump_to_latest#enabled"] = true
+  vim.g["conjure#log#jump_to_latest#enabled"] = false
   vim.g["conjure#client#clojure#nrepl#eval#raw_out"] = true
   vim.g["conjure#client#clojure#nrepl#test#raw_out"] = true
   vim.g["conjure#client#clojure#nrepl#test#runner"] = "kaocha"
-  vim.g["conjure#log#jump_to_latest#cursor_scroll_position"] = "top"
+  vim.g["conjure#log#jump_to_latest#cursor_scroll_position"] = "none"
   vim.g["conjure#log#hud#enabled"] = false
+  vim.g["conjure#mapping#log_split"] = false
+  vim.g["conjure#mapping#log_vsplit"] = false
+  vim.g["conjure#mapping#log_toggle"] = false
 
   local grp = vim.api.nvim_create_augroup("conjure_hooks", { clear = true })
   vim.api.nvim_create_autocmd("BufNewFile", {
@@ -62,12 +66,39 @@ M.config = function()
   local repl = require("config.tools.nrepl-finder")
 
   local function conjure_log_open(is_vertical)
-    vim.cmd("ConjureLogCloseVisible")
+    local log = require("conjure.log")
+    log["close-visible"]()
+    local cur_log
     if is_vertical then
-      vim.cmd("ConjureLogVSplit")
+      log.vsplit()
+      cur_log = "vsplit"
     else
-      vim.cmd("ConjureLogSplit")
+      log.split()
+      local win = vim.api.nvim_get_current_win()
+      vim.api.nvim_win_set_height(win, 10)
+      cur_log = "split"
     end
+    log["last-open-cmd"] = cur_log
+    vim.cmd("wincmd p")
+  end
+
+  local function is_log_win_open()
+    local l = require("conjure.log")
+    local wins = l["aniseed/locals"]["find-windows"]()
+    for _, _ in pairs(wins) do
+      return true
+    end
+    return false
+  end
+
+  local function conjure_log_toggle()
+    local log = require("conjure.log")
+    log.toggle()
+    if is_log_win_open() and log["last-open-cmd"] == "split" then
+      local win = vim.api.nvim_get_current_win()
+      vim.api.nvim_win_set_height(win, 10)
+    end
+    vim.cmd("wincmd p")
   end
 
   wk.register(mappings, { prefix = "<localleader>" })
@@ -105,19 +136,23 @@ M.config = function()
     -- ["i"] = "Round Head Wrap List",
     ["l"] = {
       name = "Conjure Log",
+      g = {
+        function()
+          conjure_log_toggle()
+        end,
+        "Toggle",
+      },
       v = {
         function()
           conjure_log_open(true)
         end,
         "Open VSplit",
-        noremap = false,
       },
       s = {
         function()
           conjure_log_open(false)
         end,
         "Open Split",
-        noremap = false,
       },
     },
     -- ["o"] = "Raise List",

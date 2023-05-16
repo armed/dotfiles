@@ -111,6 +111,8 @@ function M.config()
           "--trim",
           "--smart-case",
           "--max-columns=150",
+          "--glob=!**/gen/*",
+          "--glob=!**/static/js/*",
           "--glob=!**/.git/*",
           "--glob=!**/node_modules/*",
           "--glob=!**/.next/*",

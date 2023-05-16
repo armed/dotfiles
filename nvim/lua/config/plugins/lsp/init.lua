@@ -1,10 +1,10 @@
 local servers = {
   clojure_lsp = {
-    root_dir = function()
-      return vim.fn.getcwd()
-    end,
+    -- root_dir = function()
+    --   return vim.fn.getcwd()
+    -- end,
     init_options = {
-      signatureHelp = true,
+      -- signatureHelp = true,
       codeLens = true,
     },
   },

@@ -1,1 +1,2 @@
-{:keep-parens-when-threading? true}
+{:keep-parens-when-threading? true
+ :java {:decompile-jar-as-project? false}}

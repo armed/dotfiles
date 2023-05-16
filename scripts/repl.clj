@@ -72,7 +72,7 @@
 
 (defn clean!
   []
-  (bp/shell "rm -rf .cpcache classes"))
+  (bp/shell "rm -rf .cpcache"))
 
 (if (seq project-aliases)
   (try
@@ -97,7 +97,7 @@
       (save-aliases! selected-aliases)
       (clean!)
       (println cmd)
-      (bp/shell (str "echo \"\033]0;" (dirname) "-repl\007\""))
+      (bp/shell (str "echo \"\033]0;" (dirname) "[repl]\007\""))
       (bp/shell cmd))
     (catch Exception e
       (let [data (ex-data e)]

@@ -37,11 +37,7 @@ local function vim_sexp_mappings()
   xmap("ie", "<Plug>(sexp_inner_element)", { desc = "Sexp inner element" })
   omap("ie", "<Plug>(sexp_inner_element)", { desc = "Sexp inner element" })
   nmap("(", "<Plug>(sexp_move_to_prev_bracket)", { desc = "Sexp move to prev bracket" })
-  -- xmap("(", "<Plug>(sexp_move_to_prev_bracket)", { desc = "Sexp move to prev bracket" })
-  -- omap("(", "<Plug>(sexp_move_to_prev_bracket)", { desc = "Sexp move to prev bracket" })
   nmap(")", "<Plug>(sexp_move_to_next_bracket)", { desc = "Sexp move to next bracket" })
-  -- xmap(")", "<Plug>(sexp_move_to_next_bracket)", { desc = "Sexp move to next bracket" })
-  -- omap(")", "<Plug>(sexp_move_to_next_bracket)", { desc = "Sexp move to next bracket" })
   nmap("B", "<Plug>(sexp_move_to_prev_element_head)", { desc = "Sexp move to prev element head" })
   xmap("B", "<Plug>(sexp_move_to_prev_element_head)", { desc = "Sexp move to prev element head" })
   omap("B", "<Plug>(sexp_move_to_prev_element_head)", { desc = "Sexp move to prev element head" })
@@ -54,12 +50,6 @@ local function vim_sexp_mappings()
   nmap("E", "<Plug>(sexp_move_to_next_element_tail)", { desc = "Sexp move to next element tail" })
   xmap("E", "<Plug>(sexp_move_to_next_element_tail)", { desc = "Sexp move to next element tail" })
   omap("E", "<Plug>(sexp_move_to_next_element_tail)", { desc = "Sexp move to next element tail" })
-  -- nmap("[[", "<Plug>(sexp_move_to_prev_top_element)", { desc = "Sexp move to prev top element"})
-  -- xmap("[[", "<Plug>(sexp_move_to_prev_top_element)", { desc = "Sexp move to prev top element"})
-  -- omap("[[", "<Plug>(sexp_move_to_prev_top_element)", { desc = "Sexp move to prev top element"})
-  -- nmap("]]", "<Plug>(sexp_move_to_next_top_element)", { desc = "Sexp move to next top element"})
-  -- xmap("]]", "<Plug>(sexp_move_to_next_top_element)", { desc = "Sexp move to next top element"})
-  -- omap("]]", "<Plug>(sexp_move_to_next_top_element)", { desc = "Sexp move to next top element"})
   nmap("[e", "<Plug>(sexp_select_prev_element)", { desc = "Sexp select prev element" })
   xmap("[e", "<Plug>(sexp_select_prev_element)", { desc = "Sexp select prev element" })
   omap("[e", "<Plug>(sexp_select_prev_element)", { desc = "Sexp select prev element" })
@@ -107,14 +97,19 @@ local function vim_sexp_mappings()
   xmap("<M-h>", "<Plug>(sexp_swap_element_backward)", { desc = "Sexp swap element backward" })
   nmap("<M-l>", "<Plug>(sexp_swap_element_forward)", { desc = "Sexp swap element forward" })
   xmap("<M-l>", "<Plug>(sexp_swap_element_forward)", { desc = "Sexp swap element forward" })
+
   nmap("<M-S-j>", "<Plug>(sexp_emit_head_element)", { desc = "Sexp emit head element" })
   xmap("<M-S-j>", "<Plug>(sexp_emit_head_element)", { desc = "Sexp emit head element" })
+
   nmap("<M-S-k>", "<Plug>(sexp_emit_tail_element)", { desc = "Sexp emit tail element" })
   xmap("<M-S-k>", "<Plug>(sexp_emit_tail_element)", { desc = "Sexp emit tail element" })
+
   nmap("<M-S-h>", "<Plug>(sexp_capture_prev_element)", { desc = "Sexp capture prev element" })
   xmap("<M-S-h>", "<Plug>(sexp_capture_prev_element)", { desc = "Sexp capture prev element" })
+
   nmap("<M-S-l>", "<Plug>(sexp_capture_next_element)", { desc = "Sexp capture next element" })
   xmap("<M-S-l>", "<Plug>(sexp_capture_next_element)", { desc = "Sexp capture next element" })
+
   imap("<BS>", "<Plug>(sexp_insert_backspace)", { desc = "Sexp insert backspace" })
   imap('"', "<Plug>(sexp_insert_double_quote)", { desc = "Sexp insert double quote" })
   imap("(", "<Plug>(sexp_insert_opening_round)", { desc = "Sexp insert opening round" })
@@ -133,7 +128,7 @@ local sexp = augroup("Vim Sexp", { clear = true })
 
 autocmd("FileType", {
   group = sexp,
-  pattern = { "clojure" },
+  pattern = { "clojure", "fennel" },
   callback = vim_sexp_mappings,
 })
 

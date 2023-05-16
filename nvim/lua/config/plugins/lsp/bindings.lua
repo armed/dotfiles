@@ -37,7 +37,9 @@ function M.setup()
     t = { ":Telescope lsp_type_definitions<cr>", "Type Definition" },
     ["<leader>"] = {
       l = {
+        -- f = { vim.lsp.buf.format, "Format" },
         r = { vim.lsp.buf.rename, "Rename" },
+        -- r = { ":LspUI rename<cr>", "Rename" },
         R = { ":LspRestart<cr>", "Lsp Restart" },
         I = { ":LspInfo<cr>", "Lsp Info" },
         n = { diag_next, "Next Diagnostics" },
@@ -79,9 +81,11 @@ function M.setup()
           r = { vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder" },
         },
         a = { vim.lsp.buf.code_action, "Code Actions" },
+        -- a = { ":LspUI code_action<cr>", "Code Actions" },
       },
     },
     K = { vim.lsp.buf.hover, "Hover doc" },
+    -- K = { ":LspUI hover<cr>", "Hover doc" },
   }
 end
 

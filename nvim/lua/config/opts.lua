@@ -1,5 +1,6 @@
 local opt = vim.opt
 
+opt.title = true
 opt.hlsearch = true
 opt.wrap = false
 opt.cursorline = true

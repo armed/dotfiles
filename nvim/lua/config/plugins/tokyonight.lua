@@ -14,18 +14,15 @@ local M = {
   config = function(params)
     local theme = require("tokyonight")
     theme.setup(params.opts)
+    vim.cmd([[ colo tokyonight ]])
+
+    local colors = require("tokyonight.colors")
+    vim.api.nvim_set_hl(0, "user.win.title", {
+      bg = colors.default.blue,
+      fg = colors.default.bg_dark,
+    })
   end,
 }
-
-M.init = function()
-  vim.cmd([[ colo tokyonight ]])
-
-  local colors = require("tokyonight.colors")
-  vim.api.nvim_set_hl(0, "user.win.title", {
-    bg = colors.default.blue,
-    fg = colors.default.bg_dark,
-  })
-end
 
 return M
 -- local tc = require("tokyonight.theme")

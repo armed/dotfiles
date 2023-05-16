@@ -7,6 +7,7 @@ local M = {
     "L3MON4D3/LuaSnip",
     "onsails/lspkind.nvim",
     "saadparwaiz1/cmp_luasnip",
+    "PaterJason/cmp-conjure"
   },
 }
 
@@ -24,6 +25,9 @@ function M.config()
   require("luasnip.loaders.from_snipmate").lazy_load()
 
   cmp.setup({
+    completion = {
+      keyword_length = 2
+    },
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
@@ -32,11 +36,19 @@ function M.config()
     formatting = {
       format = lspkind.cmp_format({
         mode = "symbol",
-        maxwidth = 50,
+        maxwidth = 80,
         ellipsis_char = "...",
         before = function(_, vim_item)
           return vim_item
         end,
+        menu = {
+          conjure = "[conjure]",
+          buffer = "[Buffer]",
+          nvim_lsp = "[LSP]",
+          luasnip = "[LuaSnip]",
+          nvim_lua = "[Lua]",
+          latex_symbols = "[Latex]",
+        },
       }),
       fields = { "menu", "abbr", "kind" },
     },
@@ -78,6 +90,7 @@ function M.config()
     }),
     sources = {
       { name = "nvim_lsp" },
+      { name = "conjure" },
       { name = "luasnip" },
       { name = "path" },
       { name = "buffer" },

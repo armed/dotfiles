@@ -19,16 +19,56 @@ map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- Move using tmux.nvim
-map("n", "<C-h>", [[<cmd>lua require("tmux").move_left()<cr>]], { desc = "Go to left window" })
-map("n", "<C-j>", [[<cmd>lua require("tmux").move_bottom()<cr>]], { desc = "Go to lower window" })
-map("n", "<C-k>", [[<cmd>lua require("tmux").move_top()<cr>]], { desc = "go to upper window" })
-map("n", "<C-l>", [[<cmd>lua require("tmux").move_right()<cr>]], { desc = "Go to right window" })
+map(
+  "n",
+  "<C-h>",
+  [[<cmd>lua require("tmux").move_left()<cr>]],
+  { desc = "Go to left window" }
+)
+map(
+  "n",
+  "<C-j>",
+  [[<cmd>lua require("tmux").move_bottom()<cr>]],
+  { desc = "Go to lower window" }
+)
+map(
+  "n",
+  "<C-k>",
+  [[<cmd>lua require("tmux").move_top()<cr>]],
+  { desc = "go to upper window" }
+)
+map(
+  "n",
+  "<C-l>",
+  [[<cmd>lua require("tmux").move_right()<cr>]],
+  { desc = "Go to right window" }
+)
 
 -- Resize window using tmux.nvim
-map("n", "<A-Up>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
-map("n", "<A-Down>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
-map("n", "<A-Left>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
-map("n", "<A-Right>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
+map(
+  "n",
+  "<A-Up>",
+  [[<cmd>lua require("tmux").resize_top()<cr>]],
+  { desc = "Increase window height" }
+)
+map(
+  "n",
+  "<A-Down>",
+  [[<cmd>lua require("tmux").resize_bottom()<cr>]],
+  { desc = "Decrease window height" }
+)
+map(
+  "n",
+  "<A-Left>",
+  [[<cmd>lua require("tmux").resize_left()<cr>]],
+  { desc = "Decrease window width" }
+)
+map(
+  "n",
+  "<A-Right>",
+  [[<cmd>lua require("tmux").resize_right()<cr>]],
+  { desc = "Increase window width" }
+)
 
 -- Move Lines
 map("n", "<A-j>", ":m .+1<cr>==", { desc = "Move down" })
@@ -45,15 +85,50 @@ map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
 -- Clear search with <esc>
-map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+map(
+  { "i", "n" },
+  "<esc>",
+  "<cmd>noh<cr><esc>",
+  { desc = "Escape and clear hlsearch" }
+)
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
-map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
-map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
-map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map(
+  "n",
+  "n",
+  "'Nn'[v:searchforward]",
+  { expr = true, desc = "Next search result" }
+)
+map(
+  "x",
+  "n",
+  "'Nn'[v:searchforward]",
+  { expr = true, desc = "Next search result" }
+)
+map(
+  "o",
+  "n",
+  "'Nn'[v:searchforward]",
+  { expr = true, desc = "Next search result" }
+)
+map(
+  "n",
+  "N",
+  "'nN'[v:searchforward]",
+  { expr = true, desc = "Prev search result" }
+)
+map(
+  "x",
+  "N",
+  "'nN'[v:searchforward]",
+  { expr = true, desc = "Prev search result" }
+)
+map(
+  "o",
+  "N",
+  "'nN'[v:searchforward]",
+  { expr = true, desc = "Prev search result" }
+)
 
 -- Add undo break-points
 map("i", ",", ",<c-g>u")
@@ -68,7 +143,10 @@ local function toggle(option, silent, values)
     else
       vim.opt_local[option] = values[1]
     end
-    return Util.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
+    return Util.info(
+      "Set " .. option .. " to " .. vim.opt_local[option]:get(),
+      { title = "Option" }
+    )
   end
   vim.opt_local[option] = not vim.opt_local[option]:get()
   if not silent then
@@ -108,8 +186,8 @@ map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
--- local remap = vim.api.nvim_set_keymap
--- remap("n", "<TAB>", ">>", { noremap = true })
--- remap("n", "<S-TAB>", "<<", { noremap = true })
--- remap("v", "<TAB>", ">gv", { noremap = true })
--- remap("v", "<S-TAB>", "<gv", { noremap = true })
+local remap = vim.api.nvim_set_keymap
+remap("n", "<TAB>", ">>", { noremap = true })
+remap("n", "<S-TAB>", "<<", { noremap = true })
+remap("v", "<TAB>", ">gv", { noremap = true })
+remap("v", "<S-TAB>", "<gv", { noremap = true })
