@@ -4,7 +4,7 @@ local servers = {
     --   return vim.fn.getcwd()
     -- end,
     init_options = {
-      -- signatureHelp = true,
+      signatureHelp = true,
       codeLens = true,
     },
   },

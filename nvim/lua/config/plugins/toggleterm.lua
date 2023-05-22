@@ -1,5 +1,6 @@
 return {
   "akinsho/toggleterm.nvim",
+  enabled = false,
   event = "VeryLazy",
   config = function()
     local wk = require("which-key")

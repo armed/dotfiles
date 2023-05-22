@@ -1,6 +1,8 @@
 local M = {
   "stevearc/oil.nvim",
-  cmd = "Oil",
+  keys = {
+    { "<leader>o", ":Oil<cr>", desc = "Oil Dir Editor" },
+  },
 }
 
 function M.config()

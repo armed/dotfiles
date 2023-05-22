@@ -69,6 +69,7 @@ function M.config()
     },
     include_current = false,
   })
+
 end
 
 return M

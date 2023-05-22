@@ -1,6 +1,8 @@
 local M = {
   "natecraddock/workspaces.nvim",
-  event = "VeryLazy",
+  keys = {
+    { "<leader>w" }
+  },
   dependencies = {
     "nvim-neo-tree/neo-tree.nvim",
     "folke/which-key.nvim",

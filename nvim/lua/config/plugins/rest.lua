@@ -1,6 +1,9 @@
 return {
   "rest-nvim/rest.nvim",
   ft = "http",
+  keys = {
+    { "<leader>R", desc = "REST" },
+  },
   opts = {
     -- Open request results in a horizontal split
     result_split_horizontal = false,
@@ -35,25 +38,15 @@ return {
     custom_dynamic_variables = {},
     yank_dry_run = true,
   },
-  config = function(conf)
-    require("rest-nvim").setup(conf.opts)
-    local map = vim.keymap.set
-    local autocmd = vim.api.nvim_create_autocmd
-    local augroup = vim.api.nvim_create_augroup
-    local rest = augroup("Rest Client", { clear = true })
-
-    autocmd("FileType", {
-      group = rest,
-      pattern = { "http" },
-      callback = function(event)
-        local buf = event.buf
-        map("n", "<leader>Rr", "<Plug>RestNvim",
-          { desc = "Run under cursor", buffer = buf })
-        map("n", "<leader>Rl", "<Plug>RestNvimLast",
-          { desc = "Run last", buffer = buf })
-        map("n", "<leader>Rv", "<Plug>RestNvimPreview",
-          { desc = "Curl preview", buffer = buf })
-      end,
-    })
+  config = function(_, opts)
+    require("rest-nvim").setup(opts)
+    local wk = require("which-key")
+    wk.register({
+      R = {
+        r = { "<Plug>RestNvim", desc = "Run under cursor" },
+        l = { "<Plug>RestNvimLast", desc = "Run last" },
+        v = { "<Plug>RestNvimPreview", desc = "Curl preview" },
+      },
+    }, { prefix = "<leader>", buffer = 0 })
   end,
 }

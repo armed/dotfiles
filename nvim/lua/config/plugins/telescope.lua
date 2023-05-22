@@ -2,6 +2,10 @@ local M = {
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
   branch = "0.1.x",
+  keys = {
+    { "<leader>f", desc = "Telescope find" },
+    { "<leader>r", desc = "Resume last search" },
+  },
   dependencies = {
     "tsakirist/telescope-lazy.nvim",
     "aaronhallaert/advanced-git-search.nvim",
@@ -131,6 +135,20 @@ function M.config()
   telescope.load_extension("fzf")
   telescope.load_extension("workspaces")
   telescope.load_extension("lazy")
+
+  local wk = require("which-key")
+  wk.register({
+    r = { ":Telescope resume<cr>", "Resume last search" },
+    f = {
+      F = { ":FzfLua<cr>", "Fzf" },
+      f = { ":Telescope find_files<cr>", "Files" },
+      c = { ":Telescope current_buffer_fuzzy_find<cr>", "In buffer" },
+      g = { ":Telescope live_grep<cr>", "Live grep" },
+      b = { ":Telescope buffers<cr>", "Buffers" },
+      k = { ":Telescope keymaps<cr>", "Keymaps" },
+      r = { ":Telescope oldfiles cwd_only=true<cr>", "Recent files" },
+    },
+  }, { prefix = "<leader>" })
 end
 
 return M

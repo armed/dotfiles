@@ -5,17 +5,15 @@ return {
     cmd = "StartupTime",
   },
   {
-    "ThePrimeagen/harpoon",
-    config = true,
-  },
-  {
     "kevinhwang91/nvim-bqf",
     event = "VeryLazy",
   },
   { "folke/todo-comments.nvim", event = "VeryLazy", config = true },
   {
     "mbbill/undotree",
-    cmd = "UndotreeToggle",
+    keys = {
+      { "<leader>U", ":UndotreeToggle<cr>", desc = "Undo Tree" },
+    },
   },
   {
     "numToStr/Comment.nvim",
@@ -131,6 +129,9 @@ return {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
     config = true,
+    keys = {
+      { "<leader><leader>", ":ZenMode<cr>", desc = "Enter Zen Mode" },
+    },
   },
   {
     "andweeb/presence.nvim",
