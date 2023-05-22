@@ -1,8 +1,6 @@
 return {
   "lewis6991/gitsigns.nvim",
-  keys = {
-    { "<leader>h", desc = "Gitsigns" },
-  },
+  event = "BufReadPost",
   opts = {
     current_line_blame_opts = {
       delay = 300,
@@ -21,6 +19,7 @@ return {
     local gs = require("gitsigns")
     wk.register({
       h = {
+        name = "Gitsigns",
         b = { ":Gitsigns blame_line<cr>", "Blame line" },
         p = { ":Gitsigns preview_hunk<cr>", "Preview hunk" },
         s = { ":Gitsigns stage_hunk<cr>", "Stage hunk" },
