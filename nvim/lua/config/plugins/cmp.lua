@@ -7,7 +7,6 @@ local M = {
     "L3MON4D3/LuaSnip",
     "onsails/lspkind.nvim",
     "saadparwaiz1/cmp_luasnip",
-    "PaterJason/cmp-conjure"
   },
 }
 
@@ -26,7 +25,7 @@ function M.config()
 
   cmp.setup({
     completion = {
-      keyword_length = 2
+      keyword_length = 2,
     },
     snippet = {
       expand = function(args)

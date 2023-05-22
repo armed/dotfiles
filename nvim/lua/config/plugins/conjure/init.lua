@@ -3,6 +3,9 @@ local M = {
   lazy = true,
   branch = "develop",
   ft = { "clojure", "lua", "fennel" },
+  dependencies = {
+    "PaterJason/cmp-conjure",
+  },
 }
 
 local function set_repl_winbar()
