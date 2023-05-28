@@ -4,23 +4,29 @@ local action_state = require("telescope.actions.state")
 local M = {}
 
 local function app_name_from_path(path)
-  -- reverse the string to make the search easier
-  local reversed_path = path:reverse()
-  -- find the first and second slash from the end
-  local first_slash = reversed_path:find("/")
-  local second_slash = reversed_path:find("/", first_slash + 1)
-  -- extract the folder name between the two slashes
-  local folder_name = reversed_path:sub(first_slash + 1, second_slash - 1)
-  -- reverse the folder name back to normal
-  folder_name = folder_name:reverse()
-  -- special case for ".shadow-cljs"
-  if folder_name == ".shadow-cljs" then
-    -- find the third slash
-    local third_slash = reversed_path:find("/", second_slash + 1)
-    -- extract the folder name between the second and third slashes
-    folder_name = reversed_path:sub(second_slash + 1, third_slash - 1)
+  local folder_name = nil
+  if path ~= nil and path ~= "" then
+    -- reverse the string to make the search easier
+    local reversed_path = path:reverse()
+    -- find the first and second slash from the end
+    local first_slash = reversed_path:find("/")
+    local second_slash = reversed_path:find("/", first_slash + 1)
+    -- extract the folder name between the two slashes
+    folder_name = reversed_path:sub(first_slash + 1, second_slash - 1)
     -- reverse the folder name back to normal
-    folder_name = folder_name:reverse() .. "[shadow.cljs]"
+    folder_name = folder_name:reverse()
+    -- special case for ".shadow-cljs"
+    if folder_name == ".shadow-cljs" then
+      -- find the third slash
+      local third_slash = reversed_path:find("/", second_slash + 1)
+      if third_slash then
+        -- extract the folder name between the second and third slashes
+        folder_name = reversed_path:sub(second_slash + 1, third_slash - 1)
+        -- reverse the folder name back to normal
+        folder_name = folder_name:reverse() .. "[shadow.cljs]"
+      end
+      folder_name = "local[shadow.cljs]"
+    end
   end
   return folder_name
 end

@@ -1,10 +1,6 @@
 local servers = {
   clojure_lsp = {
-    root_dir = require("config.plugins.lsp.utils").find_furthest_root({
-      "deps.edn",
-      "bb.edn",
-      "shadow-cljs.edn",
-    }),
+    root_dir = require("config.plugins.lsp.utils").get_lsp_cwd,
     init_options = {
       signatureHelp = true,
       codeLens = true,

@@ -1,40 +1,48 @@
 local M = {}
 
-function M.glob_exists_in_dir(dir, globs)
-  for _, glob in ipairs(globs) do
-    if #vim.fn.glob(vim.api.nvim_call_function('fnamemodify', { dir, ':p' }) .. '/' .. glob) > 0 then
+local function exists(root, files)
+  for _, file in ipairs(files) do
+    if vim.fn.filereadable(root .. file) == 1 then
       return true
     end
   end
   return false
 end
 
-function M.find_furthest_root(globs)
-  local home = vim.fn.expand("~")
-
-  local function traverse(path, root)
-    if path == home or path == "/" then
-      return root
+local nearest_parent = { "/shadow-cljs.edn" }
+local farthest_parent = {
+  "/deps.edn",
+  "/project.clj",
+  "/bb.edn",
+}
+-- This function will return the farthest parent directory containing
+-- a `deps.edn`, `project.clj`, `bb.edn` file, or the nearest parent directory
+-- containing a `shadow-cljs.edn` file, starting from the given directory.
+local function find_optimal_parent(dir)
+  if exists(dir, nearest_parent) then
+    return dir
+  elseif dir == "/" then
+    if exists(dir, farthest_parent) then
+      return dir
+    else
+      -- fallback
+      return vim.fn.getcwd()
     end
-
-    local next = vim.fn.fnamemodify(path, ':h')
-
-    if M.glob_exists_in_dir(path, globs) then
-      return traverse(next, path)
+  else
+    local parentDir = dir:match("(.*)/")
+    if parentDir then
+      return find_optimal_parent(parentDir)
+    else
+      -- fallback
+      return vim.fn.getcwd()
     end
-
-    return traverse(next, root)
-  end
-
-  return function(start_path)
-    local result = string.match(start_path, '^%w+://')
-    if result then
-      return nil
-    end
-
-    return traverse(start_path, nil)
   end
 end
 
-return M
+function M.get_lsp_cwd(file_path)
+  local dir = vim.fn.expand(file_path .. ":p:h")
+  local parent = find_optimal_parent(dir)
+  return parent
+end
 
+return M
