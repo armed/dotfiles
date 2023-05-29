@@ -10,13 +10,14 @@ return {
     },
   },
   keys = {
-    { "<leader>g", desc = "Neogit" },
+    { "<leader>g", desc = "Git" },
   },
   config = function(_, opts)
     require("neogit").setup(opts)
     local wk = require("which-key")
     wk.register({
       g = {
+        name = "Git",
         g = { ":Neogit<cr>", "Status" },
         p = { ":Git push<cr>", "Push" },
         P = { ":Git push --force<cr>", "Force Push" },
