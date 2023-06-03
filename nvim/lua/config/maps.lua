@@ -8,6 +8,12 @@ local function map(mode, lhs, rhs, opts)
   end
 end
 
+-- dont polute yank
+map({ "n", "v" }, "c", '"ac', { silent = true })
+map({ "n", "v" }, "C", '"ac', { silent = true })
+map({ "n", "v" }, "d", '"ad', { silent = true })
+map({ "n", "v" }, "D", '"ad', { silent = true })
+
 -- escape insert
 map("i", "jj", "<esc>", { silent = true })
 map("i", "jk", "<esc>", { silent = true })
@@ -44,29 +50,19 @@ map(
   { desc = "Go to right window" }
 )
 
--- Resize window using tmux.nvim
-map(
-  "n",
-  "<A-Up>",
-  [[<cmd>lua require("tmux").resize_top()<cr>]],
-  { desc = "Increase window height" }
-)
-map(
-  "n",
-  "<A-Down>",
-  [[<cmd>lua require("tmux").resize_bottom()<cr>]],
-  { desc = "Decrease window height" }
-)
+-- Resize window using <alt> arrow keys
+map("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 map(
   "n",
   "<A-Left>",
-  [[<cmd>lua require("tmux").resize_left()<cr>]],
+  "<cmd>vertical resize -2<cr>",
   { desc = "Decrease window width" }
 )
 map(
   "n",
   "<A-Right>",
-  [[<cmd>lua require("tmux").resize_right()<cr>]],
+  "<cmd>vertical resize +2<cr>",
   { desc = "Increase window width" }
 )
 
