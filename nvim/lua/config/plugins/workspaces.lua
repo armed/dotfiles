@@ -76,7 +76,7 @@ function M.config()
       l = { load_workspace, "Load existing" },
       a = { add_workspace, "Add" },
       r = { w.remove, "Remove" },
-      f = { w.open, "List" },
+      f = { ":Telescope workspaces<cr>", "List" },
     },
   }, { prefix = "<leader>" })
 end
