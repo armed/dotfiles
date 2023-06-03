@@ -25,32 +25,24 @@ autocmd("VimEnter", {
   desc = "Open NvimTree when it's a Directory",
 })
 
--- autocmd("BufModifiedSet", {
---   callback = function()
---     vim.cmd("silent! w")
---   end,
---   group = general,
---   desc = "Auto Save",
--- })
-
--- autocmd("TermOpen", {
---   callback = function(evt)
---     vim.opt_local.relativenumber = false
---     vim.opt_local.number = false
---     print(vim.inspect(evt))
---     local opts = { buffer = 0 }
---     local map = vim.keymap.set
---     map("t", "<esc><esc>", "<C-\\><C-n>", opts)
---     map("t", "<C-h>", "<Cmd>wincmd h<CR>", opts)
---     map("t", "<C-j>", "<Cmd>wincmd j<CR>", opts)
---     map("t", "<C-k>", "<Cmd>wincmd k<CR>", opts)
---     map("t", "<C-l>", "<Cmd>wincmd l<CR>", opts)
---     vim.cmd("startinsert!")
---   end,
---   pattern = "term://*",
---   group = general,
---   desc = "Terminal Options",
--- })
+autocmd("TermOpen", {
+  callback = function(evt)
+    vim.opt_local.relativenumber = false
+    vim.opt_local.number = false
+    print(vim.inspect(evt))
+    local opts = { buffer = 0 }
+    local map = vim.keymap.set
+    map("t", "<esc><esc>", "<C-\\><C-n>", opts)
+    map("t", "<C-h>", "<Cmd>wincmd h<CR>", opts)
+    map("t", "<C-j>", "<Cmd>wincmd j<CR>", opts)
+    map("t", "<C-k>", "<Cmd>wincmd k<CR>", opts)
+    map("t", "<C-l>", "<Cmd>wincmd l<CR>", opts)
+    vim.cmd("startinsert!")
+  end,
+  pattern = "term://*",
+  group = general,
+  desc = "Terminal Options",
+})
 
 -- Check if we need to reload the file when it changed
 autocmd({ "FocusGained", "TermClose", "TermLeave" }, { command = "checktime" })
