@@ -10,9 +10,7 @@ end
 
 -- dont polute yank
 map({ "n", "v" }, "c", '"ac', { silent = true })
-map({ "n", "v" }, "C", '"ac', { silent = true })
-map({ "n", "v" }, "d", '"ad', { silent = true })
-map({ "n", "v" }, "D", '"ad', { silent = true })
+map({ "n", "v" }, "C", '"aC', { silent = true })
 
 -- escape insert
 map("i", "jj", "<esc>", { silent = true })
@@ -24,47 +22,17 @@ map("i", "kk", "<esc>", { silent = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- Move using tmux.nvim
-map(
-  "n",
-  "<C-h>",
-  [[<cmd>lua require("tmux").move_left()<cr>]],
-  { desc = "Go to left window" }
-)
-map(
-  "n",
-  "<C-j>",
-  [[<cmd>lua require("tmux").move_bottom()<cr>]],
-  { desc = "Go to lower window" }
-)
-map(
-  "n",
-  "<C-k>",
-  [[<cmd>lua require("tmux").move_top()<cr>]],
-  { desc = "go to upper window" }
-)
-map(
-  "n",
-  "<C-l>",
-  [[<cmd>lua require("tmux").move_right()<cr>]],
-  { desc = "Go to right window" }
-)
+-- Move to window using the <ctrl> hjkl keys
+map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 
 -- Resize window using <alt> arrow keys
 map("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-map(
-  "n",
-  "<A-Left>",
-  "<cmd>vertical resize -2<cr>",
-  { desc = "Decrease window width" }
-)
-map(
-  "n",
-  "<A-Right>",
-  "<cmd>vertical resize +2<cr>",
-  { desc = "Increase window width" }
-)
+map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move Lines
 map("n", "<A-j>", ":m .+1<cr>==", { desc = "Move down" })
@@ -182,8 +150,9 @@ map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
-local remap = vim.api.nvim_set_keymap
-remap("n", "<TAB>", ">>", { noremap = true })
-remap("n", "<S-TAB>", "<<", { noremap = true })
-remap("v", "<TAB>", ">gv", { noremap = true })
-remap("v", "<S-TAB>", "<gv", { noremap = true })
+-- local remap = vim.api.nvim_set_keymap
+-- remap("n", "<TAB>", ">>", { noremap = true })
+-- remap("n", "<S-TAB>", "<<", { noremap = true })
+-- remap("v", "<TAB>", ">gv", { noremap = true })
+-- remap("v", "<S-TAB>", "<gv", { noremap = true })
+--
