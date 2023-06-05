@@ -29,7 +29,6 @@ autocmd("TermOpen", {
   callback = function(evt)
     vim.opt_local.relativenumber = false
     vim.opt_local.number = false
-    print(vim.inspect(evt))
     local opts = { buffer = 0 }
     local map = vim.keymap.set
     map("t", "<esc><esc>", "<C-\\><C-n>", opts)
