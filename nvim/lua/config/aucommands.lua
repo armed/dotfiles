@@ -32,10 +32,13 @@ autocmd("TermOpen", {
     local opts = { buffer = 0 }
     local map = vim.keymap.set
     map("t", "<esc><esc>", "<C-\\><C-n>", opts)
-    map("t", "<C-h>", "<Cmd>wincmd h<CR>", opts)
-    map("t", "<C-j>", "<Cmd>wincmd j<CR>", opts)
-    map("t", "<C-k>", "<Cmd>wincmd k<CR>", opts)
-    map("t", "<C-l>", "<Cmd>wincmd l<CR>", opts)
+    map("t", "jj", "<C-\\><C-n>", opts)
+    map("t", "<C-h>", ":wincmd h<CR>", opts)
+    map("t", "<C-j>", ":wincmd j<CR>", opts)
+    map("t", "<C-k>", ":wincmd k<CR>", opts)
+    map("t", "<C-l>", ":wincmd l<CR>", opts)
+    map("t", "qq", "<C-\\><C-n>:close<CR>", opts)
+    map("n", "q", ":close<CR>", opts)
     vim.cmd("startinsert!")
   end,
   pattern = "term://*",
