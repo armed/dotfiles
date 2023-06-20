@@ -29,7 +29,6 @@ function M.config()
     ensure_installed = { "lua", "help", "clojure" },
     highlight = {
       enable = true,
-      additional_vim_regex_highlighting = { "clojure" },
       disable = function(_, bufnr)
         return vim.api.nvim_buf_line_count(bufnr) > 5000
       end,
