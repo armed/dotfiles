@@ -1,6 +1,7 @@
 return {
   "rest-nvim/rest.nvim",
   ft = "http",
+  enabled = false,
   keys = {
     { "<leader>R", desc = "REST" },
   },
