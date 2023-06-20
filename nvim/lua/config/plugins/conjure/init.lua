@@ -82,7 +82,6 @@ M.config = function()
       cur_log = "split"
     end
     log["last-open-cmd"] = cur_log
-    vim.cmd("wincmd p")
   end
 
   local function is_log_win_open()
@@ -101,7 +100,6 @@ M.config = function()
       local win = vim.api.nvim_get_current_win()
       vim.api.nvim_win_set_height(win, 10)
     end
-    vim.cmd("wincmd p")
   end
 
   wk.register(mappings, { prefix = "<localleader>" })
