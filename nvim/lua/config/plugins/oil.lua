@@ -1,4 +1,5 @@
 local M = {
+  enabled = false,
   "stevearc/oil.nvim",
   keys = {
     { "<leader>o", ":Oil<cr>", desc = "Oil Dir Editor" },
