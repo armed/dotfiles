@@ -32,11 +32,13 @@ return {
           paredit.api.move_to_next_element,
           "Jump to next element tail",
           repeatable = false,
+          operator = true
         },
         ["B"] = {
           paredit.api.move_to_prev_element,
           "Jump to previous element head",
           repeatable = false,
+          operator = true
         },
       },
     })
