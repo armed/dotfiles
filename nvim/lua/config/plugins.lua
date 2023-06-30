@@ -118,7 +118,7 @@ return {
     cmd = "ZenMode",
     config = true,
     keys = {
-      { "<leader><leader>", ":ZenMode<cr>", desc = "Enter Zen Mode" },
+      { "<leader><leader>", "<cmd>ZenMode<cr>", desc = "Enter Zen Mode" },
     },
   },
   {
