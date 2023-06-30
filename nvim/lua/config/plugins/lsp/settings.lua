@@ -48,7 +48,7 @@ local vld = vim.lsp.diagnostic
 local vlw = vim.lsp.with
 local vlh = vim.lsp.handlers
 
-M.handlers = {
+M.handlers = vim.tbl_deep_extend("force", vim.lsp.handlers, {
   ["textDocument/publishDiagnostics"] = vlw(vld.on_publish_diagnostics, {
     virtual_text = false,
     signs = true,
@@ -67,6 +67,6 @@ M.handlers = {
     pcall(vim.diagnostic.reset, ns)
     return true
   end,
-}
+})
 
 return M

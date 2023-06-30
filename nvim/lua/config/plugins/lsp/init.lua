@@ -52,6 +52,7 @@ local servers = {
       },
     },
   },
+  clangd = {},
 }
 
 local M = {
@@ -60,23 +61,26 @@ local M = {
   dependencies = {
     "jose-elias-alvarez/null-ls.nvim",
     {
-      "williamboman/mason.nvim",
-      opts = {
-        ui = { border = "rounded" },
-      },
-    },
-    {
       "folke/neodev.nvim",
       config = true,
     },
     "onsails/lspkind.nvim",
     "hrsh7th/cmp-nvim-lsp",
-    "williamboman/mason-lspconfig.nvim",
-    opts = {
-      ensure_installed = vim.tbl_keys(servers),
+    {
+      "williamboman/mason-lspconfig.nvim",
+      dependencies = {
+        "williamboman/mason.nvim",
+        opts = {
+          ui = { border = "rounded" },
+        },
+      },
+      opts = {
+        ensure_installed = vim.tbl_keys(servers),
+      },
     },
     {
       "j-hui/fidget.nvim",
+      enabled = false,
       tag = "legacy",
       config = true,
     },
@@ -85,10 +89,14 @@ local M = {
 
 function M.config()
   require("lspconfig.ui.windows").default_options.border = "rounded"
+  require("config.plugins.lsp.diagnostics").setup()
+  require("config.plugins.lsp.autocmds").setup()
+
   local nls = require("null-ls")
   local mason_lspconfig = require("mason-lspconfig")
   local settings = require("config.plugins.lsp.settings")
-  require("config.plugins.lsp.diagnostics").setup()
+
+  mason_lspconfig.setup()
 
   local options = {
     handlers = settings.handlers,
