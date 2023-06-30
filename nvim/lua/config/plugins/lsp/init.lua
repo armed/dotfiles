@@ -104,6 +104,9 @@ function M.config()
     flags = {
       debounce_text_changes = 150,
     },
+    before_init = function (params)
+      params.workDoneToken = "1"
+    end
   }
 
   nls.setup({
