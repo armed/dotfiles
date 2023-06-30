@@ -31,11 +31,6 @@ return {
     cmd = "Git",
   },
   {
-    "kylechui/nvim-surround",
-    event = "BufReadPost",
-    config = true,
-  },
-  {
     "lukas-reineke/indent-blankline.nvim",
     enabled = false,
     event = "BufReadPost",
@@ -58,14 +53,6 @@ return {
         "fennel",
       },
     },
-  },
-  {
-    "ggandor/leap.nvim",
-    enabled = false,
-    event = "VeryLazy",
-    config = function()
-      require("leap").add_default_mappings()
-    end,
   },
   {
     "simrat39/symbols-outline.nvim",
