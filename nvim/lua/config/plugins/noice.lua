@@ -1,6 +1,6 @@
 return {
-  dir = "~/Developer/neovim/noice.nvim",
-  -- "folke/noice.nvim",
+  -- dir = "~/Developer/neovim/noice.nvim",
+  "folke/noice.nvim",
   enabled = true,
   event = "VeryLazy",
   opts = {
