@@ -17,7 +17,7 @@ return {
             name = { ".*" },
             maxwidth = 2,
             colwidth = 1,
-            auto = true,
+            auto = false,
             wrap = true,
           },
           click = "v:lua.ScSa",
