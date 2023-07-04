@@ -101,6 +101,7 @@ function M.config()
   local options = {
     handlers = settings.handlers,
     capabilities = settings.capabilities,
+    -- on_attach = settings.on_attach,
     flags = {
       debounce_text_changes = 150,
     },
