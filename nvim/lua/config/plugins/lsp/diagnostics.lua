@@ -1,10 +1,10 @@
 local M = {}
 
 M.signs = {
-  Error = "",
-  Warn = "",
+  Error = "",
+  Warn = "",
   Hint = "",
-  Info = "",
+  Info = "",
 }
 
 function M.setup()
