@@ -1,6 +1,6 @@
 return {
   cmd = "Neogit",
-  "TimUntersberger/neogit",
+  "NeogitOrg/neogit",
   opts = {
     disable_commit_confirmation = true,
     kind = "vsplit",
