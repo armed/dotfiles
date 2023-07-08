@@ -50,13 +50,13 @@ autocmd("TermOpen", {
 autocmd({ "FocusGained", "TermClose", "TermLeave" }, { command = "checktime" })
 
 -- Highlight on yank
-autocmd("TextYankPost", {
-  group = general,
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  desc = "Highlight on Yank",
-})
+-- autocmd("TextYankPost", {
+--   group = general,
+--   callback = function()
+--     vim.highlight.on_yank()
+--   end,
+--   desc = "Highlight on Yank",
+-- })
 
 -- resize splits if window got resized
 autocmd({ "VimResized" }, {
