@@ -50,7 +50,7 @@ function M.config()
     },
     e = { ":Neotree toggle<cr>", "Toggle Neo Tree" },
     E = { ":Neotree focus<cr>", "Focus Neo Tree" },
-    s = { ":silent we<cr>", "Save buffer" },
+    s = { ":silent w<cr>", "Save buffer" },
     S = { ":silent wa<cr>", "Save all" },
     x = { save_all_quit, "Save and quit" },
     q = { "<c-w>q", "Close window" },
