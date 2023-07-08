@@ -1,7 +1,7 @@
 return {
   "gbprod/yanky.nvim",
   dependencies = {
-    { "kkharji/sqlite.lua", enabled = not jit.os:find("Windows") },
+    { "kkharji/sqlite.lua" },
   },
   opts = function()
     local mapping = require("yanky.telescope.mapping")
@@ -11,8 +11,9 @@ return {
     mappings.i["<c-]>"] = mapping.put("p")
     mappings.i["<c-[>"] = mapping.put("P")
     return {
-      highlight = { timer = 200 },
-      ring = { storage = jit.os:find("Windows") and "shada" or "sqlite" },
+      highlight = { timer = 150 },
+      preserve_cursor_position = { enabled = true },
+      ring = { storage = "sqlite" },
       picker = {
         telescope = {
           use_default_mappings = false,
@@ -116,3 +117,4 @@ return {
     },
   },
 }
+
