@@ -1,7 +1,7 @@
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
-  branch = "v2.x",
+  branch = "v3.x",
   dependencies = {
     "kyazdani42/nvim-web-devicons",
     "s1n7ax/nvim-window-picker",
@@ -17,8 +17,8 @@ local function get_palette()
     local kw = require("kanagawa.colors")
     local kw_colors = kw.setup()
     return {
-      win_hl = kw_colors.crystalBlue,
-      fg = kw_colors.bg_dark,
+      win_hl = kw_colors.palette.crystalBlue,
+      fg = kw_colors.palette.sumiInk0,
     }
   elseif theme == "catppuccin" then
     local cp = require("catppuccin.palettes")
@@ -40,22 +40,6 @@ function M.config()
   local palette = get_palette()
   local nt = require("neo-tree")
 
-  nt.setup({
-    window = {
-      mappings = {
-        ["<tab>"] = "toggle_node",
-        ["<space>"] = false,
-      },
-    },
-    filesystem = {
-      use_libuv_file_watcher = true,
-      hide_gitignored = true,
-      cwd_target = { sidebar = "tab", current = "tab" },
-      follow_current_file = true,
-      group_empty_dirs = false,
-    },
-  })
-
   wp.setup({
     autoselect_one = true,
     other_win_hl_color = palette.win_hl,
@@ -70,6 +54,22 @@ function M.config()
     include_current = false,
   })
 
+  nt.setup({
+    use_popups_for_input = false,
+    window = {
+      mappings = {
+        ["<tab>"] = "toggle_node",
+        ["<space>"] = false,
+      },
+    },
+    filesystem = {
+      use_libuv_file_watcher = true,
+      hide_gitignored = true,
+      cwd_target = { sidebar = "tab", current = "tab" },
+      follow_current_file = { enabled = true },
+      group_empty_dirs = false,
+    },
+  })
 end
 
 return M
