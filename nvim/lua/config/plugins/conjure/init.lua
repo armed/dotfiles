@@ -42,13 +42,8 @@ M.config = function()
   vim.api.nvim_create_autocmd("BufNewFile", {
     group = grp,
     pattern = "conjure-log-*",
-    callback = function(event)
-      vim.defer_fn(function()
-        vim.lsp.for_each_buffer_client(event.buf, function(_, client_id)
-          vim.lsp.buf_detach_client(event.buf, client_id)
-        end)
-      end, 1000)
-      vim.diagnostic.disable(event.buf)
+    callback = function()
+      vim.diagnostic.disable(0)
     end,
   })
 
