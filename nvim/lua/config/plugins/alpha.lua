@@ -116,7 +116,7 @@ function M.config()
   -- dashboard.section.header.opts.hl = "@enumMember"
 
   dashboard.section.buttons.val = {
-    dashboard.button("f", "  > Find file", ":Telescope find_files<CR>"),
+    dashboard.button("f", "󰮗  > Find file", ":Telescope find_files<CR>"),
     dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
     dashboard.button("w", "  > Workspaces", ":Telescope workspaces<CR>"),
     dashboard.button(
@@ -124,7 +124,7 @@ function M.config()
       "  > Load workspace",
       ":so " .. wps.session_file .. "<cr>"
     ),
-    dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
+    dashboard.button("q", "󰗼  > Quit NVIM", ":qa<CR>"),
   }
 
   alpha.setup(dashboard.opts)
