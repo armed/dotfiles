@@ -107,7 +107,7 @@ return {
     "eraserhd/parinfer-rust",
     build = "cargo build --release",
     name = "parinfer",
-    enabled = true,
+    enabled = false,
     ft = { "clojure" },
     config = function()
       vim.g.parinfer_mode = "paren"
