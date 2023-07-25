@@ -1,3 +1,32 @@
+local function lsp_wrapped_drag(is_forward, fallback_fn)
+  local cmd
+  if is_forward then
+    cmd = "drag-forward"
+  else
+    cmd = "drag-backward"
+  end
+
+  return function()
+    local pos = vim.api.nvim_win_get_cursor(0)
+    local client = vim.lsp.get_clients({
+      name = "clojure_lsp",
+    })
+    if client ~= nil and next(client) then
+      vim.lsp.buf.execute_command({
+        command = cmd,
+        arguments = {
+          vim.uri_from_bufnr(0),
+          pos[1] - 1,
+          pos[2],
+        },
+        workDoneToken = "1",
+      })
+    else
+      fallback_fn()
+    end
+  end
+end
+
 return {
   -- "julienvincent/nvim-paredit",
   dir = "~/Developer/neovim/nvim-paredit",
@@ -5,6 +34,12 @@ return {
   enabled = true,
   config = function()
     local paredit = require("nvim-paredit")
+
+    local lsp_drag_form_forwards =
+      lsp_wrapped_drag(true, paredit.api.drag_form_forwards)
+    local lsp_drag_form_backwards =
+      lsp_wrapped_drag(false, paredit.api.drag_form_backwards)
+
     paredit.setup({
       filetypes = { "clojure" },
       cursor_behaviour = "auto",
@@ -16,11 +51,8 @@ return {
         ["<M-S-k>"] = { paredit.api.barf_forwards, "Barf forwards" },
         ["<M-S-j>"] = { paredit.api.barf_backwards, "Barf backwards" },
 
-        ["<M-l>"] = { paredit.api.drag_element_forwards, "Drag element fowrad" },
-        ["<M-h>"] = {
-          paredit.api.drag_element_backwards,
-          "Drag element backward",
-        },
+        ["<M-l>"] = { lsp_drag_form_forwards, "Drag element fowrad" },
+        ["<M-h>"] = { lsp_drag_form_backwards, "Drag element backward" },
 
         [">f"] = { paredit.api.drag_form_forwards, "Drag form forward" },
         ["<f"] = { paredit.api.drag_form_backwards, "Drag form backward" },
@@ -32,13 +64,13 @@ return {
           paredit.api.move_to_next_element,
           "Jump to next element tail",
           repeatable = false,
-          operator = true
+          operator = true,
         },
         ["B"] = {
           paredit.api.move_to_prev_element,
           "Jump to previous element head",
           repeatable = false,
-          operator = true
+          operator = true,
         },
       },
     })
