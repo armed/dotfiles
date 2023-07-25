@@ -10,6 +10,7 @@ local function lsp_wrapped_drag(is_forward, fallback_fn)
     local pos = vim.api.nvim_win_get_cursor(0)
     local client = vim.lsp.get_clients({
       name = "clojure_lsp",
+      bufnr = 0,
     })
     if client ~= nil and next(client) then
       vim.lsp.buf.execute_command({
@@ -28,8 +29,8 @@ local function lsp_wrapped_drag(is_forward, fallback_fn)
 end
 
 return {
-  -- "julienvincent/nvim-paredit",
-  dir = "~/Developer/neovim/nvim-paredit",
+  "julienvincent/nvim-paredit",
+  -- dir = "~/Developer/neovim/nvim-paredit",
   ft = { "clojure" },
   enabled = true,
   config = function()
