@@ -53,6 +53,11 @@ local servers = {
     },
   },
   clangd = {},
+  graphql = {
+    root_dir = function()
+      return vim.fn.getcwd()
+    end,
+  },
 }
 
 local M = {
@@ -105,9 +110,9 @@ function M.config()
     flags = {
       debounce_text_changes = 150,
     },
-    before_init = function (params)
+    before_init = function(params)
       params.workDoneToken = "1"
-    end
+    end,
   }
 
   nls.setup({
