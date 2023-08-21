@@ -44,17 +44,6 @@ return {
     event = "VeryLazy",
   },
   {
-    "windwp/nvim-autopairs",
-    event = "VeryLazy",
-    opts = {
-      disable_filetype = {
-        "clojure",
-        "TelescopePrompt",
-        "fennel",
-      },
-    },
-  },
-  {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
     init = function()
@@ -112,14 +101,6 @@ return {
     config = function()
       vim.g.parinfer_mode = "paren"
     end,
-  },
-  {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    config = true,
-    keys = {
-      { "<leader><leader>", "<cmd>ZenMode<cr>", desc = "Enter Zen Mode" },
-    },
   },
   {
     "andweeb/presence.nvim",

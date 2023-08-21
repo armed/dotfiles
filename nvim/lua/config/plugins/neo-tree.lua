@@ -4,9 +4,12 @@ local M = {
   branch = "v3.x",
   dependencies = {
     "kyazdani42/nvim-web-devicons",
-    "s1n7ax/nvim-window-picker",
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
+    {
+      "s1n7ax/nvim-window-picker",
+      tag = "v1.5",
+    },
   },
 }
 
@@ -44,6 +47,7 @@ function M.config()
     autoselect_one = true,
     other_win_hl_color = palette.win_hl,
     fg_color = palette.fg,
+    show_prompt = true,
     filter_rules = {
       bo = {
         filetype = { "neo-tree", "neo-tree-popup", "notify", "alpha" },
@@ -51,7 +55,7 @@ function M.config()
       },
       file_name_contains = { "conjure-log-*" },
     },
-    include_current = false,
+    include_current_win = false,
   })
 
   nt.setup({

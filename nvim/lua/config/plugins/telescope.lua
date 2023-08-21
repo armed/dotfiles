@@ -46,7 +46,7 @@ function M.config()
       vimgrep_arguments = {
         "rg",
         -- search all known types
-        "--type=all",
+        -- "--type=all",
         -- ignore this dirs
         "--glob=!**/.git/*",
         "--glob=!**/node_modules/*",

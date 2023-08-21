@@ -4,6 +4,9 @@ return {
   opts = {
     disable_commit_confirmation = true,
     kind = "vsplit",
+    log_view = {
+      kind = "split"
+    },
     signs = {
       section = { "", "" },
       item = { "", "" },

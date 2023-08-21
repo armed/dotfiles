@@ -61,8 +61,8 @@ function M.config()
   w.setup({
     hooks = {
       open_pre = function()
-        vim.lsp.stop_client(vim.lsp.get_active_clients())
-        if session_exists then
+        vim.lsp.stop_client(vim.lsp.get_clients())
+        if session_exists() then
           save_session()
           vim.cmd("sil %bwipeout!")
         end

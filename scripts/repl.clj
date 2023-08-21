@@ -93,7 +93,7 @@
                                 :out
                                 (string/split-lines)
                                 (mapv keyword))
-          cmd (str "clojure -M" (string/join selected-aliases))]
+          cmd (str "deps -M" (string/join selected-aliases))]
       (save-aliases! selected-aliases)
       (clean!)
       (println cmd)

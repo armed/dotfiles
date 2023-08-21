@@ -5,15 +5,15 @@ local M = {
       "nvim-treesitter/nvim-treesitter-context",
       opts = {
         enable = false,
-        -- patterns = {
-        --   clojure = {
-        --     "list_lit",
-        --     "vec_lit",
-        --     "map_lit",
-        --     "set_lit",
-        --   },
-        -- },
-        -- max_lines = 2,
+        patterns = {
+          clojure = {
+            "list_lit",
+            "vec_lit",
+            "map_lit",
+            "set_lit",
+          },
+        },
+        max_lines = 2,
         separator = "_",
       },
     },
@@ -25,12 +25,23 @@ local M = {
 function M.config()
   -- vim.cmd("hi TreesitterContextBottom gui=underline guisp=DarkGray")
 
+  ---@diagnostic disable-next-line: missing-fields
   require("nvim-treesitter.configs").setup({
+    autotag = {
+      enabled = true,
+      filetypes = { "html", "xml", "typescriptreact" },
+    },
+    sync_install = true,
     ensure_installed = { "lua", "help", "clojure" },
     highlight = {
       enable = true,
-      disable = function(_, bufnr)
-        return vim.api.nvim_buf_line_count(bufnr) > 5000
+      disable = function(_, buf)
+        local max_filesize = 200 * 1024 -- 200 KB
+        local ok, stats =
+          pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+          return true
+        end
       end,
     },
     indent = { enable = true },
