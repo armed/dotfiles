@@ -39,11 +39,14 @@ M.config = function()
   vim.g["conjure#mapping#log_toggle"] = false
 
   local grp = vim.api.nvim_create_augroup("conjure_hooks", { clear = true })
-  vim.api.nvim_create_autocmd("BufNewFile", {
+  vim.api.nvim_create_autocmd("BufEnter", {
     group = grp,
     pattern = "conjure-log-*",
-    callback = function()
-      vim.diagnostic.disable(0)
+    callback = function(event)
+      vim.diagnostic.disable(event.buf)
+      for _, client in ipairs(vim.lsp.get_clients({ bufnr = event.buf })) do
+        vim.lsp.buf_detach_client(event.buf, client.id)
+      end
     end,
   })
 

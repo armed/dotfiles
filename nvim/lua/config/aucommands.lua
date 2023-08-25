@@ -16,10 +16,12 @@ autocmd("VimEnter", {
       vim.cmd("Neotree")
     end
     local current_dir = vim.fn.getcwd()
-    local current_dir_name = current_dir:match("([^/]+)$")
-    vim.schedule(function()
-      vim.o.titlestring = current_dir_name .. "[nv]"
-    end)
+    if current_dir then
+      local current_dir_name = current_dir:match("([^/]+)$")
+      vim.schedule(function()
+        vim.o.titlestring = current_dir_name .. "[nv]"
+      end)
+    end
   end,
   group = general,
   desc = "Open NvimTree when it's a Directory",
@@ -96,7 +98,12 @@ autocmd("FileType", {
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+    vim.keymap.set(
+      "n",
+      "q",
+      "<cmd>close<cr>",
+      { buffer = event.buf, silent = true }
+    )
   end,
   desc = "Close by q",
 })

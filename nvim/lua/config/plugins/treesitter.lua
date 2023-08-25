@@ -32,7 +32,7 @@ function M.config()
       filetypes = { "html", "xml", "typescriptreact" },
     },
     sync_install = true,
-    ensure_installed = { "lua", "help", "clojure" },
+    ensure_installed = { "lua", "clojure" },
     highlight = {
       enable = true,
       disable = function(_, buf)
