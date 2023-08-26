@@ -1,7 +1,7 @@
 local M = {
   "Olical/conjure",
   lazy = true,
-  branch = "develop",
+  branch = "master",
   ft = { "clojure", "lua", "fennel" },
   dependencies = {
     "PaterJason/cmp-conjure",
