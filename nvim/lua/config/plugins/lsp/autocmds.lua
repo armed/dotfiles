@@ -31,7 +31,7 @@ function M.setup()
       local bindings = require("config.plugins.lsp.bindings")
       local bufnr = args.buf
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if client.server_capabilities.codeLensProvider then
+      if client and client.server_capabilities.codeLensProvider then
         vim.lsp.codelens.refresh()
       end
       local wk_bindings = bindings.setup()
