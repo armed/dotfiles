@@ -193,8 +193,6 @@ function M.config()
         servers["jdtls"] or {},
         {
           cmd = cmd,
-
-          on_attach = function() print("JDTLS attach") end,
           init_options = {
             extendedClientCapabilities = vim.tbl_deep_extend(
               "force",
