@@ -87,7 +87,7 @@ local find_opts = require("telescope.themes").get_dropdown({
   width = 0.8,
   previewer = false,
   prompt_title = "REPLs",
-  cwd = "~/Developer/k16",
+  cwd = "~/Developer/kepler",
   find_command = {
     "rg",
     "--files",
