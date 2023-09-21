@@ -86,7 +86,16 @@ function M.config()
         { fmt = show_macro_recording, "macro-recording" },
       },
       lualine_c = {
-        { path = 1, "filename" },
+        {
+          path = 1,
+          "filename",
+          fmt = function(filename)
+            if #filename > 80 then
+              filename = vim.fs.basename(filename)
+            end
+            return filename
+          end,
+        },
       },
       lualine_x = {
         {
