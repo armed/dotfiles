@@ -1,7 +1,7 @@
 local M = {
   "Olical/conjure",
   lazy = true,
-  branch = "master",
+  branch = "develop",
   ft = { "clojure", "lua", "fennel" },
   dependencies = {
     "PaterJason/cmp-conjure",
@@ -39,22 +39,23 @@ M.config = function()
   vim.g["conjure#mapping#log_toggle"] = false
 
   local grp = vim.api.nvim_create_augroup("conjure_hooks", { clear = true })
-  vim.api.nvim_create_autocmd("BufEnter", {
+
+  vim.api.nvim_create_autocmd("BufNewFile", {
     group = grp,
     pattern = "conjure-log-*",
     callback = function(event)
       vim.diagnostic.disable(event.buf)
-      for _, client in ipairs(vim.lsp.get_clients({ bufnr = event.buf })) do
-        vim.lsp.buf_detach_client(event.buf, client.id)
-      end
     end,
   })
 
   vim.api.nvim_create_autocmd("BufEnter,WinEnter", {
     group = grp,
     pattern = "conjure-log-*",
-    callback = function()
+    callback = function(event)
       set_repl_winbar()
+      for _, client in ipairs(vim.lsp.get_clients({ bufnr = event.buf })) do
+        vim.lsp.buf_detach_client(event.buf, client.id)
+      end
     end,
   })
 
