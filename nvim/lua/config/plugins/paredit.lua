@@ -28,30 +28,31 @@ local function lsp_wrapped_drag(is_forward, fallback_fn)
   end
 end
 
--- local function zpr(input)
---   local result = vim.fn.system(
---     "echo '" .. input .. "' | zpr '{:style [:indent-only :respect-nl]}'"
---   )
---   if result then
---     return result:gsub("\r?\n$", "")
---   end
---   return input
--- end
---
--- local function zprint_indent(buf, start, end_)
---   local api = vim.api
---   local lines = api.nvim_buf_get_text(buf, start[1], 0, end_[1], end_[2], {})
---   local text = table.concat(lines, "\n")
---   local result = zpr(text)
---   if result then
---     local base_indent = string.rep(" ", start[2])
---     local formatted_lines = {}
---     for line in result:gmatch("[^\r\n]+") do
---       table.insert(formatted_lines, base_indent .. line)
---     end
---     api.nvim_buf_set_text(buf, start[1], 0, end_[1], end_[2], formatted_lines)
---   end
--- end
+local function zpr(input)
+  local result = vim.fn.system(
+    "echo '" .. input .. "' | zpr '{:style [:indent-only :respect-nl]}'"
+  )
+  if result then
+    return result:gsub("\r?\n$", "")
+  end
+  return input
+end
+
+local function zprint_indent(event, _opts)
+  local api = vim.api
+  local range = { event.parent:parent():range() }
+  local lines = api.nvim_buf_get_text(0, range[1], 0, range[3], range[4], {})
+  local text = table.concat(lines, "\n")
+  local result = zpr(text)
+  if result then
+    local base_indent = string.rep(" ", range[2])
+    local formatted_lines = {}
+    for line in result:gmatch("[^\r\n]+") do
+      table.insert(formatted_lines, base_indent .. line)
+    end
+    api.nvim_buf_set_text(0, range[1], 0, range[3], range[4], formatted_lines)
+  end
+end
 
 local function load_paredit()
   local paredit = require("nvim-paredit")
@@ -65,7 +66,10 @@ local function load_paredit()
     filetypes = { "clojure" },
     cursor_behaviour = "auto",
     use_default_keys = false,
-    indent_behaviour = "native",
+    indent = {
+      enabled = true,
+      indentor = require("nvim-paredit.indentation.native").indentor,
+    },
     keys = {
       ["<M-S-l>"] = { paredit.api.slurp_forwards, "Slurp forwards" },
       ["<M-S-h>"] = { paredit.api.slurp_backwards, "Slurp backwards" },
@@ -97,8 +101,9 @@ local function load_paredit()
 
       ["<localleader>w"] = {
         function()
+          local range = paredit.wrap.wrap_element_under_cursor("( ", ")")
           paredit.cursor.place_cursor(
-            paredit.wrap.wrap_element_under_cursor("( ", ")"),
+            range,
             { placement = "inner_start", mode = "insert" }
           )
         end,
@@ -113,6 +118,20 @@ local function load_paredit()
           )
         end,
         "Wrap element insert tail",
+      },
+
+      ["<localleader>wc"] = {
+        function()
+          paredit.wrap.wrap_enclosing_form_under_cursor("(sc.api/spy ", ")")
+        end,
+        "Wrap with scope capture spy",
+      },
+
+      ["<localleader>wt"] = {
+        function()
+          paredit.wrap.wrap_enclosing_form_under_cursor("(doto ", " tap>)")
+        end,
+        "Wrap with doto tap>",
       },
 
       ["<localleader>i"] = {
@@ -142,8 +161,8 @@ end
 
 return {
   "julienvincent/nvim-paredit",
-  branch = "auto-indentation",
-  -- dir = "/Users/armed/Developer/neovim/nvim-paredit",
+  -- branch = "auto-indentation",
+  -- dir = "/Users/armed/Developer/oss/nvim-paredit",
   ft = { "clojure" },
   enabled = true,
   config = load_paredit,
