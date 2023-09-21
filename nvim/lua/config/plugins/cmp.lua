@@ -21,6 +21,7 @@ function M.config()
   local cmp = require("cmp")
   local luasnip = require("luasnip")
   local lspkind = require("lspkind")
+
   require("luasnip.loaders.from_snipmate").lazy_load()
 
   cmp.setup({
@@ -37,11 +38,13 @@ function M.config()
         mode = "symbol",
         maxwidth = 80,
         ellipsis_char = "...",
-        before = function(_, vim_item)
+        before = function (entry, vim_item)
+          vim_item = require('tailwindcss-colorizer-cmp').formatter(entry, vim_item)
           return vim_item
         end,
         menu = {
           conjure = "[conjure]",
+          tailwindcss = "[tailwind]",
           buffer = "[Buffer]",
           nvim_lsp = "[LSP]",
           luasnip = "[LuaSnip]",
