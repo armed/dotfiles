@@ -6,6 +6,7 @@
 
  :aliases
  {:portal {:extra-deps {djblue/portal {:mvn/version "0.37.1"}}}
+  :scope-capture {:extra-deps {vvvvalvalval/scope-capture {:mvn/version "0.3.3"}}}
   :cider {:extra-deps {cider/cider-nrepl {:mvn/version "0.30.0"}
                        io.aviso/pretty {:mvn/version "1.4"}}
           :main-opts ["-m" "nrepl.cmdline"
