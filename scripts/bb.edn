@@ -1,2 +1,1 @@
-{:deps {io.github.babashka/tools.bbuild {:git/sha "a1f16c7376b460200ad38b4ef615ba492198ee63"}
-        org.clojure/data.zip {:mvn/version "1.0.0"}}}
+{:deps {io.github.babashka/tools.bbuild {:git/sha "a1f16c7376b460200ad38b4ef615ba492198ee63"}}}
