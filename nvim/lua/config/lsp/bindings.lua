@@ -31,6 +31,14 @@ function M.setup()
     t = { ":Telescope lsp_type_definitions<cr>", "Type Definition" },
     ["<leader>"] = {
       l = {
+        h = {
+          function()
+            if vim.lsp.inlay_hint then
+              vim.lsp.inlay_hint(0)
+            end
+          end,
+          "Inlay hints",
+        },
         r = { vim.lsp.buf.rename, "Rename" },
         R = { ":LspRestart<cr>", "Lsp Restart" },
         I = { ":LspInfo<cr>", "Lsp Info" },

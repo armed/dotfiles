@@ -32,7 +32,7 @@ M.handlers = vim.tbl_deep_extend("force", vim.lsp.handlers, {
     lsp_handlers.signature_help,
     win_opts.float_opts
   ),
-  ["workspace/diagnostic/refresh"] = function(_, result, ctx)
+  ["workspace/diagnostic/refresh"] = function(_, _, ctx)
     local ns = lsp_diagnostics.get_namespace(ctx.client_id, true)
     pcall(vim.diagnostic.reset, ns)
     return true

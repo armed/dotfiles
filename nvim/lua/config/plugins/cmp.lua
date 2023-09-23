@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 local M = {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
