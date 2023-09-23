@@ -1,69 +1,10 @@
-local servers = {
-  clojure_lsp = {
-    root_dir = require("config.plugins.lsp.utils").get_lsp_cwd,
-    init_options = {
-      signatureHelp = true,
-      codeLens = true,
-    },
-  },
-  yamlls = {
-    settings = {
-      yaml = {
-        schemas = {
-          "https://json.schemastore.org/github-workflow.json",
-          ".github/workflows/*",
-        },
-      },
-    },
-  },
-  tsserver = {},
-  jdtls = {
-    settings = {
-      single_file_support = true,
-      java = {
-        signatureHelp = { enabled = true },
-        contentProvider = { preferred = "fernflower" },
-      },
-    },
-  },
-  jsonls = {},
-  lua_ls = {
-    settings = {
-      Lua = {
-        format = {
-          enable = false,
-          -- Put format options here
-          -- NOTE: the value should be STRING!!
-          defaultConfig = {
-            indent_style = "space",
-            indent_size = "2",
-          },
-        },
-        runtime = {
-          version = "LuaJIT",
-        },
-        diagnostics = {
-          globals = { "vim" },
-        },
-        workspace = {
-          checkThirdParty = false,
-        },
-        telemetry = { enable = false },
-      },
-    },
-  },
-  clangd = {},
-  graphql = {
-    root_dir = function()
-      return vim.fn.getcwd()
-    end,
-  },
-}
+local servers = require("config.lsp.servers")
 
 local M = {
   "neovim/nvim-lspconfig",
   event = "BufReadPre",
   dependencies = {
+    "mfussenegger/nvim-jdtls",
     "jose-elias-alvarez/null-ls.nvim",
     {
       "folke/neodev.nvim",
@@ -83,23 +24,17 @@ local M = {
         ensure_installed = vim.tbl_keys(servers),
       },
     },
-    {
-      "j-hui/fidget.nvim",
-      enabled = false,
-      tag = "legacy",
-      config = true,
-    },
   },
 }
 
 function M.config()
   require("lspconfig.ui.windows").default_options.border = "rounded"
-  require("config.plugins.lsp.diagnostics").setup()
-  require("config.plugins.lsp.autocmds").setup()
+  require("config.lsp.diagnostics").setup()
+  require("config.lsp.autocmds").setup()
 
   local nls = require("null-ls")
   local mason_lspconfig = require("mason-lspconfig")
-  local settings = require("config.plugins.lsp.settings")
+  local settings = require("config.lsp.settings")
 
   mason_lspconfig.setup()
 
@@ -111,7 +46,9 @@ function M.config()
       debounce_text_changes = 150,
     },
     before_init = function(params)
-      params.workDoneToken = "1"
+      if not params.workDoneToken then
+        params.workDoneToken = "1"
+      end
     end,
   }
 
@@ -193,6 +130,7 @@ function M.config()
         servers["jdtls"] or {},
         {
           cmd = cmd,
+
           init_options = {
             extendedClientCapabilities = vim.tbl_deep_extend(
               "force",
@@ -206,19 +144,12 @@ function M.config()
         }
       )
 
-      -- TODO:
-      --
-      -- Add a script which analyses the clojure project deps.edn and compiles a list of external dependencies.
-      -- These dependencies can be found on disk (in ~/.m2) and used to construct references.
-      --
-      -- See:
-      -- https://github.com/mfussenegger/nvim-jdtls?tab=readme-ov-file#language-server-doesnt-find-classes-that-should-be-there
-
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "java" },
         desc = "Start and attach jdtls",
         callback = function()
-          jdtls.start_or_attach(config)
+          print("starting jdtls")
+          jdtls.start_or_attach(config or {})
         end,
       })
     end,

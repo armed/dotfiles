@@ -1,7 +1,6 @@
 local M = {
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
-  branch = "0.1.x",
   keys = {
     { "<leader>f", desc = "Telescope find" },
     { "<leader>r", desc = "Resume last search" },

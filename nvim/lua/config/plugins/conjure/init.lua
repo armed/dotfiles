@@ -1,6 +1,5 @@
 local M = {
   "Olical/conjure",
-  lazy = true,
   branch = "develop",
   ft = { "clojure", "lua", "fennel" },
   dependencies = {
@@ -38,6 +37,9 @@ M.config = function()
   vim.g["conjure#mapping#log_vsplit"] = false
   vim.g["conjure#mapping#log_toggle"] = false
 
+  require("conjure.main").main()
+  require("conjure.mapping")["on-filetype"]()
+
   local grp = vim.api.nvim_create_augroup("conjure_hooks", { clear = true })
 
   vim.api.nvim_create_autocmd("BufNewFile", {
@@ -65,7 +67,7 @@ M.config = function()
 
   local mappings = require("config.plugins.conjure.portal-mappings")
   local wk = require("which-key")
-  local repl = require("config.tools.nrepl-finder")
+  local repl = require("config.tools.nrepl")
 
   local function conjure_log_open(is_vertical)
     local log = require("conjure.log")

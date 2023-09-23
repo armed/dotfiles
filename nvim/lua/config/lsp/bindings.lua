@@ -1,4 +1,4 @@
-local win_opts = require("config.plugins.lsp.win_opts")
+local win_opts = require("config.lsp.win_opts")
 
 local function diag_next()
   vim.diagnostic.goto_next(win_opts)

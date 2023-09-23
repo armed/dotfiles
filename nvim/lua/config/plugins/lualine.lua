@@ -63,7 +63,7 @@ function M.config()
 
   local function get_nrepl_status()
     if vim.bo.filetype == "clojure" then
-      local repl_finder = require("config.tools.nrepl-finder")
+      local repl_finder = require("config.tools.nrepl")
       local repl_status = repl_finder.get_repl_status("no REPL")
       return repl_status
     end

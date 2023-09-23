@@ -1,5 +1,9 @@
 local M = {}
 
+local function supports_codelens(client)
+  return client and client.server_capabilities.codeLensProvider
+end
+
 function M.setup()
   local lsp_group = vim.api.nvim_create_augroup("LspGroup", { clear = true })
 
@@ -16,9 +20,12 @@ function M.setup()
       if client_id == nil then
         return
       end
-      if vim.api.nvim_buf_is_valid(bufnr) then
-        if next(vim.lsp.codelens.get(bufnr)) ~= nil then
-          vim.lsp.codelens.clear(client_id, bufnr)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if supports_codelens(client) then
+        if vim.api.nvim_buf_is_valid(bufnr) then
+          if next(vim.lsp.codelens.get(bufnr)) ~= nil then
+            vim.lsp.codelens.clear(client_id, bufnr)
+          end
         end
       end
     end,
@@ -27,18 +34,17 @@ function M.setup()
   vim.api.nvim_create_autocmd("LspAttach", {
     group = lsp_group,
     callback = function(args)
-      local wk = require("which-key")
-      local bindings = require("config.plugins.lsp.bindings")
       local bufnr = args.buf
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if client and client.server_capabilities.codeLensProvider then
+      if supports_codelens(client) then
         vim.lsp.codelens.refresh()
       end
-      local wk_bindings = bindings.setup()
-      wk.register(wk_bindings, { noremap = true, buffer = bufnr })
+
+      local wk = require("which-key")
+      local bindings = require("config.lsp.bindings").setup()
+      wk.register(bindings, { noremap = true, buffer = bufnr })
     end,
   })
-
 end
 
 return M
