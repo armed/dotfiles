@@ -78,7 +78,6 @@ function M.get_config(servers, options)
       pattern = { "java" },
       desc = "Start and attach jdtls",
       callback = function()
-        print("starting jdtls")
         jdtls.start_or_attach(config or {})
       end,
     })
