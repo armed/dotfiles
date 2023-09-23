@@ -86,6 +86,7 @@ function M.config()
       end
 
       local home_dir = os.getenv("HOME")
+      ---@diagnostic disable-next-line: param-type-mismatch
       local project_id = vim.fn.sha256(vim.fn.getcwd())
       local data_dir = home_dir
         .. "/.local/share/nvim/jdtls/projects/"
