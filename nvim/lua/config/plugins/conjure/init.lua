@@ -13,7 +13,7 @@ local function set_repl_winbar()
       "%#winbarseparator#"
       .. "%="
       .. "%#user.repl.winbar# "
-      .. "%{%v:lua.require'config.tools.nrepl-finder'.get_repl_status('no REPL')%}"
+      .. "%{%v:lua.require'config.tools.nrepl'.get_repl_status('no REPL')%}"
       .. "%#user.repl.winbar# "
       .. "%#winbarseparator#"
     )

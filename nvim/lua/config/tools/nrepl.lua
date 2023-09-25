@@ -67,7 +67,6 @@ end
 local function find_nrepl_processes()
   local cmd = [[
     ps aux | \
-    grep java | \
     grep nrepl | \
     awk '{print $2}' | \
     xargs -I % sh -c 'lsof -p % | grep cwd | awk "{print \$9}"'
@@ -133,4 +132,3 @@ function M.direct_connect()
 end
 
 return M
-

@@ -95,9 +95,11 @@
 (defn write-pom!
   [aliases]
   (let [basis (b/create-basis {:project "deps.edn"
-                               :aliases aliases})]
+                               :aliases aliases})
+        lib-name (.getName (fs/file (fs/cwd)))]
     (with-out-str (b/write-pom {:basis basis
-                                :lib 'armed/dev
+                                :lib (-> (str "armed/" lib-name)
+                                         (symbol))
                                 :target "."
                                 :version "0.0.0"}))
     (let [pom-data (-> (slurp "pom.xml") (string/split-lines))
