@@ -15,12 +15,10 @@ end
 local M = {}
 
 function M.setup()
-  vim.keymap.set(
-    { "n", "v" },
-    "<leader>lf",
-    vim.lsp.buf.format,
-    { desc = "Format" }
-  )
+  local conform = require("conform")
+  vim.keymap.set({ "n", "v" }, "<leader>lf", function()
+    conform.format({ lsp_fallback = true })
+  end, { desc = "Format" })
   return {
     g = {
       d = { ":Telescope lsp_definitions<cr>", "Go to Definition" },
