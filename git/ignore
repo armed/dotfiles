@@ -5,4 +5,10 @@ Session.vim
 .nvim_session
 .repl_aliases
 .tool-versions
+.classpath
+pom.properties
+pom.xml
+.factorypath
+.project
+.settings
 
