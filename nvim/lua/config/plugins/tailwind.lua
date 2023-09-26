@@ -1,5 +1,5 @@
 return {
-  ft = { "typescript", "css", "typescriptreact", "clojurescript" },
+  ft = { "typescript", "css", "typescriptreact" },
   "roobert/tailwindcss-colorizer-cmp.nvim",
   -- optionally, override the default options:
   config = function()
