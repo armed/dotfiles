@@ -5,7 +5,6 @@ local M = {
   event = "BufReadPre",
   dependencies = {
     "mfussenegger/nvim-jdtls",
-    "jose-elias-alvarez/null-ls.nvim",
     {
       "folke/neodev.nvim",
       config = true,
@@ -32,7 +31,6 @@ function M.config()
   require("config.lsp.diagnostics").setup()
   require("config.lsp.autocmds").setup()
 
-  local nls = require("null-ls")
   local mason_lspconfig = require("mason-lspconfig")
   local settings = require("config.lsp.settings")
 
@@ -51,16 +49,6 @@ function M.config()
       end
     end,
   }
-
-  nls.setup({
-    save_after_format = true,
-    sources = {
-      nls.builtins.formatting.stylua,
-      nls.builtins.formatting.just,
-      nls.builtins.formatting.prettierd,
-    },
-  })
-
   mason_lspconfig.setup_handlers({
     function(server_name)
       local server_opts = servers[server_name] or {}
