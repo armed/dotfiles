@@ -43,21 +43,27 @@ local function connect_to_nrepl_server(connection_details)
     port = connection_details.port,
     port_file_path = connection_details.dir,
     cb = function()
-      print("Connected to nrepl server at localhost:" .. connection_details.port)
+      print(
+        "Connected to nrepl server at localhost:" .. connection_details.port
+      )
     end,
   })
 end
 
 local function read_nrepl_ports(dirs)
+  local hash = {}
   local results = {}
   for _, dir in ipairs(dirs) do
-    local file_path = dir .. "/.nrepl-port"
-    local file = io.open(file_path, "r")
-    if file then
-      local port = file:read("*all")
-      file:close()
-      if port ~= "" then
-        table.insert(results, { dir = dir, port = port })
+    if not hash[dir] then
+      hash[dir] = true
+      local file_path = dir .. "/.nrepl-port"
+      local file = io.open(file_path, "r")
+      if file then
+        local port = file:read("*all")
+        file:close()
+        if port ~= "" then
+          table.insert(results, { dir = dir, port = port })
+        end
       end
     end
   end
