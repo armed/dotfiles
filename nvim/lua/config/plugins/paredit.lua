@@ -87,14 +87,27 @@ local function load_paredit()
       ["<localleader>O"] = { paredit.api.raise_element, "Raise element" },
 
       ["E"] = {
-        paredit.api.move_to_next_element,
+        paredit.api.move_to_next_element_tail,
         "Jump to next element tail",
         repeatable = false,
         mode = { "n", "x", "o", "v" },
       },
+      ["W"] = {
+        paredit.api.move_to_next_element_head,
+        "Jump to next element head",
+        repeatable = false,
+        mode = { "n", "x", "o", "v" },
+      },
+
       ["B"] = {
-        paredit.api.move_to_prev_element,
+        paredit.api.move_to_prev_element_head,
         "Jump to previous element head",
+        repeatable = false,
+        mode = { "n", "x", "o", "v" },
+      },
+      ["gE"] = {
+        paredit.api.move_to_prev_element_tail,
+        "Jump to previous element tail",
         repeatable = false,
         mode = { "n", "x", "o", "v" },
       },
@@ -156,8 +169,6 @@ local function load_paredit()
     },
   })
 end
-
--- load_paredit()
 
 return {
   "julienvincent/nvim-paredit",
