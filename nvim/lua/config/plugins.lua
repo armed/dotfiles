@@ -32,11 +32,18 @@ return {
   },
   {
     "lukas-reineke/indent-blankline.nvim",
-    enabled = false,
     event = "BufReadPost",
+    main = "ibl",
     opts = {
-      char = "┊",
-      buftype_exclude = { "qf", "lazy", "lspinfo", "mason" },
+      indent = {
+        char = "┊",
+      },
+      scope = {
+        enabled = false
+      },
+      exclude = {
+        buftypes = { "qf", "lazy", "lspinfo", "mason" },
+      },
     },
   },
   {
