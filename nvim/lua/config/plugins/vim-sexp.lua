@@ -20,32 +20,6 @@ local function vim_sexp_mappings()
     map("i", rhs, lhs, opts)
   end
 
-  xmap("af", "<Plug>(sexp_outer_list)", { desc = "Sexp outer list" })
-  omap("af", "<Plug>(sexp_outer_list)", { desc = "Sexp outer list" })
-  xmap("if", "<Plug>(sexp_inner_list)", { desc = "Sexp inner list" })
-  omap("if", "<Plug>(sexp_inner_list)", { desc = "Sexp inner list" })
-  xmap("aF", "<Plug>(sexp_outer_top_list)", { desc = "Sexp outer top list" })
-  omap("aF", "<Plug>(sexp_outer_top_list)", { desc = "Sexp outer top list" })
-  xmap("iF", "<Plug>(sexp_inner_top_list)", { desc = "Sexp inner top list" })
-  omap("iF", "<Plug>(sexp_inner_top_list)", { desc = "Sexp inner top list" })
-  xmap("as", "<Plug>(sexp_outer_string)", { desc = "Sexp outer string" })
-  omap("as", "<Plug>(sexp_outer_string)", { desc = "Sexp outer string" })
-  xmap("is", "<Plug>(sexp_inner_string)", { desc = "Sexp inner string" })
-  omap("is", "<Plug>(sexp_inner_string)", { desc = "Sexp inner string" })
-  xmap("ae", "<Plug>(sexp_outer_element)", { desc = "Sexp outer element" })
-  omap("ae", "<Plug>(sexp_outer_element)", { desc = "Sexp outer element" })
-  xmap("ie", "<Plug>(sexp_inner_element)", { desc = "Sexp inner element" })
-  omap("ie", "<Plug>(sexp_inner_element)", { desc = "Sexp inner element" })
-  nmap(
-    "(",
-    "<Plug>(sexp_move_to_prev_bracket)",
-    { desc = "Sexp move to prev bracket" }
-  )
-  nmap(
-    ")",
-    "<Plug>(sexp_move_to_next_bracket)",
-    { desc = "Sexp move to next bracket" }
-  )
   nmap(
     "<M-w>",
     "<Plug>(sexp_move_to_next_element_head)",
@@ -283,6 +257,32 @@ local function vim_sexp_mappings()
   --   "<LocalLeader>I",
   --   "<Plug>(sexp_round_tail_wrap_list)",
   --   { desc = "Sexp round tail wrap list" }
+  -- )
+  -- xmap("af", "<Plug>(sexp_outer_list)", { desc = "Sexp outer list" })
+  -- omap("af", "<Plug>(sexp_outer_list)", { desc = "Sexp outer list" })
+  -- xmap("if", "<Plug>(sexp_inner_list)", { desc = "Sexp inner list" })
+  -- omap("if", "<Plug>(sexp_inner_list)", { desc = "Sexp inner list" })
+  -- xmap("aF", "<Plug>(sexp_outer_top_list)", { desc = "Sexp outer top list" })
+  -- omap("aF", "<Plug>(sexp_outer_top_list)", { desc = "Sexp outer top list" })
+  -- xmap("iF", "<Plug>(sexp_inner_top_list)", { desc = "Sexp inner top list" })
+  -- omap("iF", "<Plug>(sexp_inner_top_list)", { desc = "Sexp inner top list" })
+  -- xmap("as", "<Plug>(sexp_outer_string)", { desc = "Sexp outer string" })
+  -- omap("as", "<Plug>(sexp_outer_string)", { desc = "Sexp outer string" })
+  -- xmap("is", "<Plug>(sexp_inner_string)", { desc = "Sexp inner string" })
+  -- omap("is", "<Plug>(sexp_inner_string)", { desc = "Sexp inner string" })
+  -- xmap("ae", "<Plug>(sexp_outer_element)", { desc = "Sexp outer element" })
+  -- omap("ae", "<Plug>(sexp_outer_element)", { desc = "Sexp outer element" })
+  -- xmap("ie", "<Plug>(sexp_inner_element)", { desc = "Sexp inner element" })
+  -- omap("ie", "<Plug>(sexp_inner_element)", { desc = "Sexp inner element" })
+  -- nmap(
+  --   "(",
+  --   "<Plug>(sexp_move_to_prev_bracket)",
+  --   { desc = "Sexp move to prev bracket" }
+  -- )
+  -- nmap(
+  --   ")",
+  --   "<Plug>(sexp_move_to_next_bracket)",
+  --   { desc = "Sexp move to next bracket" }
   -- )
 end
 

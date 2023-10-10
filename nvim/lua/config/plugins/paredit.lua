@@ -111,7 +111,55 @@ local function load_paredit()
         repeatable = false,
         mode = { "n", "x", "o", "v" },
       },
-
+      ["("] = {
+        paredit.api.move_to_parent_form_start,
+        "Jump to parent form's head",
+        repeatable = false,
+        mode = { "n", "x", "v" },
+      },
+      [")"] = {
+        paredit.api.move_to_parent_form_end,
+        "Jump to parent form's tail",
+        repeatable = false,
+        mode = { "n", "x", "v" },
+      },
+      -- These are text object selection keybindings which can used with standard `d, y, c`, `v`
+      ["af"] = {
+        paredit.api.select_around_form,
+        "Around form",
+        repeatable = false,
+        mode = { "o", "v" },
+      },
+      ["if"] = {
+        paredit.api.select_in_form,
+        "In form",
+        repeatable = false,
+        mode = { "o", "v" },
+      },
+      ["aF"] = {
+        paredit.api.select_around_top_level_form,
+        "Around top level form",
+        repeatable = false,
+        mode = { "o", "v" },
+      },
+      ["iF"] = {
+        paredit.api.select_in_top_level_form,
+        "In top level form",
+        repeatable = false,
+        mode = { "o", "v" },
+      },
+      ["ae"] = {
+        paredit.api.select_element,
+        "Around element",
+        repeatable = false,
+        mode = { "o", "v" },
+      },
+      ["ie"] = {
+        paredit.api.select_element,
+        "Element",
+        repeatable = false,
+        mode = { "o", "v" },
+      },
       ["<localleader>w"] = {
         function()
           local range = paredit.wrap.wrap_element_under_cursor("( ", ")")
