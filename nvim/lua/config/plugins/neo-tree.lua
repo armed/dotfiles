@@ -60,10 +60,22 @@ function M.config()
 
   nt.setup({
     use_popups_for_input = false,
+    sources = {
+      "filesystem",
+      "buffers",
+      "git_status",
+      "document_symbols",
+    },
     window = {
       mappings = {
         ["<tab>"] = "toggle_node",
         ["<space>"] = false,
+      },
+    },
+    source_selector = {
+      sources = {
+        { source = "filesystem" },
+        { source = "document_symbols" },
       },
     },
     filesystem = {
