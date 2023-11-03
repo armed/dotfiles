@@ -1,4 +1,4 @@
-# location $XDG_CONGIF_HOME/git/ignore
+# location $XDG_CONGIF_HOME/git/config
 [user]
   name = Artem Medeu
   email = artem.medeusheyev@gmail.com
