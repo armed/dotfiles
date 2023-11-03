@@ -74,6 +74,10 @@ local function load_paredit()
       indentor = require("nvim-paredit.indentation.native").indentor,
     },
     keys = {
+      ["<localleader>@"] = {
+        paredit.unwrap.unwrap_form_under_cursor,
+        "Splice sexp",
+      },
       ["<M-S-l>"] = { paredit.api.slurp_forwards, "Slurp forwards" },
       ["<M-S-h>"] = { paredit.api.slurp_backwards, "Slurp backwards" },
 
@@ -216,6 +220,44 @@ local function load_paredit()
           )
         end,
         "Wrap form insert tail",
+      },
+
+      ["<localleader>e["] = {
+        function()
+          paredit.cursor.place_cursor(
+            paredit.wrap.wrap_element_under_cursor("[", "]"),
+            { placement = "inner_start", mode = "insert" }
+          )
+        end,
+        "Wrap form square insert head",
+      },
+      ["<localleader>e]"] = {
+        function()
+          paredit.cursor.place_cursor(
+            paredit.wrap.wrap_element_under_cursor("[", "]"),
+            { placement = "inner_end", mode = "insert" }
+          )
+        end,
+        "Wrap form square insert tail",
+      },
+
+      ["<localleader>e{"] = {
+        function()
+          paredit.cursor.place_cursor(
+            paredit.wrap.wrap_element_under_cursor("{", "}"),
+            { placement = "inner_start", mode = "insert" }
+          )
+        end,
+        "Wrap form curly insert head",
+      },
+      ["<localleader>e}"] = {
+        function()
+          paredit.cursor.place_cursor(
+            paredit.wrap.wrap_element_under_cursor("{", "}"),
+            { placement = "inner_end", mode = "insert" }
+          )
+        end,
+        "Wrap form curly insert tail",
       },
     },
   })

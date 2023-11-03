@@ -122,46 +122,46 @@ local function vim_sexp_mappings()
     "<Plug>(sexp_curly_tail_wrap_list)",
     { desc = "Sexp curly tail wrap list" }
   )
-  nmap(
-    "<LocalLeader>e[",
-    "<Plug>(sexp_square_head_wrap_element)",
-    { desc = "Sexp square head wrap element" }
-  )
-  xmap(
-    "<LocalLeader>e[",
-    "<Plug>(sexp_square_head_wrap_element)",
-    { desc = "Sexp square head wrap element" }
-  )
-  nmap(
-    "<LocalLeader>e]",
-    "<Plug>(sexp_square_tail_wrap_element)",
-    { desc = "Sexp square tail wrap element" }
-  )
-  xmap(
-    "<LocalLeader>e]",
-    "<Plug>(sexp_square_tail_wrap_element)",
-    { desc = "Sexp square tail wrap element" }
-  )
-  nmap(
-    "<LocalLeader>e{",
-    "<Plug>(sexp_curly_head_wrap_element)",
-    { desc = "Sexp curly head wrap element" }
-  )
-  xmap(
-    "<LocalLeader>e{",
-    "<Plug>(sexp_curly_head_wrap_element)",
-    { desc = "Sexp curly head wrap element" }
-  )
-  nmap(
-    "<LocalLeader>e}",
-    "<Plug>(sexp_curly_tail_wrap_element)",
-    { desc = "Sexp curly tail wrap element" }
-  )
-  xmap(
-    "<LocalLeader>e}",
-    "<Plug>(sexp_curly_tail_wrap_element)",
-    { desc = "Sexp curly tail wrap element" }
-  )
+  -- nmap(
+  --   "<LocalLeader>e[",
+  --   "<Plug>(sexp_square_head_wrap_element)",
+  --   { desc = "Sexp square head wrap element" }
+  -- )
+  -- xmap(
+  --   "<LocalLeader>e[",
+  --   "<Plug>(sexp_square_head_wrap_element)",
+  --   { desc = "Sexp square head wrap element" }
+  -- )
+  -- nmap(
+  --   "<LocalLeader>e]",
+  --   "<Plug>(sexp_square_tail_wrap_element)",
+  --   { desc = "Sexp square tail wrap element" }
+  -- )
+  -- xmap(
+  --   "<LocalLeader>e]",
+  --   "<Plug>(sexp_square_tail_wrap_element)",
+  --   { desc = "Sexp square tail wrap element" }
+  -- )
+  -- nmap(
+  --   "<LocalLeader>e{",
+  --   "<Plug>(sexp_curly_head_wrap_element)",
+  --   { desc = "Sexp curly head wrap element" }
+  -- )
+  -- xmap(
+  --   "<LocalLeader>e{",
+  --   "<Plug>(sexp_curly_head_wrap_element)",
+  --   { desc = "Sexp curly head wrap element" }
+  -- )
+  -- nmap(
+  --   "<LocalLeader>e}",
+  --   "<Plug>(sexp_curly_tail_wrap_element)",
+  --   { desc = "Sexp curly tail wrap element" }
+  -- )
+  -- xmap(
+  --   "<LocalLeader>e}",
+  --   "<Plug>(sexp_curly_tail_wrap_element)",
+  --   { desc = "Sexp curly tail wrap element" }
+  -- )
   nmap(
     "<LocalLeader>h",
     "<Plug>(sexp_insert_at_list_head)",
@@ -172,11 +172,11 @@ local function vim_sexp_mappings()
     "<Plug>(sexp_insert_at_list_tail)",
     { desc = "Sexp insert at list tail" }
   )
-  nmap(
-    "<LocalLeader>@",
-    "<Plug>(sexp_splice_list)",
-    { desc = "Sexp splice list" }
-  )
+  -- nmap(
+  --   "<LocalLeader>@",
+  --   "<Plug>(sexp_splice_list)",
+  --   { desc = "Sexp splice list" }
+  -- )
   imap(
     "<BS>",
     "<Plug>(sexp_insert_backspace)",
@@ -292,14 +292,15 @@ local augroup = vim.api.nvim_create_augroup
 -- General Settings
 local sexp = augroup("Vim Sexp", { clear = true })
 
-autocmd("FileType", {
-  group = sexp,
-  pattern = { "clojure", "fennel" },
-  callback = vim_sexp_mappings,
-})
+-- autocmd("FileType", {
+--   group = sexp,
+--   pattern = { "clojure", "fennel" },
+--   callback = vim_sexp_mappings,
+-- })
 
 return {
   "guns/vim-sexp",
+  enabled = false,
 
   ft = { "clojure", "lisp", "fennel", "scheme", "janet" },
 
