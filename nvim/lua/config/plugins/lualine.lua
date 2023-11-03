@@ -91,7 +91,15 @@ function M.config()
           "filename",
           fmt = function(filename)
             if #filename > 80 then
-              filename = vim.fs.basename(filename)
+              local filepath = vim.fn.expand("%:p")
+              ---@diagnostic disable-next-line: param-type-mismatch
+              local index = string.find(filepath, "?=")
+
+              if index then
+                ---@diagnostic disable-next-line: param-type-mismatch
+                filepath = string.sub(filepath, 1, index - 1)
+              end
+              return filepath
             end
             return filename
           end,
