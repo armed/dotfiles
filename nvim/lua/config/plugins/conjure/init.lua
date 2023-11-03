@@ -50,7 +50,7 @@ M.config = function()
     end,
   })
 
-  vim.api.nvim_create_autocmd("BufEnter,WinEnter", {
+  vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
     group = grp,
     pattern = "conjure-log-*",
     callback = function(event)
