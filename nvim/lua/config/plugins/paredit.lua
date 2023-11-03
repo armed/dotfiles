@@ -1,10 +1,5 @@
-local function lsp_wrapped_drag(is_forward, fallback_fn)
-  local cmd
-  if is_forward then
-    cmd = "drag-forward"
-  else
-    cmd = "drag-backward"
-  end
+local function lsp_wrapped_command(lsp_cmd, fallback_fn)
+  local cmd = lsp_cmd
 
   return function()
     local pos = vim.api.nvim_win_get_cursor(0)
@@ -58,9 +53,17 @@ local function load_paredit()
   local paredit = require("nvim-paredit")
 
   local lsp_drag_form_forwards =
-    lsp_wrapped_drag(true, paredit.api.drag_form_forwards)
+    lsp_wrapped_command("drag-forward", paredit.api.drag_form_forwards)
   local lsp_drag_form_backwards =
-    lsp_wrapped_drag(false, paredit.api.drag_form_backwards)
+    lsp_wrapped_command("drag-backward", paredit.api.drag_form_backwards)
+  -- local lsp_slurp_forwards =
+  --   lsp_wrapped_command("forward-slurp", paredit.api.slurp_forwards)
+  -- local lsp_slurp_backwards =
+  --   lsp_wrapped_command("backward-slurp", paredit.api.slurp_backwards)
+  -- local lsp_barf_forwards =
+  --   lsp_wrapped_command("forward-barf", paredit.api.barf_forwards)
+  -- local lsp_barf_backwards =
+  --   lsp_wrapped_command("backward-barf", paredit.api.barf_backwards)
 
   paredit.setup({
     filetypes = { "clojure" },
