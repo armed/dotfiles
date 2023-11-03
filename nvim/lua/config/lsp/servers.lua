@@ -54,6 +54,7 @@ return {
     },
   },
   clangd = {},
+  vuels = {},
   graphql = {
     filetypes = { "graphql", "typescriptreact", "javascriptreact" },
   },
