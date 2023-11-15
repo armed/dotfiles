@@ -5,7 +5,10 @@ return {
     disable_commit_confirmation = true,
     kind = "vsplit",
     log_view = {
-      kind = "split"
+      kind = "split",
+    },
+    commit_editor = {
+      kind = "split",
     },
     signs = {
       section = { "", "" },
