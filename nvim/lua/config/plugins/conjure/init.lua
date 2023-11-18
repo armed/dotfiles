@@ -26,7 +26,7 @@ M.config = function()
   vim.g["conjure#client#clojure#nrepl#connection#auto_repl#enabled"] = false
   vim.g["conjure#highlight#enabled"] = true
   vim.g["conjure#highlight#timeout"] = 150
-  vim.g["conjure#log#wrap"] = true
+  vim.g["conjure#log#wrap"] = false
   vim.g["conjure#log#jump_to_latest#enabled"] = false
   vim.g["conjure#client#clojure#nrepl#eval#raw_out"] = true
   vim.g["conjure#client#clojure#nrepl#test#raw_out"] = true
@@ -118,24 +118,11 @@ M.config = function()
     e = {
       name = "Evaluate",
       c = { name = "To Comment" },
-      -- ["["] = "Square Head Wrap List",
-      -- ["]"] = "Square Tail Wrap List",
-      -- ["{"] = "Curly Head Wrap List",
-      -- ["}"] = "Curly Tail Wrap List",
     },
     r = "Refresh",
     s = "Session",
     t = "Tests",
     v = "Display",
-    -- ["?"] = "Convolute",
-    -- ["@"] = "Splice List",
-    -- ["["] = "Square Head Wrap List",
-    -- ["]"] = "Square Tail Wrap List",
-    -- ["{"] = "Curly Head Wrap List",
-    -- ["}"] = "Curly Tail Wrap List",
-    -- ["h"] = "Insert at List Head",
-    -- ["I"] = "Round Tail Wrap List",
-    -- ["i"] = "Round Head Wrap List",
     ["l"] = {
       name = "Conjure Log",
       g = {
@@ -157,10 +144,6 @@ M.config = function()
         "Open Split",
       },
     },
-    -- ["o"] = "Raise List",
-    -- ["O"] = "Raise Element",
-    -- ["W"] = "Round Tail Wrap Element",
-    -- ["w"] = "Round Head Wrap Element",
   }, { prefix = "<localleader>" })
 end
 
