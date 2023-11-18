@@ -34,8 +34,8 @@ function M.config()
   })
 
   local function save_all_quit()
-    vim.cmd("wa")
-    vim.cmd("qa!")
+    vim.cmd("silent wa")
+    vim.cmd("silent qa!")
   end
 
   wk.register({

@@ -27,6 +27,6 @@ config.force_reverse_video_cursor = true
 theme.setup(config)
 tab.setup(config)
 
-config.color_scheme = 'kanagawabones'
+config.color_scheme = "kanagawabones"
 
 return config
