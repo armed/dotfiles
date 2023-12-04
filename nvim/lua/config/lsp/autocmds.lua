@@ -45,25 +45,6 @@ function M.setup()
       wk.register(keymaps, { noremap = true, buffer = bufnr })
     end,
   })
-
-  vim.api.nvim_create_autocmd("LspRequest", {
-    callback = function(args)
-      local bufnr = args.buf
-      local client_id = args.data.client_id
-      local request_id = args.data.request_id
-      local request = args.data.request
-      if request.method == "textDocument/codeAction" then
-        if request.type == "pending" then
-          -- print(vim.inspect(args))
-        elseif request.type == "cancel" then
-          -- print(vim.inspect(args))
-        elseif request.type == "complete" then
-          -- request entry is about to be removed since it is complete
-          print(vim.inspect(args))
-        end
-      end
-    end,
-  })
 end
 
 return M

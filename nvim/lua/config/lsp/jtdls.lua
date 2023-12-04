@@ -51,6 +51,16 @@ function M.get_config(servers, options)
       data_dir,
     }
 
+    local libs = {}
+    local cwd = vim.fn.getcwd()
+    local project_root = utils.find_furthest_root({ "deps.edn" })(cwd)
+    local job_id = nil
+    if project_root then
+      job_id = utils.find_third_party_libs(project_root, function(project_libs)
+        libs = project_libs
+      end)
+    end
+
     local extendedClientCapabilities =
       require("jdtls").extendedClientCapabilities
     local config = vim.tbl_deep_extend(
@@ -78,7 +88,20 @@ function M.get_config(servers, options)
       pattern = { "java" },
       desc = "Start and attach jdtls",
       callback = function()
-        jdtls.start_or_attach(config or {})
+        if job_id then
+          vim.fn.jobwait({ job_id })
+          job_id = nil
+        end
+        local cfg = vim.tbl_deep_extend("force", {}, config, {
+          settings = {
+            java = {
+              project = {
+                referencedLibraries = libs,
+              },
+            },
+          },
+        })
+        jdtls.start_or_attach(cfg or {})
       end,
     })
   end

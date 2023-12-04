@@ -58,7 +58,7 @@
           cmd (str "clojure -M" (string/join selected-aliases))]
       (aliases/save-aliases! selected-aliases)
       (clean!)
-      (pom/write-pom! selected-aliases)
+      ; (pom/write-pom! selected-aliases)
       (println cmd)
       (bp/shell (str "echo \"\033]0;" (dirname) "[repl]\007\""))
       (bp/shell cmd))
