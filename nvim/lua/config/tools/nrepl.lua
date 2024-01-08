@@ -126,7 +126,6 @@ function M.direct_connect()
 
     local host, port = string.match(value, "([^:]+):(.*)")
     if host == "" or port == "" or not host or not port then
-      print("Invalid input")
       return
     end
 

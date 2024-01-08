@@ -99,7 +99,6 @@ function M.find_third_party_libs(project_root, callback)
     end,
     on_stderr = function(_, data)
       if data[1] ~= "" then
-        print("Failed to call clojure -Spath", vim.inspect(data))
         callback({})
       end
     end,
