@@ -1,17 +1,23 @@
 local M = {}
 
 M.signs = {
-  Error = "",
-  Warn = "",
-  Hint = "",
-  Info = "",
+  [vim.diagnostic.severity.ERROR] = "",
+  [vim.diagnostic.severity.WARN] = "",
+  [vim.diagnostic.severity.INFO] = "",
+  [vim.diagnostic.severity.HINT] = "",
 }
 
 function M.setup()
-  for type, icon in pairs(M.signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-  end
+  vim.diagnostic.config({
+    virtual_text = {
+      prefix = function(diagnostic)
+        return M.signs[diagnostic.severity]
+      end
+    },
+    signs = {
+      text = M.signs,
+    },
+  })
 end
 
 return M
