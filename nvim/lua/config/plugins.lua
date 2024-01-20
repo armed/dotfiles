@@ -100,16 +100,6 @@ return {
     ft = "just",
   },
   {
-    "eraserhd/parinfer-rust",
-    build = "cargo build --release",
-    name = "parinfer",
-    enabled = false,
-    ft = { "clojure" },
-    config = function()
-      vim.g.parinfer_mode = "paren"
-    end,
-  },
-  {
     "andweeb/presence.nvim",
     event = "VeryLazy",
     config = true,
