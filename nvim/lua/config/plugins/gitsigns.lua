@@ -27,8 +27,8 @@ return {
         r = { ":Gitsigns reset_hunk<CR>", "Reset hunk" },
         S = { ":Gitsigns stage_buffer<cr>", "Stage buffer" },
         R = { ":Gitsigns reset_buffer<cr>", "Reset buffer" },
-        n = { ":Gitsigns next_hunk<cr>", "Next hunk" },
-        N = { ":Gitsigns prev_hunk<cr>", "Prev hunk" },
+        n = { ":Gitsigns next_hunk<cr><cr>", "Next hunk" },
+        N = { ":Gitsigns prev_hunk<cr><cr>", "Prev hunk" },
         t = {
           name = "Toggle",
           b = { ":Gitsigns toggle_current_line_blame<cr>", "Curent line blame" },
