@@ -17,7 +17,9 @@ local M = {}
 function M.setup()
   local conform = require("conform")
   vim.keymap.set({ "n", "v" }, "<leader>lf", function()
+    local current_view = vim.fn.winsaveview()
     conform.format({ lsp_fallback = true })
+    vim.fn.winrestview(current_view)
   end, { desc = "Format" })
   return {
     g = {
