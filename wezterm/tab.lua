@@ -86,7 +86,7 @@ local function get_process(tab)
 end
 
 local function get_current_working_folder_name(tab)
-  local cwd_uri = tab.active_pane.current_working_dir
+  local cwd_uri = tab.active_pane.current_working_dir.file_path
 
   cwd_uri = cwd_uri:sub(8)
 
