@@ -6,6 +6,7 @@ return {
       codeLens = true,
     },
   },
+  zls = {},
   yamlls = {
     settings = {
       yaml = {

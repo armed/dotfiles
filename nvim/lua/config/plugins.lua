@@ -69,11 +69,12 @@ return {
   },
   {
     "iamcco/markdown-preview.nvim",
-    ft = "markdown",
-    build = "cd app && pnpm i",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && pnpm install",
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
     end,
+    ft = { "markdown" },
   },
   {
     "uga-rosa/ccc.nvim",

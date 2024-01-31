@@ -44,10 +44,10 @@ function M.config()
           return vim_item
         end,
         menu = {
+          nvim_lsp = "[LSP]",
           conjure = "[conjure]",
           tailwindcss = "[tailwind]",
           buffer = "[Buffer]",
-          nvim_lsp = "[LSP]",
           luasnip = "[LuaSnip]",
           nvim_lua = "[Lua]",
           latex_symbols = "[Latex]",
@@ -92,11 +92,11 @@ function M.config()
       end, { "i", "s" }),
     }),
     sources = {
+      { name = "buffer" },
       { name = "nvim_lsp" },
       { name = "conjure" },
       { name = "luasnip" },
       { name = "path" },
-      { name = "buffer" },
     },
   })
   cmp.setup.cmdline({ "/", "?" }, {

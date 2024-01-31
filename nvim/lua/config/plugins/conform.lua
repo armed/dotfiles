@@ -14,12 +14,22 @@ return {
         lua = { "stylua" },
         just = { "just" },
         -- clojure = { "zpr" },
+        -- zig = { "zig" },
       },
 
       formatters = {
+        -- zig = {
+        --   command = "zig",
+        --   args = {
+        --     "fmt",
+        --     "$FILENAME",
+        --   },
+        -- },
         zpr = {
           command = "zpr",
-          args = { "{:pair {:justify? true :justify {:max-variance 20}} :map {:comma? false} :style [:justified :how-to-ns :respect-nl]}" },
+          args = {
+            "{:pair {:justify? true :justify {:max-variance 20}} :map {:comma? false} :style [:justified :how-to-ns :respect-nl]}",
+          },
         },
         just = {
           command = "just",
