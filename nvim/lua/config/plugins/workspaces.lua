@@ -1,7 +1,7 @@
 local M = {
   "natecraddock/workspaces.nvim",
   keys = {
-    { "<leader>w" }
+    { "<leader>w" },
   },
   dependencies = {
     "nvim-neo-tree/neo-tree.nvim",
@@ -61,7 +61,8 @@ function M.config()
   w.setup({
     hooks = {
       open_pre = function()
-        vim.lsp.stop_client(vim.lsp.get_clients())
+        local utils = require("config.lsp.utils")
+        vim.lsp.stop_client(utils.get_lsp_clients())
         if session_exists() then
           save_session()
           vim.cmd("sil %bwipeout!")

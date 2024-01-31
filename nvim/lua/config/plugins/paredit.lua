@@ -3,11 +3,12 @@ local function lsp_wrapped_command(lsp_cmd, fallback_fn)
 
   return function()
     local pos = vim.api.nvim_win_get_cursor(0)
-    local client = vim.lsp.get_clients({
+    local utils = require("config.lsp.utils")
+    local clients = utils.get_lsp_clients({
       name = "clojure_lsp",
       bufnr = 0,
     })
-    if client ~= nil and next(client) then
+    if clients ~= nil and next(clients) then
       vim.lsp.buf.execute_command({
         command = cmd,
         arguments = {

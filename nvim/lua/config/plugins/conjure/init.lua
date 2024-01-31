@@ -54,8 +54,9 @@ M.config = function()
     group = grp,
     pattern = "conjure-log-*",
     callback = function(event)
+      local utils = require("config.lsp.utils")
       set_repl_winbar()
-      for _, client in ipairs(vim.lsp.get_clients({ bufnr = event.buf })) do
+      for _, client in ipairs(utils.get_lsp_clients({ bufnr = event.buf })) do
         vim.lsp.buf_detach_client(event.buf, client.id)
       end
     end,
