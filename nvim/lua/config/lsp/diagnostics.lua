@@ -7,7 +7,7 @@ M.signs = {
   [vim.diagnostic.severity.HINT] = "",
 }
 
-function M.setup()
+local function setup_new()
   vim.diagnostic.config({
     virtual_text = {
       prefix = function(diagnostic)
@@ -19,5 +19,21 @@ function M.setup()
     },
   })
 end
+
+M.signs_legacy = {
+  Error = "",
+  Warn = "",
+  Hint = "",
+  Info = "",
+}
+
+local function setup_legacy()
+  for type, icon in pairs(M.signs_legacy) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+  end
+end
+
+M.setup = setup_new
 
 return M
