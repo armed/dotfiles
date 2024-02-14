@@ -1,5 +1,6 @@
 return {
   "topaxi/gh-actions.nvim",
+  enabled = false,
   cmd = "GhActions",
   keys = {
     { "<leader>gh", "<cmd>GhActions<cr>", desc = "Open Github Actions" },
