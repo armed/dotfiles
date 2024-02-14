@@ -7,46 +7,48 @@ function M.config()
   local alpha = require("alpha")
   local wps = require("config.plugins.workspaces")
   local dashboard = require("alpha.themes.dashboard")
+  local main_color = "@constructor"
+  local num_color = "@keyword.import"
   dashboard.section.header.opts.hl = {
     {
-      { "@text.title", 0, 128 },
-      { "@exception", 128, 200 },
+      { main_color, 0, 128 },
+      { num_color, 128, 200 },
     },
     {
-      { "@text.title", 0, 128 },
-      { "@exception", 128, 200 },
+      { main_color, 0, 128 },
+      { num_color, 128, 200 },
     },
     {
-      { "@text.title", 0, 128 },
-      { "@exception", 128, 200 },
+      { main_color, 0, 128 },
+      { num_color, 128, 200 },
     },
     {
-      { "@text.title", 0, 128 },
-      { "@exception", 128, 200 },
+      { main_color, 0, 128 },
+      { num_color, 128, 200 },
     },
     {
-      { "@text.title", 0, 128 },
-      { "@exception", 128, 200 },
+      { main_color, 0, 128 },
+      { num_color, 128, 200 },
     },
     {
-      { "@text.title", 0, 132 },
-      { "@exception", 132, 200 },
+      { main_color, 0, 132 },
+      { num_color, 132, 200 },
     },
     {
-      { "@text.title", 0, 124 },
-      { "@exception", 124, 200 },
+      { main_color, 0, 124 },
+      { num_color, 124, 200 },
     },
     {
-      { "@text.title", 0, 124 },
-      { "@exception", 124, 200 },
+      { main_color, 0, 124 },
+      { num_color, 124, 200 },
     },
     {
-      { "@text.title", 0, 126 },
-      { "@exception", 126, 200 },
+      { main_color, 0, 126 },
+      { num_color, 126, 200 },
     },
     {
-      { "@text.title", 0, 130 },
-      { "@exception", 130, 200 },
+      { main_color, 0, 130 },
+      { num_color, 130, 200 },
     },
   }
 
