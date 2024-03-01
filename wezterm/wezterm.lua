@@ -29,4 +29,6 @@ tab.setup(config)
 
 config.color_scheme = "kanagawabones"
 
+config.term = "wezterm"
+
 return config
