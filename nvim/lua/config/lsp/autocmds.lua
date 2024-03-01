@@ -7,9 +7,11 @@ end
 function M.setup()
   local lsp_group = vim.api.nvim_create_augroup("LspGroup", { clear = true })
 
-  vim.api.nvim_create_autocmd("BufWritePost", {
+  vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, {
     group = lsp_group,
-    callback = vim.lsp.codelens.refresh,
+    callback = function()
+      vim.lsp.codelens.refresh({ bufnr = 0 })
+    end,
   })
 
   vim.api.nvim_create_autocmd("LspDetach", {
@@ -37,7 +39,7 @@ function M.setup()
       local bufnr = args.buf
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       if supports_codelens(client) then
-        vim.lsp.codelens.refresh()
+        vim.lsp.codelens.refresh({ bufnr = 0 })
       end
 
       local wk = require("which-key")
