@@ -7,8 +7,8 @@ function M.config()
   local alpha = require("alpha")
   local wps = require("config.plugins.workspaces")
   local dashboard = require("alpha.themes.dashboard")
-  local main_color = "@constructor"
-  local num_color = "@keyword.import"
+  local main_color = "Function"
+  local num_color = "Macro"
   dashboard.section.header.opts.hl = {
     {
       { main_color, 0, 128 },
