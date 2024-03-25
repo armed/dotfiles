@@ -12,7 +12,7 @@ local function setup_new()
     virtual_text = {
       prefix = function(diagnostic)
         return M.signs[diagnostic.severity]
-      end
+      end,
     },
     signs = {
       text = M.signs,
@@ -34,6 +34,10 @@ local function setup_legacy()
   end
 end
 
-M.setup = setup_new
+if vim.version().minor == 9 then
+  M.setup = setup_legacy
+else
+  M.setup = setup_new
+end
 
 return M
