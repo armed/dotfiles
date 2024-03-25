@@ -1,6 +1,10 @@
 return {
   clojure_lsp = {
     root_dir = require("config.lsp.utils").get_lsp_cwd,
+    cmd = {
+      "/Users/armed/.local/bin/clojure-lsp",
+      -- "--trace-level", "verbose"
+    },
     init_options = {
       signatureHelp = true,
       codeLens = true,
