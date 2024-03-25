@@ -72,6 +72,9 @@ return {
           ["@lsp.typemod.operator.controlFlow"] = {
             link = "@keyword.exception",
           },
+          ["@lsp.type.keyword.clojure"] = {
+            link = "@string.special.symbol"
+          },
           ["@lsp.typemod.keyword.documentation"] = { link = "Special" },
 
           ["@lsp.typemod.variable.global"] = { link = "Constant" },
