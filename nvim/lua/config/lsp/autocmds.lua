@@ -7,12 +7,14 @@ end
 function M.setup()
   local lsp_group = vim.api.nvim_create_augroup("LspGroup", { clear = true })
 
-  vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, {
-    group = lsp_group,
-    callback = function()
-      vim.lsp.codelens.refresh({ bufnr = 0 })
-    end,
-  })
+  -- vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, {
+  --   group = lsp_group,
+  --   callback = function()
+  --     pcall(function()
+  --       -- vim.lsp.codelens.refresh({ bufnr = 0 })
+  --     end)
+  --   end,
+  -- })
 
   vim.api.nvim_create_autocmd("LspDetach", {
     group = lsp_group,
