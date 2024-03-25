@@ -76,6 +76,12 @@ function M.setup()
         },
         a = { vim.lsp.buf.code_action, "Code Actions" },
       },
+      k = {
+        function()
+          require("conjure.eval")["doc-word"]()
+        end,
+        "Cojure hover doc",
+      },
     },
     K = { vim.lsp.buf.hover, "Hover doc" },
   }
