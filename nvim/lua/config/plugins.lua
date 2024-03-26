@@ -47,10 +47,6 @@ return {
     },
   },
   {
-    "uga-rosa/ccc.nvim",
-    event = "VeryLazy",
-  },
-  {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
     init = function()
