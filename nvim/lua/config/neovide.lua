@@ -35,7 +35,7 @@ function M.init()
     vim.keymap.set("n", "<d-v>", '"+p') -- paste normal mode
     vim.keymap.set("v", "<d-v>", '"+p') -- paste visual mode
     vim.keymap.set("c", "<d-v>", "<c-r>+") -- paste command mode
-    vim.keymap.set("i", "<d-v>", '<esc>pi') -- paste insert mode
+    vim.keymap.set("i", "<d-v>", "<esc>pi") -- paste insert mode
 
     local change_scale_factor = function(delta)
       vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
@@ -49,6 +49,13 @@ function M.init()
     vim.keymap.set("n", "<D-->", function()
       change_scale_factor(1 / 1.05)
     end)
+
+    vim.g.neovide_floating_shadow = true
+    vim.g.neovide_floating_z_height = 10
+    vim.g.neovide_light_angle_degrees = 15
+    vim.g.neovide_light_radius = 5
+
+    vim.g.neovide_refresh_rate_idle = 5
   end
 end
 
