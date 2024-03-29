@@ -4,7 +4,7 @@ local augroup = vim.api.nvim_create_augroup
 -- General Settings
 local general = augroup("General Settings", { clear = true })
 
-autocmd("VimEnter", {
+autocmd({ "VimEnter", "DirChanged" }, {
   callback = function(data)
     -- buffer is a directory
     local directory = vim.fn.isdirectory(data.file) == 1
@@ -16,10 +16,10 @@ autocmd("VimEnter", {
       vim.cmd("Neotree")
     end
     local current_dir = vim.fn.getcwd()
-    if current_dir then
+    if current_dir and current_dir ~= "/" then
       local current_dir_name = current_dir:match("([^/]+)$")
       vim.schedule(function()
-        vim.o.titlestring = current_dir_name .. "[nv]"
+        vim.o.titlestring = "[nv]" .. current_dir_name
       end)
     end
   end,
