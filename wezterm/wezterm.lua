@@ -16,11 +16,13 @@ config.window_frame = {
 }
 -- window_decorations = 'NONE',
 config.window_padding = {
-  left = "0cell",
-  right = "0cell",
-  top = "0cell",
+  left = "0.3cell",
+  right = "0.3cell",
+  top = "0.4cell",
   bottom = "0cell",
 }
+
+config.window_decorations = "RESIZE"
 
 config.force_reverse_video_cursor = true
 
