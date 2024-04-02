@@ -13,8 +13,6 @@ local function set_repl_winbar()
       "%#winbarseparator#"
       .. "%="
       .. "%#user.repl.winbar# "
-      .. "%{%v:lua.require'config.tools.nrepl'.get_repl_status('no REPL')%}"
-      .. "%#user.repl.winbar# "
       .. "%#winbarseparator#"
     )
   end
@@ -33,6 +31,9 @@ M.config = function()
   -- vim.g["conjure#client#clojure#nrepl#test#runner"] = "kaocha"
   vim.g["conjure#log#jump_to_latest#cursor_scroll_position"] = "none"
   vim.g["conjure#log#hud#enabled"] = false
+  vim.g["conjure#client#clojure#nrepl#mapping#refresh_all"] = false
+  vim.g["conjure#client#clojure#nrepl#mapping#refresh_changed"] = false
+  vim.g["conjure#client#clojure#nrepl#mapping#refresh_clear"] = false
   vim.g["conjure#mapping#log_split"] = false
   vim.g["conjure#mapping#log_vsplit"] = false
   vim.g["conjure#mapping#log_toggle"] = false
@@ -69,6 +70,7 @@ M.config = function()
   local mappings = require("config.plugins.conjure.portal-mappings")
   local wk = require("which-key")
   local repl = require("config.tools.nrepl")
+  local u = require("config.plugins.conjure.util")
 
   local function conjure_log_open(is_vertical)
     local log = require("conjure.log")
@@ -120,7 +122,13 @@ M.config = function()
       name = "Evaluate",
       c = { name = "To Comment" },
     },
-    r = "Refresh",
+    r = {
+      function()
+        vim.cmd("w")
+        u.conjure_eval("((requiring-resolve 'clj-reload.core/reload))")
+      end,
+      "CLJ Reload",
+    },
     s = "Session",
     t = "Tests",
     v = "Display",

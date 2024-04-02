@@ -1,50 +1,33 @@
 local eval = require("conjure.eval")
 local extract = require("conjure.extract")
-
-local function conjure_eval(form)
-  return eval["eval-str"]({ code = form, origin = "custom_command" })
-end
-
-local function conjure_eval_fn(form)
-  return function()
-    return conjure_eval(form)
-  end
-end
-
-local function conjure_word()
-  return extract.word().content
-end
-
-local function conjure_form(is_root)
-  return (extract.form({ ["root?"] = is_root })).content
-end
+local u = require("config.plugins.conjure.util")
 
 local portal_cmds
 local function tap_word()
-  local word = conjure_word()
-  return conjure_eval(("(tap> " .. word .. ")"))
+  local word = u.conjure_word()
+  return u.conjure_eval(("(tap> " .. word .. ")"))
 end
 
 local function tap_form()
-  local form = conjure_form(false)
-  return conjure_eval(("(tap> " .. form .. ")"))
+  local form = u.conjure_form(false)
+  return u.conjure_eval(("(tap> " .. form .. ")"))
 end
 
 local function tap_root_form()
-  local form = conjure_form(true)
-  return conjure_eval(("(tap> " .. form .. ")"))
+  local form = u.conjure_form(true)
+  return u.conjure_eval(("(tap> " .. form .. ")"))
 end
 
 portal_cmds = {
-  open = conjure_eval_fn([[
+  open = u.conjure_eval_fn([[
     (do (ns dev)
         ((requiring-resolve 'portal.api/close))
         (def portal ((requiring-resolve 'portal.api/open)
                      {:theme :portal.colors/nord}))
         (add-tap (requiring-resolve 'portal.api/submit)))
   ]]),
-  clear = conjure_eval_fn("(portal.api/clear)"),
-  last_exception = conjure_eval_fn("(tap> (Throwable->map *e))"),
+  clear = u.conjure_eval_fn("(portal.api/clear)"),
+  last_exception = u.conjure_eval_fn("(tap> (Throwable->map *e))"),
   tap_word = tap_word,
   tap_form = tap_form,
   tap_root_form = tap_root_form,
