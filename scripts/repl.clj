@@ -13,7 +13,7 @@
         parent-path  (fs/parent current-path)]
     (str (fs/relativize parent-path current-path))))
 
-(def default-aliases #{"cider" "dev" "portal" "scope-capture" "storm"})
+(def default-aliases #{"nrepl" "dev"})
 
 (def project-aliases (when-let [deps (some-> "deps.edn"
                                              (slurp)
