@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local mux = wezterm.mux
 local theme = require("theme")
 local tab = require("tab")
 
@@ -32,5 +33,15 @@ tab.setup(config)
 config.color_scheme = "kanagawabones"
 
 config.term = "wezterm"
+
+wezterm.on("gui-attached", function(domain)
+  -- maximize all displayed windows on startup
+  local workspace = mux.get_active_workspace()
+  for _, window in ipairs(mux.all_windows()) do
+    if window:get_workspace() == workspace then
+      window:gui_window():maximize()
+    end
+  end
+end)
 
 return config
