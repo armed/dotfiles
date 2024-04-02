@@ -124,7 +124,7 @@ M.config = function()
     },
     r = {
       function()
-        vim.cmd("w")
+        vim.cmd("wa")
         u.conjure_eval("((requiring-resolve 'clj-reload.core/reload))")
       end,
       "CLJ Reload",
