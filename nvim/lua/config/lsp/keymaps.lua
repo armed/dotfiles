@@ -14,6 +14,22 @@ end
 
 local M = {}
 
+function M.lsp_restart()
+  vim.cmd("LspStop")
+  vim.defer_fn(function()
+    vim.cmd("e")
+  end, 1000)
+end
+
+local function clojure_clean_restart_lsp()
+  local ft = vim.bo.filetype
+  if ft == "clojure" then
+    local lsp_keymaps = require("config.lsp.keymaps")
+    vim.fn.delete(".lsp/.cache", "rf")
+    lsp_keymaps.lsp_restart()
+  end
+end
+
 function M.setup()
   local conform = require("conform")
   vim.keymap.set({ "n", "v" }, "<leader>lf", function()
@@ -39,9 +55,11 @@ function M.setup()
           end,
           "Inlay hints",
         },
+        e = { "<cmd>e<cr>", "Edit" },
+        C = { clojure_clean_restart_lsp, "LSP Clean Restart" },
         r = { vim.lsp.buf.rename, "Rename" },
-        R = { ":LspRestart<cr>", "Lsp Restart" },
-        I = { ":LspInfo<cr>", "Lsp Info" },
+        R = { M.lsp_restart, "Lsp Restart" },
+        I = { "<cmd>LspInfo<cr>", "Lsp Info" },
         n = { diag_next, "Next Diagnostics" },
         N = { diag_prev, "Prev Diagnostics" },
         l = { diag_float, "Line Diagnostic" },
