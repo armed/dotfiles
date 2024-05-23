@@ -55,7 +55,7 @@
                                 :out
                                 (string/split-lines)
                                 (mapv keyword))
-          cmd (str "clojure -M" (string/join selected-aliases))]
+          cmd (str "kmono repl -M" (string/join selected-aliases))]
       (aliases/save-aliases! selected-aliases)
       (clean!)
       ; (pom/write-pom! selected-aliases)
