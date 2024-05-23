@@ -44,4 +44,27 @@ wezterm.on("gui-attached", function(domain)
   end
 end)
 
+config.keys = {
+  {
+    key = "/",
+    mods = "SUPER",
+    action = wezterm.action_callback(function(_, pane)
+      local t = pane:tab()
+      local panes = t:panes_with_info()
+      if #panes == 1 then
+        pane:split({
+          direction = "Top",
+          size = 0.4,
+        })
+      elseif not panes[2].is_zoomed then
+        panes[2].pane:activate()
+        t:set_zoomed(true)
+      elseif panes[2].is_zoomed then
+        t:set_zoomed(false)
+        panes[1].pane:activate()
+      end
+    end),
+  },
+}
+
 return config
