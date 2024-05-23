@@ -5,10 +5,20 @@ return {
       os.getenv("HOME") .. "/.local/share/mise/shims/clojure-lsp",
       -- "--trace-level", "verbose"
     },
+    single_file_support = true,
     init_options = {
-      signatureHelp = true,
       codeLens = true,
+      signatureHelp = true,
+      ["project-specs"] = {
+        {
+          ["project-path"] = "deps.edn",
+          ["classpath-cmd"] = { "kmono", "cp" },
+        },
+      },
     },
+    before_init = function(params)
+      params.workDoneToken = "enable-progress"
+    end,
   },
   zls = {},
   yamlls = {
@@ -21,7 +31,7 @@ return {
       },
     },
   },
-  tsserver = {},
+  -- tsserver = {},
   jdtls = {
     settings = {
       single_file_support = true,
@@ -59,7 +69,7 @@ return {
     },
   },
   clangd = {},
-  vuels = {},
+  volar = {},
   graphql = {
     filetypes = { "graphql", "typescriptreact", "javascriptreact" },
   },

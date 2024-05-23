@@ -43,11 +43,11 @@ function M.config()
     flags = {
       debounce_text_changes = 150,
     },
-    before_init = function(params)
-      if not params.workDoneToken then
-        params.workDoneToken = "1"
-      end
-    end,
+    -- before_init = function(params)
+    --   if not params.workDoneToken then
+    --     params.workDoneToken = "1"
+    --   end
+    -- end,
   }
   mason_lspconfig.setup_handlers({
     function(server_name)
