@@ -15,11 +15,6 @@ return {
       { "<leader>U", ":UndotreeToggle<cr>", desc = "Undo Tree" },
     },
   },
-  {
-    "numToStr/Comment.nvim",
-    event = "VeryLazy",
-    config = true,
-  },
   "kyazdani42/nvim-web-devicons",
   "nvim-treesitter/nvim-treesitter-textobjects",
   {
