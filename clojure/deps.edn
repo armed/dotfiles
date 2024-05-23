@@ -12,7 +12,7 @@
           :jvm-opts ["-Dclojure.storm.instrumentEnable=true"
                      "-Dclojure.storm.traceEnable=true"
                      "-Dflowstorm.theme=dark"]}
-  :nrepl {:extra-deps {cider/cider-nrepl {:mvn/version "0.44.0"}
+  :nrepl {:extra-deps {cider/cider-nrepl {:mvn/version "0.48.0"}
                        io.aviso/pretty {:mvn/version "1.4.4"}
                        io.github.tonsky/clj-reload {:mvn/version "0.7.0"}}
           :main-opts ["-m"
