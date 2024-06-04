@@ -48,7 +48,7 @@ M.config = function()
     group = grp,
     pattern = "conjure-log-*",
     callback = function(event)
-      vim.diagnostic.disable(event.buf)
+      vim.diagnostic.enable(false, { bufnr = event.buf })
     end,
   })
 
@@ -130,6 +130,18 @@ M.config = function()
       end,
       "CLJ Reload",
     },
+    R = {
+      function()
+        u.conjure_eval("(user/reset-app!)")
+      end,
+      "Reset",
+    },
+    S = {
+      function()
+        u.conjure_eval("(user/stop-app!)")
+      end,
+      "Stop",
+    },
     s = "Session",
     t = "Tests",
     v = "Display",
@@ -155,7 +167,6 @@ M.config = function()
       },
     },
   }, { prefix = "<localleader>" })
-
 end
 
 return M

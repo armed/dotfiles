@@ -2,8 +2,20 @@ local eval = require("conjure.eval")
 local extract = require("conjure.extract")
 
 local M = {}
+
+function M.eval(ns, code)
+  local client = require("conjure.client")
+  local fn = eval["eval-str"]
+
+  client["with-filetype"]("clojure", fn, {
+    origin = "custom_command",
+    context = ns or "user",
+    code = code,
+  })
+end
+
 function M.conjure_eval(form)
-  return eval["eval-str"]({ code = form, origin = "custom_command" })
+  return M.eval(nil, form)
 end
 
 function M.conjure_eval_fn(form)
