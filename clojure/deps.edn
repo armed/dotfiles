@@ -15,7 +15,9 @@
   :nrepl {:extra-deps {cider/cider-nrepl {:mvn/version "0.48.0"}
                        io.aviso/pretty {:mvn/version "1.4.4"}
                        io.github.tonsky/clj-reload {:mvn/version "0.7.0"}}
-          :main-opts ["-m"
+          :main-opts ["-e"
+                      "(load-file (str (System/getenv \"XDG_CONFIG_HOME\") \"/clojure/user.clj\"))"
+                      "-m"
                       "nrepl.cmdline"
                       "--middleware"
                       "[cider.nrepl/cider-middleware]"]}}}
