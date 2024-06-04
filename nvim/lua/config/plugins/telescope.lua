@@ -1,10 +1,12 @@
 local M = {
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
-  keys = {
-    { "<leader>f", desc = "Telescope find" },
-    { "<leader>r", desc = "Resume last search" },
-  },
+  branch = "master",
+  -- tag = "0.1.8",
+  -- keys = {
+  --   { "<leader>f", desc = "Telescope find" },
+  --   { "<leader>r", desc = "Resume last search" },
+  -- },
   dependencies = {
     "tsakirist/telescope-lazy.nvim",
     "aaronhallaert/advanced-git-search.nvim",
@@ -19,7 +21,7 @@ local M = {
 }
 
 function M.config()
-  local trouble = require("trouble.providers.telescope")
+  local trouble = require("trouble.sources.telescope")
   local telescope = require("telescope")
   local actions = require("telescope.actions")
   local themes = require("telescope.themes")
@@ -34,12 +36,12 @@ function M.config()
       mappings = {
         n = {
           ["q"] = actions.close,
-          ["<c-t>"] = trouble.open_with_trouble,
+          ["<c-t>"] = trouble.open,
         },
         i = {
           ["<C-j>"] = actions.move_selection_next,
           ["<C-k>"] = actions.move_selection_previous,
-          ["<c-t>"] = trouble.open_with_trouble,
+          ["<c-t>"] = trouble.open,
         },
       },
       vimgrep_arguments = {
@@ -94,6 +96,15 @@ function M.config()
         },
         -- Other telescope configuration options
       },
+      smart_open = {
+        match_algorithm = "fzf",
+        ignore_patterns = {
+          "*.git/*",
+          "*/tmp/*",
+          "*/target/*",
+          "*/.cpcache/*",
+        },
+      },
     },
     pickers = {
       registers = {
@@ -135,19 +146,19 @@ function M.config()
   telescope.load_extension("workspaces")
   telescope.load_extension("lazy")
 
-  local wk = require("which-key")
-  wk.register({
-    r = { ":Telescope resume<cr>", "Resume last search" },
-    f = {
-      F = { ":FzfLua<cr>", "Fzf" },
-      f = { ":Telescope find_files<cr>", "Files" },
-      c = { ":Telescope current_buffer_fuzzy_find<cr>", "In buffer" },
-      g = { ":Telescope live_grep<cr>", "Live grep" },
-      b = { ":Telescope buffers<cr>", "Buffers" },
-      k = { ":Telescope keymaps<cr>", "Keymaps" },
-      r = { ":Telescope oldfiles cwd_only=true<cr>", "Recent files" },
-    },
-  }, { prefix = "<leader>" })
+  -- local wk = require("which-key")
+  -- wk.register({
+  --   r = { ":Telescope resume<cr>", "Resume last search" },
+  --   f = {
+  --     F = { ":FzfLua<cr>", "Fzf" },
+  --     f = { ":Telescope find_files<cr>", "Files" },
+  --     c = { ":Telescope current_buffer_fuzzy_find<cr>", "In buffer" },
+  --     g = { ":Telescope live_grep<cr>", "Live grep" },
+  --     b = { ":Telescope buffers<cr>", "Buffers" },
+  --     k = { ":Telescope keymaps<cr>", "Keymaps" },
+  --     r = { ":Telescope oldfiles cwd_only=true<cr>", "Recent files" },
+  --   },
+  -- }, { prefix = "<leader>" })
 end
 
 return M

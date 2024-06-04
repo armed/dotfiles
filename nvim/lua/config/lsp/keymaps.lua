@@ -39,18 +39,28 @@ function M.setup()
   end, { desc = "Format" })
   return {
     g = {
-      d = { ":Telescope lsp_definitions<cr>", "Go to Definition" },
-      i = { ":Telescope lsp_implementations<cr>", "Go to Impementations" },
-      r = { ":Telescope lsp_references<cr>", "Symbol References" },
-      t = { ":Telescope lsp_type_definitions<cr>", "Type Definitions" },
+      d = {
+        "<cmd>FzfLua lsp_definitions jump_to_single_result=true<cr>",
+        "Go to Definition",
+      },
+      i = {
+        "<cmd>FzfLua lsp_implementations jump_to_single_result=true<cr>",
+        "Go to Impementations",
+      },
+      r = { "<cmd>FzfLua lsp_references<cr>", "Symbol References" },
+      t = {
+        "<cmd>FzfLua lsp_typedefs jump_to_single_result=true<cr>",
+        "Type Definitions",
+      },
     },
-    t = { ":Telescope lsp_type_definitions<cr>", "Type Definition" },
     ["<leader>"] = {
       l = {
         h = {
           function()
             if vim.lsp.inlay_hint then
-              vim.lsp.inlay_hint(0)
+              local filter = { bufnr = 0 }
+              local flag = not vim.lsp.inlay_hint.is_enabled(filter)
+              vim.lsp.inlay_hint.enable(flag, filter)
             end
           end,
           "Inlay hints",
@@ -74,17 +84,17 @@ function M.setup()
             "Clear",
           },
         },
-        s = { ":Telescope lsp_document_symbols<cr>", "Document Symbols" },
+        s = { "<cmd>FzfLua lsp_document_symbols<cr>", "Document Symbols" },
         S = {
-          ":Telescope lsp_dynamic_workspace_symbols<cr>",
+          "<cmd>FzfLua lsp_workspace_symbols<cr>",
           "Workspace Symbols",
         },
         d = {
-          ":TroubleToggle document_diagnostics<cr>",
+          "<cmd>Trouble diagnostics filter.buf=0 focus=true<cr>",
           "Document Diagnostics",
         },
         D = {
-          ":TroubleToggle workspace_diagnostics<cr>",
+          "<cmd>Trouble diagnostics focus=true<cr>",
           "Workspace Diagnostics",
         },
         w = {
