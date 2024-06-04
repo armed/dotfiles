@@ -11,6 +11,7 @@ return {
         typescript = { js_formatter },
         typescriptreact = { js_formatter },
 
+        nim = { "nimpretty" },
         lua = { "stylua" },
         just = { "just" },
         -- clojure = { "zpr" },
@@ -18,6 +19,13 @@ return {
       },
 
       formatters = {
+        nimpretty = {
+          command = "nimpretty",
+          args = {
+            "--indent:2",
+            "$FILENAME",
+          },
+        },
         -- zig = {
         --   command = "zig",
         --   args = {
