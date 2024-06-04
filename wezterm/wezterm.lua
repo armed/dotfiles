@@ -53,15 +53,15 @@ config.keys = {
       local panes = t:panes_with_info()
       if #panes == 1 then
         pane:split({
-          direction = "Top",
+          direction = "Bottom",
           size = 0.4,
         })
-      elseif not panes[2].is_zoomed then
-        panes[2].pane:activate()
-        t:set_zoomed(true)
-      elseif panes[2].is_zoomed then
-        t:set_zoomed(false)
+      elseif not panes[1].is_zoomed then
         panes[1].pane:activate()
+        t:set_zoomed(true)
+      elseif panes[1].is_zoomed then
+        t:set_zoomed(false)
+        panes[2].pane:activate()
       end
     end),
   },
