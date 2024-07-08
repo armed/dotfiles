@@ -13,10 +13,12 @@
                      "-Dclojure.storm.traceEnable=true"
                      "-Dflowstorm.theme=dark"]}
   :nrepl {:extra-deps {cider/cider-nrepl {:mvn/version "0.48.0"}
+                       djblue/portal {:mvn/version "0.50.0"}
                        io.aviso/pretty {:mvn/version "1.4.4"}
+                       io.julienvincent/clojure-test {:mvn/version "RELEASE"}
                        io.github.tonsky/clj-reload {:mvn/version "0.7.0"}}
           :main-opts ["-e"
-                      "(load-file (str (System/getenv \"XDG_CONFIG_HOME\") \"/clojure/user.clj\"))"
+                      "(ns user) (load-file (str (System/getenv \"XDG_CONFIG_HOME\") \"/clojure/user.clj\"))"
                       "-m"
                       "nrepl.cmdline"
                       "--middleware"
