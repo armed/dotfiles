@@ -121,6 +121,15 @@ autocmd("FileType", {
   end,
 })
 
+autocmd("FileType", {
+  group = general,
+  pattern = { "nim" },
+  callback = function()
+    vim.opt_local.commentstring = "# %s"
+  end,
+})
+
+
 autocmd("ColorScheme", {
   group = general,
   pattern = "*",
