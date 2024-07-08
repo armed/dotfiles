@@ -73,7 +73,7 @@ return {
             link = "@keyword.exception",
           },
           ["@lsp.type.keyword.clojure"] = {
-            link = "@string.special.symbol"
+            link = "@string.special.symbol",
           },
           ["@lsp.typemod.keyword.documentation"] = { link = "Special" },
 

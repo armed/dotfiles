@@ -20,7 +20,7 @@ end
 
 portal_cmds = {
   open = u.conjure_eval_fn([[
-    (do (ns dev)
+    (do (ns user)
         ((requiring-resolve 'portal.api/close))
         (def portal ((requiring-resolve 'portal.api/open)
                      {:theme :portal.colors/nord}))
