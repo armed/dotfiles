@@ -16,7 +16,8 @@ return {
       f = {
         f = { "<cmd>FzfLua files<cr>", "Files" },
         c = { "<cmd>FzfLua lgrep_curbuf<cr>", "In buffer" },
-        g = { "<cmd>FzfLua live_grep<cr>", "Live grep" },
+        g = { "<cmd>FzfLua grep_project<cr>", "Grep project" },
+        v = { "<cmd>FzfLua grep_visual<cr>", "Grep selection", mode = "v" },
         b = { "<cmd>FzfLua buffers<cr>", "Buffers" },
         k = { "<cmd>FzfLua keymaps<cr>", "Keymaps" },
         r = { "<cmd>FzfLua oldfiles cwd_only=true<cr>", "Recent files" },
@@ -42,7 +43,7 @@ return {
           ["f4"] = "toggle-preview",
           ["alt-j"] = "preview-page-down",
           ["alt-k"] = "preview-page-up",
-          ["ctrl-q"] = "select-all+accept"
+          ["ctrl-q"] = "select-all+accept",
         },
       },
       fzf_opts = {
