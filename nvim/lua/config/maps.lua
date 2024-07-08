@@ -18,6 +18,12 @@ map("i", "jk", "<esc>", { silent = true })
 map("i", "kj", "<esc>", { silent = true })
 map("i", "kk", "<esc>", { silent = true })
 
+map("i", "оо", "<esc>", { silent = true })
+map("i", "ло", "<esc>", { silent = true })
+map("i", "ол", "<esc>", { silent = true })
+map("i", "лл", "<esc>", { silent = true })
+
+
 -- better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -35,12 +41,12 @@ map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window wi
 map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move Lines
-map("n", "<A-j>", ":m .+1<cr>==", { desc = "Move down" })
-map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-map("i", "<A-j>", "<Esc>:m .+1<cr>==gi", { desc = "Move down" })
-map("n", "<A-k>", ":m .-2<cr>==", { desc = "Move up" })
-map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
-map("i", "<A-k>", "<Esc>:m .-2<cr>==gi", { desc = "Move up" })
+map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+map("v", "<A-j>", "<cmd>m '>+1<cr>gv=gv", { desc = "Move down" })
+map("i", "<A-j>", "<Esc>m .+1<cr>==gi", { desc = "Move down" })
+map("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+map("v", "<A-k>", "<cmd>m '<-2<cr>gv=gv", { desc = "Move up" })
+map("i", "<A-k>", "<Esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 
 -- buffers
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
@@ -150,9 +156,8 @@ map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
--- local remap = vim.api.nvim_set_keymap
--- remap("n", "<TAB>", ">>", { noremap = true })
--- remap("n", "<S-TAB>", "<<", { noremap = true })
--- remap("v", "<TAB>", ">gv", { noremap = true })
--- remap("v", "<S-TAB>", "<gv", { noremap = true })
---
+local remap = vim.api.nvim_set_keymap
+remap("n", "<TAB>", ">>", { noremap = true })
+remap("n", "<S-TAB>", "<<", { noremap = true })
+remap("v", "<TAB>", ">gv", { noremap = true })
+remap("v", "<S-TAB>", "<gv", { noremap = true })
