@@ -1,8 +1,13 @@
+local home_dir = os.getenv("HOME")
+local mise_installs = home_dir .. "/.local/share/mise/installs"
+local mise_shims = home_dir .. "/.local/share/mise/shims"
+local nim_version = "2.0.8"
+
 return {
   clojure_lsp = {
     root_dir = require("config.lsp.utils").get_lsp_cwd,
     cmd = {
-      os.getenv("HOME") .. "/.local/share/mise/shims/clojure-lsp",
+      mise_shims .. "/clojure-lsp",
       -- "--trace-level", "verbose"
     },
     single_file_support = true,
@@ -19,6 +24,24 @@ return {
     before_init = function(params)
       params.workDoneToken = "enable-progress"
     end,
+  },
+  biome = {},
+  nim_langserver = {
+    filetypes = { "nim" },
+    cmd = {
+      mise_installs .. "/nim/" .. nim_version .. "/nimble/bin/nimlangserver",
+    },
+    settings = {
+      single_file_support = true,
+      nim = {
+        autoRestart = true,
+        timeout = 30000,
+        autoCheckFile = false,
+      },
+    },
+  },
+  gleam = {
+    cmd = { "gleam", "lsp" },
   },
   zls = {},
   yamlls = {
@@ -70,9 +93,6 @@ return {
   },
   clangd = {},
   volar = {},
-  graphql = {
-    filetypes = { "graphql", "typescriptreact", "javascriptreact" },
-  },
   tailwindcss = {
     filetypes = {
       "aspnetcorerazor",

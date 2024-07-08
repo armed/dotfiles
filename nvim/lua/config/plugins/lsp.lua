@@ -20,11 +20,20 @@ local M = {
         },
       },
       opts = {
-        ensure_installed = vim.tbl_keys(servers),
+        -- no gleam in mason
+        ensure_installed = vim.tbl_filter(function(key)
+          return key ~= "gleam"
+        end, vim.tbl_keys(servers)),
       },
     },
   },
 }
+
+local function setup_server(server_name, options)
+  local server_opts = servers[server_name] or {}
+  local opts = vim.tbl_deep_extend("force", {}, options, server_opts)
+  require("lspconfig")[server_name].setup(opts)
+end
 
 function M.config()
   require("lspconfig.ui.windows").default_options.border = "rounded"
@@ -51,15 +60,16 @@ function M.config()
   }
   mason_lspconfig.setup_handlers({
     function(server_name)
-      local server_opts = servers[server_name] or {}
-      local opts = vim.tbl_deep_extend("force", {}, options, server_opts)
-      require("lspconfig")[server_name].setup(opts)
+      setup_server(server_name, options)
     end,
 
-    ["tsserver"] = require("config.lsp.tsserver").get_config(servers, options),
+    tsserver = require("config.lsp.tsserver").get_config(servers, options),
 
-    ["jdtls"] = require("config.lsp.jtdls").get_config(servers, options),
+    jdtls = require("config.lsp.jtdls").get_config(servers, options),
   })
+
+  -- setup gleam out of mason
+  setup_server("gleam", options)
 end
 
 return M

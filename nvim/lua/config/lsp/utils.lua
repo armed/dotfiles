@@ -113,7 +113,7 @@ function M.matches_filters(filters, name)
 end
 
 function M.get_lsp_clients(filter)
-  local get_clients = vim.lsp.get_clients or vim.lsp.get_active_clients
+  local get_clients = vim.lsp.get_clients
   return get_clients(filter)
 end
 
