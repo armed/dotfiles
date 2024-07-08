@@ -3,7 +3,7 @@ return {
   config = function()
     local conform = require("conform")
 
-    local js_formatter = { "prettierd", "prettier" }
+    local js_formatter = { "biome", "prettierd", "prettier" }
 
     conform.setup({
       formatters_by_ft = {
