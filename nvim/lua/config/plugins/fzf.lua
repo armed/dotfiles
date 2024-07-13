@@ -11,18 +11,7 @@ return {
   config = function()
     local wk = require("which-key")
     local fzf = require("fzf-lua")
-    wk.register({
-      r = { "<cmd>FzfLua resume<cr>", "FzfLua resume" },
-      f = {
-        f = { "<cmd>FzfLua files<cr>", "Files" },
-        c = { "<cmd>FzfLua lgrep_curbuf<cr>", "In buffer" },
-        g = { "<cmd>FzfLua grep_project<cr>", "Grep project" },
-        v = { "<cmd>FzfLua grep_visual<cr>", "Grep selection", mode = "v" },
-        b = { "<cmd>FzfLua buffers<cr>", "Buffers" },
-        k = { "<cmd>FzfLua keymaps<cr>", "Keymaps" },
-        r = { "<cmd>FzfLua oldfiles cwd_only=true<cr>", "Recent files" },
-      },
-    }, { prefix = "<leader>" })
+
     fzf.setup({
       winopts = {
         preview = {
@@ -49,6 +38,26 @@ return {
       fzf_opts = {
         ["--cycle"] = true,
         ["--layout"] = "default",
+      },
+    })
+
+    wk.add({
+      { "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
+      { "<leader>fc", "<cmd>FzfLua lgrep_curbuf<cr>", desc = "In buffer" },
+      { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Files" },
+      { "<leader>fg", "<cmd>FzfLua grep_project<cr>", desc = "Grep project" },
+      { "<leader>fk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
+      {
+        "<leader>fr",
+        "<cmd>FzfLua oldfiles cwd_only=true<cr>",
+        desc = "Recent files",
+      },
+      { "<leader>r", "<cmd>FzfLua resume<cr>", desc = "FzfLua resume" },
+      {
+        "<leader>fv",
+        "<cmd>FzfLua grep_visual<cr>",
+        desc = "Grep selection",
+        mode = "v",
       },
     })
   end,

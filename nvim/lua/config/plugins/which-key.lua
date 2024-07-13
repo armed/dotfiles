@@ -4,12 +4,17 @@ local M = {
     { "<leader>" },
     { "<localleader>" },
   },
+  dependencies = {
+    "kyazdani42/nvim-web-devicons",
+    { "echasnovski/mini.icons", version = false },
+  },
 }
 
 function M.config()
   local wk = require("which-key")
 
   wk.setup({
+    preset = "helix",
     window = { border = "double" },
     layout = { align = "center" },
     plugins = {
@@ -38,25 +43,21 @@ function M.config()
     vim.cmd("silent qa!")
   end
 
-  wk.register({
-    u = {
-      name = "Toggle",
-      t = { ":TSContextToggle<cr>", "Treesitter Context" },
-    },
-    t = {
-      name = "Terminal",
-      v = { ":vsplit | term<cr>", "Vert Split Termial" },
-      s = { ":split | term<cr>", "Split Terminal" },
-    },
-    e = { ":Neotree toggle<cr>", "Toggle Neo Tree" },
-    E = { ":Neotree focus<cr>", "Focus Neo Tree" },
-    s = { ":silent w<cr>", "Save buffer" },
-    S = { ":silent wa<cr>", "Save all" },
-    x = { save_all_quit, "Save and quit" },
-    q = { "<c-w>q", "Close window" },
-    L = { ":Lazy<cr>", "Lazy" },
-    m = { ":Mason<cr>", "Mason" },
-  }, { prefix = "<leader>" })
+  wk.add({
+    { "<leader>E", ":Neotree focus<cr>", desc = "Focus Neo Tree" },
+    { "<leader>L", ":Lazy<cr>", desc = "Lazy" },
+    { "<leader>S", ":silent wa<cr>", desc = "Save all" },
+    { "<leader>e", ":Neotree toggle<cr>", desc = "Toggle Neo Tree" },
+    { "<leader>m", ":Mason<cr>", desc = "Mason" },
+    { "<leader>q", "<c-w>q", desc = "Close window" },
+    { "<leader>s", ":silent w<cr>", desc = "Save buffer" },
+    { "<leader>t", group = "Terminal" },
+    { "<leader>ts", ":split | term<cr>", desc = "Split Terminal" },
+    { "<leader>tv", ":vsplit | term<cr>", desc = "Vert Split Termial" },
+    { "<leader>u", group = "Toggle" },
+    { "<leader>ut", ":TSContextToggle<cr>", desc = "Treesitter Context" },
+    { "<leader>x", save_all_quit, desc = "Save and quit" },
+  })
 end
 
 return M

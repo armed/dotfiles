@@ -21,15 +21,13 @@ return {
   config = function(_, opts)
     require("neogit").setup(opts)
     local wk = require("which-key")
-    wk.register({
-      g = {
-        name = "Git",
-        g = { ":Neogit<cr>", "Status" },
-        p = { ":Git push<cr>", "Push" },
-        P = { ":Git push --force<cr>", "Force Push" },
-        f = { ":Git pull<cr>", "Pull" },
-        b = { ":Telescope git_branches<cr>", "Branches" },
-      },
-    }, { prefix = "<leader>" })
+    wk.add({
+      { "<leader>g", group = "Git" },
+      { "<leader>gP", ":Git push --force<cr>", desc = "Force Push" },
+      { "<leader>gb", ":Telescope git_branches<cr>", desc = "Branches" },
+      { "<leader>gf", ":Git pull<cr>", desc = "Pull" },
+      { "<leader>gg", ":Neogit<cr>", desc = "Status" },
+      { "<leader>gp", ":Git push<cr>", desc = "Push" },
+    })
   end,
 }

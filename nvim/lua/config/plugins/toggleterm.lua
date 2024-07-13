@@ -17,10 +17,8 @@ return {
       vim.keymap.set("n", "q", ":close<cr>", { silent = true, buffer = 0 })
     end
 
-    wk.register({
-      t = {
-        t = { repl_term, "Toggle Term" },
-      },
-    }, { prefix = "<leader>" })
+    wk.add({
+      { "<leader>tt", repl_term, desc = "Toggle Term" },
+    })
   end,
 }

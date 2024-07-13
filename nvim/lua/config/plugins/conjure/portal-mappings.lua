@@ -34,23 +34,58 @@ portal_cmds = {
 }
 
 return {
-  s = {
+  {
+    "<localleader>s",
+    group = "Conjure Subscription",
     cond = function()
       return vim.bo.filetype == "clojure"
     end,
-    o = { ":ConjureOutSubscribe<cr>", "Subscribe to output" },
-    O = { ":ConjureOutUnsubscribe<cr>", "Unsubscribe from output" },
   },
-  p = {
+  {
+    "<localleader>so",
+    "<cmd>ConjureOutSubscribe<cr>",
+    desc = "Subscribe to output",
+  },
+  {
+    "<localleader>sO",
+    "<cmr>ConjureOutUnsubscribe<cr>",
+    desc = "Unsubscribe from output",
+  },
+  {
+    "<localleader>p",
+    group = "Portal",
     cond = function()
       return vim.bo.filetype == "clojure"
     end,
-    name = "Portal",
-    p = { portal_cmds.open, "Portal open" },
-    c = { portal_cmds.clear, "Portal clear" },
-    e = { portal_cmds.last_exception, "Tap last exception" },
-    w = { portal_cmds.tap_word, "Tap word" },
-    f = { portal_cmds.tap_form, "Tap current form" },
-    r = { portal_cmds.tap_root_form, "Tap root form" },
+  },
+  {
+    "<localleader>pp",
+    portal_cmds.open,
+    desc = "Portal open",
+  },
+  {
+    "<localleader>pc",
+    portal_cmds.clear,
+    desc = "Portal clear",
+  },
+  {
+    "<localleader>pe",
+    portal_cmds.last_exception,
+    desc = "Tap last exception",
+  },
+  {
+    "<localleader>pw",
+    portal_cmds.tap_word,
+    desc = "Tap word",
+  },
+  {
+    "<localleader>pf",
+    portal_cmds.tap_form,
+    desc = "Tap current form",
+  },
+  {
+    "<localleader>pr",
+    portal_cmds.tap_root_form,
+    desc = "Tap root form",
   },
 }

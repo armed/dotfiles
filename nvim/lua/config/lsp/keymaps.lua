@@ -37,81 +37,140 @@ function M.setup()
     conform.format({ lsp_fallback = true })
     vim.fn.winrestview(current_view)
   end, { desc = "Format" })
+
   return {
-    g = {
-      d = {
-        "<cmd>FzfLua lsp_definitions jump_to_single_result=true<cr>",
-        "Go to Definition",
-      },
-      i = {
-        "<cmd>FzfLua lsp_implementations jump_to_single_result=true<cr>",
-        "Go to Impementations",
-      },
-      r = { "<cmd>FzfLua lsp_references<cr>", "Symbol References" },
-      t = {
-        "<cmd>FzfLua lsp_typedefs jump_to_single_result=true<cr>",
-        "Type Definitions",
-      },
+    {
+      "<leader>k",
+      function()
+        require("conjure.eval")["doc-word"]()
+      end,
+      desc = "Cojure hover doc",
     },
-    ["<leader>"] = {
-      l = {
-        h = {
-          function()
-            if vim.lsp.inlay_hint then
-              local filter = { bufnr = 0 }
-              local flag = not vim.lsp.inlay_hint.is_enabled(filter)
-              vim.lsp.inlay_hint.enable(flag, filter)
-            end
-          end,
-          "Inlay hints",
-        },
-        e = { "<cmd>e<cr>", "Edit" },
-        C = { clojure_clean_restart_lsp, "LSP Clean Restart" },
-        r = { vim.lsp.buf.rename, "Rename" },
-        R = { M.lsp_restart, "Lsp Restart" },
-        I = { "<cmd>LspInfo<cr>", "Lsp Info" },
-        n = { diag_next, "Next Diagnostics" },
-        N = { diag_prev, "Prev Diagnostics" },
-        l = { diag_float, "Line Diagnostic" },
-        c = {
-          name = "Codelens",
-          a = { vim.lsp.codelens.run, "Run Action" },
-          r = { vim.lsp.codelens.refresh, "Refresh" },
-          c = {
-            function()
-              vim.lsp.codelens.clear(nil, 0)
-            end,
-            "Clear",
-          },
-        },
-        s = { "<cmd>FzfLua lsp_document_symbols<cr>", "Document Symbols" },
-        S = {
-          "<cmd>FzfLua lsp_workspace_symbols<cr>",
-          "Workspace Symbols",
-        },
-        d = {
-          "<cmd>Trouble diagnostics filter.buf=0 focus=true<cr>",
-          "Document Diagnostics",
-        },
-        D = {
-          "<cmd>Trouble diagnostics focus=true<cr>",
-          "Workspace Diagnostics",
-        },
-        w = {
-          name = "LSP Workspace",
-          a = { vim.lsp.buf.add_workspace_folder, "Workspace Add Folder" },
-          r = { vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder" },
-        },
-        a = { vim.lsp.buf.code_action, "Code Actions" },
-      },
-      k = {
-        function()
-          require("conjure.eval")["doc-word"]()
-        end,
-        "Cojure hover doc",
-      },
+    {
+      "<leader>lC",
+      clojure_clean_restart_lsp,
+      desc = "LSP Clean Restart",
     },
-    K = { vim.lsp.buf.hover, "Hover doc" },
+    {
+      "<leader>lD",
+      "<cmd>Trouble diagnostics focus=true<cr>",
+      desc = "Workspace Diagnostics",
+    },
+    {
+      "<leader>lI",
+      "<cmd>LspInfo<cr>",
+      desc = "Lsp Info",
+    },
+    {
+      "<leader>lN",
+      diag_prev,
+      desc = "Prev Diagnostics",
+    },
+    {
+      "<leader>lR",
+      M.lsp_restart,
+      desc = "Lsp Restart",
+    },
+    {
+      "<leader>lS",
+      "<cmd>FzfLua lsp_workspace_symbols<cr>",
+      desc = "Workspace Symbols",
+    },
+    {
+      "<leader>la",
+      vim.lsp.buf.code_action,
+      desc = "Code Actions",
+    },
+    { "<leader>lc", group = "Codelens" },
+    {
+      "<leader>lca",
+      vim.lsp.codelens.run,
+      desc = "Run Action",
+    },
+    {
+      "<leader>lcc",
+      function()
+        vim.lsp.codelens.clear(nil, 0)
+      end,
+      desc = "Clear",
+    },
+    {
+      "<leader>lcr",
+      vim.lsp.codelens.refresh,
+      desc = "Refresh",
+    },
+    {
+      "<leader>ld",
+      "<cmd>Trouble diagnostics filter.buf=0 focus=true<cr>",
+      desc = "Document Diagnostics",
+    },
+    { "<leader>le", "<cmd>e<cr>", desc = "Edit" },
+    {
+      "<leader>lh",
+      function()
+        if vim.lsp.inlay_hint then
+          local filter = { bufnr = 0 }
+          local flag = not vim.lsp.inlay_hint.is_enabled(filter)
+          vim.lsp.inlay_hint.enable(flag, filter)
+        end
+      end,
+      desc = "Inlay hints",
+    },
+    {
+      "<leader>ll",
+      diag_float,
+      desc = "Line Diagnostic",
+    },
+    {
+      "<leader>ln",
+      diag_next,
+      desc = "Next Diagnostics",
+    },
+    {
+      "<leader>lr",
+      function()
+        vim.lsp.buf.rename()
+        vim.cmd("wa")
+      end,
+      desc = "Rename",
+    },
+    {
+      "<leader>ls",
+      "<cmd>FzfLua lsp_document_symbols<cr>",
+      desc = "Document Symbols",
+    },
+    { "<leader>lw", group = "LSP Workspace" },
+    {
+      "<leader>lwa",
+      vim.lsp.buf.add_workspace_folder,
+      desc = "Workspace Add Folder",
+    },
+    {
+      "<leader>lwr",
+      vim.lsp.buf.remove_workspace_folder,
+      desc = "Workspace Remove Folder",
+    },
+    { "K", vim.lsp.buf.hover, desc = "Hover doc" },
+    {
+      "gd",
+      "<cmd>FzfLua lsp_definitions jump_to_single_result=true<cr>",
+      desc = "Go to Definition",
+    },
+    {
+      "gi",
+      "<cmd>FzfLua lsp_implementations jump_to_single_result=true<cr>",
+      desc = "Go to Impementations",
+    },
+    {
+      "gr",
+      "<cmd>FzfLua lsp_references<cr>",
+      desc = "Symbol References",
+    },
+    {
+      "gt",
+      "<cmd>FzfLua lsp_typedefs jump_to_single_result=true<cr>",
+      desc = "Type Definitions",
+    },
   }
 end
 

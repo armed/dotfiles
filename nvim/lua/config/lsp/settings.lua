@@ -37,6 +37,10 @@ M.handlers = vim.tbl_deep_extend("force", vim.lsp.handlers, {
     pcall(vim.diagnostic.reset, ns)
     return true
   end,
+  ["textDocument/rename"] = function(...)
+    lsp_handlers["textDocument/rename"](...)
+    vim.cmd("wa")
+  end
 })
 
 return M

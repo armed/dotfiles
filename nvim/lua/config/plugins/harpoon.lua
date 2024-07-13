@@ -37,63 +37,70 @@ return {
         :find()
     end
 
-    wk.register({
-      b = {
-        a = {
-          function()
-            h:list():append()
-          end,
-          "Mark File",
-        },
-        b = {
-          function()
-            h.ui:toggle_quick_menu(h:list())
-          end,
-          "Harpoon",
-        },
-        f = {
-          function()
-            toggle_telescope(h:list())
-          end,
-          "Menu",
-        },
-        ["1"] = {
-          function()
-            h:list():select(1)
-          end,
-          "Select 1",
-        },
-        ["2"] = {
-          function()
-            h:list():select(2)
-          end,
-          "Select 2",
-        },
-        ["3"] = {
-          function()
-            h:list():select(3)
-          end,
-          "Select 3",
-        },
-        ["4"] = {
-          function()
-            h:list():select(4)
-          end,
-          "Select 4",
-        },
-        l = {
-          function()
-            h:list():next()
-          end,
-          "Next File",
-        },
-        h = {
-          function()
-            h:list():prev()
-          end,
-          "Prev File",
-        },
+    wk.add({
+      {
+        "<leader>b1",
+        function()
+          h:list():select(1)
+        end,
+        desc = "Select 1",
       },
-    }, { prefix = "<leader>" })
+      {
+        "<leader>b2",
+        function()
+          h:list():select(2)
+        end,
+        desc = "Select 2",
+      },
+      {
+        "<leader>b3",
+        function()
+          h:list():select(3)
+        end,
+        desc = "Select 3",
+      },
+      {
+        "<leader>b4",
+        function()
+          h:list():select(4)
+        end,
+        desc = "Select 4",
+      },
+      {
+        "<leader>ba",
+        function()
+          h:list():append()
+        end,
+        desc = "Mark File",
+      },
+      {
+        "<leader>bb",
+        function()
+          h.ui:toggle_quick_menu(h:list())
+        end,
+        desc = "Harpoon",
+      },
+      {
+        "<leader>bf",
+        function()
+          toggle_telescope(h:list())
+        end,
+        desc = "Menu",
+      },
+      {
+        "<leader>bh",
+        function()
+          h:list():prev()
+        end,
+        desc = "Prev File",
+      },
+      {
+        "<leader>bl",
+        function()
+          h:list():next()
+        end,
+        desc = "Next File",
+      },
+    })
   end,
 }

@@ -46,7 +46,7 @@ function M.setup()
 
       local wk = require("which-key")
       local keymaps = require("config.lsp.keymaps").setup()
-      wk.register(keymaps, { noremap = true, buffer = bufnr })
+      wk.add(keymaps, { noremap = true, buffer = bufnr })
     end,
   })
 end

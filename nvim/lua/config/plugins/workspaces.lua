@@ -71,15 +71,13 @@ function M.config()
     },
   })
 
-  wk.register({
-    w = {
-      name = "Workspaces",
-      l = { load_workspace, "Load existing" },
-      a = { add_workspace, "Add" },
-      r = { w.remove, "Remove" },
-      f = { ":Telescope workspaces<cr>", "List" },
-    },
-  }, { prefix = "<leader>" })
+  wk.add({
+    { "<leader>w", group = "Workspaces" },
+    { "<leader>wa", add_workspace, desc = "Add" },
+    { "<leader>wf", ":Telescope workspaces<cr>", desc = "List" },
+    { "<leader>wl", load_workspace, desc = "Load existing" },
+    { "<leader>wr", w.remove, desc = "Remove" },
+  })
 end
 
 return M

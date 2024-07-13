@@ -107,66 +107,62 @@ M.config = function()
     end
   end
 
-  wk.register(mappings, { prefix = "<localleader>" })
-  wk.register({
-    c = {
-      name = "Connect",
-      cond = vim.bo.filetype == "clojure",
-      n = {
-        repl.find_repls,
-        "Find REPLs",
-      },
-      c = { connect_cmd, "Connect to specific port" },
+  wk.add(mappings)
+  wk.add({
+    {
+      "<localleader>R",
+      function()
+        u.conjure_eval("(user/reset-app!)")
+      end,
+      desc = "Reset",
     },
-    g = "Go to",
-    e = {
-      name = "Evaluate",
-      c = { name = "To Comment" },
+    {
+      "<localleader>S",
+      function()
+        u.conjure_eval("(user/stop-app!)")
+      end,
+      desc = "Stop",
     },
-    r = {
+    { "<localleader>c", group = "Connect" },
+    { "<localleader>cc", connect_cmd, desc = "Connect to specific port" },
+    { "<localleader>cn", repl.find_repls, desc = "Find REPLs" },
+    { "<localleader>e", group = "Evaluate" },
+    { "<localleader>ec", group = "To Comment" },
+    { "<localleader>g", desc = "Go to" },
+    { "<localleader>l", group = "Conjure Log" },
+    {
+      "<localleader>lg",
+      function()
+        conjure_log_toggle()
+      end,
+      desc = "Toggle",
+    },
+    {
+      "<localleader>ls",
+      function()
+        conjure_log_open(true)
+      end,
+      desc = "Open Split",
+    },
+    {
+      "<localleader>lv",
+      function()
+        conjure_log_open(true)
+      end,
+      desc = "Open VSplit",
+    },
+    {
+      "<localleader>r",
       function()
         vim.cmd("wa")
         u.conjure_eval("((requiring-resolve 'clj-reload.core/reload))")
       end,
-      "CLJ Reload",
+      desc = "CLJ Reload",
     },
-    R = {
-      function()
-        u.conjure_eval("(user/reset-app!)")
-      end,
-      "Reset",
-    },
-    S = {
-      function()
-        u.conjure_eval("(user/stop-app!)")
-      end,
-      "Stop",
-    },
-    s = "Session",
-    t = "Tests",
-    v = "Display",
-    ["l"] = {
-      name = "Conjure Log",
-      g = {
-        function()
-          conjure_log_toggle()
-        end,
-        "Toggle",
-      },
-      v = {
-        function()
-          conjure_log_open(true)
-        end,
-        "Open VSplit",
-      },
-      s = {
-        function()
-          conjure_log_open(false)
-        end,
-        "Open Split",
-      },
-    },
-  }, { prefix = "<localleader>" })
+    { "<localleader>s", desc = "Session" },
+    { "<localleader>t", desc = "Tests" },
+    { "<localleader>v", desc = "Display" },
+  })
 end
 
 return M
