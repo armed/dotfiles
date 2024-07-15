@@ -27,7 +27,7 @@ function M.config()
 
   local function get_lsp_client_names()
     local clients = ""
-    for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+    for _, client in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
       clients = clients .. " •" .. client.name
     end
     if clients ~= "" then
@@ -38,7 +38,7 @@ function M.config()
 
   local function get_lsp_clients()
     local clients = {}
-    for _, client in pairs(vim.lsp.get_active_clients()) do
+    for _, client in pairs(vim.lsp.get_clients()) do
       table.insert(clients, {
         color = "red",
         fmt = "",

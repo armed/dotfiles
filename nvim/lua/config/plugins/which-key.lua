@@ -1,5 +1,6 @@
 local M = {
   "folke/which-key.nvim",
+  evant = "VeryLazy",
   keys = {
     { "<leader>" },
     { "<localleader>" },
@@ -15,26 +16,13 @@ function M.config()
 
   wk.setup({
     preset = "helix",
-    window = { border = "double" },
+    win = { border = "double" },
     layout = { align = "center" },
     plugins = {
       spelling = {
         enabled = true,
         suggestions = 20,
       },
-    },
-    hidden = {
-      "<silent>",
-      "<cmd>",
-      "<Cmd>",
-      "<CR>",
-      "call",
-      "lua",
-      "^:",
-      "^ ",
-      "<Plug>",
-      "^%(",
-      "%)$",
     },
   })
 
