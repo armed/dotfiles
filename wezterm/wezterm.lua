@@ -4,6 +4,7 @@ local theme = require("theme")
 local tab = require("tab")
 
 local config = wezterm.config_builder()
+local act = wezterm.action
 
 config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
 -- window_decorations = 'RESIZE',
@@ -45,6 +46,8 @@ wezterm.on("gui-attached", function(domain)
 end)
 
 config.keys = {
+  { key = "{", mods = "SHIFT|ALT", action = act.MoveTabRelative(-1) },
+  { key = "}", mods = "SHIFT|ALT", action = act.MoveTabRelative(1) },
   {
     key = "/",
     mods = "SUPER",
