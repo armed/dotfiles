@@ -2,6 +2,7 @@ return {
   "stevearc/conform.nvim",
   config = function()
     local conform = require("conform")
+    local util = require("conform.util")
 
     local js_formatter = { "biome", "prettierd", "prettier" }
 
@@ -19,6 +20,21 @@ return {
       },
 
       formatters = {
+        biome = {
+          command = "biome",
+          stdin = true,
+          args = {
+            "check",
+            "--write",
+            "--unsafe",
+            "--stdin-file-path",
+            "$FILENAME",
+          },
+          cwd = util.root_file({
+            "biome.json",
+            "package.json",
+          }),
+        },
         nimpretty = {
           command = "nimpretty",
           args = {
