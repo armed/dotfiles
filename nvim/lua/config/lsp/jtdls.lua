@@ -1,5 +1,7 @@
 local M = {}
 
+local java_distribution = "oracle-graalvm-21.0.2"
+
 function M.get_config(servers, options)
   return function()
     local jdtls = require("jdtls")
@@ -27,7 +29,7 @@ function M.get_config(servers, options)
     )
 
     local cmd = {
-      "java",
+      utils.mise_install_path("/java/".. java_distribution .. "/bin/java"),
 
       "-Declipse.application=org.eclipse.jdt.ls.core.id1",
       "-Dosgi.bundles.defaultStartLevel=4",
