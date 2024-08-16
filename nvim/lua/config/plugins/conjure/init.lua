@@ -1,7 +1,7 @@
 local M = {
   "Olical/conjure",
   branch = "develop",
-  ft = { "clojure", "lua", "fennel" },
+  ft = { "clojure", "lua", "fennel", "lisp" },
   dependencies = {
     "PaterJason/cmp-conjure",
   },
@@ -140,7 +140,7 @@ M.config = function()
     {
       "<localleader>ls",
       function()
-        conjure_log_open(true)
+        conjure_log_open(false)
       end,
       desc = "Open Split",
     },
