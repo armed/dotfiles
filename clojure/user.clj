@@ -1,7 +1,14 @@
 (ns user
-  (:require [clojure.edn :as edn]))
+  (:require [clojure.edn :as edn]
+            [clj-commons.ansi :as ansi]
+            [clj-commons.pretty.repl :as pretty.repl]))
 
 (defonce local-dev* (atom nil))
+
+(alter-var-root #'*warn-on-reflection* (constantly true))
+(alter-var-root #'ansi/*color-enabled* (constantly false))
+
+(pretty.repl/install-pretty-exceptions)
 
 (defn load-alias []
   (or @local-dev*
@@ -28,3 +35,4 @@
 (print (str "\033[38;2;255;165;0m"
             "Local dev init complete"
             "\033[m\n"))
+
