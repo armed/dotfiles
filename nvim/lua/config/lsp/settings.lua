@@ -1,18 +1,33 @@
 local cmplsp = require("cmp_nvim_lsp")
 local win_opts = require("config.lsp.win_opts")
+local lsp_file_operations = require("lsp-file-operations")
 
 local M = {}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 local cmp_capabilities = cmplsp.default_capabilities(capabilities)
+local file_operation_capabilities = lsp_file_operations.default_capabilities()
 
-M.capabilities = vim.tbl_deep_extend("force", {}, capabilities, cmp_capabilities)
+M.capabilities = vim.tbl_deep_extend(
+  "force",
+  {},
+  capabilities,
+  cmp_capabilities,
+  file_operation_capabilities,
+  {
+    workspace = {
+      workspaceEdit = {
+        documentChanges = true,
+      },
+    },
+  }
+)
 
 local lsp_diagnostics = vim.lsp.diagnostic
 local lsp_with = vim.lsp.with
 local lsp_handlers = vim.lsp.handlers
 
-M.handlers = vim.tbl_deep_extend("force", vim.lsp.handlers, {
+M.handlers = vim.tbl_deep_extend("force", lsp_handlers, {
   ["textDocument/publishDiagnostics"] = lsp_with(
     lsp_diagnostics.on_publish_diagnostics,
     {
@@ -38,9 +53,31 @@ M.handlers = vim.tbl_deep_extend("force", vim.lsp.handlers, {
     return true
   end,
   ["textDocument/rename"] = function(...)
+    -- are we renaming namespace?
+    -- it also should be clojure only btw
+    local _, rename_data, ctx = ...
+    local filetype =
+      vim.api.nvim_get_option_value("filetype", { buf = ctx.bufnr })
+    if filetype == "clojure" then
+      local doc_changes = rename_data.documentChanges[1]
+      if doc_changes and doc_changes.kind == "rename" then
+        -- ok we are renaming namespace
+        -- construct data (emulate neo-tree rename call)
+        local data = {
+          old_name = vim.uri_to_fname(doc_changes.oldUri),
+          new_name = vim.uri_to_fname(doc_changes.newUri),
+        }
+        require("lsp-file-operations.will-rename").callback(data)
+        require("lsp-file-operations.did-rename").callback(data)
+      end
+    end
+    -- call regular handler
     lsp_handlers["textDocument/rename"](...)
-    vim.cmd("wa")
-  end
+
+    vim.defer_fn(function()
+      vim.cmd("wa")
+    end, 200)
+  end,
 })
 
 return M
