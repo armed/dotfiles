@@ -8,11 +8,11 @@ return {
 
     conform.setup({
       formatters_by_ft = {
-        javascript = { js_formatter },
-        typescript = { js_formatter },
-        typescriptreact = { js_formatter },
+        javascript = js_formatter,
+        typescript = js_formatter,
+        typescriptreact = js_formatter,
 
-        nim = { "nimpretty" },
+        nim = { "nph" },
         lua = { "stylua" },
         just = { "just" },
         -- clojure = { "zpr" },
@@ -35,11 +35,12 @@ return {
             "package.json",
           }),
         },
-        nimpretty = {
-          command = "nimpretty",
+        nph = {
+          command = "nph",
+          stdin = true,
           args = {
-            "--indent:2",
-            "$FILENAME",
+            "-"
+            -- "$FILENAME",
           },
         },
         -- zig = {
