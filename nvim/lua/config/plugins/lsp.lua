@@ -40,6 +40,8 @@ function M.config()
   require("config.lsp.diagnostics").setup()
   require("config.lsp.autocmds").setup()
 
+  vim.lsp.log.set_level(vim.log.levels.OFF)
+
   local mason_lspconfig = require("mason-lspconfig")
   local settings = require("config.lsp.settings")
 
