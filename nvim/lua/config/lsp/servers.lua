@@ -25,18 +25,31 @@ return {
       params.workDoneToken = "enable-progress"
     end,
   },
+  serve_d = {},
   biome = {},
   nim_langserver = {
+    -- projectMapping = {
+    --   {
+    --     projectFile = "core.nim",
+    --     fileRegex = ".*\\.nim"
+    --   },
+    --   {
+    --     projectFile = "main.nim",
+    --     fileRegex = ".*\\.nim"
+    --   }
+    -- },
     filetypes = { "nim" },
-    cmd = {
-      mise_installs .. "/nim/" .. nim_version .. "/nimble/bin/nimlangserver",
-    },
+    -- cmd = {
+    --   "nimlangserver"
+    --   -- mise_installs .. "/nim/" .. nim_version .. "/nimble/bin/nimlangserver",
+    -- },
     settings = {
       single_file_support = true,
       nim = {
         autoRestart = true,
         timeout = 30000,
-        autoCheckFile = false,
+        autoCheckFile = true,
+        autoCheckProject = true,
       },
     },
   },

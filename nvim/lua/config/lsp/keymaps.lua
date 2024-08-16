@@ -128,10 +128,10 @@ function M.setup()
     },
     {
       "<leader>lr",
-      function()
-        vim.lsp.buf.rename()
-        vim.cmd("wa")
-      end,
+      -- function()
+      vim.lsp.buf.rename,
+      -- vim.cmd("wa")
+      -- end,
       desc = "Rename",
     },
     {

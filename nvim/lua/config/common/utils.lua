@@ -108,4 +108,16 @@ function M.find_third_party_libs(project_root, callback)
   })
 end
 
+local home_dir = os.getenv("HOME")
+local mise_installs = home_dir .. "/.local/share/mise/installs"
+local mise_shims = home_dir .. "/.local/share/mise/shims"
+
+function M.mise_install_path(path)
+  return mise_installs .. path
+end
+
+function M.mise_shim_path(path)
+  return mise_shims .. path
+end
+
 return M
