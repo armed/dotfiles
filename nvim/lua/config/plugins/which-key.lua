@@ -32,18 +32,23 @@ function M.config()
   end
 
   wk.add({
-    { "<leader>E", ":Neotree focus<cr>", desc = "Focus Neo Tree" },
-    { "<leader>L", ":Lazy<cr>", desc = "Lazy" },
-    { "<leader>S", ":silent wa<cr>", desc = "Save all" },
-    { "<leader>e", ":Neotree toggle<cr>", desc = "Toggle Neo Tree" },
-    { "<leader>m", ":Mason<cr>", desc = "Mason" },
+    { "<leader>e", group = "Neotree" },
+    { "<leader>eb", "<cmd>Neotree buffers show<cr>", desc = "Show buffers" },
+    { "<leader>eg", "<cmd>Neotree git_status show<cr>", desc = "Show git status" },
+    { "<leader>er", "<cmd>Neotree reveal show<cr>", desc = "Reveal file" },
+    { "<leader>ee", "<cmd>Neotree focus<cr>", desc = "Show and focus" },
+    { "<leader>ef", "<cmd>Neotree show<cr>", desc = "Show" },
+    { "<leader>eq", "<cmd>Neotree close<cr>", desc = "Close" },
+    { "<leader>L", "<cmd>Lazy<cr>", desc = "Lazy" },
+    { "<leader>S", "<cmd>silent wa<cr>", desc = "Save all" },
+    { "<leader>m", "<cmd>Mason<cr>", desc = "Mason" },
     { "<leader>q", "<c-w>q", desc = "Close window" },
-    { "<leader>s", ":silent w<cr>", desc = "Save buffer" },
+    { "<leader>s", "<cmd>silent w<cr>", desc = "Save buffer" },
     { "<leader>t", group = "Terminal" },
-    { "<leader>ts", ":split | term<cr>", desc = "Split Terminal" },
-    { "<leader>tv", ":vsplit | term<cr>", desc = "Vert Split Termial" },
+    { "<leader>ts", "<cmd>split | term<cr>", desc = "Split Terminal" },
+    { "<leader>tv", "<cmd>vsplit | term<cr>", desc = "Vert Split Termial" },
     { "<leader>u", group = "Toggle" },
-    { "<leader>ut", ":TSContextToggle<cr>", desc = "Treesitter Context" },
+    { "<leader>ut", "<cmd>TSContextToggle<cr>", desc = "Treesitter Context" },
     { "<leader>x", save_all_quit, desc = "Save and quit" },
   })
 end
