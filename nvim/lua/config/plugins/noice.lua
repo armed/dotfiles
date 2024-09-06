@@ -6,12 +6,12 @@ return {
   opts = {
     lsp = {
       progress = {
-        enabled = true,
+        enabled = false,
         -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
         -- See the section on formatting for more details on how to customize.
         format = "lsp_progress",
         format_done = "lsp_progress_done",
-        throttle = 1000 / 30, -- frequency to update lsp progress message
+        throttle = 1000 / 200, -- frequency to update lsp progress message
         view = "mini",
       },
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**

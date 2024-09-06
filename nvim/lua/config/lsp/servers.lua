@@ -25,27 +25,42 @@ return {
       params.workDoneToken = "enable-progress"
     end,
   },
+  cmake = {},
   serve_d = {},
   biome = {},
+  -- nimlsp = {
+  --   filetypes = { "nim" },
+  -- },
   nim_langserver = {
-    -- projectMapping = {
-    --   {
-    --     projectFile = "core.nim",
-    --     fileRegex = ".*\\.nim"
-    --   },
-    --   {
-    --     projectFile = "main.nim",
-    --     fileRegex = ".*\\.nim"
-    --   }
-    -- },
+    single_file_support = true,
     filetypes = { "nim" },
-    -- cmd = {
-    --   "nimlangserver"
-    --   -- mise_installs .. "/nim/" .. nim_version .. "/nimble/bin/nimlangserver",
-    -- },
+    cmd = {
+      home_dir .. "/.local/bin/nimlangserver",
+    },
+    -- message_level = 1,
+    -- log_level = 1,
     settings = {
       single_file_support = true,
       nim = {
+        -- projectMapping = {
+        --   {
+        --     projectFile = "core.nim",
+        --     fileRegex = ".*\\.nim",
+        --   },
+        --   {
+        --     projectFile = "app.nim",
+        --     fileRegex = ".*\\.nim",
+        --   },
+        --   {
+        --     projectFile = "main.nim",
+        --     fileRegex = ".*\\.nim",
+        --   },
+        -- },
+        nimsuggestPath = mise_installs
+          .. "/nim/"
+          .. nim_version
+          .. "/bin/nimsuggest",
+        -- notificationVerbosity = "none",
         autoRestart = true,
         timeout = 30000,
         autoCheckFile = true,

@@ -32,13 +32,6 @@ function M.config()
   end
 
   wk.add({
-    { "<leader>e", group = "Neotree" },
-    { "<leader>eb", "<cmd>Neotree buffers show<cr>", desc = "Show buffers" },
-    { "<leader>eg", "<cmd>Neotree git_status show<cr>", desc = "Show git status" },
-    { "<leader>er", "<cmd>Neotree reveal show<cr>", desc = "Reveal file" },
-    { "<leader>ee", "<cmd>Neotree focus<cr>", desc = "Show and focus" },
-    { "<leader>ef", "<cmd>Neotree show<cr>", desc = "Show" },
-    { "<leader>eq", "<cmd>Neotree close<cr>", desc = "Close" },
     { "<leader>L", "<cmd>Lazy<cr>", desc = "Lazy" },
     { "<leader>S", "<cmd>silent wa<cr>", desc = "Save all" },
     { "<leader>m", "<cmd>Mason<cr>", desc = "Mason" },

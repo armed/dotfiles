@@ -1,6 +1,9 @@
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
+  keys = {
+    { "<leader>e", desc = "NeoTree" },
+  },
   branch = "v3.x",
   dependencies = {
     "kyazdani42/nvim-web-devicons",
@@ -40,8 +43,23 @@ end
 
 function M.config()
   local wp = require("window-picker")
+  local wk = require("which-key")
   local palette = get_palette()
   local nt = require("neo-tree")
+
+  wk.add({
+    { "<leader>e", group = "Neotree" },
+    { "<leader>eb", "<cmd>Neotree buffers show<cr>", desc = "Show buffers" },
+    {
+      "<leader>eg",
+      "<cmd>Neotree git_status show<cr>",
+      desc = "Show git status",
+    },
+    { "<leader>er", "<cmd>Neotree reveal show<cr>", desc = "Reveal file" },
+    { "<leader>ee", "<cmd>Neotree focus<cr>", desc = "Show and focus" },
+    { "<leader>ef", "<cmd>Neotree show<cr>", desc = "Show" },
+    { "<leader>eq", "<cmd>Neotree close<cr>", desc = "Close" },
+  })
 
   wp.setup({
     autoselect_one = true,

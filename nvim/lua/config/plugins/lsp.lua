@@ -59,6 +59,9 @@ function M.config()
     --     params.workDoneToken = "1"
     --   end
     -- end,
+    on_init = function(client)
+      client.offset_encoding = "utf-8"
+    end,
   }
   mason_lspconfig.setup_handlers({
     function(server_name)

@@ -42,13 +42,13 @@ return {
     },
   },
   {
-    "simrat39/symbols-outline.nvim",
-    cmd = "SymbolsOutline",
+    "hedyhli/outline.nvim",
+    cmd = "Outline",
     init = function()
       vim.keymap.set(
         "n",
         "<leader>lo",
-        ":SymbolsOutline<cr>",
+        "<cmd>Outline<cr>",
         { desc = "Symbols Outline" }
       )
     end,

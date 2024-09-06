@@ -8,7 +8,7 @@
 (alter-var-root #'*warn-on-reflection* (constantly true))
 (alter-var-root #'ansi/*color-enabled* (constantly false))
 
-(pretty.repl/install-pretty-exceptions)
+; (pretty.repl/install-pretty-exceptions)
 
 (defn load-alias []
   (or @local-dev*
