@@ -26,11 +26,7 @@ return {
     end,
   },
   cmake = {},
-  serve_d = {},
   biome = {},
-  -- nimlsp = {
-  --   filetypes = { "nim" },
-  -- },
   nim_langserver = {
     single_file_support = true,
     filetypes = { "nim" },
@@ -42,47 +38,19 @@ return {
     settings = {
       single_file_support = true,
       nim = {
-        -- projectMapping = {
-        --   {
-        --     projectFile = "core.nim",
-        --     fileRegex = ".*\\.nim",
-        --   },
-        --   {
-        --     projectFile = "app.nim",
-        --     fileRegex = ".*\\.nim",
-        --   },
-        --   {
-        --     projectFile = "main.nim",
-        --     fileRegex = ".*\\.nim",
-        --   },
-        -- },
-        nimsuggestPath = mise_installs
-          .. "/nim/"
-          .. nim_version
-          .. "/bin/nimsuggest",
+        nimsuggestPath = home_dir .. "/.local/bin/nimsuggest",
+        -- nimsuggestPath = mise_installs
+        --   .. "/nim/"
+        --   .. nim_version
+        --   .. "/bin/nimsuggest",
         -- notificationVerbosity = "none",
         autoRestart = true,
-        timeout = 30000,
         autoCheckFile = true,
         autoCheckProject = true,
       },
     },
   },
-  gleam = {
-    cmd = { "gleam", "lsp" },
-  },
-  zls = {},
-  yamlls = {
-    settings = {
-      yaml = {
-        schemas = {
-          "https://json.schemastore.org/github-workflow.json",
-          ".github/workflows/*",
-        },
-      },
-    },
-  },
-  -- tsserver = {},
+  ts_ls = {},
   jdtls = {
     settings = {
       single_file_support = true,

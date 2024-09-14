@@ -29,10 +29,43 @@ local M = {
   },
 }
 
+local function deep_merge(t1, t2)
+  for k, v in pairs(t2) do
+    if (type(v) == "table") and (type(t1[k] or false) == "table") then
+      deep_merge(t1[k], t2[k])
+    else
+      t1[k] = v
+    end
+  end
+  return t1
+end
+
+local function gather_project_opts(server_name, cmd_cwd, opts)
+  if cmd_cwd ~= nil then
+    local f = loadfile(cmd_cwd .. "/.lspconfig.lua")
+    if f ~= nil then
+      local cfg = f()
+
+      if cfg ~= nil then
+        if cfg[server_name] ~= nil then
+          opts.settings = deep_merge(opts.settings, cfg[server_name].settings)
+        end
+      end
+    elseif servers[server_name] ~= nil then
+      opts.settings = servers[server_name].settings
+    end
+  end
+  return opts
+end
+
 local function setup_server(server_name, options)
   local server_opts = servers[server_name] or {}
   local opts = vim.tbl_deep_extend("force", {}, options, server_opts)
-  require("lspconfig")[server_name].setup(opts)
+  local server = require("lspconfig")[server_name]
+  local abs_fname = vim.fn.expand("%:p")
+  local cmd_cwd = server.document_config.default_config.root_dir(abs_fname)
+  opts = gather_project_opts(server_name, cmd_cwd, opts)
+  server.setup(opts)
 end
 
 function M.config()
@@ -54,11 +87,6 @@ function M.config()
     flags = {
       debounce_text_changes = 150,
     },
-    -- before_init = function(params)
-    --   if not params.workDoneToken then
-    --     params.workDoneToken = "1"
-    --   end
-    -- end,
     on_init = function(client)
       client.offset_encoding = "utf-8"
     end,
@@ -68,13 +96,10 @@ function M.config()
       setup_server(server_name, options)
     end,
 
-    tsserver = require("config.lsp.tsserver").get_config(servers, options),
+    ts_ls = require("config.lsp.tsserver").get_config(servers, options),
 
     jdtls = require("config.lsp.jtdls").get_config(servers, options),
   })
-
-  -- setup gleam out of mason
-  setup_server("gleam", options)
 end
 
 return M
