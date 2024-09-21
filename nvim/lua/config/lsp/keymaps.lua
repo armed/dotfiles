@@ -1,11 +1,13 @@
 local win_opts = require("config.lsp.win_opts")
 
+local diag = vim.diagnostic
+
 local function diag_next()
-  vim.diagnostic.goto_next(win_opts)
+  vim.diagnostic.jump({ count = vim.v.count1 })
 end
 
 local function diag_prev()
-  vim.diagnostic.goto_prev(win_opts)
+  vim.diagnostic.jump({ count = -vim.v.count1 })
 end
 
 local function diag_float()
