@@ -47,12 +47,12 @@ return {
       { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Files" },
       { "<leader>fg", "<cmd>FzfLua grep_project<cr>", desc = "Grep project" },
       { "<leader>fk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
-      {
-        "<leader>fr",
-        "<cmd>FzfLua oldfiles cwd_only=true<cr>",
-        desc = "Recent files",
-      },
-      { "<leader>r", "<cmd>FzfLua resume<cr>", desc = "FzfLua resume" },
+      -- {
+      --   "<leader>fr",
+      --   "<cmd>FzfLua oldfiles cwd_only=true<cr>",
+      --   desc = "Recent files",
+      -- },
+      { "<leader>fr", "<cmd>FzfLua resume<cr>", desc = "FzfLua resume" },
       {
         "<leader>fv",
         "<cmd>FzfLua grep_visual<cr>",
