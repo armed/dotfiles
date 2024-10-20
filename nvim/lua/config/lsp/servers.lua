@@ -1,7 +1,7 @@
 local home_dir = os.getenv("HOME")
 local mise_installs = home_dir .. "/.local/share/mise/installs"
 local mise_shims = home_dir .. "/.local/share/mise/shims"
-local nim_version = "2.0.8"
+local nim_version = "2.2.0"
 
 return {
   clojure_lsp = {
@@ -33,16 +33,16 @@ return {
     cmd = {
       home_dir .. "/.local/bin/nimlangserver",
     },
-    -- message_level = 1,
-    -- log_level = 1,
+    message_level = 3,
+    log_level = 3,
     settings = {
       single_file_support = true,
       nim = {
-        nimsuggestPath = home_dir .. "/.local/bin/nimsuggest",
-        -- nimsuggestPath = mise_installs
-        --   .. "/nim/"
-        --   .. nim_version
-        --   .. "/bin/nimsuggest",
+        -- nimsuggestPath = home_dir .. "/.local/bin/nimsuggest",
+        nimsuggestPath = mise_installs
+          .. "/nim/"
+          .. nim_version
+          .. "/bin/nimsuggest",
         -- notificationVerbosity = "none",
         autoRestart = true,
         autoCheckFile = true,
