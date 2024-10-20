@@ -68,7 +68,7 @@ function M.config()
       },
     },
     playground = {
-      enable = true,
+      enable = false,
       disable = {},
       updatetime = 100,
       keybindings = {

@@ -18,10 +18,6 @@ return {
   "kyazdani42/nvim-web-devicons",
   "nvim-treesitter/nvim-treesitter-textobjects",
   {
-    "nvim-treesitter/playground",
-    cmd = "TSPlaygroundToggle",
-  },
-  {
     "tpope/vim-fugitive",
     cmd = "Git",
   },
