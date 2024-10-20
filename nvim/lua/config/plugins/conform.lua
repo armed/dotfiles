@@ -1,5 +1,6 @@
 return {
   "stevearc/conform.nvim",
+  event = "VeryLazy",
   config = function()
     local conform = require("conform")
     local util = require("conform.util")
@@ -15,6 +16,7 @@ return {
         nim = { "nph" },
         lua = { "stylua" },
         just = { "just" },
+        xml = { "xmllint" },
         -- clojure = { "zpr" },
         -- zig = { "zig" },
       },
@@ -39,7 +41,7 @@ return {
           command = "nph",
           stdin = true,
           args = {
-            "-"
+            "-",
             -- "$FILENAME",
           },
         },
@@ -50,6 +52,9 @@ return {
         --     "$FILENAME",
         --   },
         -- },
+        xmllint = {
+          command = "xmllint",
+        },
         zpr = {
           command = "zpr",
           args = {
