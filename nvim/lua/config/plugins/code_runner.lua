@@ -8,7 +8,7 @@ return {
     require("code_runner").setup({
       filetype = {
         nim = {
-          "nim r $dir/$fileName",
+          "nim r -d:debug --hints:off $dir/$fileName",
         },
       },
       float = {
