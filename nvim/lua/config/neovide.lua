@@ -36,6 +36,7 @@ function M.init()
     vim.keymap.set("v", "<d-v>", '"+p') -- paste visual mode
     vim.keymap.set("c", "<d-v>", "<c-r>+") -- paste command mode
     vim.keymap.set("i", "<d-v>", "<esc>pi") -- paste insert mode
+    vim.keymap.set("t", "<D-v>", "<C-R>+", { noremap = true, silent = true })
 
     local change_scale_factor = function(delta)
       vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
