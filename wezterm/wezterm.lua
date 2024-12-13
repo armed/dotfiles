@@ -6,9 +6,11 @@ local tab = require("tab")
 local config = wezterm.config_builder()
 local act = wezterm.action
 
+config.default_prog = { 'powershell.exe' }
+
 config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
 -- window_decorations = 'RESIZE',
-config.font_size = 14.0
+config.font_size = 12.0
 config.cursor_thickness = "0.1cell"
 config.window_frame = {
   border_left_width = "0cell",
@@ -24,7 +26,7 @@ config.window_padding = {
   bottom = "0cell",
 }
 
-config.window_decorations = "RESIZE"
+-- config.window_decorations = "RESIZE"
 
 config.force_reverse_video_cursor = true
 
@@ -35,15 +37,15 @@ config.color_scheme = "kanagawabones"
 
 config.term = "wezterm"
 
-wezterm.on("gui-attached", function(domain)
-  -- maximize all displayed windows on startup
-  local workspace = mux.get_active_workspace()
-  for _, window in ipairs(mux.all_windows()) do
-    if window:get_workspace() == workspace then
-      window:gui_window():maximize()
-    end
-  end
-end)
+-- wezterm.on("gui-attached", function(domain)
+--   -- maximize all displayed windows on startup
+--   local workspace = mux.get_active_workspace()
+--   for _, window in ipairs(mux.all_windows()) do
+--     if window:get_workspace() == workspace then
+--       window:gui_window():maximize()
+--     end
+--   end
+-- end)
 
 config.keys = {
   { key = "{", mods = "SHIFT|ALT", action = act.MoveTabRelative(-1) },

@@ -2,6 +2,7 @@ return {
   "danielfalk/smart-open.nvim",
   branch = "0.2.x",
   config = function()
+    vim.g.sqlite_clib_path = "C:/Users/artem/tools/sqlite/sqlite3.dll"
     require("telescope").load_extension("smart_open")
   end,
   keys = {
