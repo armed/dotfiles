@@ -62,9 +62,11 @@ local function setup_server(server_name, options)
   local server_opts = servers[server_name] or {}
   local opts = vim.tbl_deep_extend("force", {}, options, server_opts)
   local server = require("lspconfig")[server_name]
-  local abs_fname = vim.fn.expand("%:p")
-  local cmd_cwd = server.document_config.default_config.root_dir(abs_fname)
-  opts = gather_project_opts(server_name, cmd_cwd, opts)
+  if server_name ~= "rust_analyzer" then
+    local abs_fname = vim.fn.expand("%:p")
+    local cmd_cwd = server.document_config.default_config.root_dir(abs_fname)
+    opts = gather_project_opts(server_name, cmd_cwd, opts)
+  end
   server.setup(opts)
 end
 
@@ -73,7 +75,7 @@ function M.config()
   require("config.lsp.diagnostics").setup()
   require("config.lsp.autocmds").setup()
 
-  vim.lsp.log.set_level(vim.log.levels.OFF)
+  vim.lsp.log.set_level(vim.log.levels.ERROR)
 
   local mason_lspconfig = require("mason-lspconfig")
   local settings = require("config.lsp.settings")

@@ -10,6 +10,9 @@ return {
         nim = {
           "nim r -d:debug --hints:off $dir/$fileName",
         },
+        rust = {
+          "cargo run"
+        }
       },
       float = {
         border = "rounded",
