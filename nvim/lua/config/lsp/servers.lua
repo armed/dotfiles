@@ -25,11 +25,11 @@ return {
       params.workDoneToken = "enable-progress"
     end,
   },
-  rust_analyzer = {
-    cmd = {
-      mise_shims .. "/rust-analyzer"
-    }
-  },
+  -- rust_analyzer = {
+  --   cmd = {
+  --     mise_shims .. "/rust-analyzer"
+  --   }
+  -- },
   cmake = {},
   biome = {},
   nim_langserver = {

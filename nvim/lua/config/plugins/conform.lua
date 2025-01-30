@@ -17,11 +17,21 @@ return {
         lua = { "stylua" },
         just = { "just" },
         xml = { "xmllint" },
+        toml = { "taplo" },
+        rust = { "rustfmt", lsp_format = "fallback" },
         -- clojure = { "zpr" },
         -- zig = { "zig" },
       },
 
       formatters = {
+        taplo = {
+          command = "taplo",
+          stdin = true,
+          args = {
+            "fmt",
+            "-",
+          },
+        },
         biome = {
           command = "biome",
           stdin = true,
