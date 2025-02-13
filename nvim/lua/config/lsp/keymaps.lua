@@ -106,6 +106,13 @@ function M.setup()
       "<cmd>Trouble diagnostics filter.buf=0 focus=true<cr>",
       desc = "Document Diagnostics",
     },
+    {
+      "<leader>lx",
+      function()
+        vim.diagnostic.reset(nil, 0)
+      end,
+      desc = "Reset diagnostics",
+    },
     { "<leader>le", "<cmd>e<cr>", desc = "Edit" },
     {
       "<leader>lh",
@@ -155,12 +162,12 @@ function M.setup()
     { "K", vim.lsp.buf.hover, desc = "Hover doc" },
     {
       "gd",
-      "<cmd>FzfLua lsp_definitions jump_to_single_result=true<cr>",
+      "<cmd>FzfLua lsp_definitions jump1=true<cr>",
       desc = "Go to Definition",
     },
     {
       "gi",
-      "<cmd>FzfLua lsp_implementations jump_to_single_result=true<cr>",
+      "<cmd>FzfLua lsp_implementations jump1=true<cr>",
       desc = "Go to Impementations",
     },
     {
@@ -170,7 +177,7 @@ function M.setup()
     },
     {
       "gt",
-      "<cmd>FzfLua lsp_typedefs jump_to_single_result=true<cr>",
+      "<cmd>FzfLua lsp_typedefs jump1=true<cr>",
       desc = "Type Definitions",
     },
   }

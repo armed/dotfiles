@@ -47,7 +47,6 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 vim.g.markdown_recommended_style = 0
-vim.g.no_rust_maps = true
 
 opt.splitkeep = "screen"
 opt.shortmess:append({ C = true })
