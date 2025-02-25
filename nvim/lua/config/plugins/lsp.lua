@@ -72,7 +72,7 @@ end
 
 function M.config()
   require("lspconfig.ui.windows").default_options.border = "rounded"
-  require("config.lsp.diagnostics").setup()
+  -- require("config.lsp.diagnostics").setup()
   require("config.lsp.autocmds").setup()
 
   vim.lsp.log.set_level(vim.log.levels.ERROR)
