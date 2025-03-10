@@ -7,19 +7,9 @@ M.signs = {
   [vim.diagnostic.severity.HINT] = "➤",
 }
 
-function M.setup(filetype)
-  local vt
-  if filetype ~= "rust" then
-    vt = false
-  else
-    vt = {
-      prefix = function(diagnostic)
-        return M.signs[diagnostic.severity]
-      end,
-    }
-  end
+function M.setup()
   vim.diagnostic.config({
-    virtual_text = vt,
+    virtual_text = false,
     signs = {
       text = M.signs,
     },

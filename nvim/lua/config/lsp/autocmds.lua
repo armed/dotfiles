@@ -49,14 +49,6 @@ function M.setup()
       wk.add(keymaps, { noremap = true, buffer = bufnr })
     end,
   })
-
-  vim.api.nvim_create_autocmd("BufEnter", {
-    callback = function(args)
-      local bufnr = args.buf
-      local filetype = vim.bo[bufnr].filetype
-      require("config.lsp.diagnostics").setup(filetype)
-    end,
-  })
 end
 
 return M
