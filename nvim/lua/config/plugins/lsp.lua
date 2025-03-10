@@ -40,7 +40,7 @@ local function deep_merge(t1, t2)
   return t1
 end
 
-local function gather_project_opts(server_name, cmd_cwd, opts)
+local function merge_project_overrides(server_name, cmd_cwd, opts)
   if cmd_cwd ~= nil then
     local f = loadfile(cmd_cwd .. "/.lspconfig.lua")
     if f ~= nil then
@@ -62,17 +62,15 @@ local function setup_server(server_name, options)
   local server_opts = servers[server_name] or {}
   local opts = vim.tbl_deep_extend("force", {}, options, server_opts)
   local server = require("lspconfig")[server_name]
-  if server_name ~= "rust_analyzer" then
-    local abs_fname = vim.fn.expand("%:p")
-    local cmd_cwd = server.document_config.default_config.root_dir(abs_fname)
-    opts = gather_project_opts(server_name, cmd_cwd, opts)
-  end
+  local abs_fname = vim.fn.expand("%:p")
+  local cmd_cwd = server.document_config.default_config.root_dir(abs_fname)
+  opts = merge_project_overrides(server_name, cmd_cwd, opts)
   server.setup(opts)
 end
 
 function M.config()
   require("lspconfig.ui.windows").default_options.border = "rounded"
-  -- require("config.lsp.diagnostics").setup()
+  require("config.lsp.diagnostics").setup()
   require("config.lsp.autocmds").setup()
 
   vim.lsp.log.set_level(vim.log.levels.ERROR)

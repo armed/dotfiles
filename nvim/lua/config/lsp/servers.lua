@@ -25,6 +25,21 @@ return {
       params.workDoneToken = "enable-progress"
     end,
   },
+  rust_analyzer = {
+    settings = {
+      ["rust-analyzer"] = {
+        cargo = {
+          features = "all",
+        },
+        notifications = {
+          progress = true,
+        },
+        checkOnSave = {
+          command = "clippy",
+        },
+      },
+    },
+  },
   cmake = {},
   biome = {},
   nim_langserver = {
