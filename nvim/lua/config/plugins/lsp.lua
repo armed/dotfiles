@@ -63,8 +63,12 @@ local function setup_server(server_name, options)
   local opts = vim.tbl_deep_extend("force", {}, options, server_opts)
   local server = require("lspconfig")[server_name]
   local abs_fname = vim.fn.expand("%:p")
-  local cmd_cwd = server.document_config.default_config.root_dir(abs_fname)
-  opts = merge_project_overrides(server_name, cmd_cwd, opts)
+  local cmd_cwd = coroutine.wrap(function()
+    return server.document_config.default_config.root_dir(abs_fname)
+  end)()
+  if cmd_cwd then
+    opts = merge_project_overrides(server_name, cmd_cwd, opts)
+  end
   server.setup(opts)
 end
 
