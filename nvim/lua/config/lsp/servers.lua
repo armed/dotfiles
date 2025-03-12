@@ -26,6 +26,7 @@ return {
     end,
   },
   rust_analyzer = {
+    cmd = { home_dir .. "/.cargo/bin/rust-analyzer" },
     settings = {
       ["rust-analyzer"] = {
         cargo = {
