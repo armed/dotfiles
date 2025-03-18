@@ -51,6 +51,8 @@ vim.g.markdown_recommended_style = 0
 opt.splitkeep = "screen"
 opt.shortmess:append({ C = true })
 
+vim.o.shell = "/bin/bash"
+
 local builtins = {
   "getscript",
   "getscriptPlugin",
