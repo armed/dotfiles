@@ -30,8 +30,10 @@ if status is-interactive
     alias clojure "clojure -J-Dapple.awt.UIElement=true"
     alias nr "nim c -r --hints:off --verbosity:0"
 
-    starship init fish | source
     mise activate fish | source
+
+    starship init fish | source
     fzf --fish | source
     jj util completion fish | source
+    atuin init fish | source
 end
