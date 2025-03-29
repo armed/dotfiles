@@ -3,6 +3,14 @@ name = "Artem Medeu"
 email = "artem.medeusheyev@gmail.com"
 
 [ui]
+diff.tool = [
+  "difft",
+  "--color=always",
+  "--tab-width=2",
+  "--display=side-by-side",
+  "$left",
+  "$right",
+]
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
 default-command = "logr"
 
