@@ -1,10 +1,7 @@
 local M = {
   "Olical/conjure",
-  branch = "develop",
+  branch = "main",
   ft = { "clojure", "lua", "fennel", "lisp" },
-  dependencies = {
-    "PaterJason/cmp-conjure",
-  },
 }
 
 local function set_repl_winbar()
