@@ -25,22 +25,35 @@ return {
       params.workDoneToken = "enable-progress"
     end,
   },
-  rust_analyzer = {
-    cmd = { home_dir .. "/.cargo/bin/rust-analyzer" },
-    settings = {
-      ["rust-analyzer"] = {
-        cargo = {
-          features = "all",
-        },
-        notifications = {
-          progress = true,
-        },
-        checkOnSave = {
-          command = "clippy",
-        },
-      },
-    },
-  },
+  -- rust_analyzer = {
+  --   cmd = { home_dir .. "/.cargo/bin/rust-analyzer" },
+  --   settings = {
+  --     ["rust-analyzer"] = {
+  --       -- cargo = {
+  --       --   features = "all",
+  --       -- },
+  --       notifications = {
+  --         progress = true,
+  --       },
+  --       checkOnSave = {
+  --         command = "clippy",
+  --       },
+  --       lens = {
+  --         debug = { enable = true },
+  --         enable = true,
+  --         implementations = { enable = true },
+  --         references = {
+  --           atd = { enable = true },
+  --           enumVariant = { enable = true },
+  --           method = { enable = true },
+  --           trait = { enable = true },
+  --           run = { enable = true },
+  --           updateTest = { enable = true },
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
   cmake = {},
   biome = {},
   nim_langserver = {
