@@ -10,7 +10,6 @@ local M = {
       config = true,
     },
     "onsails/lspkind.nvim",
-    "hrsh7th/cmp-nvim-lsp",
     {
       "williamboman/mason-lspconfig.nvim",
       dependencies = {

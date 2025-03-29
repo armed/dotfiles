@@ -1,18 +1,18 @@
-local cmplsp = require("cmp_nvim_lsp")
+local blink_lsp = require('blink.cmp')
 local win_opts = require("config.lsp.win_opts")
 local lsp_file_operations = require("lsp-file-operations")
 
 local M = {}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-local cmp_capabilities = cmplsp.default_capabilities(capabilities)
+local blink_capabilities = blink_lsp.get_lsp_capabilities(capabilities)
 local file_operation_capabilities = lsp_file_operations.default_capabilities()
 
 M.capabilities = vim.tbl_deep_extend(
   "force",
   {},
   capabilities,
-  cmp_capabilities,
+  blink_capabilities,
   file_operation_capabilities,
   {
     workspace = {
