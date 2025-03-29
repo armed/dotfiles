@@ -13,3 +13,5 @@ pom.xml
 .settings
 deps.local.edn
 .mise.toml
+protols.toml
+.clang-format
