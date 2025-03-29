@@ -1,0 +1,11 @@
+[user]
+name = "Artem Medeu"
+email = "artem.medeusheyev@gmail.com"
+
+[ui]
+diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
+default-command = "logr"
+
+[aliases]
+logr = ["log", "--reversed", "--no-pager"]
+ci = ["commit", "-i"]

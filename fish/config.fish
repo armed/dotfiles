@@ -14,8 +14,10 @@ set -gx GRAALVM_HOME "$JAVA_HOME"
 set -gx LANG "en_US.UTF-8"
 set -gx LC_ALL "en_US.UTF-8"
 set -gx LIBRARY_PATH "$LIBRARY_PATH" "/opt/homebrew/lib"
-set -gx VCPKG_ROOT "/Users/armed/Developer/vcpkg"
+set -gx VCPKG_ROOT "$HOME/Developer/vcpkg"
 set -gx EDITOR "nvim"
+
+set -gx JJ_CONFIG "$HOME/.config/jj/config.toml"
 
 if not string match -q "*$PNPM_HOME*" "$PATH"
     set -gx PATH "$PNPM_HOME" $PATH
@@ -29,11 +31,13 @@ if status is-interactive
     alias nvd "$HOME/Applications/neovide.app/Contents/MacOS/neovide --frame transparent"
     alias clojure "clojure -J-Dapple.awt.UIElement=true"
     alias nr "nim c -r --hints:off --verbosity:0"
+    alias ljj "lazyjj"
 
     mise activate fish | source
 
     starship init fish | source
     fzf --fish | source
-    jj util completion fish | source
+
+    COMPLETE=fish jj | source
     atuin init fish | source
 end
