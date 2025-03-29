@@ -129,7 +129,6 @@ autocmd("FileType", {
   end,
 })
 
-
 autocmd("ColorScheme", {
   group = general,
   pattern = "*",
@@ -137,4 +136,42 @@ autocmd("ColorScheme", {
     -- some themes cleans hl groups, we are overriding them here
     require("config.hl-groups").init()
   end,
+})
+
+-- Automatically close buffer if the underlying file is deleted
+local function check_and_delete_buffer()
+  local buf = vim.api.nvim_get_current_buf()
+  local bufname = vim.api.nvim_buf_get_name(buf)
+
+  -- Use vim.bo[bufnr].optionname to get buffer-local options
+  local modified = vim.bo[buf].modified
+  local buftype = vim.bo[buf].buftype
+
+  -- Proceed only if the buffer has a name, is not modified, and is a normal buffer
+  -- (buftype is empty string for normal buffers)
+  if bufname ~= "" and not modified and buftype == "" then
+    -- vim.fn.filereadable returns 0 if not readable/exists, 1 if it does
+    if vim.fn.filereadable(bufname) == 0 then
+      -- File deleted/missing, close the buffer
+      vim.notify(
+        "File deleted, closing buffer: " .. vim.fn.fnamemodify(bufname, ":t"),
+        vim.log.levels.INFO
+      )
+      -- Use vim.schedule to ensure command runs safely in the main loop
+      vim.schedule(function()
+        -- Use silent=true to avoid errors, bang=true to force wipeout
+        -- unload=false corresponds to bwipeout
+        vim.api.nvim_buf_delete(buf, { force = true, unload = false })
+      end)
+    end
+  end
+end
+
+local fs_group = augroup("CloseDeletedBuffer", { clear = true })
+
+autocmd({ "FocusGained", "CursorHold" }, {
+  group = fs_group,
+  pattern = "*",
+  callback = check_and_delete_buffer,
+  desc = "Close buffer if underlying file is deleted",
 })
