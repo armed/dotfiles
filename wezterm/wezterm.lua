@@ -70,4 +70,9 @@ config.keys = {
   },
 }
 
+config.inactive_pane_hsb = {
+  saturation = 0.7,
+  brightness = 0.3,
+}
+
 return config
