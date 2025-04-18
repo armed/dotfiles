@@ -19,6 +19,7 @@ return {
         xml = { "xmllint" },
         toml = { "taplo" },
         rust = { "rustfmt", lsp_format = "fallback" },
+        proto = { "clang-format" },
         -- clojure = { "zpr" },
         -- zig = { "zig" },
       },
