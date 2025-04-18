@@ -1,6 +1,7 @@
 local win_opts = require("config.lsp.win_opts")
 
 local diag = vim.diagnostic
+local diag_settings = require("config.lsp.diagnostics")
 
 local function diag_next()
   vim.diagnostic.jump({ count = vim.v.count1 })
@@ -127,7 +128,7 @@ function M.setup()
     },
     {
       "<leader>ll",
-      diag_float,
+      diag_settings.toggle_virtual_line,
       desc = "Line Diagnostic",
     },
     {
