@@ -25,37 +25,44 @@ return {
       params.workDoneToken = "enable-progress"
     end,
   },
-  -- rust_analyzer = {
-  --   cmd = { home_dir .. "/.cargo/bin/rust-analyzer" },
-  --   settings = {
-  --     ["rust-analyzer"] = {
-  --       -- cargo = {
-  --       --   features = "all",
-  --       -- },
-  --       notifications = {
-  --         progress = true,
-  --       },
-  --       checkOnSave = {
-  --         command = "clippy",
-  --       },
-  --       lens = {
-  --         debug = { enable = true },
-  --         enable = true,
-  --         implementations = { enable = true },
-  --         references = {
-  --           atd = { enable = true },
-  --           enumVariant = { enable = true },
-  --           method = { enable = true },
-  --           trait = { enable = true },
-  --           run = { enable = true },
-  --           updateTest = { enable = true },
-  --         },
-  --       },
-  --     },
-  --   },
-  -- },
+  rust_analyzer = {
+    cmd = { home_dir .. "/.cargo/bin/rust-analyzer" },
+    settings = {
+      ["rust-analyzer"] = {
+        -- cargo = {
+        --   features = "all",
+        -- },
+        notifications = {
+          progress = true,
+        },
+        checkOnSave = {
+          command = "clippy",
+        },
+        lens = {
+          debug = { enable = true },
+          enable = true,
+          implementations = { enable = true },
+          references = {
+            adt = { enable = true },
+            enumVariant = { enable = true },
+            method = { enable = true },
+            trait = { enable = true },
+            run = { enable = true },
+            updateTest = { enable = true },
+          },
+        },
+      },
+    },
+  },
   cmake = {},
   biome = {},
+  protols = {
+    root_dir = function(fname)
+      return vim.fs.dirname(
+        vim.fs.find("protols.toml", { path = fname, upward = true })[1]
+      )
+    end,
+  },
   nim_langserver = {
     single_file_support = true,
     filetypes = { "nim" },
@@ -116,7 +123,9 @@ return {
       },
     },
   },
-  clangd = {},
+  clangd = {
+    filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+  },
   volar = {},
   tailwindcss = {
     filetypes = {

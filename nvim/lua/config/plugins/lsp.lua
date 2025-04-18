@@ -11,7 +11,8 @@ local M = {
     },
     "onsails/lspkind.nvim",
     {
-      "williamboman/mason-lspconfig.nvim",
+      -- "williamboman/mason-lspconfig.nvim",
+      "armed/mason-lspconfig.nvim",
       dependencies = {
         "williamboman/mason.nvim",
         opts = {
@@ -21,7 +22,7 @@ local M = {
       opts = {
         -- no gleam in mason
         ensure_installed = vim.tbl_filter(function(key)
-          return key ~= "gleam"
+          return key ~= "gleam" or key ~= "rust-analyzer"
         end, vim.tbl_keys(servers)),
       },
     },

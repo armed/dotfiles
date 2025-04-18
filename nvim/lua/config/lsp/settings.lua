@@ -1,4 +1,4 @@
-local blink_lsp = require('blink.cmp')
+local blink_lsp = require("blink.cmp")
 local win_opts = require("config.lsp.win_opts")
 local lsp_file_operations = require("lsp-file-operations")
 
@@ -23,6 +23,8 @@ M.capabilities = vim.tbl_deep_extend(
   }
 )
 
+M.capabilities.textDocument.codeLens = { dynamicRegistration = true }
+
 local lsp_diagnostics = vim.lsp.diagnostic
 local lsp_with = vim.lsp.with
 local lsp_handlers = vim.lsp.handlers
@@ -39,7 +41,7 @@ M.handlers = vim.tbl_deep_extend("force", lsp_handlers, {
     }
   ),
   ["textDocument/codeLens"] = lsp_with(
-    lsp_diagnostics.on_publish_diagnostics,
+    vim.lsp.handlers.codelens,
     { virtual_text = true }
   ),
   -- ["textDocument/hover"] = lsp_with(lsp_handlers.hover, win_opts.float_opts),
