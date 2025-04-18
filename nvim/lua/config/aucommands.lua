@@ -169,9 +169,9 @@ end
 
 local fs_group = augroup("CloseDeletedBuffer", { clear = true })
 
-autocmd({ "FocusGained", "CursorHold" }, {
-  group = fs_group,
-  pattern = "*",
-  callback = check_and_delete_buffer,
-  desc = "Close buffer if underlying file is deleted",
-})
+-- autocmd({ "FocusGained", "CursorHold" }, {
+--   group = fs_group,
+--   pattern = "*",
+--   callback = check_and_delete_buffer,
+--   desc = "Close buffer if underlying file is deleted",
+-- })

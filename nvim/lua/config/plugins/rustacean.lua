@@ -1,11 +1,12 @@
-vim.g.rustaceanvim = {
-  tools = {
-    enable_clippy = false,
-  },
-}
+-- vim.g.rustaceanvim = {
+--   tools = {
+--     enable_clippy = false,
+--   },
+-- }
 
 return {
   "mrcjkb/rustaceanvim",
   version = "^5",
   lazy = false,
+  enabled = false
 }
