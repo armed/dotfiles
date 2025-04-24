@@ -20,6 +20,8 @@ return {
         toml = { "taplo" },
         rust = { "rustfmt", lsp_format = "fallback" },
         proto = { "clang-format" },
+        sql = { "pg_format" },
+        ["*"] = { "injected" },
         -- clojure = { "zpr" },
         -- zig = { "zig" },
       },
