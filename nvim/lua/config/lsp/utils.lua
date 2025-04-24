@@ -20,25 +20,25 @@ local farthest_parent = {
 -- This function will return the farthest parent directory containing
 -- a `deps.edn`, `project.clj`, `bb.edn` file, or the nearest parent directory
 -- containing a `shadow-cljs.edn` file, starting from the given directory.
-local function find_optimal_parent(dir)
+local function find_optimal_parent(dir, farthest_found)
+  -- Check for nearest parent (shadow-cljs.edn)
   if exists(dir, nearest_parent) then
     return dir
-  elseif dir == "/" then
-    if exists(dir, farthest_parent) then
-      return dir
-    else
-      -- fallback
-      return vim.fn.getcwd()
-    end
-  else
-    local parentDir = dir:match("(.*)/")
-    if parentDir then
-      return find_optimal_parent(parentDir)
-    else
-      -- fallback
-      return vim.fn.getcwd()
-    end
   end
+
+  -- Check for farthest parent files (deps.edn, project.clj, bb.edn)
+  if exists(dir, farthest_parent) then
+    farthest_found = dir
+  end
+
+  -- Stop at root or empty directory
+  if dir == "/" or dir == "" then
+    return farthest_found or vim.fn.getcwd()
+  end
+
+  -- Recurse to parent directory
+  local parent_dir = dir:match("(.*)/") or "/"
+  return find_optimal_parent(parent_dir, farthest_found)
 end
 
 function M.get_lsp_cwd(file_path)
@@ -46,6 +46,7 @@ function M.get_lsp_cwd(file_path)
   local parent = find_optimal_parent(dir)
   return parent
 end
+
 function M.get_nested_path(tbl, ...)
   local arg = { ... }
   for _, v in ipairs(arg) do
