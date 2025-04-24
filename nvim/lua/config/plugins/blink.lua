@@ -2,7 +2,7 @@ return {
   "saghen/blink.cmp",
   event = "InsertEnter",
   dependencies = {
-    "mikavilpas/blink-ripgrep.nvim",
+    -- "mikavilpas/blink-ripgrep.nvim",
     {
       "L3MON4D3/LuaSnip",
       version = "v2.*",
@@ -82,21 +82,7 @@ return {
     },
     snippets = { preset = "luasnip" },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer", "ripgrep" },
-      providers = {
-        ripgrep = {
-          module = "blink-ripgrep",
-          name = "Ripgrep",
-          ---@module "blink-ripgrep"
-          ---@type blink-ripgrep.Options
-          opts = {
-            prefix_min_len = 4,
-            score_offset = 10, -- should be lower priority
-            max_filesize = "300K",
-            search_casing = "--smart-case",
-          },
-        },
-      },
+      default = { "lsp", "path", "snippets", "buffer" },
     },
 
     fuzzy = {
