@@ -1,11 +1,13 @@
 {:mvn/repos
  {"central" {:url "https://repo1.maven.org/maven2/"}
-  "enonic" {:url "https://repo.enonic.com/public/"}
+  ; "enonic" {:url "https://repo.enonic.com/public/"}
   "clojars" {:url "https://repo.clojars.org/"}
   "sonatype" {:url "https://repository.sonatype.org/content/groups/forge/"}}
 
  :aliases
- {:portal {:extra-deps {djblue/portal {:mvn/version "0.50.0"}}}
+ {:outdated {:deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
+             :main-opts ["-m" "antq.core"]}
+  :portal {:extra-deps {djblue/portal {:mvn/version "0.50.0"}}}
   :storm {:classpath-overrides {org.clojure/clojure nil}
           :extra-deps {com.github.flow-storm/clojure {:mvn/version "1.11.1-11"}
                        com.github.flow-storm/flow-storm-dbg {:mvn/version "3.8.3"}}

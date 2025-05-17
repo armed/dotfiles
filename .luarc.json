@@ -1,1 +1,5 @@
-{}
+{
+    "diagnostics.globals": [
+        "vim"
+    ]
+}
