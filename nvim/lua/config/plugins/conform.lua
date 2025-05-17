@@ -13,6 +13,7 @@ return {
         typescript = js_formatter,
         typescriptreact = js_formatter,
 
+        java = { lsp_format = "first" },
         nim = { "nph" },
         lua = { "stylua" },
         just = { "just" },
@@ -21,12 +22,15 @@ return {
         rust = { "rustfmt", lsp_format = "fallback" },
         proto = { "clang-format" },
         sql = { "pg_format" },
+        clojure = { lsp_format = "first" },
         ["*"] = { "injected" },
-        -- clojure = { "zpr" },
         -- zig = { "zig" },
       },
 
       formatters = {
+        pg_format = {
+          args = { "--wrap-limit", "78", "--spaces", "4" },
+        },
         taplo = {
           command = "taplo",
           stdin = true,

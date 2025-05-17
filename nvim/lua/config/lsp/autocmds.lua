@@ -4,36 +4,10 @@ local function supports_codelens(client)
   return client and client.server_capabilities.codeLensProvider
 end
 
+local diagnostic = require("config.lsp.diagnostics")
+
 function M.setup()
   local lsp_group = vim.api.nvim_create_augroup("LspGroup", { clear = true })
-
-  -- vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, {
-  --   group = lsp_group,
-  --   callback = function()
-  --     pcall(function()
-  --       -- vim.lsp.codelens.refresh({ bufnr = 0 })
-  --     end)
-  --   end,
-  -- })
-
-  vim.api.nvim_create_autocmd("LspDetach", {
-    group = lsp_group,
-    callback = function(args)
-      local bufnr = args.buf
-      local client_id = args.data.client_id
-      if client_id == nil then
-        return
-      end
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if supports_codelens(client) then
-        if vim.api.nvim_buf_is_valid(bufnr) then
-          if next(vim.lsp.codelens.get(bufnr)) ~= nil then
-            vim.lsp.codelens.clear(client_id, bufnr)
-          end
-        end
-      end
-    end,
-  })
 
   vim.api.nvim_create_autocmd("LspAttach", {
     group = lsp_group,
@@ -48,6 +22,13 @@ function M.setup()
       local keymaps = require("config.lsp.keymaps").setup()
       wk.add(keymaps, { noremap = true, buffer = bufnr })
     end,
+  })
+
+  vim.api.nvim_create_autocmd("CursorMoved", {
+    group = lsp_group,
+    pattern = "*",
+    callback = diagnostic.turn_off_virtual_lines,
+    desc = "Turn off virtual diagnostic lines on cursor movement",
   })
 end
 

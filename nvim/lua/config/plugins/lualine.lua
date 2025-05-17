@@ -83,7 +83,11 @@ function M.config()
       lualine_b = {
         "diagnostics",
         "diff",
-        { fmt = show_macro_recording, "macro-recording" },
+        {
+          fmt = show_macro_recording,
+          "macro-recording",
+          color = { bg = "#ff4444", fg = "#000000" },
+        },
       },
       lualine_c = {
         {
