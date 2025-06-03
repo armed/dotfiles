@@ -5,7 +5,7 @@ email = "artem.medeusheyev@gmail.com"
 [ui]
 diff.tool = "dt"
 diff.format = "git"
-diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
+# diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
 default-command = "logr"
 
 [merge-tools.dt]
@@ -20,3 +20,6 @@ pull = ["fetch"]
 logr = ["log", "--reversed", "--no-pager"]
 ci = ["commit", "-i"]
 di = ["diff", "--tool=dt"]
+
+[git]
+push-bookmark-prefix = "armed/"
