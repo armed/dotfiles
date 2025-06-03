@@ -5,7 +5,6 @@ local M = {
 
 function M.config()
   local alpha = require("alpha")
-  local wps = require("config.plugins.workspaces")
   local dashboard = require("alpha.themes.dashboard")
   local main_color = "Function"
   local num_color = "Macro"
@@ -121,11 +120,6 @@ function M.config()
     dashboard.button("f", "󰮗  > Find file", ":Telescope find_files<CR>"),
     dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
     dashboard.button("w", "  > Workspaces", ":Telescope workspaces<CR>"),
-    dashboard.button(
-      "l",
-      "  > Load workspace",
-      ":so " .. wps.session_file .. "<cr>"
-    ),
     dashboard.button("q", "󰗼  > Quit NVIM", ":qa<CR>"),
   }
 

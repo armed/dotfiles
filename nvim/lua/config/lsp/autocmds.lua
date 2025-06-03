@@ -30,6 +30,14 @@ function M.setup()
     callback = diagnostic.turn_off_virtual_lines,
     desc = "Turn off virtual diagnostic lines on cursor movement",
   })
+
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "lazy",
+    callback = function()
+      vim.diagnostic.enable(false)
+    end,
+    desc = "No diagnostic for lazy window",
+  })
 end
 
 return M

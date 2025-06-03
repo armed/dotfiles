@@ -12,7 +12,6 @@ local M = {
     "aaronhallaert/advanced-git-search.nvim",
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-ui-select.nvim",
-    "natecraddock/workspaces.nvim",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
@@ -143,7 +142,6 @@ function M.config()
   telescope.load_extension("advanced_git_search")
   telescope.load_extension("ui-select")
   telescope.load_extension("fzf")
-  telescope.load_extension("workspaces")
   telescope.load_extension("lazy")
 
   -- local wk = require("which-key")
