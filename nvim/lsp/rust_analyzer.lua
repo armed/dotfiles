@@ -4,27 +4,11 @@ return {
   filetypes = { "rust" },
   settings = {
     ["rust-analyzer"] = {
-      -- cargo = {
-      --   features = "all",
-      -- },
-      notifications = {
-        progress = true,
+      files = {
+        excludeDirs = { "target", ".git" },
       },
       checkOnSave = {
         command = "clippy",
-      },
-      lens = {
-        debug = { enable = true },
-        enable = true,
-        implementations = { enable = true },
-        references = {
-          adt = { enable = true },
-          enumVariant = { enable = true },
-          method = { enable = true },
-          trait = { enable = true },
-          run = { enable = true },
-          updateTest = { enable = true },
-        },
       },
     },
   },
