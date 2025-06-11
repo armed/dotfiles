@@ -7,11 +7,8 @@ return {
   config = function()
     require("code_runner").setup({
       filetype = {
-        nim = {
-          "nim r -d:debug --hints:off $dir/$fileName",
-        },
         rust = {
-          "cargo run"
+          "cargo test --test $fileNameWithoutExt"
         }
       },
       float = {
@@ -23,9 +20,8 @@ return {
 
     wk.add({
       { "<leader>r", "<cmd>RunCode<cr>", desc = "Run Code" },
-      { "<leader>rff", "<cmd>RunFile float<cr>", desc = "Run File Float" },
-      { "<leader>rft", "<cmd>RunFile term<cr>", desc = "Run File in Term" },
-      { "<leader>rp", "<cmd>RunProject<cr>", desc = "Run Project" },
+      { "<leader>rt", "<cmd>RunFile term<cr>", desc = "Run Test Term" },
+      { "<leader>rf", "<cmd>RunFile float<cr>", desc = "Run Test Float" },
       { "<leader>rc", "<cmd>RunClose<cr>", desc = "Run Close" },
     })
   end,
