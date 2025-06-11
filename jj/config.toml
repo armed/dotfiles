@@ -3,9 +3,8 @@ name = "Artem Medeu"
 email = "artem.medeusheyev@gmail.com"
 
 [ui]
-diff.tool = "dt"
-diff.format = "git"
-# diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
+diff-formatter = ["difft", "--color=always", "$left", "$right"]
+diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
 default-command = "logr"
 
 [merge-tools.dt]
@@ -18,6 +17,7 @@ brs = ["b", "set", "-r", "@-"]
 fetch = ["git", "fetch"]
 pull = ["fetch"]
 logr = ["log", "--reversed", "--no-pager"]
+si = ["squash", "-i"]
 ci = ["commit", "-i"]
 di = ["diff", "--tool=dt"]
 
