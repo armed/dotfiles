@@ -1,6 +1,9 @@
 -- list of plugins which does not require with lightweight configuration
 return {
   {
+    "avm99963/vim-jjdescription",
+  },
+  {
     "dstein64/vim-startuptime",
     cmd = "StartupTime",
   },
@@ -31,7 +34,7 @@ return {
         char = "┊",
       },
       scope = {
-        enabled = false
+        enabled = false,
       },
       exclude = {
         buftypes = { "qf", "lazy", "lspinfo", "mason" },

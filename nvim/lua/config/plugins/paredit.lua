@@ -24,32 +24,6 @@ local function lsp_wrapped_command(lsp_cmd, fallback_fn)
   end
 end
 
-local function zpr(input)
-  local result = vim.fn.system(
-    "echo '" .. input .. "' | zpr '{:style [:indent-only :respect-nl]}'"
-  )
-  if result then
-    return result:gsub("\r?\n$", "")
-  end
-  return input
-end
-
-local function zprint_indent(event, _opts)
-  local api = vim.api
-  local range = { event.parent:parent():range() }
-  local lines = api.nvim_buf_get_text(0, range[1], 0, range[3], range[4], {})
-  local text = table.concat(lines, "\n")
-  local result = zpr(text)
-  if result then
-    local base_indent = string.rep(" ", range[2])
-    local formatted_lines = {}
-    for line in result:gmatch("[^\r\n]+") do
-      table.insert(formatted_lines, base_indent .. line)
-    end
-    api.nvim_buf_set_text(0, range[1], 0, range[3], range[4], formatted_lines)
-  end
-end
-
 local function load_paredit()
   local paredit = require("nvim-paredit")
 

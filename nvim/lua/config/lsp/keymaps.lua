@@ -18,7 +18,7 @@ end
 local M = {}
 
 function M.lsp_restart()
-  vim.cmd("LspStop")
+  vim.cmd("LspRestart")
   vim.defer_fn(function()
     vim.cmd("e")
   end, 1000)
