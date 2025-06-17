@@ -6,9 +6,28 @@ return {
     ["rust-analyzer"] = {
       files = {
         excludeDirs = { "target", ".git" },
+        watcher = "server",
       },
-      checkOnSave = {
+      checkOnSave = true,
+      check = {
         command = "clippy",
+      },
+      cargo = {
+        targetDir = true,
+        sysroot = "discover",
+      },
+      procMacro = {
+        enable = true,
+      },
+      inlayHints = {
+        enable = true,
+        typeHints = true,
+        parameterHints = true,
+        chainingHints = true,
+      },
+      diagnostics = {
+        enable = true,
+        experimental = { enable = true },
       },
     },
   },
