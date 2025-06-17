@@ -26,6 +26,16 @@ return {
     end
 
     require("nvim-tree").setup({
+      actions = {
+        open_file = {
+          window_picker = {
+            chars = "FJNVURKDIEMCYBOWPQALZMXC1234567890",
+            exclude = {
+              buftype = { "terminal", "help" },
+            },
+          },
+        },
+      },
       view = {
         width = {
           min = 30,
@@ -64,6 +74,32 @@ return {
           },
           git_placement = "after",
           diagnostics_placement = "signcolumn",
+          glyphs = {
+            default = "",
+            symlink = "",
+            bookmark = "󰆤",
+            modified = "●",
+            hidden = "󰜌",
+            folder = {
+              arrow_closed = "",
+              arrow_open = "",
+              default = "",
+              open = "",
+              empty = "",
+              empty_open = "",
+              symlink = "",
+              symlink_open = "",
+            },
+            git = {
+              unstaged = "",
+              staged = "󰸞",
+              unmerged = "",
+              renamed = "➜",
+              untracked = "󱇬",
+              deleted = "",
+              ignored = "◌",
+            },
+          },
         },
       },
       on_attach = function(bufnr)
@@ -91,7 +127,7 @@ return {
 
     wk.add({
       { "<leader>e", group = "Neotree" },
-      { "<leader>ee", "<cmd>NvimTreeToggle<cr>", desc = "Show and focus" },
+      { "<leader>ee", "<cmd>NvimTreeOpen<cr>", desc = "Show/focus" },
       { "<leader>eq", "<cmd>NvimTreeClose<cr>", desc = "Close" },
     })
   end,
