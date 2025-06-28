@@ -5,8 +5,7 @@ return {
   settings = {
     ["rust-analyzer"] = {
       files = {
-        excludeDirs = { "target", ".git" },
-        watcher = "server",
+        excludeDirs = { "target", ".*" },
       },
       checkOnSave = true,
       check = {
