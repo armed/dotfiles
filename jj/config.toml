@@ -23,3 +23,7 @@ di = ["diff", "--tool=dt"]
 
 [git]
 push-bookmark-prefix = "armed/"
+auto-local-bookmark = true
+push-new-bookmarks = true
+write-change-id-header = true
+
