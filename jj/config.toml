@@ -21,8 +21,10 @@ si = ["squash", "-i"]
 ci = ["commit", "-i"]
 di = ["diff", "--tool=dt"]
 
+[templates]
+git_push_bookmark = '"armed/" ++ change_id.short()'
+
 [git]
-push-bookmark-prefix = "armed/"
 auto-local-bookmark = true
 push-new-bookmarks = true
 write-change-id-header = true
