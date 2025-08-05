@@ -78,16 +78,6 @@ return {
     },
   },
   {
-    "smjonas/live-command.nvim",
-    enabled = false,
-    event = "VeryLazy",
-    opts = {
-      commands = {
-        Norm = { cmd = "norm" },
-      },
-    },
-  },
-  {
     "NoahTheDuke/vim-just",
     ft = "just",
   },

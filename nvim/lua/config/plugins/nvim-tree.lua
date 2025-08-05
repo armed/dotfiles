@@ -45,9 +45,6 @@ return {
       update_focused_file = {
         enable = true,
       },
-      notify = {
-        absolute_path = false,
-      },
       prefer_startup_root = false,
       sync_root_with_cwd = false,
       diagnostics = {
