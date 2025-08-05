@@ -104,19 +104,21 @@ M.config = function()
     end
   end
 
+  local system_scanner = require("config.plugins.conjure.system_scanner")
+
   wk.add(mappings)
   wk.add({
     {
       "<localleader>R",
       function()
-        u.conjure_eval("(user/reset-app!)")
+        system_scanner.open_restart_menu()
       end,
       desc = "Reset",
     },
     {
       "<localleader>S",
       function()
-        u.conjure_eval("(user/stop-app!)")
+        system_scanner.open_stop_menu()
       end,
       desc = "Stop",
     },
