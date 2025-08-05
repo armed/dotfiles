@@ -9,8 +9,8 @@ local M = {}
 local cache = {}
 
 local function setup_highlights()
-  vim.api.nvim_set_hl(0, "SystemRestart", { fg = "#27F53C", bold = true })
-  vim.api.nvim_set_hl(0, "SystemStop", { fg = "#F54927", bold = true })
+  vim.api.nvim_set_hl(0, "ClojueSystemRestart", { fg = "#27F53C", bold = true })
+  vim.api.nvim_set_hl(0, "ClojureSystemStop", { fg = "#F54927", bold = true })
 end
 
 setup_highlights()
@@ -26,10 +26,7 @@ end
 
 local function scan_system_files_with_rg(git_root, callback)
   if vim.fn.executable("rg") ~= 1 then
-    vim.notify(
-      "ripgrep (rg) not found",
-      vim.log.levels.WARN
-    )
+    vim.notify("ripgrep (rg) not found", vim.log.levels.WARN)
     callback({})
     return
   end
@@ -147,9 +144,9 @@ local function create_namespace_menu(title, namespaces, callback)
 
   local title_hl = "Normal"
   if title and title:lower():find("restart") then
-    title_hl = "SystemScannerRestart"
+    title_hl = "ClojureSystemRestart"
   elseif title and title:lower():find("stop") then
-    title_hl = "SystemScannerStop"
+    title_hl = "ClojureSystemStop"
   end
 
   local title_text = NuiText(title or " System Namespaces ", title_hl)
