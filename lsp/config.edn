@@ -1,2 +1,3 @@
 {:keep-parens-when-threading? true
+ :source-paths-ignore-regex ["target.*" ".*/target/.*"]
  :java {:decompile-jar-as-project? false}}
