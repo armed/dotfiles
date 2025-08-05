@@ -9,7 +9,7 @@ local M = {}
 local cache = {}
 
 local function setup_highlights()
-  vim.api.nvim_set_hl(0, "ClojueSystemRestart", { fg = "#27F53C", bold = true })
+  vim.api.nvim_set_hl(0, "ClojureSystemRestart", { fg = "#27F53C", bold = true })
   vim.api.nvim_set_hl(0, "ClojureSystemStop", { fg = "#F54927", bold = true })
 end
 
