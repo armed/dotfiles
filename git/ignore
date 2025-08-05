@@ -15,3 +15,11 @@ deps.local.edn
 .mise.toml
 protols.toml
 .clang-format
+GEMINI.md
+.gemini
+**/repl_sessions
+
+
+**/.claude/settings.local.json
+
+**/CLAUDE.local.md
