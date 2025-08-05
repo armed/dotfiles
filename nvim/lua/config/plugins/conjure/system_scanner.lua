@@ -27,7 +27,7 @@ end
 local function scan_system_files_with_rg(git_root, callback)
   if vim.fn.executable("rg") ~= 1 then
     vim.notify(
-      "ripgrep (rg) not found, falling back to slower method",
+      "ripgrep (rg) not found",
       vim.log.levels.WARN
     )
     callback({})
@@ -145,7 +145,6 @@ local function create_namespace_menu(title, namespaces, callback)
     return
   end
 
-  -- Determine title highlight based on content
   local title_hl = "Normal"
   if title and title:lower():find("restart") then
     title_hl = "SystemScannerRestart"
@@ -153,7 +152,6 @@ local function create_namespace_menu(title, namespaces, callback)
     title_hl = "SystemScannerStop"
   end
 
-  -- Create styled title using NUI components
   local title_text = NuiText(title or " System Namespaces ", title_hl)
   local title_line = NuiLine({ title_text })
 
