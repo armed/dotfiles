@@ -222,14 +222,14 @@ end
 function M.open_restart_menu()
   show_system_namespaces("System restart!", function(namespace)
     local u = require("config.plugins.conjure.util")
-    u.conjure_eval("(" .. namespace .. "/restart!)")
+    u.conjure_eval("((requiring-resolve '" .. namespace .. "/restart!))")
   end)
 end
 
 function M.open_stop_menu()
   show_system_namespaces("System stop!", function(namespace)
     local u = require("config.plugins.conjure.util")
-    u.conjure_eval("(" .. namespace .. "/stop!)")
+    u.conjure_eval("((requiring-resolve '" .. namespace .. "/stop!))")
   end)
 end
 
