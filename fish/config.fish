@@ -32,6 +32,7 @@ if status is-interactive
     alias clojure "clojure -J-Dapple.awt.UIElement=true"
     alias ljj "lazyjj"
     alias p "pnpm"
+    alias pu "pulumi"
 
     mise activate fish | source
 
