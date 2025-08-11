@@ -9,7 +9,6 @@ vim.lsp.enable({
   "lua_ls",
   "rust_analyzer",
   "protols",
-  "ts_ls",
 })
 
 vim.cmd([[ colo kanagawa ]])
