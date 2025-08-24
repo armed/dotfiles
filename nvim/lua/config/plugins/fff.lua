@@ -4,13 +4,15 @@ return {
   -- or if you are using nixos
   -- build = "nix run .#release",
   opts = {
+    layout = {
+      width = 0.8, -- Window width as fraction of screen
+      height = 0.8, -- Window height as fraction of screen
+      preview_size = 0.5,
+    },
     -- UI dimensions and appearance
-    width = 0.8, -- Window width as fraction of screen
-    height = 0.8, -- Window height as fraction of screen
     prompt = "🪿 ", -- Input prompt symbol
     preview = {
       enabled = true,
-      width = 0.5,
       max_lines = 100,
       max_size = 1024 * 1024, -- 1MB
     },
@@ -19,7 +21,7 @@ return {
     max_threads = 4, -- Maximum threads for fuzzy search
 
     keymaps = {
-      close = {"<Esc>"},
+      close = { "<Esc>" },
       select = "<CR>",
       select_split = "<C-s>",
       select_vsplit = "<C-v>",
