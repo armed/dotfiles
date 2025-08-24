@@ -5,10 +5,10 @@ return {
   opts = {
     modes = {
       search = {
-        enabled = false,
+        enabled = true,
       },
       char = {
-        enabled = false,
+        enabled = true,
       },
     },
     highlight = {
@@ -24,31 +24,6 @@ return {
         require("flash").jump()
       end,
       desc = "Flash",
-    },
-    {
-      "gS",
-      mode = { "n", "o", "x" },
-      function()
-        require("flash").treesitter()
-      end,
-      desc = "Flash Treesitter",
-    },
-    {
-      "r",
-      mode = "o",
-      function()
-        require("flash").remote()
-      end,
-      desc = "Remote Flash",
-    },
-    {
-      "R",
-      mode = { "n", "o", "x" },
-      function()
-        -- show labeled treesitter nodes around the search matches
-        require("flash").treesitter_search()
-      end,
-      desc = "Treesitter Search",
     },
   },
 }
