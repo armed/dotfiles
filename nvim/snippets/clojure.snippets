@@ -1,8 +1,4 @@
-snippet (comm)
-	(comment
-		${0}
-		nil
-snippet comm
+snippet comm Comment block terminated with nil
 	(comment
 		${0}
 		nil)
@@ -46,10 +42,10 @@ snippet if
 	(if ${1:test-expr}
 		${2:then-expr}
 		${0:else-expr})
-snippet if-let
-	(if-let [${1:result} ${2:test-expr}]
-		(${3:then-expr} $1)
-		(${0:else-expr}))
+  snippet if-let
+    (if-let [${1:result} ${2:test-expr}]
+      (${3:then-expr} $1)
+      (${0:else-expr}))
 snippet imp
 	(:import [${1:package}])
 		& {:keys [${1:keys}] :or {${0:defaults}}}
