@@ -9,8 +9,6 @@ M.signs = {
 
 function M.setup()
   vim.diagnostic.config({
-    virtual_text = false,
-    virtual_lines = false,
     signs = {
       text = M.signs,
     },
@@ -19,7 +17,6 @@ end
 
 M.toggle_virtual_line = function()
   local bufnr = vim.api.nvim_get_current_buf()
-  local line = vim.api.nvim_win_get_cursor(0)[1] - 1
 
   local state = vim.b[bufnr].virtual_lines_state
     or { enabled = false, line = nil }
