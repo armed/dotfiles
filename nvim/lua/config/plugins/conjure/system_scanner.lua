@@ -130,7 +130,10 @@ end
 local function create_namespace_menu(title, namespaces, callback)
   local menu_items = {}
 
-  for _, ns in ipairs(namespaces) do
+  local nsps = namespaces
+  table.sort(nsps)
+
+  for _, ns in ipairs(nsps) do
     table.insert(menu_items, NuiMenu.item(ns))
   end
 
