@@ -3,6 +3,7 @@ require("config.hl-groups")
 require("config.opts")
 require("config.lazy")
 require("config.maps")
+require("config.comment")
 
 vim.lsp.enable({
   "clojure_lsp",
@@ -12,3 +13,4 @@ vim.lsp.enable({
 })
 
 vim.cmd([[ colo kanagawa ]])
+
