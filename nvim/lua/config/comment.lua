@@ -117,18 +117,66 @@ end
 
 vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
   pattern = "*",
-  callback = function()
-    local start_line
-    local end_line
-    local start_mark = vim.api.nvim_buf_get_mark(0, "[")
-    local end_mark = vim.api.nvim_buf_get_mark(0, "]")
-    if start_mark[1] ~= 0 and end_mark[1] ~= 0 then
-      start_line = start_mark[1]
-      end_line = end_mark[1]
-    else
-      start_line = vim.api.nvim_win_get_cursor(0)[1]
-      end_line = start_line
+  callback = function(args)
+    -- In insert mode, find the full comment block context.
+    -- Otherwise, trust the '[ and '] marks for visual/operator changes.
+    local mode = vim.api.nvim_get_mode().mode
+    if not (mode:find("i") or mode:find("ic")) then
+      local start_mark = vim.api.nvim_buf_get_mark(args.buf, "[")
+      local end_mark = vim.api.nvim_buf_get_mark(args.buf, "]")
+      if start_mark[1] ~= 0 and end_mark[1] ~= 0 then
+        process_range(start_mark[1], end_mark[1])
+      end
+      return
     end
+
+    -- For Insert mode changes:
+    local buf = args.buf
+    local comment_marker = (vim.bo[buf].commentstring or ""):match("^(.-)%%s")
+    if not comment_marker then
+      return
+    end
+    comment_marker = comment_marker:match("^(.-)%s*$")
+
+    local lnum = vim.api.nvim_win_get_cursor(0)[1]
+    local line_content =
+      vim.api.nvim_buf_get_lines(buf, lnum - 1, lnum, false)[1]
+
+    -- Early exit if the current line isn't a comment
+    local is_comment_pattern = "^%s*" .. vim.pesc(comment_marker)
+    if not line_content or not line_content:match(is_comment_pattern) then
+      return
+    end
+
+    -- Find start of contiguous comment block by scanning upwards
+    local start_line = lnum
+    while start_line > 1 do
+      local prev_line = vim.api.nvim_buf_get_lines(
+        buf,
+        start_line - 2,
+        start_line - 1,
+        false
+      )[1]
+      if prev_line and prev_line:match(is_comment_pattern) then
+        start_line = start_line - 1
+      else
+        break
+      end
+    end
+
+    -- Find end of contiguous comment block by scanning downwards
+    local end_line = lnum
+    local line_count = vim.api.nvim_buf_line_count(buf)
+    while end_line < line_count do
+      local next_line =
+        vim.api.nvim_buf_get_lines(buf, end_line, end_line + 1, false)[1]
+      if next_line and next_line:match(is_comment_pattern) then
+        end_line = end_line + 1
+      else
+        break
+      end
+    end
+
     process_range(start_line, end_line)
   end,
 })
