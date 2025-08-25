@@ -15,21 +15,40 @@ function M.setup()
   })
 end
 
-M.toggle_virtual_line = function()
+M.toggle_virtual_line = function(is_current_line)
   local bufnr = vim.api.nvim_get_current_buf()
+  local current_line = is_current_line
+      and (vim.api.nvim_win_get_cursor(0)[1] - 1)
+    or nil
 
   local state = vim.b[bufnr].virtual_lines_state
     or { enabled = false, line = nil }
-  state.enabled = not state.enabled
+
+  if is_current_line then
+    if state.enabled and state.line == current_line then
+      state.enabled = false
+      state.line = nil
+    else
+      state.enabled = true
+      state.line = current_line
+    end
+  else
+    state.enabled = not state.enabled
+    state.line = nil
+  end
+
   vim.b[bufnr].virtual_lines_state = state
 
   vim.diagnostic.config({
     virtual_lines = {
       format = function(diagnostic)
-        if state.enabled then
-          return diagnostic.message
+        if not state.enabled then
+          return nil
         end
-        return nil
+        if is_current_line and state.line ~= diagnostic.lnum then
+          return nil
+        end
+        return diagnostic.message
       end,
     },
     virtual_text = false,
@@ -39,8 +58,22 @@ M.toggle_virtual_line = function()
 end
 
 M.turn_off_virtual_lines = function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local state = vim.b[bufnr].virtual_lines_state
+
+  if not state then
+    return
+  end
+
+  state.enabled = false
+  state.line = nil
+
   vim.diagnostic.config({
-    virtual_lines = false,
+    virtual_lines = {
+      format = function(_)
+        return nil
+      end,
+    },
     virtual_text = false,
   })
   vim.diagnostic.show()

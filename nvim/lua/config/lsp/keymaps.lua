@@ -54,7 +54,7 @@ function M.setup()
       function()
         require("conjure.eval")["doc-word"]()
       end,
-      desc = "Cojure hover doc",
+      desc = "Conjure hover doc",
     },
     {
       "<leader>lC",
@@ -135,8 +135,17 @@ function M.setup()
     },
     {
       "<leader>ll",
-      diag_settings.toggle_virtual_line,
-      desc = "Line Diagnostic",
+      function()
+        diag_settings.toggle_virtual_line(false)
+      end,
+      desc = "Buffer Line Diagnostic",
+    },
+    {
+      "<leader>lL",
+      function()
+        diag_settings.toggle_virtual_line(true)
+      end,
+      desc = "Cursor Line Diagnostic",
     },
     {
       "<leader>ln",
@@ -145,10 +154,7 @@ function M.setup()
     },
     {
       "<leader>lr",
-      -- function()
       vim.lsp.buf.rename,
-      -- vim.cmd("wa")
-      -- end,
       desc = "Rename",
     },
     {
