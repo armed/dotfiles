@@ -38,6 +38,16 @@ function M.setup()
     end,
     desc = "No diagnostic for lazy window",
   })
+
+  -- NOTE: not good for vcs diffs, but fancy
+  -- need to find a better way to toggle this feature for own projects
+  -- 
+  -- vim.api.nvim_create_autocmd("InsertLeave", {
+  --   callback = function()
+  --     vim.cmd("silent! undojoin | lua require('conform').format()")
+  --   end,
+  --   desc = "Format on leaving insert mode without affecting undo",
+  -- })
 end
 
 return M
