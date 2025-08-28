@@ -7,12 +7,19 @@ M.signs = {
   [vim.diagnostic.severity.HINT] = "➤",
 }
 
+local defaults = {
+  signs = {
+    text = M.signs,
+  },
+}
+
+local function merge_config(config)
+  vim.diagnostic.config(vim.tbl_deep_extend("force", defaults, config))
+  vim.diagnostic.show()
+end
+
 function M.setup()
-  vim.diagnostic.config({
-    signs = {
-      text = M.signs,
-    },
-  })
+  vim.diagnostic.config(defaults)
 end
 
 M.toggle_virtual_line = function(is_current_line)
@@ -39,7 +46,7 @@ M.toggle_virtual_line = function(is_current_line)
 
   vim.b[bufnr].virtual_lines_state = state
 
-  vim.diagnostic.config({
+  merge_config({
     virtual_lines = {
       format = function(diagnostic)
         if not state.enabled then
@@ -53,8 +60,6 @@ M.toggle_virtual_line = function(is_current_line)
     },
     virtual_text = false,
   })
-
-  vim.diagnostic.show()
 end
 
 M.turn_off_virtual_lines = function()
@@ -68,7 +73,7 @@ M.turn_off_virtual_lines = function()
   state.enabled = false
   state.line = nil
 
-  vim.diagnostic.config({
+  merge_config({
     virtual_lines = {
       format = function(_)
         return nil
@@ -76,7 +81,6 @@ M.turn_off_virtual_lines = function()
     },
     virtual_text = false,
   })
-  vim.diagnostic.show()
 end
 
 return M
