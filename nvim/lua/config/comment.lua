@@ -45,13 +45,17 @@ local function analyze_line(line, comment_marker, starting_balance)
     local before_split = code_part:sub(1, split_pos - 1):match("^(.-)%s*$")
     local after_split = code_part:sub(split_pos)
 
-    local new_commented_line = indent .. comment_marker .. " " .. before_split
+    -- Preserve original spacing after comment marker for the split line
+    local original_spacing = line_content:match("^%s*" .. vim.pesc(comment_marker) .. "(%s*)")
+    local new_commented_line = indent .. comment_marker .. (original_spacing or " ") .. before_split
     local new_uncommented_line = indent .. after_split
     return { new_commented_line, new_uncommented_line }, level
   end
 
   -- No split, but we still normalize the line and return the new balance.
-  local normalized_line = indent .. comment_marker .. " " .. code_part
+  -- Preserve original spacing after comment marker
+  local original_comment_part = line_content:match("^%s*" .. vim.pesc(comment_marker) .. "(.*)$")
+  local normalized_line = indent .. comment_marker .. (original_comment_part or "")
   return { normalized_line }, level
 end
 
