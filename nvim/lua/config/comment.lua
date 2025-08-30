@@ -42,7 +42,7 @@ local function analyze_line(line, comment_marker, starting_balance)
   end
 
   if split_pos then
-    local before_split = code_part:sub(1, split_pos - 1):match("^(.-)%s*$")
+    local before_split = code_part:sub(1, split_pos - 1):match("^%s*(.-)%s*$")
     local after_split = code_part:sub(split_pos)
 
     -- Preserve original spacing after comment marker for the split line
