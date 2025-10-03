@@ -1,3 +1,27 @@
+local api = require("nvim-tree.api")
+local utils = require("nvim-tree.utils")
+local core = require("nvim-tree.core")
+
+local function current_dir_path()
+  local cwd = core.get_cwd()
+  local abs_path = api.tree.get_node_under_cursor().absolute_path
+  local path = utils.path_relative(abs_path, cwd)
+
+  if vim.fn.filereadable(path) == 1 then
+    path = vim.fn.fnamemodify(path, ":h")
+  end
+
+  return path
+end
+
+local function grep_in_folder()
+  vim.cmd([[FzfLua grep_project cwd=]] .. current_dir_path())
+end
+
+local function find_in_folder()
+  require("fff").find_files_in_dir(current_dir_path())
+end
+
 return {
   "nvim-tree/nvim-tree.lua",
   version = "*",
@@ -6,8 +30,6 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
-    local api = require("nvim-tree.api")
-
     local VIEW_WIDTH_FIXED = 30
     local view_width_max = VIEW_WIDTH_FIXED -- fixed to start
 
@@ -126,6 +148,8 @@ return {
       { "<leader>e", group = "Neotree" },
       { "<leader>ee", "<cmd>NvimTreeOpen<cr>", desc = "Show/focus" },
       { "<leader>eq", "<cmd>NvimTreeClose<cr>", desc = "Close" },
+      { "<leader>eg", grep_in_folder, desc = "Grep files in folder" },
+      { "<leader>ef", find_in_folder, desc = "Find files in folder" },
     })
   end,
 }

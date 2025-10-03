@@ -95,7 +95,7 @@ return {
 
     fuzzy = {
       implementation = "prefer_rust_with_warning",
-      use_frecency = false,
+      frecency_enabled = false,
       use_proximity = false,
       sorts = { "exact", "score", "sort_text" },
     },

@@ -25,10 +25,6 @@ local M = {
 function M.config()
   ---@diagnostic disable-next-line: missing-fields
   require("nvim-treesitter.configs").setup({
-    autotag = {
-      enabled = true,
-      filetypes = { "html", "xml", "typescriptreact" },
-    },
     sync_install = true,
     ensure_installed = { "lua", "clojure" },
     highlight = {
@@ -64,24 +60,6 @@ function M.config()
         scope_incremental = "<c-s>",
         node_decremental = "<BS>",
       },
-    },
-    playground = {
-      enable = false,
-      disable = {},
-      updatetime = 100,
-      keybindings = {
-        toggle_query_editor = "o",
-        toggle_hl_groups = "i",
-        toggle_injected_languages = "t",
-        toggle_anonymous_nodes = "a",
-        toggle_language_display = "I",
-        focus_language = "f",
-        unfocus_language = "F",
-        update = "R",
-        goto_node = "<cr>",
-        show_help = "?",
-      },
-      persist_queries = false,
     },
   })
 end
