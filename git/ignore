@@ -18,8 +18,10 @@ protols.toml
 GEMINI.md
 .gemini
 **/repl_sessions
+node_modules
 
 
 **/.claude/settings.local.json
 
-**/CLAUDE.local.md
+claude.local.md
+CLAUDE.local.md
