@@ -39,10 +39,14 @@ if status is-interactive
     starship init fish | source
     fzf --fish | source
 
-    COMPLETE=fish jj | source
     atuin init fish | source
+
+    COMPLETE=fish jj | source
 end
 
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/armed/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/armed/Downloads/google-cloud-sdk/path.fish.inc'; end
