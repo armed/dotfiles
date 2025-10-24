@@ -138,6 +138,17 @@ autocmd("ColorScheme", {
   end,
 })
 
+autocmd("BufWritePre", {
+  group = general,
+  pattern = "*", -- Apply to all file types
+  callback = function()
+    -- Remove all empty lines at the end of the file
+    vim.cmd([[silent! %s/\n\+\%$//e]])
+    -- Ensure there is exactly one newline at the end of the file (optional, but common practice)
+    vim.cmd([[silent! %s/\($\n\)\@!$/\r/e]])
+  end,
+})
+
 -- Automatically close buffer if the underlying file is deleted
 local function check_and_delete_buffer()
   local buf = vim.api.nvim_get_current_buf()

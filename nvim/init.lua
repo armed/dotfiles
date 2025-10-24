@@ -9,7 +9,6 @@ vim.lsp.enable({
   "clojure_lsp",
   "lua_ls",
   "rust_analyzer",
-  "protols",
   "ts_ls"
 })
 

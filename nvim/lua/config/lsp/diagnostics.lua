@@ -7,15 +7,10 @@ M.signs = {
   [vim.diagnostic.severity.HINT] = "➤",
 }
 
-local defaults = {
-  signs = {
-    text = M.signs,
-  },
-}
+local defaults = { update_in_insert = true, signs = { text = M.signs, }, underline = true, }
 
 local function merge_config(config)
-  vim.diagnostic.config(vim.tbl_deep_extend("force", defaults, config))
-  vim.diagnostic.show()
+  vim.diagnostic.config(config)
 end
 
 function M.setup()
@@ -72,6 +67,8 @@ M.turn_off_virtual_lines = function()
 
   state.enabled = false
   state.line = nil
+
+  vim.b[bufnr].virtual_lines_state = state
 
   merge_config({
     virtual_lines = {

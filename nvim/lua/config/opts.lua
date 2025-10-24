@@ -43,6 +43,7 @@ opt.grepprg = "rg --vimgrep"
 opt.laststatus = 0
 opt.pumblend = 10 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
+opt.textwidth = 80
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
@@ -53,7 +54,9 @@ vim.opt.foldmethod = 'manual'
 opt.splitkeep = "screen"
 opt.shortmess:append({ C = true })
 
-vim.o.shell = "/bin/bash"
+vim.g.zip_unzipcmd = "unzip"
+vim.g.zip_zipcmd = "zip"
+vim.o.shell = "/opt/homebrew/bin/fish"
 
 local builtins = {
   "getscript",

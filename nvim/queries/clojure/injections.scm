@@ -57,6 +57,6 @@
   (#set! injection.language "markdown"))
 
 ((str_lit)  @injection.content
-  (#match? @injection.content "^\"(SELECT|select|INSERT|insert|UPDATE|update|DELETE|delete|CREATE|create|TRUNCATE|truncate|ALTER|alter|DROP|drop|WITH|with)")
+  (#match? @injection.content "^\"(SELECT|select|INSERT|insert|UPDATE|update|DELETE|delete|CREATE|create|TRUNCATE|truncate|ALTER|alter|DROP|drop|WITH|with).*\"$")
   (#offset! @injection.content 0 1 0 -1)
   (#set! injection.language "sql"))
