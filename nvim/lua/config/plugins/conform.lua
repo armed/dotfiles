@@ -47,8 +47,10 @@ return {
 
       formatters = {
 
+        injected = require("config/common/injected_formatter"),
+
         pg_format = {
-          args = { "--wrap-limit", "78", "--spaces", "4" },
+          args = { "--wrap-limit", "60", "--spaces", "2" },
         },
         taplo = {
           command = "taplo",
