@@ -8,7 +8,7 @@ local act = wezterm.action
 
 config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
 -- window_decorations = 'RESIZE',
-config.font_size = 14.0
+config.font_size = 12.0
 config.cursor_thickness = "0.1cell"
 config.window_frame = {
   border_left_width = "0cell",
