@@ -4,8 +4,6 @@ local function supports_codelens(client)
   return client and client.server_capabilities.codeLensProvider
 end
 
-local diagnostic = require("config.lsp.diagnostics")
-
 function M.setup()
   local lsp_group = vim.api.nvim_create_augroup("LspGroup", { clear = true })
 
@@ -27,7 +25,7 @@ function M.setup()
   vim.api.nvim_create_autocmd("CursorMoved", {
     group = lsp_group,
     pattern = "*",
-    callback = diagnostic.turn_off_virtual_lines,
+    callback = require("config.lsp.diagnostics").turn_off_virtual_lines,
     desc = "Turn off virtual diagnostic lines on cursor movement",
   })
 

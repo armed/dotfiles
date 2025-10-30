@@ -1,0 +1,7 @@
+require("config.basics.hacks")
+require("config.basics.aucommands")
+require("config.basics.hl-groups")
+require("config.basics.opts")
+require("config.basics.lazy")
+require("config.basics.maps")
+require("config.basics.comment")
