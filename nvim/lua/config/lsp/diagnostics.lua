@@ -92,6 +92,4 @@ M.turn_off_virtual_lines = function()
   })
 end
 
-M.setup()
-
 return M

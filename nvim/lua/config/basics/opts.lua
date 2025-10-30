@@ -56,7 +56,7 @@ opt.shortmess:append({ C = true })
 
 vim.g.zip_unzipcmd = "unzip"
 vim.g.zip_zipcmd = "zip"
-vim.o.shell = "/opt/homebrew/bin/fish"
+vim.opt.shell = "/bin/bash"
 
 local builtins = {
   "getscript",

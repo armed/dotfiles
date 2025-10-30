@@ -6,13 +6,10 @@ local general = augroup("General Settings", { clear = true })
 
 autocmd({ "VimEnter", "DirChanged" }, {
   callback = function(data)
-    -- buffer is a directory
     local directory = vim.fn.isdirectory(data.file) == 1
 
-    -- change to the directory
     if directory then
       vim.cmd.cd(data.file)
-      -- open the tree
       vim.cmd("Neotree")
     end
     local current_dir = vim.fn.getcwd()
@@ -33,7 +30,6 @@ autocmd("TermOpen", {
     vim.opt_local.number = false
     local opts = { buffer = 0 }
     local map = vim.keymap.set
-    -- map("t", "<esc><esc>", "<C-\\><C-n>", opts)
     map("t", "jj", "<C-\\><C-n>", opts)
     map("t", "qq", "<C-\\><C-n>:close<CR>", opts)
     map("n", "q", ":close<CR>", opts)
@@ -44,10 +40,8 @@ autocmd("TermOpen", {
   desc = "Terminal Options",
 })
 
--- Check if we need to reload the file when it changed
 autocmd({ "FocusGained", "TermClose", "TermLeave" }, { command = "checktime" })
 
--- Highlight on yank
 autocmd("TextYankPost", {
   group = general,
   callback = function()
@@ -133,56 +127,15 @@ autocmd("ColorScheme", {
   group = general,
   pattern = "*",
   callback = function()
-    -- some themes cleans hl groups, we are overriding them here
-    require("config.hl-groups").init()
+    require("config.basics.hl-groups")
   end,
 })
 
 autocmd("BufWritePre", {
   group = general,
-  pattern = "*", -- Apply to all file types
+  pattern = "*",
   callback = function()
-    -- Remove all empty lines at the end of the file
     vim.cmd([[silent! %s/\n\+\%$//e]])
-    -- Ensure there is exactly one newline at the end of the file (optional, but common practice)
     vim.cmd([[silent! %s/\($\n\)\@!$/\r/e]])
   end,
 })
-
--- Automatically close buffer if the underlying file is deleted
-local function check_and_delete_buffer()
-  local buf = vim.api.nvim_get_current_buf()
-  local bufname = vim.api.nvim_buf_get_name(buf)
-
-  -- Use vim.bo[bufnr].optionname to get buffer-local options
-  local modified = vim.bo[buf].modified
-  local buftype = vim.bo[buf].buftype
-
-  -- Proceed only if the buffer has a name, is not modified, and is a normal buffer
-  -- (buftype is empty string for normal buffers)
-  if bufname ~= "" and not modified and buftype == "" then
-    -- vim.fn.filereadable returns 0 if not readable/exists, 1 if it does
-    if vim.fn.filereadable(bufname) == 0 then
-      -- File deleted/missing, close the buffer
-      vim.notify(
-        "File deleted, closing buffer: " .. vim.fn.fnamemodify(bufname, ":t"),
-        vim.log.levels.INFO
-      )
-      -- Use vim.schedule to ensure command runs safely in the main loop
-      vim.schedule(function()
-        -- Use silent=true to avoid errors, bang=true to force wipeout
-        -- unload=false corresponds to bwipeout
-        vim.api.nvim_buf_delete(buf, { force = true, unload = false })
-      end)
-    end
-  end
-end
-
-local fs_group = augroup("CloseDeletedBuffer", { clear = true })
-
--- autocmd({ "FocusGained", "CursorHold" }, {
---   group = fs_group,
---   pattern = "*",
---   callback = check_and_delete_buffer,
---   desc = "Close buffer if underlying file is deleted",
--- })
