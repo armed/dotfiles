@@ -33,8 +33,8 @@ function M.setup()
 
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "lazy",
-    callback = function()
-      vim.diagnostic.enable(false)
+    callback = function(event)
+      vim.diagnostic.enable(false, { bufnr = event.buf })
     end,
     desc = "No diagnostic for lazy window",
   })
