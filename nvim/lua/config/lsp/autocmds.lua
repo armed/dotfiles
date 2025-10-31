@@ -28,14 +28,6 @@ function M.setup()
     callback = require("config.lsp.diagnostics").turn_off_virtual_lines,
     desc = "Turn off virtual diagnostic lines on cursor movement",
   })
-
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = "lazy",
-    callback = function(event)
-      vim.diagnostic.enable(false, { bufnr = event.buf })
-    end,
-    desc = "No diagnostic for lazy window",
-  })
 end
 
 return M
