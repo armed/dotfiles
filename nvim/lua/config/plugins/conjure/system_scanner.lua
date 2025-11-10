@@ -7,6 +7,7 @@ local event = require("nui.utils.autocmd").event
 local M = {}
 
 local cache = {}
+local last_used_namespace = {}
 
 local function setup_highlights()
   vim.api.nvim_set_hl(0, "ClojureSystemRestart", { fg = "#27F53C", bold = true })
@@ -133,8 +134,15 @@ local function create_namespace_menu(title, namespaces, callback)
   local nsps = namespaces
   table.sort(nsps)
 
-  for _, ns in ipairs(nsps) do
+  local git_root = find_git_root()
+  local last_ns = last_used_namespace[git_root]
+  local default_index = 1
+
+  for i, ns in ipairs(nsps) do
     table.insert(menu_items, NuiMenu.item(ns))
+    if last_ns and ns == last_ns then
+      default_index = i
+    end
   end
 
   if #menu_items == 0 then
@@ -184,11 +192,18 @@ local function create_namespace_menu(title, namespaces, callback)
       -- Menu closed
     end,
     on_submit = function(item)
+      last_used_namespace[git_root] = item.text
       callback(item.text)
     end,
   })
 
   menu:mount()
+  
+  if default_index > 1 then
+    vim.schedule(function()
+      vim.api.nvim_win_set_cursor(menu.winid, { default_index, 0 })
+    end)
+  end
 
   menu:on(event.BufLeave, function()
     menu:unmount()
