@@ -2,10 +2,14 @@ local api = require("nvim-tree.api")
 local utils = require("nvim-tree.utils")
 local core = require("nvim-tree.core")
 
-local function current_dir_path()
+local function current_node_path()
   local cwd = core.get_cwd()
   local abs_path = api.tree.get_node_under_cursor().absolute_path
-  local path = utils.path_relative(abs_path, cwd)
+  return utils.path_relative(abs_path, cwd)
+end
+
+local function current_dir_path()
+  local path = current_node_path()
 
   if vim.fn.filereadable(path) == 1 then
     path = vim.fn.fnamemodify(path, ":h")
@@ -20,6 +24,10 @@ end
 
 local function find_in_folder()
   require("fff").find_files_in_dir(current_dir_path())
+end
+
+local function run_clojure_tests_in_path()
+  require("clojure-test.api").run_tests_in_path(current_node_path())
 end
 
 return {
@@ -150,6 +158,11 @@ return {
       { "<leader>eq", "<cmd>NvimTreeClose<cr>", desc = "Close" },
       { "<leader>eg", grep_in_folder, desc = "Grep files in folder" },
       { "<leader>ef", find_in_folder, desc = "Find files in folder" },
+      {
+        "<localleader>et",
+        run_clojure_tests_in_path,
+        desc = "Run clojure tests in path",
+      },
     })
   end,
 }

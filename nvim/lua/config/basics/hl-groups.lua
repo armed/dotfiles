@@ -9,3 +9,5 @@ vim.api.nvim_command(
 
 -- default one
 vim.api.nvim_command("hi user.win.title guifg=black guibg=grey")
+
+vim.api.nvim_set_hl(0, "Green", { fg = "#98bb6c", bold = true })
