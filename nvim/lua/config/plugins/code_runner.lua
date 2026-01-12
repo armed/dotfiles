@@ -8,8 +8,8 @@ return {
     require("code_runner").setup({
       filetype = {
         rust = {
-          "cargo test --test $fileNameWithoutExt"
-        }
+          "cargo run --bin $fileNameWithoutExt",
+        },
       },
       float = {
         border = "rounded",
@@ -20,8 +20,8 @@ return {
 
     wk.add({
       { "<leader>r", "<cmd>RunCode<cr>", desc = "Run Code" },
-      { "<leader>rt", "<cmd>RunFile term<cr>", desc = "Run Test Term" },
-      { "<leader>rf", "<cmd>RunFile float<cr>", desc = "Run Test Float" },
+      { "<leader>rt", "<cmd>RunFile term<cr>", desc = "Run Term" },
+      { "<leader>rf", "<cmd>RunFile float<cr>", desc = "Run Float" },
       { "<leader>rc", "<cmd>RunClose<cr>", desc = "Run Close" },
     })
   end,
