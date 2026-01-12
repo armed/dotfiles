@@ -39,15 +39,33 @@ return {
         rust = { "rustfmt", lsp_format = "fallback" },
         proto = { "clang-format" },
         sql = { "pg_format" },
-        clojure = { lsp_format = "first" },
+        clojure = function(buf)
+          local clients = vim.lsp.get_clients({ bufnr = buf })
+
+          local supported = false
+          for _, client in ipairs(clients) do
+            if client:supports_method("textDocument/formatting") then
+              supported = true
+              break
+            end
+          end
+
+          if supported then
+            return {
+              lsp_format = "first",
+              "pruner_injected",
+            }
+          end
+
+          return {
+            "pruner",
+          }
+        end,
         json = { "jq" },
-        ["*"] = { "injected" },
-        -- zig = { "zig" },
+        ["*"] = { "pruner_injected" },
       },
 
       formatters = {
-
-        injected = require("config/common/injected_formatter"),
 
         pg_format = {
           args = { "--wrap-limit", "60", "--spaces", "2" },
@@ -109,6 +127,10 @@ return {
           },
           stdin = false,
         },
+        pruner_injected = require("config/common/pruner")({
+          injected_only = true,
+        }),
+        pruner = require("config/common/pruner")(),
       },
     })
   end,
