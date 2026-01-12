@@ -65,10 +65,10 @@ function jd
         return 0
     end
 
-    set -l options (fish_opt --short=f --long=from --required-val)
-    set options $options (fish_opt --short=t --long=to --required-val)
-    set options $options (fish_opt --short=s --long=split)
-    set options $options (fish_opt --short=S --long=symmetric)
+    # set -l options (fish_opt --short=f --long=from --required-val)
+    # set options $options (fish_opt --short=t --long=to --required-val)
+    # set options $options (fish_opt --short=s --long=split)
+    # set options $options (fish_opt --short=S --long=symmetric)
 
     argparse $options -- $argv
     or return

@@ -34,6 +34,19 @@ if status is-interactive
     alias p "pnpm"
     alias pu "pulumi"
 
+    # Console account
+    alias claude-console='CLAUDE_CODE_USE_BEDROCK=1 \
+      ANTHROPIC_MODEL="global.anthropic.claude-opus-4-5-20251101-v1:0" \
+      ANTHROPIC_SMALL_FAST_MODEL="us.anthropic.claude-haiku-4-5-20251001-v1:0" \
+      CLAUDE_CODE_MAX_OUTPUT_TOKENS=8129 \
+      MAX_THINKING_TOKENS=1024 \
+      AWS_REGION=us-east-1 \
+      CLAUDE_CONFIG_DIR="$HOME/.config/claude-code/profiles/console" \
+      claude'
+
+    # Personal account  
+    alias claude-personal='CLAUDE_CONFIG_DIR="$HOME/.config/claude-code/profiles/personal" claude'
+
     mise activate fish | source
 
     starship init fish | source
@@ -50,3 +63,5 @@ source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/armed/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/armed/Downloads/google-cloud-sdk/path.fish.inc'; end
+
+alias claude="/Users/armed/.claude/local/claude"
