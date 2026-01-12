@@ -8,8 +8,16 @@ diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
 default-command = "la"
 
 [merge-tools.dt]
-program = "difft" 
+program = "difft"
 diff-args = ["--color=always", "--tab-width=2", "--display=side-by-side", "$left", "$right"]
+
+[merge-tools.diffconflicts]
+program = "nvim"
+merge-args = [
+    "-c", "let g:jj_diffconflicts_marker_length=$marker_length",
+    "-c", "JJDiffConflicts!", "$output", "$base", "$left", "$right",
+]
+merge-tool-edits-conflict-markers = true
 
 [aliases]
 push = ["git", "push"]
@@ -21,12 +29,14 @@ la = ["log", "--reversed", "--no-pager", "--limit=20"]
 si = ["squash", "-i"]
 ci = ["commit", "-i"]
 di = ["diff", "--tool=dt"]
+res = ["resolve", "--tool=diffconflicts"]
 
 [templates]
 git_push_bookmark = '"armed/" ++ change_id.short()'
 
 [git]
 auto-local-bookmark = false
-push-new-bookmarks = true
 write-change-id-header = true
 
+[remotes.origin]
+auto-track-bookmarks = "glob:*"
