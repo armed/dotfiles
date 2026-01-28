@@ -14,7 +14,7 @@ return {
 
     clojure_test.setup({
       layout = {
-        style = "float",
+        style = "intellij",
       },
       hooks = {
         before_run = function()
@@ -61,6 +61,18 @@ return {
       "<localleader>tf",
       api.rerun_failed,
       { desc = "Rerun failed tests from the previous run" }
+    )
+    vim.keymap.set(
+      "n",
+      "<localleader>ts",
+      api.run_selected_tests,
+      { desc = "Open test picker" }
+    )
+    vim.keymap.set(
+      "n",
+      "<localleader>tt",
+      api.toggle_panel,
+      { desc = "Toggle test panel" }
     )
     vim.keymap.set(
       "n",
