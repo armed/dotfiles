@@ -98,16 +98,8 @@ return {
           stdin = true,
           args = {
             "-",
-            -- "$FILENAME",
           },
         },
-        -- zig = {
-        --   command = "zig",
-        --   args = {
-        --     "fmt",
-        --     "$FILENAME",
-        --   },
-        -- },
         xmllint = {
           command = "xmllint",
         },
