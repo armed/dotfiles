@@ -32,7 +32,7 @@ end
 
 return {
   "nvim-tree/nvim-tree.lua",
-  version = "*",
+  version = "1.14.0",
   event = "VeryLazy",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
