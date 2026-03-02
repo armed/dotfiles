@@ -19,9 +19,15 @@ GEMINI.md
 .gemini
 **/repl_sessions
 node_modules
+.nvimlog
+.opencode/
 
 
 **/.claude/settings.local.json
 
 claude.local.md
 CLAUDE.local.md
+AGENTS.override.md
+.codex/
+.docs/
+handover/
