@@ -1,7 +1,8 @@
-local win_opts = require("config.lsp.win_opts")
-
-local diag = vim.diagnostic
 local diag_settings = require("config.lsp.diagnostics")
+local NuiMenu = require("nui.menu")
+local NuiText = require("nui.text")
+local NuiLine = require("nui.line")
+local event = require("nui.utils.autocmd").event
 
 local function diag_next()
   vim.diagnostic.jump({ count = vim.v.count1 })
@@ -11,44 +12,96 @@ local function diag_prev()
   vim.diagnostic.jump({ count = -vim.v.count1 })
 end
 
-local function diag_float()
-  vim.diagnostic.open_float(win_opts.float_opts)
-end
-
 local M = {}
 
-function M.lsp_restart()
-  vim.cmd("LspRestart")
+local function restart_client(client)
+  local name = client.name
+  vim.lsp.stop_client(client.id)
   vim.defer_fn(function()
-    vim.cmd("e")
-  end, 1000)
+    vim.lsp.enable(name)
+  end, 500)
+  vim.notify("Restarting " .. name, vim.log.levels.INFO)
+end
+
+function M.lsp_restart()
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+  if #clients == 0 then
+    vim.notify("No LSP clients attached", vim.log.levels.WARN)
+    return
+  end
+
+  if #clients == 1 then
+    restart_client(clients[1])
+    return
+  end
+
+  local menu_items = {
+    NuiMenu.item(NuiLine({ NuiText("All", "Special") }), { id = "all" }),
+    NuiMenu.separator("─"),
+  }
+
+  for _, client in ipairs(clients) do
+    table.insert(menu_items, NuiMenu.item(client.name, { id = client.id }))
+  end
+
+  local menu = NuiMenu({
+    position = "50%",
+    size = { width = 40, height = #clients + 4 },
+    relative = "editor",
+    border = {
+      style = "rounded",
+      text = {
+        top = NuiLine({ NuiText(" LSP Restart ", "WarningMsg") }),
+        top_align = "center",
+      },
+    },
+    win_options = {
+      winhighlight = "Normal:Normal,FloatBorder:Normal",
+    },
+  }, {
+    lines = menu_items,
+    keymap = {
+      focus_next = { "j", "<Down>", "<Tab>" },
+      focus_prev = { "k", "<Up>", "<S-Tab>" },
+      close = { "<Esc>", "<C-c>", "q" },
+      submit = { "<CR>" },
+    },
+    on_submit = function(item)
+      if item.id == "all" then
+        for _, client in ipairs(clients) do
+          restart_client(client)
+        end
+      else
+        for _, client in ipairs(clients) do
+          if client.id == item.id then
+            restart_client(client)
+            break
+          end
+        end
+      end
+    end,
+  })
+
+  menu:mount()
+  menu:on(event.BufLeave, function()
+    menu:unmount()
+  end)
 end
 
 local function clojure_clean_restart_lsp()
   local ft = vim.bo.filetype
   if ft == "clojure" then
-    local lsp_keymaps = require("config.lsp.keymaps")
     vim.fn.delete(".lsp/.cache", "rf")
-    lsp_keymaps.lsp_restart()
+    local clients = vim.lsp.get_clients({ bufnr = 0, name = "clojure_lsp" })
+    if #clients > 0 then
+      restart_client(clients[1])
+    end
   end
 end
 
 function M.setup()
-  local conform = require("conform")
-  -- vim.keymap.set({ "n", "v" }, "<leader>lf", function()
-  --   -- local current_view = vim.fn.winsaveview()
-  --   conform.format({ lsp_fallback = true })
-  --   -- vim.fn.winrestview(current_view)
-  -- end, { desc = "Format" })
-
   return {
-    {
-      "<leader>lf",
-      function()
-        conform.format()
-      end,
-      desc = "LSP Format",
-    },
     {
       "<leader>k",
       function()
@@ -68,7 +121,7 @@ function M.setup()
     },
     {
       "<leader>lI",
-      "<cmd>LspInfo<cr>",
+      "<cmd>silent checkhealth vim.lsp<cr>",
       desc = "Lsp Info",
     },
     {

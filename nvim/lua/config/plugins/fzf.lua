@@ -4,6 +4,7 @@ return {
   keys = {
     { "<leader>f", desc = "FzfLua find" },
     { "<leader>r", desc = "FzfLua resume" },
+    { "<leader><space>", desc = "Recent files" },
   },
   dependencies = {
     "kyazdani42/nvim-web-devicons",
@@ -47,11 +48,11 @@ return {
       { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Files" },
       { "<leader>fg", "<cmd>FzfLua grep_project<cr>", desc = "Grep project" },
       { "<leader>fk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
-      -- {
-      --   "<leader>fr",
-      --   "<cmd>FzfLua oldfiles cwd_only=true<cr>",
-      --   desc = "Recent files",
-      -- },
+      {
+        "<leader><space>",
+        "<cmd>FzfLua history cwd_only=true<cr>",
+        desc = "Recent files",
+      },
       { "<leader>fr", "<cmd>FzfLua resume<cr>", desc = "FzfLua resume" },
       {
         "<leader>fv",

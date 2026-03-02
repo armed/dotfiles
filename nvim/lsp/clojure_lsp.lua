@@ -7,7 +7,7 @@ local root_finder = utils.make_lsp_root_finder(farthest_parent)
 return {
   root_dir = root_finder,
   cmd = { "clojure-lsp" },
-  filetypes = { "clojure", "edn" },
+  filetypes = { "clojure" },
   single_file_support = true,
   init_options = {
     codeLens = true,
