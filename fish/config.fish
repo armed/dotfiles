@@ -47,7 +47,7 @@ if status is-interactive
       CLAUDE_CONFIG_DIR="$HOME/.config/claude-code/profiles/console" \
       claude'
 
-    alias claude-console='CLAUDE_CONFIG_DIR="$HOME/.config/claude-code/profiles/console" claude'
+    alias c='CLAUDE_CONFIG_DIR="$HOME/.config/claude-code/profiles/console" claude'
     alias oc-claude='CLAUDE_CONFIG_DIR="$HOME/.config/claude-code/profiles/console" opencode'
 
 
