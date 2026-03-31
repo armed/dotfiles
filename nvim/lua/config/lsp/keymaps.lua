@@ -16,7 +16,8 @@ local M = {}
 
 local function restart_client(client)
   local name = client.name
-  vim.lsp.stop_client(client.id)
+  client:stop()
+  -- vim.lsp.stop_client(client.id)
   vim.defer_fn(function()
     vim.lsp.enable(name)
   end, 500)
@@ -143,24 +144,6 @@ function M.setup()
       "<leader>la",
       vim.lsp.buf.code_action,
       desc = "Code Actions",
-    },
-    { "<leader>lc", group = "Codelens" },
-    {
-      "<leader>lca",
-      vim.lsp.codelens.run,
-      desc = "Run Action",
-    },
-    {
-      "<leader>lcc",
-      function()
-        vim.lsp.codelens.clear(nil, 0)
-      end,
-      desc = "Clear",
-    },
-    {
-      "<leader>lcr",
-      vim.lsp.codelens.refresh,
-      desc = "Refresh",
     },
     {
       "<leader>ld",

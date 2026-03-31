@@ -1,9 +1,5 @@
 local M = {}
 
-local function supports_codelens(client)
-  return client and client.server_capabilities.codeLensProvider
-end
-
 function M.setup()
   local lsp_group = vim.api.nvim_create_augroup("LspGroup", { clear = true })
 
@@ -11,10 +7,6 @@ function M.setup()
     group = lsp_group,
     callback = function(args)
       local bufnr = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if supports_codelens(client) then
-        vim.lsp.codelens.refresh({ bufnr = 0 })
-      end
 
       local wk = require("which-key")
       local keymaps = require("config.lsp.keymaps").setup()

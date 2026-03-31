@@ -10,3 +10,4 @@ packer_compiled.lua
 nvim-hotpot/
 .nrepl-port
 nvim/.claude*
+jj/repos
