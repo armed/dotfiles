@@ -1,5 +1,9 @@
+local max_filesize = 200 * 1024 -- 200 KB
+
 local M = {
   "nvim-treesitter/nvim-treesitter",
+  branch = "main",
+  lazy = false,
   dependencies = {
     {
       "nvim-treesitter/nvim-treesitter-context",
@@ -23,45 +27,29 @@ local M = {
 }
 
 function M.config()
-  ---@diagnostic disable-next-line: missing-fields
-  require("nvim-treesitter.configs").setup({
-    sync_install = true,
-    ensure_installed = { "lua", "clojure" },
-    highlight = {
-      enable = true,
-      disable = function(_, buf)
-        local max_filesize = 200 * 1024 -- 200 KB
-        local ok, stats =
-          pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-          return true
-        end
-      end,
-    },
-    indent = { enable = true },
-    query_linter = {
-      enable = true,
-      use_virtual_text = true,
-      lint_events = { "BufWrite", "CursorHold" },
-    },
-    refactor = {
-      enable = true,
-      highlight_definitions = {
-        enable = true,
-        clear_on_cursor_move = true,
-      },
-      navigation = { enable = true },
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<CR>",
-        node_incremental = "<CR>",
-        scope_incremental = "<c-s>",
-        node_decremental = "<BS>",
-      },
-    },
+  require("nvim-treesitter").install({ "lua", "clojure" })
+
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "clojure" },
+    callback = function(ev)
+      local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(ev.buf))
+      if ok and stats and stats.size > max_filesize then
+        return
+      end
+      vim.treesitter.start(ev.buf)
+    end,
   })
+
+  local select = require("vim.treesitter._select")
+  vim.keymap.set("n", "<CR>", function()
+    select.select_parent(vim.v.count1)
+  end, { desc = "Init treesitter selection" })
+  vim.keymap.set("x", "<CR>", function()
+    select.select_parent(vim.v.count1)
+  end, { desc = "Expand treesitter selection" })
+  vim.keymap.set("x", "<BS>", function()
+    select.select_child(vim.v.count1)
+  end, { desc = "Shrink treesitter selection" })
 end
 
 return M
