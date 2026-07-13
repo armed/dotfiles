@@ -21,12 +21,17 @@ GEMINI.md
 node_modules
 .nvimlog
 .opencode/
+.wiki/
 
 
 **/.claude/settings.local.json
+**/.clj-kondo/.cache/
+targer/
+.cache/
 
 claude.local.md
 CLAUDE.local.md
+AGENTS.local.md
 AGENTS.override.md
 .codex/
 .docs/
