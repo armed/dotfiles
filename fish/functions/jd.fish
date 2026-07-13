@@ -161,9 +161,18 @@ function jd
     end
     set -lx JD_INFO "$jd_info"
 
+    set -l workspace_root (jj workspace root)
+    set -l repo_root $workspace_root
+
+    set -l repo_node "$workspace_root/.jj/repo"
+    if test -f $repo_node
+        set -l rel_path (string trim (cat $repo_node))
+        set repo_root (realpath "$workspace_root/.jj/$rel_path/../..")
+    end
+
     if set -q _flag_split
-        nvim -c "DiffviewFileHistory --range=$diff_range --right-only --no-merges"
+        nvim --cmd "cd $repo_root" -c "DiffviewFileHistory --range=$diff_range --right-only --no-merges"
     else
-        nvim -c "DiffviewOpen $diff_range"
+        nvim --cmd "cd $repo_root" -c "DiffviewOpen $diff_range"
     end
 end
