@@ -47,7 +47,7 @@ if status is-interactive
       CLAUDE_CONFIG_DIR="$HOME/.config/claude-code/profiles/console" \
       claude'
 
-    alias c='CLAUDE_CONFIG_DIR="$HOME/.config/claude-code/profiles/console" claude'
+    alias c='CLAUDE_CODE_NO_FLICKER=1 CLAUDE_CONFIG_DIR="$HOME/.config/claude-code/profiles/console" claude'
     alias oc-claude='CLAUDE_CONFIG_DIR="$HOME/.config/claude-code/profiles/console" opencode'
 
 
@@ -69,4 +69,8 @@ end
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/armed/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/armed/Downloads/google-cloud-sdk/path.fish.inc'; end
+if [ -f '$HOME/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/armed/Downloads/google-cloud-sdk/path.fish.inc'; end
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH $HOME/.lmstudio/bin
+# End of LM Studio CLI section
