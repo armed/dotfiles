@@ -32,6 +32,7 @@ s = ["squash"]
 ci = ["commit", "-i"]
 di = ["diff", "--tool=dt"]
 res = ["resolve", "--tool=diffconflicts"]
+ab = ["abandon"]
 
 [templates]
 git_push_bookmark = '"armed/" ++ change_id.short()'
@@ -41,4 +42,6 @@ auto-local-bookmark = false
 write-change-id-header = true
 
 [remotes.origin]
-auto-track-bookmarks = "glob:*"
+# Track my own bookmarks and the shared long-lived branches,
+# not every collaborator's branch on origin.
+auto-track-bookmarks = "glob:armed/* | glob:main | glob:master"
