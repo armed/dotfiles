@@ -18,6 +18,10 @@ end
 
 M.config = function()
   vim.g["conjure#filetype#fennel"] = "conjure.client.fennel.stdio"
+  vim.g["conjure#filetype#javascript"] = false
+  vim.g["conjure#filetype#typescript"] = false
+  vim.g["conjure#filetype#javascriptreact"] = false
+  vim.g["conjure#filetype#typescriptreact"] = false
   vim.g["conjure#mapping#doc_word"] = false
   vim.g["conjure#client#clojure#nrepl#connection#auto_repl#enabled"] = false
   vim.g["conjure#highlight#enabled"] = true

@@ -23,7 +23,6 @@ map("i", "ло", "<esc>", { silent = true })
 map("i", "ол", "<esc>", { silent = true })
 map("i", "лл", "<esc>", { silent = true })
 
-
 -- better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -37,8 +36,18 @@ map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 -- Resize window using <alt> arrow keys
 map("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+map(
+  "n",
+  "<A-Left>",
+  "<cmd>vertical resize -2<cr>",
+  { desc = "Decrease window width" }
+)
+map(
+  "n",
+  "<A-Right>",
+  "<cmd>vertical resize +2<cr>",
+  { desc = "Increase window width" }
+)
 
 -- Move Lines
 map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
@@ -161,3 +170,11 @@ remap("n", "<TAB>", ">>", { noremap = true })
 remap("n", "<S-TAB>", "<<", { noremap = true })
 remap("v", "<TAB>", ">gv", { noremap = true })
 remap("v", "<S-TAB>", "<gv", { noremap = true })
+
+-- Copy relative path and line number to system clipboard
+map("n", "<leader>Y", function()
+  local path = vim.fn.expand("%")
+  local line = vim.fn.line(".")
+  vim.fn.setreg("+", path .. ":" .. line)
+  print("Copied: " .. path .. ":" .. line)
+end, { desc = "Copy relative path and line number" })
