@@ -35,6 +35,19 @@ function __is_empty
     test (jj log -r "$argv[1]" -T 'empty' --no-graph) = true
 end
 
+# Returns the full description of a revision, for display in the Neovim
+# commit-info pane.
+function __commit_info
+    jj log -r "$argv[1]" --no-graph 2>/dev/null \
+        -T 'description'
+end
+
+# Returns just the first line (subject) of a revision's description.
+function __commit_subject
+    jj log -r "$argv[1]" --no-graph 2>/dev/null \
+        -T 'description.first_line()'
+end
+
 function __show_help
     echo "Usage: jd [options] [<ref>]"
     echo
@@ -133,6 +146,20 @@ function jd
         end
         set diff_range "$to_commit^!"
     end
+
+    # Expose the commit info to Neovim (read by the Diffview hook in git.lua to
+    # populate the winbar). Exported and local, so it's only visible to the nvim
+    # we launch below.
+    set -l jd_info
+    if test -n "$from_commit" -a -n "$to_commit"
+        # For a range, keep it to a single line: the two commit subjects.
+        set jd_info (__commit_subject $from_commit)"  →  "(__commit_subject $to_commit)
+    else if test -n "$to_commit"
+        # For a single commit, send the full (multi-line) message. `string
+        # collect` keeps the newlines instead of splitting into a list.
+        set jd_info (__commit_info $to_commit | string collect)
+    end
+    set -lx JD_INFO "$jd_info"
 
     if set -q _flag_split
         nvim -c "DiffviewFileHistory --range=$diff_range --right-only --no-merges"
