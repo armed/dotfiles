@@ -4,42 +4,6 @@ local augroup = vim.api.nvim_create_augroup
 -- General Settings
 local general = augroup("General Settings", { clear = true })
 
-autocmd({ "VimEnter", "DirChanged" }, {
-  callback = function(data)
-    local directory = vim.fn.isdirectory(data.file) == 1
-
-    if directory then
-      vim.cmd.cd(data.file)
-      vim.cmd("Neotree")
-    end
-    local current_dir = vim.fn.getcwd()
-    if current_dir and current_dir ~= "/" then
-      local current_dir_name = current_dir:match("([^/]+)$")
-      vim.schedule(function()
-        vim.o.titlestring = "[nv]" .. current_dir_name
-      end)
-    end
-  end,
-  group = general,
-  desc = "Open NvimTree when it's a Directory",
-})
-
-autocmd("TermOpen", {
-  callback = function(evt)
-    vim.opt_local.relativenumber = false
-    vim.opt_local.number = false
-    local opts = { buffer = 0 }
-    local map = vim.keymap.set
-    map("t", "jj", "<C-\\><C-n>", opts)
-    map("t", "qq", "<C-\\><C-n>:close<CR>", opts)
-    map("n", "q", ":close<CR>", opts)
-    vim.cmd("startinsert!")
-  end,
-  pattern = "term://*",
-  group = general,
-  desc = "Terminal Options",
-})
-
 autocmd({ "FocusGained", "TermClose", "TermLeave" }, { command = "checktime" })
 
 autocmd("TextYankPost", {

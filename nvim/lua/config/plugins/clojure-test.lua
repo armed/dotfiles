@@ -1,5 +1,7 @@
 return {
-  "armed/clojure-test.nvim",
+  -- "julienvincent/clojure-test.nvim",
+  -- "armed/clojure-test.nvim",
+  dir = vim.env.HOME .. "/Developer/myself/clojure-test.nvim",
 
   ft = { "clojure" },
 
@@ -22,7 +24,7 @@ return {
 
           vim.cmd("wa")
           u.conjure_eval("((requiring-resolve 'clj-reload.core/reload))")
-        end,
+          end,
       },
     })
 
@@ -47,7 +49,7 @@ return {
     vim.keymap.set(
       "n",
       "<localleader>tn",
-      api.run_tests_in_ns,
+      api.run_tests_in_current_ns,
       { desc = "Run tests in a namespace" }
     )
     vim.keymap.set(

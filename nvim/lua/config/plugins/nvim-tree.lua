@@ -152,7 +152,7 @@ return {
     local wk = require("which-key")
 
     wk.add({
-      { "<leader>e", group = "Neotree" },
+      { "<leader>e", group = "Nim Tree" },
       { "<leader>ee", "<cmd>NvimTreeOpen<cr>", desc = "Show/focus" },
       { "<leader>eq", "<cmd>NvimTreeClose<cr>", desc = "Close" },
       { "<leader>eg", grep_in_folder, desc = "Grep files in folder" },
