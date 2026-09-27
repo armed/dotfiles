@@ -19,6 +19,9 @@ set -gx EDITOR "nvim"
 
 set -gx JJ_CONFIG "$HOME/.config/jj/config.toml"
 
+set -gx AWS_PROFILE "default"
+set -gx AWS_REGION "us-east-1"
+
 if not string match -q "*$PNPM_HOME*" "$PATH"
     set -gx PATH "$PNPM_HOME" $PATH
 end
@@ -33,6 +36,7 @@ if status is-interactive
     alias ljj "lazyjj"
     alias p "pnpm"
     alias pu "pulumi"
+    alias oc "opencode"
 
     alias lust "just --justfile .justfile.local"
 
@@ -74,3 +78,13 @@ if [ -f '$HOME/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/armed/Down
 # Added by LM Studio CLI (lms)
 set -gx PATH $PATH $HOME/.lmstudio/bin
 # End of LM Studio CLI section
+
+# rust
+source "$HOME/.cargo/env.fish"
+
+# pnpm
+set -gx PNPM_HOME "/Users/armed/Library/pnpm"
+if not string match -q -- "$PNPM_HOME/bin" $PATH
+  set -gx PATH "$PNPM_HOME/bin" $PATH
+end
+# pnpm end

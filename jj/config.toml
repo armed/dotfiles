@@ -33,6 +33,8 @@ ci = ["commit", "-i"]
 di = ["diff", "--tool=dt"]
 res = ["resolve", "--tool=diffconflicts"]
 ab = ["abandon"]
+wu = ["workspace", "update-stale"]
+de = ["diffedit"]
 
 [templates]
 git_push_bookmark = '"armed/" ++ change_id.short()'
