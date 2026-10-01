@@ -14,7 +14,7 @@ function M.setup()
     end,
   })
 
-  vim.api.nvim_create_autocmd("CursorMoved", {
+  vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
     group = lsp_group,
     pattern = "*",
     callback = require("config.lsp.diagnostics").turn_off_virtual_lines,

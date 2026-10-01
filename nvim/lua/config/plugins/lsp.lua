@@ -1,15 +1,18 @@
-local M = {
+return {
   "neovim/nvim-lspconfig",
-  event = "BufReadPre",
+  lazy = false,
   dependencies = {
-    "onsails/lspkind.nvim",
+    "saghen/blink.cmp",
+    "antosha417/nvim-lsp-file-operations",
   },
+  config = function()
+    vim.lsp.log.set_level(vim.log.levels.ERROR)
+    vim.lsp.config("*", {
+      capabilities = vim.tbl_deep_extend(
+        "force",
+        require("blink.cmp").get_lsp_capabilities(),
+        require("lsp-file-operations").default_capabilities()
+      ),
+    })
+  end,
 }
-
-function M.config()
-  vim.lsp.log.set_level(vim.log.levels.ERROR)
-  require("lspconfig.ui.windows").default_options.border = "rounded"
-  require("config.lsp.custom.jdtls").setup()
-end
-
-return M

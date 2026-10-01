@@ -5,7 +5,7 @@ return {
   settings = {
     ["rust-analyzer"] = {
       files = {
-        excludeDirs = { "target", ".*" },
+        exclude = { "target" },
       },
       checkOnSave = true,
       check = {
@@ -19,10 +19,9 @@ return {
         enable = true,
       },
       inlayHints = {
-        enable = true,
-        typeHints = true,
-        parameterHints = true,
-        chainingHints = true,
+        typeHints = { enable = true },
+        parameterHints = { enable = true },
+        chainingHints = { enable = true },
       },
       diagnostics = {
         enable = true,

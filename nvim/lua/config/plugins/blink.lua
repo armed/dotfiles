@@ -10,7 +10,8 @@ return {
       dependencies = {
         "rafamadriz/friendly-snippets",
       },
-      config = function()
+      config = function(_, opts)
+        require("luasnip").config.setup(opts)
         require("luasnip.loaders.from_vscode").lazy_load()
         require("luasnip.loaders.from_snipmate").lazy_load({
           paths = { vim.fn.stdpath("config") .. "/snippets" },
@@ -56,8 +57,8 @@ return {
     end,
     keymap = {
       preset = "default",
-      ["<S-Tab>"] = { "select_prev", "fallback" },
-      ["<Tab>"] = { "select_next", "fallback" },
+      ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+      ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
       ["<CR>"] = { "accept", "fallback" },
     },
 
@@ -95,7 +96,7 @@ return {
 
     fuzzy = {
       implementation = "prefer_rust_with_warning",
-      frecency_enabled = false,
+      frecency = { enabled = false },
       use_proximity = false,
       sorts = { "exact", "score", "sort_text" },
     },

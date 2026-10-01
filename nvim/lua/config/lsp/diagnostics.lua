@@ -7,89 +7,43 @@ M.signs = {
   [vim.diagnostic.severity.HINT] = "➤",
 }
 
-local defaults = {
-  update_in_insert = true,
-  signs = {
-    text = M.signs,
-  },
-  underline = true,
-  severity_sort = true,
-  float = {
-    border = "rounded",
-    source = true,
-  },
-}
-
-local function merge_config(config)
-  local merged = vim.tbl_deep_extend("force", defaults, config)
-  vim.diagnostic.config(merged)
-end
-
 function M.setup()
-  vim.diagnostic.config(defaults)
-end
-
-M.toggle_virtual_line = function(is_current_line)
-  local bufnr = vim.api.nvim_get_current_buf()
-  local current_line = is_current_line
-      and (vim.api.nvim_win_get_cursor(0)[1] - 1)
-    or nil
-
-  local state = vim.b[bufnr].virtual_lines_state
-    or { enabled = false, line = nil }
-
-  if is_current_line then
-    if state.enabled and state.line == current_line then
-      state.enabled = false
-      state.line = nil
-    else
-      state.enabled = true
-      state.line = current_line
-    end
-  else
-    state.enabled = not state.enabled
-    state.line = nil
-  end
-
-  vim.b[bufnr].virtual_lines_state = state
-
-  merge_config({
-    virtual_lines = {
-      format = function(diagnostic)
-        if not state.enabled then
-          return nil
-        end
-        if is_current_line and state.line ~= diagnostic.lnum then
-          return nil
-        end
-        return diagnostic.message
-      end,
-    },
+  vim.diagnostic.config({
+    update_in_insert = true,
+    signs = { text = M.signs },
+    underline = true,
+    severity_sort = true,
+    float = { border = "rounded", source = true },
     virtual_text = false,
+    virtual_lines = function(_, bufnr)
+      local state = vim.b[bufnr].virtual_lines_state
+      if not state or not state.enabled then
+        return false
+      end
+      return { current_line = state.current_line }
+    end,
   })
 end
 
-M.turn_off_virtual_lines = function()
+function M.toggle_virtual_line(is_current_line)
   local bufnr = vim.api.nvim_get_current_buf()
+  local state = vim.b[bufnr].virtual_lines_state or {}
+  local same_mode = state.current_line == is_current_line
+  vim.b[bufnr].virtual_lines_state = {
+    enabled = not (state.enabled and same_mode),
+    current_line = is_current_line,
+  }
+  vim.diagnostic.show(nil, bufnr)
+end
+
+function M.turn_off_virtual_lines(args)
+  local bufnr = args and args.buf or vim.api.nvim_get_current_buf()
   local state = vim.b[bufnr].virtual_lines_state
-
-  if not state or not state.enabled then
-    return
+  if state and state.enabled then
+    state.enabled = false
+    vim.b[bufnr].virtual_lines_state = state
+    vim.diagnostic.show(nil, bufnr)
   end
-
-  state.enabled = false
-  state.line = nil
-
-  vim.b[bufnr].virtual_lines_state = state
-
-  merge_config({
-    virtual_lines = {
-      format = function(_)
-        return nil
-      end,
-    },
-    virtual_text = false,
-  })
 end
 
 return M
