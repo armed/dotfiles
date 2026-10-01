@@ -1,119 +1,156 @@
-local java_distribution = "temurin-23.0.2+7"
-
-local settings = {
-  settings = {
-    single_file_support = true,
-    java = {
-      signatureHelp = { enabled = true },
-      contentProvider = { preferred = "fernflower" },
-    },
-  },
-}
-
 local M = {}
+local libraries = {}
+local pending = {}
 
-M.setup = function()
-  local jdtls = require("jdtls")
-  local commons = require("config.common.utils")
-
-  local jdtls_install_dir =
-    vim.fn.expand("$HOME/Developer/tools/jdt-language-server")
-
-  local config_dir = "config_mac_arm"
-  if vim.fn.has("linux") == 1 then
-    config_dir = "config_linux"
+local function project_root(bufnr)
+  local name = vim.api.nvim_buf_get_name(bufnr)
+  if name == "" then
+    return nil
   end
-
-  local home_dir = os.getenv("HOME")
-  ---@diagnostic disable-next-line: param-type-mismatch
-  local project_id = vim.fn.sha256(vim.fn.getcwd())
-  local data_dir = home_dir
-    .. "/.local/share/nvim/jdtls/projects/"
-    .. project_id
-
-  local launcher = commons.find_file_by_glob(
-    jdtls_install_dir .. "/plugins",
-    "org.eclipse.equinox.launcher_*"
-  )
-
-  local cmd = {
-    commons.mise_install_path("/java/" .. java_distribution .. "/bin/java"),
-
-    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-    "-Dosgi.bundles.defaultStartLevel=4",
-    "-Declipse.product=org.eclipse.jdt.ls.core.product",
-    "-Dlog.protocol=true",
-    "-Dlog.level=ALL",
-    "-Xmx1g",
-    "--add-modules=ALL-SYSTEM",
-    "--enable-native-access=ALL-UNNAMED",
-    "--add-opens",
-    "java.base/java.util=ALL-UNNAMED",
-    "--add-opens",
-    "java.base/java.lang=ALL-UNNAMED",
-
-    "-jar",
-    launcher,
-
-    "-configuration",
-    jdtls_install_dir .. "/" .. config_dir,
-
-    "-data",
-    data_dir,
-  }
-
-  local libs = {}
-  local current_file_dir = vim.fn.expand("%:p:h")
-  local project_root = commons.find_furthest_root({ "mvnw" })(current_file_dir)
-  local job_id = nil
-  if project_root then
-    job_id = commons.find_third_party_libs(project_root, function(project_libs)
-      libs = project_libs
-    end)
-  end
-
-  local extendedClientCapabilities = require("jdtls").extendedClientCapabilities
-  local config = vim.tbl_deep_extend("force", settings, {
-    cmd = cmd,
-    root_dir = require("jdtls.setup").find_root({
-      ".git",
+  local root = vim.fs.root(bufnr, {
+    {
       "mvnw",
       "gradlew",
       "pom.xml",
       "build.gradle",
-    }),
+      "build.gradle.kts",
+      "deps.edn",
+    },
+    ".git",
+  }) or vim.fs.dirname(name)
+  return vim.uv.fs_realpath(root) or root
+end
+
+local function config_for(root, libs)
+  local common = require("config.common.utils")
+  local home = vim.g.jdtls_home
+    or common.home_dir .. "/Developer/tools/jdt-language-server"
+  local java = vim.g.jdtls_java or vim.fn.exepath("java")
+  local uname = vim.uv.os_uname()
+  local platform = vim.fn.has("mac") == 1 and "mac"
+    or vim.fn.has("win32") == 1 and "win"
+    or "linux"
+  local arm = uname.machine == "arm64" or uname.machine == "aarch64"
+  local config_dir = home
+    .. "/config_"
+    .. platform
+    .. (arm and platform ~= "win" and "_arm" or "")
+  local launcher = common.find_file_by_glob(
+    home .. "/plugins",
+    "org.eclipse.equinox.launcher_*.jar"
+  )
+  if
+    not launcher
+    or vim.fn.executable(java) ~= 1
+    or vim.fn.isdirectory(config_dir) ~= 1
+  then
+    vim.notify(
+      "JDTLS: check g:jdtls_home, g:jdtls_java and the platform configuration",
+      vim.log.levels.WARN
+    )
+    return nil
+  end
+  local jdtls = require("jdtls")
+  return {
+    cmd = {
+      java,
+      "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+      "-Dosgi.bundles.defaultStartLevel=4",
+      "-Declipse.product=org.eclipse.jdt.ls.core.product",
+      "-Xmx1g",
+      "--add-modules=ALL-SYSTEM",
+      "--enable-native-access=ALL-UNNAMED",
+      "--add-opens",
+      "java.base/java.util=ALL-UNNAMED",
+      "--add-opens",
+      "java.base/java.lang=ALL-UNNAMED",
+      "-jar",
+      launcher,
+      "-configuration",
+      config_dir,
+      "-data",
+      vim.fn.stdpath("data") .. "/jdtls/projects/" .. vim.fn.sha256(root),
+    },
+    root_dir = root,
+    capabilities = vim.deepcopy(vim.lsp.config["*"].capabilities),
+    settings = {
+      java = {
+        signatureHelp = { enabled = true },
+        contentProvider = { preferred = "fernflower" },
+        project = { referencedLibraries = libs },
+      },
+    },
     init_options = {
-      extendedClientCapabilities = vim.tbl_deep_extend(
+      extendedClientCapabilities = vim.tbl_extend(
         "force",
         {},
-        extendedClientCapabilities,
-        {
-          resolveAdditionalTextEditsSupport = true,
-        }
+        jdtls.extendedClientCapabilities,
+        { resolveAdditionalTextEditsSupport = true }
       ),
     },
-  })
+  }
+end
 
+function M.start(bufnr)
+  bufnr = bufnr or vim.api.nvim_get_current_buf()
+  if
+    not vim.api.nvim_buf_is_valid(bufnr) or vim.bo[bufnr].filetype ~= "java"
+  then
+    return
+  end
+  local root = project_root(bufnr)
+  if not root or pending[bufnr] == root then
+    return
+  end
+  pending[bufnr] = root
+  local function attach(libs)
+    if pending[bufnr] ~= root then
+      return
+    end
+    pending[bufnr] = nil
+    if
+      not vim.api.nvim_buf_is_valid(bufnr)
+      or vim.bo[bufnr].filetype ~= "java"
+      or project_root(bufnr) ~= root
+    then
+      return
+    end
+    local config = config_for(root, libs)
+    if config then
+      vim.api.nvim_buf_call(bufnr, function()
+        require("jdtls").start_or_attach(config)
+      end)
+    end
+  end
+  -- Share work across buffers without blocking FileType or capturing the current buffer.
+  if libraries[root] then
+    if libraries[root].value then
+      attach(libraries[root].value)
+    else
+      table.insert(libraries[root].callbacks, attach)
+    end
+    return
+  end
+  libraries[root] = { callbacks = { attach } }
+  require("config.common.utils").find_third_party_libs(root, function(libs)
+    local callbacks = libraries[root].callbacks
+    libraries[root] = { value = libs }
+    for _, callback in ipairs(callbacks) do
+      callback(libs)
+    end
+  end)
+end
+
+function M.setup()
+  local group = vim.api.nvim_create_augroup("JavaLsp", { clear = true })
   vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "java" },
-    desc = "Start and attach jdtls",
-    callback = function()
-      if job_id then
-        vim.fn.jobwait({ job_id })
-        job_id = nil
-      end
-      local cfg = vim.tbl_deep_extend("force", {}, config, {
-        settings = {
-          java = {
-            project = {
-              referencedLibraries = libs,
-            },
-          },
-        },
-      })
-      jdtls.start_or_attach(cfg or {})
+    group = group,
+    pattern = "java",
+    callback = function(args)
+      M.start(args.buf)
     end,
   })
+  M.start()
 end
 
 return M

@@ -53,71 +53,49 @@ function M.find_file_by_glob(dir, glob)
   end
 end
 
-local function parse_s_path_output(raw_paths)
-  local paths = vim.split(raw_paths, ":")
-
-  local jar_paths = vim.tbl_filter(function(line)
-    if not line or line == "" then
-      return false
-    end
-    if not string.find(line, ".jar") then
-      return false
-    end
-    return true
-  end, paths)
-
-  return jar_paths
-end
-
-local function is_file_empty(file_path)
-  local file = io.open(file_path, "r")
-  if not file then
-    return true
-  end
-
-  local size = file:seek("end")
-  file:close()
-
-  return size == 0
-end
-
 function M.find_third_party_libs(project_root, callback)
-  if vim.fn.executable("clojure") ~= 1 then
-    return callback({})
-  end
-
   local deps_file = project_root .. "/deps.edn"
-  local file_exists = vim.loop.fs_stat(deps_file)
-  if not file_exists or is_file_empty(deps_file) then
+  local stat = vim.uv.fs_stat(deps_file)
+  if vim.fn.executable("clojure") ~= 1 or not stat or stat.size == 0 then
     return callback({})
   end
-
-  return vim.fn.jobstart({ "clojure", "-Spath" }, {
-    on_stdout = function(_, data)
-      local libs = parse_s_path_output(data[1])
-      callback(libs)
-    end,
-    on_stderr = function(_, data)
-      if data[1] ~= "" then
-        callback({})
-      end
-    end,
-    stdout_buffered = true,
-    stderr_buffered = true,
+  return vim.system({ "clojure", "-Spath" }, {
     cwd = project_root,
-  })
+    text = true,
+    timeout = 30000,
+  }, function(result)
+    vim.schedule(function()
+      local jars = {}
+      if result.code == 0 then
+        local separator = vim.fn.has("win32") == 1 and ";" or ":"
+        for _, path in
+          ipairs(vim.split(vim.trim(result.stdout or ""), separator))
+        do
+          if path:match("%.jar$") then
+            table.insert(jars, path)
+          end
+        end
+      else
+        vim.notify(
+          "Java classpath: clojure -Spath failed in " .. project_root,
+          vim.log.levels.WARN
+        )
+      end
+      callback(jars)
+    end)
+  end)
 end
 
-local home_dir = os.getenv("HOME")
-local mise_installs = home_dir .. "/.local/share/mise/installs"
-local mise_shims = home_dir .. "/.local/share/mise/shims"
+M.home_dir = vim.fn.expand("~")
+M.mise_installs = M.home_dir .. "/.local/share/mise/installs"
+M.mise_shims = M.home_dir .. "/.local/share/mise/shims"
 
 function M.mise_install_path(path)
-  return mise_installs .. path
+  return M.mise_installs .. path
 end
 
 function M.mise_shim_path(path)
-  return mise_shims .. path
+  return M.mise_shims .. path
 end
 
 return M

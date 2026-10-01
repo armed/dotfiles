@@ -1,10 +1,8 @@
--- local Path = require("plenary").path
-
 local M = {}
-
-M.home_dir = os.getenv("HOME")
-M.mise_installs = M.home_dir .. "/.local/share/mise/installs"
-M.mise_shims = M.home_dir .. "/.local/share/mise/shims"
+local common = require("config.common.utils")
+M.home_dir = common.home_dir
+M.mise_installs = common.mise_installs
+M.mise_shims = common.mise_shims
 
 local function exists(root, files)
   for _, file in ipairs(files) do
