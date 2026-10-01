@@ -3,7 +3,6 @@ return {
   cmd = "FzfLua",
   keys = {
     { "<leader>f", desc = "FzfLua find" },
-    { "<leader>r", desc = "FzfLua resume" },
     { "<leader><space>", desc = "Recent files" },
   },
   dependencies = {

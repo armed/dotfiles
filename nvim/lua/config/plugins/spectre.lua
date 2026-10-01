@@ -4,7 +4,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
   },
-  config = {
+  opts = {
     replace_engine = {
       ["sed"] = {
         cmd = "sed",

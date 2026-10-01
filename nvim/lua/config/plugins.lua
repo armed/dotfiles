@@ -9,9 +9,13 @@ return {
   },
   {
     "kevinhwang91/nvim-bqf",
-    event = "VeryLazy",
+    ft = "qf",
   },
-  { "folke/todo-comments.nvim", event = "VeryLazy", config = true },
+  {
+    "folke/todo-comments.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {},
+  },
   {
     "mbbill/undotree",
     keys = {
@@ -70,7 +74,7 @@ return {
   },
   {
     "uga-rosa/ccc.nvim",
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
     opts = {
       highlighter = {
         auto_enable = true,

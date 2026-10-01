@@ -1,4 +1,5 @@
 return {
-  ft = { "typescriptreact" },
+  ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
   "dmmulroy/ts-error-translator.nvim",
+  opts = {},
 }

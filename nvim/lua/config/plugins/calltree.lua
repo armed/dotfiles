@@ -1,7 +1,6 @@
 return {
   {
     "ldelossa/litee.nvim",
-    event = "VeryLazy",
     opts = {
       notify = { enabled = false },
       tree = {
@@ -21,9 +20,17 @@ return {
     "ldelossa/litee-calltree.nvim",
     dependencies = "ldelossa/litee.nvim",
     keys = {
-      { "<leader>lt" },
+      {
+        "<leader>lti",
+        vim.lsp.buf.incoming_calls,
+        desc = "Incoming calls tree",
+      },
+      {
+        "<leader>lto",
+        vim.lsp.buf.outgoing_calls,
+        desc = "Outgoing calls tree",
+      },
     },
-    event = "VeryLazy",
     opts = {
       resolve_symbols = true,
       on_open = "panel",
@@ -39,20 +46,6 @@ return {
     },
     config = function(_, opts)
       require("litee.calltree").setup(opts)
-      local wk = require("which-key")
-
-      wk.add({
-        {
-          "<leader>lti",
-          vim.lsp.buf.incoming_calls,
-          desc = "Incoming calls tree",
-        },
-        {
-          "<leader>lto",
-          vim.lsp.buf.outgoing_calls,
-          desc = "Outgoing calls tree",
-        },
-      })
     end,
   },
 }

@@ -10,7 +10,10 @@ function M.setup()
 
       local wk = require("which-key")
       local keymaps = require("config.lsp.keymaps").setup()
-      wk.add(keymaps, { noremap = true, buffer = bufnr })
+      for _, mapping in ipairs(keymaps) do
+        mapping.buffer = bufnr
+      end
+      wk.add(keymaps)
     end,
   })
 

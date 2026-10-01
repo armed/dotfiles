@@ -1,8 +1,11 @@
 return {
   "CRAG666/code_runner.nvim",
-  event = "VeryLazy",
+  cmd = { "RunCode", "RunFile", "RunClose" },
   keys = {
     { "<leader>r", "<cmd>RunCode<cr>", desc = "Run Code" },
+    { "<leader>rt", "<cmd>RunFile term<cr>", desc = "Run Term" },
+    { "<leader>rf", "<cmd>RunFile float<cr>", desc = "Run Float" },
+    { "<leader>rc", "<cmd>RunClose<cr>", desc = "Run Close" },
   },
   config = function()
     require("code_runner").setup({
@@ -14,15 +17,6 @@ return {
       float = {
         border = "rounded",
       },
-    })
-
-    local wk = require("which-key")
-
-    wk.add({
-      { "<leader>r", "<cmd>RunCode<cr>", desc = "Run Code" },
-      { "<leader>rt", "<cmd>RunFile term<cr>", desc = "Run Term" },
-      { "<leader>rf", "<cmd>RunFile float<cr>", desc = "Run Float" },
-      { "<leader>rc", "<cmd>RunClose<cr>", desc = "Run Close" },
     })
   end,
 }
