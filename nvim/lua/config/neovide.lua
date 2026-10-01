@@ -3,43 +3,16 @@ local M = {}
 function M.init()
   if vim.g.neovide then
     vim.g.neovide_input_macos_alt_is_meta = true
-    -- Allow clipboard copy paste in neovim
-    vim.api.nvim_set_keymap(
-      "",
-      "<D-v>",
-      "+p<CR>",
-      { noremap = true, silent = true }
-    )
-    vim.api.nvim_set_keymap(
-      "!",
-      "<D-v>",
-      "<C-R>+",
-      { noremap = true, silent = true }
-    )
-    vim.api.nvim_set_keymap(
-      "t",
-      "<D-v>",
-      "<C-R>+",
-      { noremap = true, silent = true }
-    )
-    vim.api.nvim_set_keymap(
-      "v",
-      "<D-v>",
-      "<C-R>+",
-      { noremap = true, silent = true }
-    )
     vim.o.guifont = "JetBrainsMono Nerd Font Mono:h14"
 
     vim.keymap.set("n", "<d-s>", ":w<cr>") -- save
     vim.keymap.set("v", "<d-c>", '"+y') -- copy
-    vim.keymap.set("n", "<d-v>", '"+p') -- paste normal mode
-    vim.keymap.set("v", "<d-v>", '"+p') -- paste visual mode
-    vim.keymap.set("c", "<d-v>", "<c-r>+") -- paste command mode
-    vim.keymap.set("i", "<d-v>", "<esc>pi") -- paste insert mode
-    vim.keymap.set("t", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+    vim.keymap.set({ "n", "x", "s", "i", "c", "t" }, "<D-v>", function()
+      vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+    end, { silent = true, desc = "Paste clipboard" })
 
     local change_scale_factor = function(delta)
-      vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+      vim.g.neovide_scale_factor = (vim.g.neovide_scale_factor or 1) * delta
     end
     vim.keymap.set("n", "<D-=>", function()
       change_scale_factor(1.05)

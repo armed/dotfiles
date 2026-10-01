@@ -26,24 +26,15 @@ return {
         overrides = function(colors)
           local palette = colors.palette
 
-          vim.api.nvim_set_hl(0, "user.win.title", {
-            bg = palette.crystalBlue,
-            fg = palette.dragonBlack1,
-          })
-
           return {
-            WinSeparator = {
-              fg = palette.lotusOrange2,
-              bg = palette.bg_dim or "NONE",
+            ["user.win.title"] = {
+              bg = palette.crystalBlue,
+              fg = palette.dragonBlack1,
             },
-            IndentBlanklineChar = { fg = palette.bg_light2 },
-            IndentBlanklineSpaceChar = { fg = palette.bg_light2 },
-            IndentBlanklineSpaceCharBlankline = { fg = palette.bg_light2 },
-            IndentBlanklineContextChar = { fg = palette.bg_light3 },
-            IndentBlanklineContextStart = {
-              sp = palette.bg_light3,
-              underline = true,
-            },
+            WinSeparator = { fg = palette.lotusOrange2, bg = "NONE" },
+            IblIndent = { fg = colors.theme.ui.nontext },
+            IblWhitespace = { fg = colors.theme.ui.nontext },
+            IblScope = { fg = palette.waveBlue1 },
             ["@lsp.type.keyword.clojure"] = {
               link = "@string.special.symbol",
             },
@@ -63,18 +54,11 @@ return {
       end,
       on_highlights = function(highlights, colors)
         highlights.WinSeparator = { fg = colors.orange }
+        highlights["user.win.title"] = { bg = colors.blue, fg = colors.bg_dark }
       end,
     },
-    config = function(params)
-      local theme = require("tokyonight")
-      theme.setup(params.opts)
-      vim.cmd([[ colo tokyonight ]])
-
-      local colors = require("tokyonight.colors")
-      vim.api.nvim_set_hl(0, "user.win.title", {
-        bg = colors.default.blue,
-        fg = colors.default.bg_dark,
-      })
+    config = function(_, opts)
+      require("tokyonight").setup(opts)
     end,
   },
   {

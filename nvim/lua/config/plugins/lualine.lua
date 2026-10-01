@@ -14,11 +14,8 @@ local function set_theme(config)
   if theme == "kanagawa" then
     local kw = require("lualine.themes.kanagawa")
     config.options.theme = kw
-  elseif theme == "catppuccin" then
-    local cp = require("lualine.themes.catppuccin")
-    local palette = cp.get_palette("mocha")
-    cp.normal.c.bg = palette.surface0
-    config.optiona.tjeme = cp
+  else
+    config.options.theme = "auto"
   end
 end
 
@@ -34,22 +31,6 @@ function M.config()
       return "[" .. clients .. " ]"
     end
     return ""
-  end
-
-  local function get_lsp_clients()
-    local clients = {}
-    for _, client in pairs(vim.lsp.get_clients()) do
-      table.insert(clients, {
-        color = "red",
-        fmt = "",
-      })
-      table.insert(clients, {
-        color = "green",
-        fmt = client.name,
-      })
-      clients = clients .. " •" .. client.name
-    end
-    return clients
   end
 
   local function show_macro_recording()
@@ -144,18 +125,24 @@ function M.config()
     return lualine.refresh({ place = { "statusline" } })
   end
 
-  vim.api.nvim_create_autocmd("RecordingEnter", { callback = refresh })
-
-  local function on_recording_leave()
-    local timer = vim.loop.new_timer()
-
-    return timer:start(30, 0, vim.schedule_wrap(refresh))
-  end
-
+  local group = vim.api.nvim_create_augroup("StatuslineHooks", { clear = true })
   vim.api.nvim_create_autocmd(
-    "RecordingLeave",
-    { callback = on_recording_leave }
+    "RecordingEnter",
+    { group = group, callback = refresh }
   )
+  vim.api.nvim_create_autocmd("RecordingLeave", {
+    group = group,
+    callback = function()
+      vim.defer_fn(refresh, 30)
+    end,
+  })
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    group = group,
+    callback = function()
+      set_theme(config)
+      lualine.setup(config)
+    end,
+  })
 end
 
 return M

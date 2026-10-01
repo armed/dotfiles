@@ -4,7 +4,10 @@ local augroup = vim.api.nvim_create_augroup
 -- General Settings
 local general = augroup("General Settings", { clear = true })
 
-autocmd({ "FocusGained", "TermClose", "TermLeave" }, { command = "checktime" })
+autocmd(
+  { "FocusGained", "TermClose", "TermLeave" },
+  { group = general, command = "checktime" }
+)
 
 autocmd("TextYankPost", {
   group = general,
@@ -18,7 +21,11 @@ autocmd("TextYankPost", {
 autocmd({ "VimResized" }, {
   group = general,
   callback = function()
+    local tab = vim.api.nvim_get_current_tabpage()
     vim.cmd("tabdo wincmd =")
+    if vim.api.nvim_tabpage_is_valid(tab) then
+      vim.api.nvim_set_current_tabpage(tab)
+    end
   end,
   desc = "Equalize windows on resize",
 })
@@ -91,15 +98,42 @@ autocmd("ColorScheme", {
   group = general,
   pattern = "*",
   callback = function()
-    require("config.basics.hl-groups")
+    require("config.basics.hl-groups").setup()
   end,
 })
 
 autocmd("BufWritePre", {
   group = general,
   pattern = "*",
-  callback = function()
-    vim.cmd([[silent! %s/\n\+\%$//e]])
-    vim.cmd([[silent! %s/\($\n\)\@!$/\r/e]])
+  callback = function(args)
+    local buf = args.buf
+    local bo = vim.bo[buf]
+    if bo.buftype ~= "" or bo.binary or not bo.modifiable or bo.readonly then
+      return
+    end
+    local last = vim.api.nvim_buf_line_count(buf)
+    local keep = last
+    while
+      keep > 1
+      and vim.api.nvim_buf_get_lines(buf, keep - 1, keep, false)[1] == ""
+    do
+      keep = keep - 1
+    end
+    if keep == last then
+      return
+    end
+    local views = {}
+    for _, win in ipairs(vim.fn.win_findbuf(buf)) do
+      views[win] = vim.api.nvim_win_call(win, vim.fn.winsaveview)
+    end
+    vim.api.nvim_buf_set_lines(buf, keep, last, false, {})
+    for win, view in pairs(views) do
+      if vim.api.nvim_win_is_valid(win) then
+        view.lnum = math.min(view.lnum, keep)
+        vim.api.nvim_win_call(win, function()
+          vim.fn.winrestview(view)
+        end)
+      end
+    end
   end,
 })
