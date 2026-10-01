@@ -3,30 +3,20 @@ return {
   event = "VeryLazy",
   config = function()
     local conform = require("conform")
-    local util = require("conform.util")
 
-    local js_formatter = { "biome", "prettierd", "prettier" }
-
-    -- vim.api.nvim_create_user_command("Format", function(args)
-    --   local range = nil
-    --   if args.count ~= -1 then
-    --     local end_line =
-    --       vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
-    --     range = {
-    --       start = { args.line1, 0 },
-    --       ["end"] = { args.line2, end_line:len() },
-    --     }
-    --   end
-    --   conform.format({
-    --     async = true,
-    --     lsp_format = "fallback",
-    --     range = range,
-    --   })
-    -- end, { range = true })
+    local function js_formatter(bufnr)
+      for _, name in ipairs({ "biome", "prettierd", "prettier" }) do
+        if conform.get_formatter_info(name, bufnr).available then
+          return { name }
+        end
+      end
+      return {}
+    end
 
     conform.setup({
       formatters_by_ft = {
         javascript = js_formatter,
+        javascriptreact = js_formatter,
         typescript = js_formatter,
         typescriptreact = js_formatter,
         markdown = { "prettier", "injected" },
@@ -62,7 +52,13 @@ return {
           }
         end,
         json = { "jq" },
-        ["*"] = { "pruner_injected" },
+        ["*"] = function(bufnr)
+          -- Markdown has its own injected formatter; Clojure's root formatter
+          -- already handles injections, or explicitly selects pruner_injected.
+          local ft = vim.bo[bufnr].filetype
+          return (ft == "markdown" or ft == "clojure") and {}
+            or { "pruner_injected" }
+        end,
       },
 
       formatters = {
@@ -87,21 +83,6 @@ return {
             "fmt",
             "-",
           },
-        },
-        biome = {
-          command = "biome",
-          stdin = true,
-          args = {
-            "check",
-            "--write",
-            "--unsafe",
-            "--stdin-file-path",
-            "$FILENAME",
-          },
-          cwd = util.root_file({
-            "biome.json",
-            "package.json",
-          }),
         },
         nph = {
           command = "nph",
