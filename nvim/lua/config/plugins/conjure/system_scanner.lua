@@ -9,20 +9,40 @@ local M = {}
 local cache = {}
 local last_used_namespace = {}
 
-local function setup_highlights()
-  vim.api.nvim_set_hl(0, "ClojureSystemRestart", { fg = "#27F53C", bold = true })
-  vim.api.nvim_set_hl(0, "ClojureSystemStop", { fg = "#F54927", bold = true })
-end
-
-setup_highlights()
-
 local function find_git_root()
-  local git_root_finder = utils.find_furthest_root({ ".git" })
-  return git_root_finder(vim.fn.getcwd())
+  local name = vim.api.nvim_buf_get_name(0)
+  local start = name ~= "" and vim.fs.dirname(name) or vim.fn.getcwd()
+  return utils.find_furthest_root({ ".git" })(start)
 end
 
-local function extract_namespace_from_content(content)
-  return content:match("%(ns%s+([%w%.%-]+)")
+-- Read symbols from syntax nodes: metadata and underscores are part of valid Clojure.
+function M.parse_system(content)
+  local parser = vim.treesitter.get_string_parser(content, "clojure")
+  local root = parser:parse()[1]:root()
+  local result = { functions = {} }
+  for node in root:iter_children() do
+    if node:type() == "list_lit" then
+      local head, name = node:named_child(0), node:named_child(1)
+      if
+        head
+        and name
+        and head:type() == "sym_lit"
+        and name:type() == "sym_lit"
+      then
+        local symbol = name:field("name")[1]
+        local form = vim.treesitter.get_node_text(head, content)
+        if symbol then
+          local value = vim.treesitter.get_node_text(symbol, content)
+          if form == "ns" then
+            result.namespace = value
+          elseif form == "defn" or form == "defn-" then
+            result.functions[value] = true
+          end
+        end
+      end
+    end
+  end
+  return result
 end
 
 local function scan_system_files_with_rg(git_root, callback)
@@ -31,72 +51,41 @@ local function scan_system_files_with_rg(git_root, callback)
     callback({})
     return
   end
-
-  local cmd = {
-    "rg",
-    "-l",
-    "-g",
-    "**/system.clj",
-    "--type",
-    "clojure",
-    "--pcre2",
-    "--multiline",
-    "(?s)(?=.*^\\(defn start!).*(?<=^\\(defn restart!)",
-    git_root,
-  }
-
-  local callback_called = false
-
-  vim.fn.jobstart(cmd, {
-    on_stdout = function(_, data)
-      if callback_called then
-        return
-      end
-
-      local files_with_functions = {}
-
-      for _, line in ipairs(data) do
-        if line and line ~= "" then
-          table.insert(files_with_functions, line)
+  vim.system(
+    { "rg", "--files", "-0", "-g", "**/system.clj", git_root },
+    { text = true, timeout = 10000 },
+    function(result)
+      vim.schedule(function()
+        local systems = {}
+        if result.code ~= 0 and result.code ~= 1 then
+          vim.notify(
+            "System scan failed: " .. (result.stderr or ""),
+            vim.log.levels.WARN
+          )
+        else
+          for _, file in
+            ipairs(vim.split(result.stdout or "", "\0", { trimempty = true }))
+          do
+            local ok, lines = pcall(vim.fn.readfile, file)
+            if ok then
+              local parsed, system =
+                pcall(M.parse_system, table.concat(lines, "\n"))
+              if parsed and system.namespace then
+                table.insert(systems, system)
+              elseif not parsed then
+                vim.notify(
+                  "System scan requires the Clojure parser: "
+                    .. tostring(system),
+                  vim.log.levels.WARN
+                )
+              end
+            end
+          end
         end
-      end
-
-      local namespaces = {}
-
-      for _, file_path in ipairs(files_with_functions) do
-        local lines = vim.fn.readfile(file_path, "", 10)
-        local content = table.concat(lines, "\n")
-        local namespace = extract_namespace_from_content(content)
-
-        if namespace then
-          table.insert(namespaces, namespace)
-        end
-      end
-
-      callback_called = true
-      callback(namespaces)
-    end,
-    on_stderr = function(_, data)
-      if callback_called then
-        return
-      end
-
-      local has_error = false
-      for _, line in ipairs(data) do
-        if line and line ~= "" then
-          has_error = true
-          break
-        end
-      end
-
-      if has_error then
-        callback_called = true
-        callback({})
-      end
-    end,
-    stdout_buffered = true,
-    stderr_buffered = true,
-  })
+        callback(systems)
+      end)
+    end
+  )
 end
 
 local function is_cache_valid(git_root)
@@ -128,13 +117,12 @@ local function get_valid_namespaces(git_root, callback)
   end)
 end
 
-local function create_namespace_menu(title, namespaces, callback)
+local function create_namespace_menu(git_root, title, namespaces, callback)
   local menu_items = {}
 
   local nsps = namespaces
   table.sort(nsps)
 
-  local git_root = find_git_root()
   local last_ns = last_used_namespace[git_root]
   local default_index = 1
 
@@ -146,10 +134,7 @@ local function create_namespace_menu(title, namespaces, callback)
   end
 
   if #menu_items == 0 then
-    vim.notify(
-      "No system.clj files with start!/restart! functions found",
-      vim.log.levels.INFO
-    )
+    vim.notify("No matching system.clj functions found", vim.log.levels.INFO)
     return
   end
 
@@ -198,7 +183,7 @@ local function create_namespace_menu(title, namespaces, callback)
   })
 
   menu:mount()
-  
+
   if default_index > 1 then
     vim.schedule(function()
       vim.api.nvim_win_set_cursor(menu.winid, { default_index, 0 })
@@ -210,44 +195,39 @@ local function create_namespace_menu(title, namespaces, callback)
   end)
 end
 
-local function show_system_namespaces(title, callback)
+local function show_system_namespaces(title, action, callback)
   local git_root = find_git_root()
   if not git_root then
     vim.notify("Not in a git repository", vim.log.levels.ERROR)
     return
   end
 
-  get_valid_namespaces(git_root, function(namespaces)
-    create_namespace_menu(title, namespaces, callback)
+  get_valid_namespaces(git_root, function(systems)
+    local namespaces, seen = {}, {}
+    for _, system in ipairs(systems) do
+      local f = system.functions
+      local matches = action == "stop" and f["stop!"]
+        or action == "restart" and f["start!"] and f["restart!"]
+      if matches and not seen[system.namespace] then
+        seen[system.namespace] = true
+        table.insert(namespaces, system.namespace)
+      end
+    end
+    create_namespace_menu(git_root, title, namespaces, callback)
   end)
 end
 
----@diagnostic disable-next-line: unused-local
-local function clear_cache()
-  local git_root = find_git_root()
-  if git_root then
-    cache[git_root] = nil
-    vim.notify("Cache cleared for " .. git_root, vim.log.levels.INFO)
-  end
-end
-
----@diagnostic disable-next-line: unused-local
-local function clear_all_cache()
-  cache = {}
-  vim.notify("All cache cleared", vim.log.levels.INFO)
-end
-
 function M.open_restart_menu()
-  show_system_namespaces("System restart!", function(namespace)
+  show_system_namespaces("System restart!", "restart", function(namespace)
     local u = require("config.plugins.conjure.util")
-    u.conjure_eval("((requiring-resolve '" .. namespace .. "/restart!))")
+    u.eval("user", "((requiring-resolve '" .. namespace .. "/restart!))")
   end)
 end
 
 function M.open_stop_menu()
-  show_system_namespaces("System stop!", function(namespace)
+  show_system_namespaces("System stop!", "stop", function(namespace)
     local u = require("config.plugins.conjure.util")
-    u.conjure_eval("((requiring-resolve '" .. namespace .. "/stop!))")
+    u.eval("user", "((requiring-resolve '" .. namespace .. "/stop!))")
   end)
 end
 

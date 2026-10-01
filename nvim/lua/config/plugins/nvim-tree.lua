@@ -1,33 +1,35 @@
-local api = require("nvim-tree.api")
-local utils = require("nvim-tree.utils")
-local core = require("nvim-tree.core")
-
 local function current_node_path()
-  local cwd = core.get_cwd()
-  local abs_path = api.tree.get_node_under_cursor().absolute_path
-  return utils.path_relative(abs_path, cwd)
+  local node = require("nvim-tree.api").tree.get_node_under_cursor()
+  return node and node.absolute_path
 end
 
 local function current_dir_path()
   local path = current_node_path()
-
-  if vim.fn.filereadable(path) == 1 then
-    path = vim.fn.fnamemodify(path, ":h")
+  if not path then
+    return nil
   end
-
-  return path
+  return vim.fn.isdirectory(path) == 1 and path or vim.fs.dirname(path)
 end
 
 local function grep_in_folder()
-  vim.cmd([[FzfLua grep_project cwd=]] .. current_dir_path())
+  local dir = current_dir_path()
+  if dir then
+    require("fzf-lua").grep_project({ cwd = dir })
+  end
 end
 
 local function find_in_folder()
-  require("fff").find_files_in_dir(current_dir_path())
+  local dir = current_dir_path()
+  if dir then
+    require("fzf-lua").files({ cwd = dir })
+  end
 end
 
 local function run_clojure_tests_in_path()
-  require("clojure-test.api").run_tests_in_path(current_node_path())
+  local path = current_node_path()
+  if path then
+    require("clojure-test.api").run_tests_in_path(path)
+  end
 end
 
 return {
@@ -37,6 +39,7 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
+    local api = require("nvim-tree.api")
     local VIEW_WIDTH_FIXED = 30
     local view_width_max = VIEW_WIDTH_FIXED -- fixed to start
 
@@ -139,6 +142,24 @@ return {
         end
 
         api.config.mappings.default_on_attach(bufnr)
+        vim.keymap.set(
+          "n",
+          "<leader>eg",
+          grep_in_folder,
+          opts("Grep files in folder")
+        )
+        vim.keymap.set(
+          "n",
+          "<leader>ef",
+          find_in_folder,
+          opts("Find files in folder")
+        )
+        vim.keymap.set(
+          "n",
+          "<localleader>et",
+          run_clojure_tests_in_path,
+          opts("Run Clojure tests in path")
+        )
 
         vim.keymap.set(
           "n",
@@ -152,16 +173,9 @@ return {
     local wk = require("which-key")
 
     wk.add({
-      { "<leader>e", group = "Nim Tree" },
+      { "<leader>e", group = "Nvim Tree" },
       { "<leader>ee", "<cmd>NvimTreeOpen<cr>", desc = "Show/focus" },
       { "<leader>eq", "<cmd>NvimTreeClose<cr>", desc = "Close" },
-      { "<leader>eg", grep_in_folder, desc = "Grep files in folder" },
-      { "<leader>ef", find_in_folder, desc = "Find files in folder" },
-      {
-        "<localleader>et",
-        run_clojure_tests_in_path,
-        desc = "Run clojure tests in path",
-      },
     })
   end,
 }

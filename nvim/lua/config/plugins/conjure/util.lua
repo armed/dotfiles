@@ -9,7 +9,7 @@ function M.eval(ns, code)
 
   client["with-filetype"]("clojure", fn, {
     origin = "custom_command",
-    context = ns or "user",
+    context = ns,
     code = code,
   })
 end
@@ -18,18 +18,20 @@ function M.conjure_eval(form)
   return M.eval(nil, form)
 end
 
-function M.conjure_eval_fn(form)
+function M.conjure_eval_fn(form, ns)
   return function()
-    return M.conjure_eval(form)
+    return M.eval(ns, form)
   end
 end
 
 function M.conjure_word()
-  return extract.word().content
+  local word = extract.word()
+  return word and word.content
 end
 
 function M.conjure_form(is_root)
-  return (extract.form({ ["root?"] = is_root })).content
+  local form = extract.form({ ["root?"] = is_root })
+  return form and form.content
 end
 
 return M

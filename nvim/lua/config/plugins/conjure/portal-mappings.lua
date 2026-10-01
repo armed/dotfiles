@@ -1,32 +1,39 @@
-local eval = require("conjure.eval")
-local extract = require("conjure.extract")
 local u = require("config.plugins.conjure.util")
 
 local portal_cmds
 local function tap_word()
   local word = u.conjure_word()
-  return u.conjure_eval(("(tap> " .. word .. ")"))
+  if word then
+    return u.conjure_eval("(tap> " .. word .. ")")
+  end
 end
 
 local function tap_form()
   local form = u.conjure_form(false)
-  return u.conjure_eval(("(tap> " .. form .. ")"))
+  if form then
+    return u.conjure_eval("(tap> " .. form .. ")")
+  end
 end
 
 local function tap_root_form()
   local form = u.conjure_form(true)
-  return u.conjure_eval(("(tap> " .. form .. ")"))
+  if form then
+    return u.conjure_eval("(tap> " .. form .. ")")
+  end
 end
 
 portal_cmds = {
-  open = u.conjure_eval_fn([[
+  open = u.conjure_eval_fn(
+    [[
     (do (ns user)
         ((requiring-resolve 'portal.api/close))
         (def portal ((requiring-resolve 'portal.api/open)
                      {:theme :portal.colors/nord}))
         (add-tap (requiring-resolve 'portal.api/submit)))
-  ]]),
-  clear = u.conjure_eval_fn("(portal.api/clear)"),
+  ]],
+    "user"
+  ),
+  clear = u.conjure_eval_fn("((requiring-resolve 'portal.api/clear))", "user"),
   last_exception = u.conjure_eval_fn("(tap> (Throwable->map *e))"),
   tap_word = tap_word,
   tap_form = tap_form,
@@ -48,7 +55,7 @@ return {
   },
   {
     "<localleader>sO",
-    "<cmr>ConjureOutUnsubscribe<cr>",
+    "<cmd>ConjureOutUnsubscribe<cr>",
     desc = "Unsubscribe from output",
   },
   {

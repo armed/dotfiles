@@ -16,10 +16,15 @@ local M = {}
 
 local function restart_client(client)
   local name = client.name
+  local bufnr = vim.api.nvim_get_current_buf()
   client:stop()
   -- vim.lsp.stop_client(client.id)
   vim.defer_fn(function()
-    vim.lsp.enable(name)
+    if name == "jdtls" then
+      require("config.lsp.custom.jdtls").start(bufnr)
+    else
+      vim.lsp.enable(name)
+    end
   end, 500)
   vim.notify("Restarting " .. name, vim.log.levels.INFO)
 end
@@ -93,9 +98,9 @@ end
 local function clojure_clean_restart_lsp()
   local ft = vim.bo.filetype
   if ft == "clojure" then
-    vim.fn.delete(".lsp/.cache", "rf")
     local clients = vim.lsp.get_clients({ bufnr = 0, name = "clojure_lsp" })
     if #clients > 0 then
+      vim.fn.delete(clients[1].root_dir .. "/.lsp/.cache", "rf")
       restart_client(clients[1])
     end
   end
@@ -106,7 +111,11 @@ function M.setup()
     {
       "<leader>k",
       function()
-        require("conjure.eval")["doc-word"]()
+        if vim.bo.filetype == "clojure" then
+          require("conjure.eval")["doc-word"]()
+        else
+          vim.lsp.buf.hover()
+        end
       end,
       desc = "Conjure hover doc",
     },

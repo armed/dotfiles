@@ -1,6 +1,6 @@
 local M = {
   "folke/which-key.nvim",
-  evant = "VeryLazy",
+  event = "VeryLazy",
   keys = {
     { "<leader>" },
     { "<localleader>" },
@@ -34,7 +34,6 @@ function M.config()
   wk.add({
     { "<leader>L", "<cmd>Lazy<cr>", desc = "Lazy" },
     { "<leader>S", "<cmd>silent wa<cr>", desc = "Save all" },
-    { "<leader>m", "<cmd>Mason<cr>", desc = "Mason" },
     { "<leader>q", "<c-w>q", desc = "Close window" },
     { "<leader>s", "<cmd>silent w<cr>", desc = "Save buffer" },
     { "<leader>t", group = "Terminal" },

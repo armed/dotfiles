@@ -67,7 +67,7 @@ M.config = function()
   })
 
   local function connect_cmd()
-    vim.api.nvim_feedkeys(":ConjureConnect localhost:", "n", false)
+    require("config.tools.nrepl").direct_connect()
   end
 
   local mappings = require("config.plugins.conjure.portal-mappings")
@@ -111,8 +111,7 @@ M.config = function()
 
   local system_scanner = require("config.plugins.conjure.system_scanner")
 
-  wk.add(mappings)
-  wk.add({
+  local buffer_mappings = {
     {
       "<localleader>R",
       function()
@@ -158,7 +157,9 @@ M.config = function()
     {
       "<localleader>r",
       function()
-        vim.cmd("wa")
+        if vim.bo.buftype == "" and vim.api.nvim_buf_get_name(0) ~= "" then
+          vim.cmd("update")
+        end
         u.conjure_eval("((requiring-resolve 'clj-reload.core/reload))")
       end,
       desc = "CLJ Reload",
@@ -166,7 +167,42 @@ M.config = function()
     { "<localleader>s", desc = "Session" },
     { "<localleader>t", desc = "Tests" },
     { "<localleader>v", desc = "Display" },
+  }
+  local clojure_only = {
+    ["<localleader>R"] = true,
+    ["<localleader>S"] = true,
+    ["<localleader>cc"] = true,
+    ["<localleader>cn"] = true,
+    ["<localleader>r"] = true,
+  }
+  local function attach(bufnr)
+    local local_maps = {}
+    for _, mapping in ipairs(buffer_mappings) do
+      if
+        vim.bo[bufnr].filetype == "clojure" or not clojure_only[mapping[1]]
+      then
+        local item = vim.deepcopy(mapping)
+        item.buffer = bufnr
+        table.insert(local_maps, item)
+      end
+    end
+    wk.add(local_maps)
+    if vim.bo[bufnr].filetype == "clojure" then
+      local portal_maps = vim.deepcopy(mappings)
+      for _, mapping in ipairs(portal_maps) do
+        mapping.buffer = bufnr
+      end
+      wk.add(portal_maps)
+    end
+  end
+  vim.api.nvim_create_autocmd("FileType", {
+    group = grp,
+    pattern = M.ft,
+    callback = function(args)
+      attach(args.buf)
+    end,
   })
+  attach(vim.api.nvim_get_current_buf())
 end
 
 return M
