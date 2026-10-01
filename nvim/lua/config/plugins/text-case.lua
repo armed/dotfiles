@@ -1,14 +1,11 @@
 return {
   "johmsalas/text-case.nvim",
-  event = "VeryLazy",
+  dependencies = { "nvim-telescope/telescope.nvim" },
   keys = {
     "ga",
     {
       "ga.",
-      function ()
-        vim.cmd("TextCaseOpenTelescopeLSPChange")
-        vim.cmd("wa")
-      end,
+      "<cmd>TextCaseOpenTelescopeLSPChange<cr>",
       mode = { "n", "x" },
       desc = "Telescope",
     },

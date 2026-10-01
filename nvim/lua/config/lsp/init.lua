@@ -1,10 +1,2 @@
 require("config.lsp.diagnostics").setup()
 require("config.lsp.autocmds").setup()
-
--- Custom rename handler that saves all files and refreshes current buffer
-local original_rename_handler = vim.lsp.handlers["textDocument/rename"]
-vim.lsp.handlers["textDocument/rename"] = function(...)
-  local result = original_rename_handler(...)
-  vim.cmd("wa")
-  return result
-end
