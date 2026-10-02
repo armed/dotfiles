@@ -19,6 +19,14 @@ local M = {
   },
 }
 
+function M.init()
+  -- vim.ui.select is also used by LSP before any Telescope command runs.
+  vim.ui.select = function(items, opts, on_choice)
+    require("telescope").load_extension("ui-select")
+    return vim.ui.select(items, opts, on_choice)
+  end
+end
+
 function M.config()
   local trouble = require("trouble.sources.telescope")
   local telescope = require("telescope")
