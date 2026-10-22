@@ -35,6 +35,7 @@ res = ["resolve", "--tool=diffconflicts"]
 ab = ["abandon"]
 wu = ["workspace", "update-stale"]
 de = ["diffedit"]
+bad = ["b", "advance", "-t", "@-"]
 
 [templates]
 git_push_bookmark = '"armed/" ++ change_id.short()'

@@ -33,7 +33,7 @@ if status is-interactive
     alias wifi "networksetup -setairportpower en0 off; and sleep 1; and networksetup -setairportpower en0 on"
     alias nvd "$HOME/Applications/neovide.app/Contents/MacOS/neovide --frame transparent"
     alias clojure "clojure -J-Dapple.awt.UIElement=true"
-    alias ljj "lazyjj"
+    alias ljj "lineajj"
     alias p "pnpm"
     alias pu "pulumi"
     alias oc "opencode"

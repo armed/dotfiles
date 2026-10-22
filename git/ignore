@@ -22,6 +22,7 @@ node_modules
 .nvimlog
 .opencode/
 .wiki/
+.playwright-cli/
 
 
 **/.claude/settings.local.json
